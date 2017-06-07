@@ -65,3 +65,8 @@ In a nutshell, here's the plan
    I (GS) can set up the mkmk scripts in other directories as we go along
 
 
+## event samples
+
+On-going discussions
+
+## local structure
