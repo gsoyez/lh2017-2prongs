@@ -152,15 +152,24 @@
 
 \title{2-prong study}
 
-\author{...}
-\author[a,\dagger]{Gregory Soyez,}
+\author[a]{Disha Bhatia,}
+\author[a]{Reina Camacho,}
+\author[a]{Grigorios Chachamis?,}
+\author[a]{Suman Chatterjee,}
+\author[a]{Frederic Dreyer,}
+\author[a]{Deepak Kar,}
+\author[a]{Peter Loch,}
+\author[a]{Ian Moult,}
+\author[a]{Ben Nachman?,}
+\author[a]{Andreas Papaefstathiou,}
+\author[a]{Tousik Samui,}
+\author[a]{Andrzej Siodmok,}
+\author[a]{Gregory Soyez,}
 \emailAdd{gregory.soyez@cea.fr}
-\author[b,\dagger]{and Jesse Thaler}
+\author[a]{and Jesse Thaler}
 \emailAdd{jthaler@mit.edu}
 
-\note[$\dagger$]{Coordinators}
-\affiliation[k]{IPhT, CEA Saclay, CNRS UMR 3681, F-91191 Gif-sur-Yvette, France}
-\affiliation[l]{Center for Theoretical Physics, Massachusetts Institute of Technology, \\ Cambridge, MA 02139, U.S.A.}
+\affiliation[a]{Les Houches}
 
 \abstract{YADA}
 
@@ -169,6 +178,91 @@
 \section{Introduction}
 \label{sec:introduction}
 
+
+\section{}
+
+\begin{verbatim}
+
+Two-Prong Substructure Subsubgroup
+
+Notes from Wednesday, June 7, 10am Meeting
+
+(Jesse taking notes, apologies for mistakes)
+
+Boosted W Physics:
+	Tag longitudinal vs. transverse W bosons
+	How far in pT can you actually tag (detector effect)?
+	Understanding ATLAS/CMS technology differences (need mimicking of detector)
+
+Decisions on Benchmark:
+	sqrt(s) = 14 TeV, <mu> = 50/200?
+	anti-kT R = 0.8?  R = 1.0?
+	Use FastJet for everything
+	Establish GitHub repo for code
+	
+Signal Samples:
+	WW Pythia 8 pTW > 500 GeV (want 1600 GeV as well, narrow decays to push calorimeter granularity)
+	(Need polarized Ws!)
+
+Background Samples:
+	Dijet samples available (from pileup study)
+
+Pileup Samples:
+	10^7 pileup (from pileup study)
+
+Detector Issues:
+	Peter has "stupid" detector simulation (smearing model:  TowerGrid)
+	ECAL grid 0.025 x 0.025
+	HCAL grid 0.1 x 0.1
+	-> PseudoJets
+	Acceptance cuts on towers
+	Fluctuations on towers
+	Eta/phi fixed to center of tower, treated as massless
+	(Comparison to DELPHES?)
+
+ATLAS vs. CMS (vs. truth):
+	ATLAS B-field is half of CMS B-field
+	Particle flow versus not particle flow
+	CMS corrects direction of charged particles
+	ATLAS does not correct for this magnetic field effect
+	Difference of acceptance as well
+	Another issue is resolution at low pT (versus acceptance)
+
+Why different?:
+	Independent of resolution:  Grooming the observables versus grooming the mass
+	ATLAS (D2 + trimming) vs. CMS (N2 + soft drop)
+	Different in pileup subtraction method (complicated in ATLAS because of out-of-time pileup)
+
+Metrics:
+	How do we assess performance?
+	W mass peak, ...
+	
+Next Steps:
+	Need polarized W sample (Reina):  X -> W_L W_L,  Y -> W_T W_T
+	Need to add UE (Gregory) to dijet samples
+	Prepare Herwig samples (Andrzej)
+	Madgraph?
+	Samples:  Polarized W, Unpolarized W, Dijet (no need for W + jet?)
+	Scales:  pT > 500 GeV, 1000 GeV, 2000 GeV
+	Default: <mu> = 50
+	Force hadronic W decay
+	Look at distributions and ROC curves
+	Do Madgraph decay?	
+
+File format:
+	#event <id>
+	px py pz m pdgId
+	end
+
+Reina/Deepak/Disha:  event generation
+Gregory/Frederic:  software
+Suman/Tousik:  plotting
+Andrzej/Peter/Andreas:  Herwig
+Peter:  TowerGrid simulation
+Jesse:  moral support/documentation
+Ian:  observable catalog
+
+\end{verbatim}
 
 \begin{acknowledgments}
 
