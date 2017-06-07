@@ -178,91 +178,56 @@
 \section{Introduction}
 \label{sec:introduction}
 
+Variety of 2-prong taggers, want to understand behavior.  Focus on W bosons.  No b-tagging.  
 
-\section{}
+Goals:  understand ATLAS/CMS differences, very high pT behavior,  interplay of jet radius, jet grooming, jet discrimination.  Groomed/ungroomed/dichroic observables.  Detector effects (simplified)
 
-\begin{verbatim}
+Also interesting in tagging longitudinal vs. transverse W bosons
 
-Two-Prong Substructure Subsubgroup
+\section{Preliminaries}
 
-Notes from Wednesday, June 7, 10am Meeting
+\subsection{Event Samples}
 
-(Jesse taking notes, apologies for mistakes)
+WW Pythia 8 pTW > 500 GeV
 
-Boosted W Physics:
-	Tag longitudinal vs. transverse W bosons
-	How far in pT can you actually tag (detector effect)?
-	Understanding ATLAS/CMS technology differences (need mimicking of detector)
+Need polarized Ws
 
-Decisions on Benchmark:
-	sqrt(s) = 14 TeV, <mu> = 50/200?
-	anti-kT R = 0.8?  R = 1.0?
-	Use FastJet for everything
-	Establish GitHub repo for code
-	
-Signal Samples:
-	WW Pythia 8 pTW > 500 GeV (want 1600 GeV as well, narrow decays to push calorimeter granularity)
-	(Need polarized Ws!)
+Need dijet samples
 
-Background Samples:
-	Dijet samples available (from pileup study)
+Pileup Samples from pileup study
 
-Pileup Samples:
-	10^7 pileup (from pileup study)
+\subsection{Observables}
 
-Detector Issues:
-	Peter has "stupid" detector simulation (smearing model:  TowerGrid)
-	ECAL grid 0.025 x 0.025
-	HCAL grid 0.1 x 0.1
-	-> PseudoJets
-	Acceptance cuts on towers
-	Fluctuations on towers
-	Eta/phi fixed to center of tower, treated as massless
-	(Comparison to DELPHES?)
+CMS:  mMDT mass, ungroomed N2
+ATLAS:  trimmed mass, trimmed D2
 
-ATLAS vs. CMS (vs. truth):
-	ATLAS B-field is half of CMS B-field
-	Particle flow versus not particle flow
-	CMS corrects direction of charged particles
-	ATLAS does not correct for this magnetic field effect
-	Difference of acceptance as well
-	Another issue is resolution at low pT (versus acceptance)
+\subsection{Detector Simulation}
 
-Why different?:
-	Independent of resolution:  Grooming the observables versus grooming the mass
-	ATLAS (D2 + trimming) vs. CMS (N2 + soft drop)
-	Different in pileup subtraction method (complicated in ATLAS because of out-of-time pileup)
+Do we do DELPHES?
 
-Metrics:
-	How do we assess performance?
-	W mass peak, ...
-	
-Next Steps:
-	Need polarized W sample (Reina):  X -> W_L W_L,  Y -> W_T W_T
-	Need to add UE (Gregory) to dijet samples
-	Prepare Herwig samples (Andrzej)
-	Madgraph?
-	Samples:  Polarized W, Unpolarized W, Dijet (no need for W + jet?)
-	Scales:  pT > 500 GeV, 1000 GeV, 2000 GeV
-	Default: <mu> = 50
-	Force hadronic W decay
-	Look at distributions and ROC curves
-	Do Madgraph decay?	
+TowerGrid from Peter, included ATLAS/CMS B-field
 
-File format:
-	#event <id>
-	px py pz m pdgId
-	end
+Calorimetry vs. Particle Flow
 
-Reina/Deepak/Disha:  event generation
-Gregory/Frederic:  software
-Suman/Tousik:  plotting
-Andrzej/Peter/Andreas:  Herwig
-Peter:  TowerGrid simulation
-Jesse:  moral support/documentation
-Ian:  observable catalog
+\section{Particle-Level Tagging}
 
-\end{verbatim}
+\subsection{Unpolarized Case}
+
+\subsection{Longitudinal versus Transverse Polarization}
+
+\subsection{Adjusting the Jet Radius}
+
+\section{Impact of Detector Effects}
+
+\subsection{Mass Resolution}
+
+\subsection{Tagging Performance}
+
+\subsection{Behavior in the Ultra-boosted Regime}
+
+\section{Comparison of ATLAS and CMS Two-prong Strategies}
+
+\section{Conclusions}
 
 \begin{acknowledgments}
 
