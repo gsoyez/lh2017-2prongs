@@ -40,7 +40,7 @@ In a nutshell, here's the plan
  - make sure you have a compiled version of fastjet
    see http://www.fastjet.fr
 
- - make sure you have a compiled version of fastjet-contribb
+ - make sure you have a compiled version of fastjet-contrib
    see https://fastjet.hepforge.org/contrib/
 
  - there are compilation helpers in 2014PileupWorkshop/scripts
@@ -60,13 +60,19 @@ In a nutshell, here's the plan
    If you want to have a look at (and build) the examples, you should
    do it in
 
-     2014PileupWorkshop/examples/
+     2014PileupWorkshop/example/
 
    I (GS) can set up the mkmk scripts in other directories as we go along
 
 
 ## event samples
 
-On-going discussions
+ - pure longitudinal WW [from resonance, M=1.5, 3, 4.5 TeV] -> ptcut=500, 1000, 1500 GeV
+ - pure transverse WW [from resonance, M=???]
+ - inclusive WW (pt cuts at 500, 1000, 1500)
+ - dijets (pt cuts at 500, 1000, 1500)
+
+10^5 events in each case(?)
+
 
 ## local structure
