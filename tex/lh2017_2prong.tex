@@ -1,0 +1,187 @@
+\documentclass[11pt,letterpaper]{article}
+\pdfoutput=1
+\usepackage{jheppub}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{xspace}
+
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[caption=false]{subfig}
+\usepackage{url}
+\usepackage{bbold}
+\usepackage{slashed}
+\usepackage{array}
+
+\usepackage{multirow}
+\usepackage{threeparttable}
+\usepackage{paralist}
+
+\newcommand{\GeV}{\text{GeV}}
+\newcommand{\TeV}{\text{TeV}}
+\newcommand{\SO}{\text{SO}}
+\newcommand{\SU}{\text{SU}}
+\newcommand{\SM}{\text{SM}}
+
+\newcommand{\U}{\text{U}}
+\newcommand{\CKM}{\text{CKM}}
+\newcommand{\eff}{\text{eff}}
+
+\newcommand{\genang}[2]{{\lambda^{#1}_{#2}}}
+
+
+\newcommand{\ev}{\text{event}}
+\newcommand{\jet}{\text{jet}}
+\newcommand{\jets}{\text{jets}}
+\newcommand{\subj}{\text{subjet}}
+\newcommand{\subjs}{\text{subjets}}
+\newcommand{\cut}{\text{cut}}
+\newcommand{\trim}{\text{trim}}
+\newcommand{\Ecut}{E_{{\rm cut}}}
+
+\newcommand{\ptc}{p_{T{\rm cut}}}
+\newcommand{\ptsubc}{p_{T{\rm subcut}}}
+
+\newcommand{\sub}{\text{sub}}
+\newcommand{\miss}{\text{miss}}
+
+\newcommand{\pythia}{\textsc{Pythia~8}\xspace}
+\newcommand{\herwig}{\textsc{Herwig++}\xspace}
+\newcommand{\eventtwo}{\textsc{Event2}\xspace}
+\newcommand{\vincia}{\textsc{Vincia}\xspace}
+\newcommand{\sherpa}{\textsc{Sherpa}\xspace}
+
+\newcommand{\FastJet}{\textsc{FastJet}\xspace}
+\newcommand{\MadGraph}{\textsc{MadGraph}\xspace}
+
+\newcommand{\df}{\text{d}}
+\newcommand{\vev}[1]{\langle #1 \rangle}
+
+
+\DeclareRobustCommand{\Sec}[1]{Sec.~\ref{#1}}
+\DeclareRobustCommand{\Secs}[2]{Secs.~\ref{#1} and \ref{#2}}
+\DeclareRobustCommand{\Secss}[3]{Secs.~\ref{#1}, \ref{#2}, and \ref{#3}}
+\DeclareRobustCommand{\App}[1]{App.~\ref{#1}}
+\DeclareRobustCommand{\Tab}[1]{Table~\ref{#1}}
+\DeclareRobustCommand{\Tabs}[2]{Tables~\ref{#1} and \ref{#2}}
+\DeclareRobustCommand{\Fig}[1]{Fig.~\ref{#1}}
+\DeclareRobustCommand{\Figs}[2]{Figs.~\ref{#1} and \ref{#2}}
+\DeclareRobustCommand{\Figss}[3]{Figs.~\ref{#1}, \ref{#2}, and \ref{#3}}
+\DeclareRobustCommand{\Eq}[1]{Eq.~(\ref{#1})}
+\DeclareRobustCommand{\Eqs}[2]{Eqs.~(\ref{#1}) and (\ref{#2})}
+\DeclareRobustCommand{\Eqss}[3]{Eqs.~(\ref{#1}), (\ref{#2}), and (\ref{#3})}
+\DeclareRobustCommand{\Ref}[1]{Ref.~\cite{#1}}
+\DeclareRobustCommand{\Refs}[1]{Refs.~\cite{#1}}
+
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\nn}{\nonumber}
+
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\topfraction}{0.90}
+\renewcommand{\bottomfraction}{0.90}
+\renewcommand{\floatpagefraction}{0.65}
+
+%% Reference commands %%
+\newcommand{\mb}[1]{\boldsymbol{#1}}
+\newcommand{\bm}[1]{\boldsymbol{#1}}
+\newcommand{\mbo}[1]{\boldsymbol{\overline{#1}}}
+
+\usepackage{xspace}
+
+
+\def\Tr{\mathop{\rm Tr}}
+\newcommand{\rep}[1]{\mathbf{#1}}
+\newcommand{\conjrep}[1]{\overline{\mathbf{#1}}}
+
+
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\D}{\Delta}
+\renewcommand{\l}{\lambda}
+\renewcommand{\th}{\theta}
+\newcommand{\bq}{\bar{q}}
+\newcommand{\zcut}{z_{\rm cut}}
+
+\newcommand{\IZ}{\mathbb{Z}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\beq}{\begin{eqnarray}}
+\newcommand{\eeq}{\end{eqnarray}}
+
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Ft}{\widetilde{\mathcal{F}}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\Gt}{\widetilde{\mathcal{G}}}
+\newcommand{\HH}{\mathcal{H}}
+\newcommand{\HHt}{\widetilde{\mathcal{H}}}
+\newcommand{\ord}[1]{\mathcal{O}\!\left(#1\right)}
+
+\newcommand*\numcircledmod[1]{#1 \!\!\! \bigcirc}
+
+\newcommand{\Njet}{\widetilde{N}_{\rm jet}}
+\newcommand{\dN}[1]{\Delta_{#1}}
+\newcommand{\dNpm}{\Delta_{2\pm}}
+\newcommand{\dNp}{\Delta_{2+}}
+\newcommand{\dNm}{\Delta_{2-}}
+\newcommand{\dNtm}{\Delta_{3-}}
+
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\as}{\alpha_s}
+\renewcommand{\angle}{\theta}
+
+%\definecolor{darkgreen}{rgb}{0,0.5,0}
+%\newcommand{\jdt}[1]{\textbf{\textcolor{darkgreen}{(#1 --jdt)}}}
+
+%\definecolor{darkblue}{rgb}{0,0,0.5}
+%\newcommand{\gs}[1]{\textbf{\textcolor{darkblue}{(#1 --gs)}}}
+
+
+\begin{document}
+
+
+\title{2-prong study}
+
+\author{...}
+\author[a,\dagger]{Gregory Soyez,}
+\emailAdd{gregory.soyez@cea.fr}
+\author[b,\dagger]{and Jesse Thaler}
+\emailAdd{jthaler@mit.edu}
+
+\note[$\dagger$]{Coordinators}
+\affiliation[k]{IPhT, CEA Saclay, CNRS UMR 3681, F-91191 Gif-sur-Yvette, France}
+\affiliation[l]{Center for Theoretical Physics, Massachusetts Institute of Technology, \\ Cambridge, MA 02139, U.S.A.}
+
+\abstract{YADA}
+
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+
+
+\begin{acknowledgments}
+
+The work of GS is supported in part by the Paris-Saclay IDEX under the
+IDEOPTIMALJE grant, by the French Agence Nationale de la Recherche,
+under grant ANR-15-CE31-0016, and by the ERC Advanced Grant Higgs@LHC
+(No.\ 321133).
+%
+The work of JT is supported by the DOE under grant contract numbers DE-SC-00012567 and DE-SC-00015476.
+
+\end{acknowledgments}
+
+\bibliographystyle{jhep}
+\bibliography{lh2017_2prong}
+
+\end{document}
