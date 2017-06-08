@@ -72,30 +72,30 @@ void SubstructureVariables::set_jet(const PseudoJet &jet){
   PseudoJet mmdt_jet    = (*_mmdt)(ca_jet);
 
   // all quantities for the plain jet
-  _compute_one_level(jet,      _m_plain,
-		     _tau1_beta1_plain, _tau2_beta1_plain,
-		     _tau1_beta2_plain, _tau2_beta2_plain,
-		     _1ecf2_beta1_plain, _1ecf3_beta1_plain,
-		     _2ecf3_beta1_plain, _3ecf3_beta1_plain,
-		     _1ecf2_beta2_plain, _1ecf3_beta2_plain,
-		     _2ecf3_beta2_plain, _3ecf3_beta2_plain);
-  _compute_one_level(sd_jet,   _m_loose,
-		     _tau1_beta1_loose, _tau2_beta1_loose,
-		     _tau1_beta2_loose, _tau2_beta2_loose,
-		     _1ecf2_beta1_loose, _1ecf3_beta1_loose,
-		     _2ecf3_beta1_loose, _3ecf3_beta1_loose,
-		     _1ecf2_beta2_loose, _1ecf3_beta2_loose,
-		     _2ecf3_beta2_loose, _3ecf3_beta2_loose);
-  _compute_one_level(mmdt_jet, _m_tight,
-		     _tau1_beta1_tight, _tau2_beta1_tight,
-		     _tau1_beta2_tight, _tau2_beta2_tight,
-		     _1ecf2_beta1_tight, _1ecf3_beta1_tight,
-		     _2ecf3_beta1_tight, _3ecf3_beta1_tight,
-		     _1ecf2_beta2_tight, _1ecf3_beta2_tight,
-		     _2ecf3_beta2_tight, _3ecf3_beta2_tight);
+  _compute_one_level(jet,      _m_vals[plain],
+		     _tau1_beta1_vals[plain], _tau2_beta1_vals[plain],
+		     _tau1_beta2_vals[plain], _tau2_beta2_vals[plain],
+		     _1ecf2_beta1_vals[plain], _1ecf3_beta1_vals[plain],
+		     _2ecf3_beta1_vals[plain], _3ecf3_beta1_vals[plain],
+		     _1ecf2_beta2_vals[plain], _1ecf3_beta2_vals[plain],
+		     _2ecf3_beta2_vals[plain], _3ecf3_beta2_vals[plain]);
+  _compute_one_level(sd_jet,   _m_vals[loose],
+		     _tau1_beta1_vals[loose], _tau2_beta1_vals[loose],
+		     _tau1_beta2_vals[loose], _tau2_beta2_vals[loose],
+		     _1ecf2_beta1_vals[loose], _1ecf3_beta1_vals[loose],
+		     _2ecf3_beta1_vals[loose], _3ecf3_beta1_vals[loose],
+		     _1ecf2_beta2_vals[loose], _1ecf3_beta2_vals[loose],
+		     _2ecf3_beta2_vals[loose], _3ecf3_beta2_vals[loose]);
+  _compute_one_level(mmdt_jet, _m_vals[tight],
+		     _tau1_beta1_vals[tight], _tau2_beta1_vals[tight],
+		     _tau1_beta2_vals[tight], _tau2_beta2_vals[tight],
+		     _1ecf2_beta1_vals[tight], _1ecf3_beta1_vals[tight],
+		     _2ecf3_beta1_vals[tight], _3ecf3_beta1_vals[tight],
+		     _1ecf2_beta2_vals[tight], _1ecf3_beta2_vals[tight],
+		     _2ecf3_beta2_vals[tight], _3ecf3_beta2_vals[tight]);
 
   // trimmed quantities are sepatare
-  _m_trim  = trimmed_jet.m();
+  _m_vals[trim]  = trimmed_jet.m();
 
 }
 
