@@ -69,6 +69,8 @@ public:
   double ecfg_v3_N3_beta2(groom g) const {return _3ecf3_beta2_vals[g];}
 
   // ecfs based observables
+  double U1_beta1(groom g) const {return _1ecf2_beta1_vals[g];}
+  double U2_beta1(groom g) const {return _1ecf3_beta1_vals[g];}
   double N2_beta1(groom g1, groom g2) const {
     return _2ecf3_beta1_vals[g1] / (_1ecf2_beta1_vals[g2]*_1ecf2_beta1_vals[g2]);}
   double N2_beta1(groom g) const {return N2_beta1(g,g);}
@@ -79,6 +81,9 @@ public:
     return _3ecf3_beta1_vals[g1]
       / (_1ecf2_beta1_vals[g2]*_1ecf2_beta1_vals[g2]*_1ecf2_beta1_vals[g2]);}
   double D2_beta1(groom g) const { return D2_beta1(g,g);}
+  
+  double U1_beta2(groom g) const {return _1ecf2_beta2_vals[g];}
+  double U2_beta2(groom g) const {return _1ecf3_beta2_vals[g];}
   double N2_beta2(groom g1, groom g2) const {
     return _2ecf3_beta2_vals[g1] / (_1ecf2_beta2_vals[g2]*_1ecf2_beta2_vals[g2]);}
   double N2_beta2(groom g) const { return N2_beta2(g,g);}
