@@ -29,6 +29,7 @@
 ///   -mmdt.zcut  [0.1]
 ///   -sd.beta    [2]
 ///   -sd.zcut    [0.05]
+///   -shape.beta [1]
 ///
 /// Internal note: the explicit variable name structure makes for
 /// readibility but it would be much more compact to store that in a
@@ -45,55 +46,32 @@ public:
   // get the results
   double m(groom g) const{ return _m_vals[g];}
   
-  double tau1_beta1(groom g) const { return _tau1_beta1_vals[g];}
-  double tau2_beta1(groom g) const { return _tau2_beta1_vals[g];}
-  double tau1_beta2(groom g) const { return _tau1_beta2_vals[g];}
-  double tau2_beta2(groom g) const { return _tau2_beta2_vals[g];}
-  double tau21_beta1(groom g1, groom g2) const {
-    return _tau2_beta1_vals[g1]/_tau2_beta1_vals[g2];}
-  double tau21_beta1(groom g) const { return tau21_beta1(g,g);}
-  double tau21_beta2(groom g1, groom g2) const {
-    return _tau2_beta2_vals[g1]/_tau2_beta2_vals[g2];}
-  double tau21_beta2(groom g) const { return tau21_beta2(g,g);}
+  double tau1(groom g) const { return _tau1_vals[g];}
+  double tau2(groom g) const { return _tau2_vals[g];}
+  double tau21(groom g1, groom g2) const {
+    return _tau2_vals[g1]/_tau2_vals[g2];}
+  double tau21(groom g) const { return tau21(g,g);}
 
 
   // ecfgs
-  double ecfg_v1_N2_beta1(groom g) const {return _1ecf2_beta1_vals[g];}
-  double ecfg_v1_N3_beta1(groom g) const {return _1ecf3_beta1_vals[g];}
-  double ecfg_v2_N3_beta1(groom g) const {return _2ecf3_beta1_vals[g];}
-  double ecfg_v3_N3_beta1(groom g) const {return _3ecf3_beta1_vals[g];}
-  
-  double ecfg_v1_N2_beta2(groom g) const {return _1ecf2_beta2_vals[g];}
-  double ecfg_v1_N3_beta2(groom g) const {return _1ecf3_beta2_vals[g];}
-  double ecfg_v2_N3_beta2(groom g) const {return _2ecf3_beta2_vals[g];}
-  double ecfg_v3_N3_beta2(groom g) const {return _3ecf3_beta2_vals[g];}
+  double ecfg_v1_N2(groom g) const {return _1ecf2_vals[g];}
+  double ecfg_v1_N3(groom g) const {return _1ecf3_vals[g];}
+  double ecfg_v2_N3(groom g) const {return _2ecf3_vals[g];}
+  double ecfg_v3_N3(groom g) const {return _3ecf3_vals[g];}
 
   // ecfs based observables
-  double U1_beta1(groom g) const {return _1ecf2_beta1_vals[g];}
-  double U2_beta1(groom g) const {return _1ecf3_beta1_vals[g];}
-  double N2_beta1(groom g1, groom g2) const {
-    return _2ecf3_beta1_vals[g1] / (_1ecf2_beta1_vals[g2]*_1ecf2_beta1_vals[g2]);}
-  double N2_beta1(groom g) const {return N2_beta1(g,g);}
-  double M2_beta1(groom g1, groom g2) const {
-    return _1ecf3_beta1_vals[g1] / _1ecf2_beta1_vals[g2];}
-  double M2_beta1(groom g) const {return M2_beta1(g,g);}
-  double D2_beta1(groom g1, groom g2) const {
-    return _3ecf3_beta1_vals[g1]
-      / (_1ecf2_beta1_vals[g2]*_1ecf2_beta1_vals[g2]*_1ecf2_beta1_vals[g2]);}
-  double D2_beta1(groom g) const { return D2_beta1(g,g);}
-  
-  double U1_beta2(groom g) const {return _1ecf2_beta2_vals[g];}
-  double U2_beta2(groom g) const {return _1ecf3_beta2_vals[g];}
-  double N2_beta2(groom g1, groom g2) const {
-    return _2ecf3_beta2_vals[g1] / (_1ecf2_beta2_vals[g2]*_1ecf2_beta2_vals[g2]);}
-  double N2_beta2(groom g) const { return N2_beta2(g,g);}
-  double M2_beta2(groom g1, groom g2) const {
-    return _1ecf3_beta2_vals[g1] / _1ecf2_beta2_vals[g2];}
-  double M2_beta2(groom g) const { return M2_beta2(g,g);}
-  double D2_beta2(groom g1, groom g2) const {
-    return _3ecf3_beta2_vals[g1]
-      / (_1ecf2_beta2_vals[g2]*_1ecf2_beta2_vals[g2]*_1ecf2_beta2_vals[g2]);}
-  double D2_beta2(groom g) const { return D2_beta2(g,g);}
+  double U1(groom g) const {return _1ecf2_vals[g];}
+  double U2(groom g) const {return _1ecf3_vals[g];}
+  double N2(groom g1, groom g2) const {
+    return _2ecf3_vals[g1] / (_1ecf2_vals[g2]*_1ecf2_vals[g2]);}
+  double N2(groom g) const {return N2(g,g);}
+  double M2(groom g1, groom g2) const {
+    return _1ecf3_vals[g1] / _1ecf2_vals[g2];}
+  double M2(groom g) const {return M2(g,g);}
+  double D2(groom g1, groom g2) const {
+    return _3ecf3_vals[g1]
+      / (_1ecf2_vals[g2]*_1ecf2_vals[g2]*_1ecf2_vals[g2]);}
+  double D2(groom g) const { return D2(g,g);}
   
 protected:
   //----------------------------------------------------------------------
@@ -101,21 +79,14 @@ protected:
   double _m_vals[4];                   ///< masses
   
   // N-subjettiness
-  double _tau1_beta1_vals[3]; ///< tau1(beta=1)
-  double _tau2_beta1_vals[3]; ///< tau2(beta=1)
-  double _tau1_beta2_vals[3]; ///< tau1(beta=2)
-  double _tau2_beta2_vals[3]; ///< tau2(beta=2)
+  double _tau1_vals[3]; ///< tau1(beta)
+  double _tau2_vals[3]; ///< tau2(beta)
 
   // ecfgs
-  double _1ecf2_beta1_vals[3]; ///< 1ecfg2(beta=1)
-  double _1ecf3_beta1_vals[3]; ///< 1ecfg3(beta=1)
-  double _2ecf3_beta1_vals[3]; ///< 2ecfg3(beta=1)
-  double _3ecf3_beta1_vals[3]; ///< 3ecfg3(beta=1)
-
-  double _1ecf2_beta2_vals[3]; ///< 1ecfg2(beta=2)
-  double _1ecf3_beta2_vals[3]; ///< 1ecfg3(beta=2)
-  double _2ecf3_beta2_vals[3]; ///< 2ecfg3(beta=2)
-  double _3ecf3_beta2_vals[3]; ///< 3ecfg3(beta=2)
+  double _1ecf2_vals[3]; ///< 1ecfg2(beta)
+  double _1ecf3_vals[3]; ///< 1ecfg3(beta)
+  double _2ecf3_vals[3]; ///< 2ecfg3(beta)
+  double _3ecf3_vals[3]; ///< 3ecfg3(beta)
   
   //----------------------------------------------------------------------
   // substructure tools
@@ -126,11 +97,9 @@ protected:
   fastjet::SharedPtr<fastjet::contrib::SoftDrop> _sd;
 
   /// shape tools
-  fastjet::SharedPtr<fastjet::contrib::Nsubjettiness> _tau1_beta1, _tau1_beta2,
-    _tau2_beta1, _tau2_beta2;
+  fastjet::SharedPtr<fastjet::contrib::Nsubjettiness> _tau1, _tau2;
   fastjet::SharedPtr<fastjet::contrib::EnergyCorrelatorGeneralized>
-    _1ecf2_beta1, _1ecf3_beta1, _2ecf3_beta1, _3ecf3_beta1,
-    _1ecf2_beta2, _1ecf3_beta2, _2ecf3_beta2, _3ecf3_beta2;
+    _1ecf2, _1ecf3, _2ecf3, _3ecf3;
 
   /// underlying needs
   fastjet::SharedPtr<fastjet::Recluster> _recluster_ca;
@@ -139,12 +108,9 @@ protected:
   // helpers
   void _compute_one_level(const fastjet::PseudoJet &jet,
                           double &m,
-                          double &tau1_beta1, double &tau2_beta1,
-                          double &tau1_beta2, double &tau2_beta2,
-			  double &e12_beta1, double& e13_beta1,
-			  double &e23_beta1, double& e33_beta1,
-			  double &e12_beta2, double& e13_beta2,
-			  double &e23_beta2, double& e33_beta2);
+                          double &tau1, double &tau2,
+			  double &e12, double& e13,
+			  double &e23, double& e33);
 
   std::ostringstream _description;
 };
