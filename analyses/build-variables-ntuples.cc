@@ -55,12 +55,12 @@ int main (int argc, char ** argv) {
   ofstream ostr(outname.c_str());
   ostr << header.str();
   ostr << "#columns: ";
-  ostr << "mass_plain mass_loose mass_tight mass_trim ";
+  ostr << "mass_loose mass_tight mass_plain mass_trim ";
   ostr << "zg_loose zg_tight ";
   ostr << "thetag_loose thetag_tight ";
   for (const auto & name : {"tau1", "tau2", "1e2", "2e3", "3e3"}){
     for (int beta=1; beta<=2; ++beta){
-      for (const auto & level : {"plain", "loose", "tight"}){
+      for (const auto & level : {"loose", "tight", "plain"}){
         ostr << name << "_beta" << beta << "_" << level << " ";
       }
     }
