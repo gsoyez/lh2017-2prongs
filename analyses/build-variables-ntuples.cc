@@ -53,7 +53,13 @@ int main (int argc, char ** argv) {
 
   //------------------------------------------------------------------------
   // prepare the output
-  ofstream ostr(outname.c_str());
+  ofstream ostr;
+
+  if (outname.length() > 3 && outname.find(std::string(".gz")) +3 == outname.length()) {
+    ostr = gzifstream(outname.c_str(), "w");
+  } else {
+    ostr = ofstream(outname.c_str());
+  }
   ostr << header.str();
   ostr << "#columns: ";
   ostr << "mass_loose mass_tight mass_plain mass_trim ";
