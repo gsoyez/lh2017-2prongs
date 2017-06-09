@@ -81,10 +81,8 @@ void SubstructureVariables::set_jet(const PseudoJet &jet){
 		     _2ecf3_vals[tight], _3ecf3_vals[tight]);
 
   // mass quantities and groomed zg, thetag are separate
-  _zg_vals[plain] = _zg_vals[trim] = 0.0;
   _zg_vals[loose] = sd_jet.structure_of<contrib::SoftDrop>().symmetry();
   _zg_vals[tight] = mmdt_jet.structure_of<contrib::SoftDrop>().symmetry();
-  _thetag_vals[plain] = _thetag_vals[trim] = 0.0;
   _thetag_vals[loose] = sd_jet.structure_of<contrib::SoftDrop>().delta_R();
   _thetag_vals[tight] = mmdt_jet.structure_of<contrib::SoftDrop>().delta_R();
   _m_vals[plain] = jet.m();

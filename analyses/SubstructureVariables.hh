@@ -105,8 +105,8 @@ protected:
   double _3ecf3_vals[3][2]; ///< 3ecfg3(beta=1,2)
 
   // z_g and theta_g
-  double _zg_vals[4];
-  double _thetag_vals[4];
+  double _zg_vals[2];
+  double _thetag_vals[2];
   
   //----------------------------------------------------------------------
   // substructure tools
