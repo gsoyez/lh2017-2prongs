@@ -17,6 +17,8 @@ if [[ $# -eq 0 ]]; then usage; fi; ntuple_file="$1"; shift
 if [[ $# -eq 0 ]]; then usage; fi; expression="$1" ; shift
 if [[ $# -eq 0 ]]; then usage; fi; eff="$1"        ; shift
 
+script_full_path=$(dirname "$0")
+
 cdtstring=''
 while [[ $# -gt 0 ]]; do
     cdtstring="${cdtstring} \"$1\""
@@ -26,6 +28,6 @@ done
 Nentries=`tail -n1 ${ntuple_file} | sed 's/.*=//'`
 Nexpected=`echo "$Nentries*$eff" | bc -l`
 Nexpected=${Nexpected%%.*}
-./extract.sh "${ntuple_file}" "${expression}" ${cdtstring} | sort -g | grep -v "^#" | sed "${Nexpected}q;d"
+${script_full_path}/extract.sh "${ntuple_file}" "${expression}" ${cdtstring} | sort -g | grep -v "^#" | sed "${Nexpected}q;d"
 
 

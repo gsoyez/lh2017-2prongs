@@ -20,6 +20,8 @@ if [[ $# -eq 0 ]]; then usage; fi; vmin="$1"; shift
 if [[ $# -eq 0 ]]; then usage; fi; vmax="$1"; shift
 if [[ $# -eq 0 ]]; then usage; fi; dv="$1"  ; shift
 
+script_full_path=$(dirname "$0")
+
 cdtstring=''
 while [[ $# -gt 0 ]]; do
     cdtstring="${cdtstring} \"$1\""
@@ -30,8 +32,8 @@ done
 NentriesS=`tail -n1 ${ntuple_file_S} | sed 's/.*=//'`
 NentriesB=`tail -n1 ${ntuple_file_B} | sed 's/.*=//'`
 
-paste <(./histogram.sh "${ntuple_file_S}" "${expression}" ${vmin} ${vmax} ${dv} ${cdtstring}) \
-      <(./histogram.sh "${ntuple_file_B}" "${expression}" ${vmin} ${vmax} ${dv} ${cdtstring}) \
+paste <(${script_full_path}/histogram.sh "${ntuple_file_S}" "${expression}" ${vmin} ${vmax} ${dv} ${cdtstring}) \
+      <(${script_full_path}/histogram.sh "${ntuple_file_B}" "${expression}" ${vmin} ${vmax} ${dv} ${cdtstring}) \
     | grep -v "^#" \
     | awk -v nStot=${NentriesS}.0 -v nBtot=${NentriesB}.0 'BEGIN{nS=0; nB=0}{nS=nS+$4; nB=nB+$8; print nS/nStot,nB/nBtot}'
 
