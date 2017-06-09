@@ -125,9 +125,8 @@ protected:
 
   void _notrim(groom g, const std::string &v) const{
     if (g==trim){
-      std::ostringstream oss;
-      oss << "Trimming not available for shape " << v << std::endl;
-      assert((oss.str().c_str()) && (g!=trim));
+      std::cerr << "Trimming not available for shape " << v << std::endl;
+      assert(g!=trim);
     }
   }
       
