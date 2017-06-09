@@ -7,6 +7,7 @@
 #include "EventMixer.hh"
 #include "CmdLine.hh"
 #include "PU14.hh"
+#include "zfstream.h"
 #include "fastjet/ClusterSequence.hh"
 #include "SubstructureVariables.hh"
 #include <fstream>
@@ -53,26 +54,28 @@ int main (int argc, char ** argv) {
 
   //------------------------------------------------------------------------
   // prepare the output
-  ofstream ostr;
-
+  ostream *ostr;  
   if (outname.length() > 3 && outname.find(std::string(".gz")) +3 == outname.length()) {
-    ostr = gzifstream(outname.c_str(), "w");
+    ostr = new gzofstream(outname.c_str());
   } else {
-    ostr = ofstream(outname.c_str());
+    ostr = new ofstream(outname.c_str());
   }
-  ostr << header.str();
-  ostr << "#columns: ";
-  ostr << "mass_loose mass_tight mass_plain mass_trim ";
-  ostr << "zg_loose zg_tight ";
-  ostr << "thetag_loose thetag_tight ";
+  SharedPtr<ostream> ostr_ptr(ostr);
+  
+  (*ostr) << header.str();
+  (*ostr) << "#columns: ";
+  (*ostr) << "scalarpt_loose scalarpt_tight scalarpt_plain ";
+  (*ostr) << "mass_loose mass_tight mass_plain mass_trim ";
+  (*ostr) << "zg_loose zg_tight ";
+  (*ostr) << "thetag_loose thetag_tight ";
   for (const auto & name : {"tau1", "tau2", "1e2", "1e3", "2e3", "3e3"}){
     for (int beta=1; beta<=2; ++beta){
       for (const auto & level : {"loose", "tight", "plain"}){
-        ostr << name << "_beta" << beta << "_" << level << " ";
+        (*ostr) << name << "_beta" << beta << "_" << level << " ";
       }
     }
   }
-  ostr << endl;
+  (*ostr) << endl;
   
   //------------------------------------------------------------------------
   // loop over events
@@ -97,26 +100,31 @@ int main (int argc, char ** argv) {
      for (const PseudoJet &jet : jets){
        subvars.set_jet(jet);
        ++nentries;
-       
+
+       // handle scalar pt sums
+       for (int igroom = 0; igroom<3; ++igroom){
+         (*ostr) << subvars.scalarsum_pt((SubstructureVariables::groom) igroom) << " ";
+       }       
+         
        // handle masses
        for (int igroom = 0; igroom<4; ++igroom){
-         ostr << subvars.m((SubstructureVariables::groom) igroom) << " ";
+         (*ostr) << subvars.m((SubstructureVariables::groom) igroom) << " ";
        }
 
        // add scalar sum pt
        for (int igroom = 0; igroom<3; ++igroom){
-         ostr << subvars.scalarsum_pt((SubstructureVariables::groom) igroom) << " ";
+         (*ostr) << subvars.scalarsum_pt((SubstructureVariables::groom) igroom) << " ";
        }
        
-       ostr << subvars.zg(SubstructureVariables::loose) << " ";
-       ostr << subvars.zg(SubstructureVariables::tight) << " ";
-       ostr << subvars.thetag(SubstructureVariables::loose) << " ";
-       ostr << subvars.thetag(SubstructureVariables::tight) << " ";
+       (*ostr) << subvars.zg(SubstructureVariables::loose) << " ";
+       (*ostr) << subvars.zg(SubstructureVariables::tight) << " ";
+       (*ostr) << subvars.thetag(SubstructureVariables::loose) << " ";
+       (*ostr) << subvars.thetag(SubstructureVariables::tight) << " ";
 
        // tau1
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
-           ostr << subvars.tau1((SubstructureVariables::groom) igroom,
+           (*ostr) << subvars.tau1((SubstructureVariables::groom) igroom,
                                 (SubstructureVariables::beta) ibeta) << " ";
          }
        }
@@ -124,7 +132,7 @@ int main (int argc, char ** argv) {
        // tau2
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
-           ostr << subvars.tau2((SubstructureVariables::groom) igroom,
+           (*ostr) << subvars.tau2((SubstructureVariables::groom) igroom,
                                 (SubstructureVariables::beta) ibeta) << " ";
          }
        }
@@ -132,7 +140,7 @@ int main (int argc, char ** argv) {
        // 1e2
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
-           ostr << subvars.ecfg_v1_N2((SubstructureVariables::groom) igroom,
+           (*ostr) << subvars.ecfg_v1_N2((SubstructureVariables::groom) igroom,
                                       (SubstructureVariables::beta) ibeta) << " ";
          }
        }
@@ -140,7 +148,7 @@ int main (int argc, char ** argv) {
        // 1e3
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
-           ostr << subvars.ecfg_v1_N3((SubstructureVariables::groom) igroom,
+           (*ostr) << subvars.ecfg_v1_N3((SubstructureVariables::groom) igroom,
                                       (SubstructureVariables::beta) ibeta) << " ";
          }
        }
@@ -148,7 +156,7 @@ int main (int argc, char ** argv) {
        // 2e3
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
-           ostr << subvars.ecfg_v2_N3((SubstructureVariables::groom) igroom,
+           (*ostr) << subvars.ecfg_v2_N3((SubstructureVariables::groom) igroom,
                                       (SubstructureVariables::beta) ibeta) << " ";
          }
        }
@@ -156,17 +164,17 @@ int main (int argc, char ** argv) {
        // 3e3
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
-           ostr << subvars.ecfg_v3_N3((SubstructureVariables::groom) igroom,
+           (*ostr) << subvars.ecfg_v3_N3((SubstructureVariables::groom) igroom,
                                       (SubstructureVariables::beta) ibeta) << " ";
          }
        }
 
-       ostr << endl;
+       (*ostr) << endl;
 
 
      } // end of loop over jets
   } // end of loop over events
-  ostr << "#Nentries=" << nentries << endl;
+  (*ostr) << "#Nentries=" << nentries << endl;
   
   return 0;
 }  
