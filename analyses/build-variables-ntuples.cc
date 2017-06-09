@@ -56,6 +56,8 @@ int main (int argc, char ** argv) {
   ostr << header.str();
   ostr << "#columns: ";
   ostr << "mass_plain mass_loose mass_tight mass_trim ";
+  ostr << "zg_loose zg_tight ";
+  ostr << "thetag_loose thetag_tight ";
   for (const auto & name : {"tau1", "tau2", "1e2", "2e3", "3e3"}){
     for (int beta=1; beta<=2; ++beta){
       for (const auto & level : {"plain", "loose", "tight"}){
@@ -93,6 +95,11 @@ int main (int argc, char ** argv) {
        for (int igroom = 0; igroom<4; ++igroom){
          ostr << subvars.m((SubstructureVariables::groom) igroom) << " ";
        }
+
+       ostr << subvars.zg(SubstructureVariables::loose) << " ";
+       ostr << subvars.zg(SubstructureVariables::tight) << " ";
+       ostr << subvars.thetag(SubstructureVariables::loose) << " ";
+       ostr << subvars.thetag(SubstructureVariables::tight) << " ";
 
        // tau1
        for (int ibeta = 0; ibeta<2; ++ibeta){

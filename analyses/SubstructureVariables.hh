@@ -54,6 +54,10 @@ public:
   // mass
   double m(groom g) const{ return _m_vals[g];}
 
+  // 2-prong info
+  double zg    (groom g) const{ return _zg_vals[g];}
+  double thetag(groom g) const{ return _thetag_vals[g];}
+  
   // N-subjettiness
   double tau1(groom g, beta b) const { _notrim(g, "tau1"); return _tau1_vals[g][b];}
   double tau2(groom g, beta b) const { _notrim(g, "tau2"); return _tau2_vals[g][b];}
@@ -101,8 +105,8 @@ protected:
   double _3ecf3_vals[3][2]; ///< 3ecfg3(beta=1,2)
 
   // z_g and theta_g
-  double _zg_vals[2];
-  double _thetag_vals[2];
+  double _zg_vals[4];
+  double _thetag_vals[4];
   
   //----------------------------------------------------------------------
   // substructure tools
