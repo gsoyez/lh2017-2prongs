@@ -53,6 +53,7 @@ public:
   // get the basic variables
   // mass
   double m(groom g) const{ return _m_vals[g];}
+  double scalarsum_pt(groom g) const { return _scalarsum_pt[g];}
 
   // 2-prong info
   double zg    (groom g) const{ return _zg_vals[g];}
@@ -76,17 +77,22 @@ public:
   double tau21(groom g, beta b) const { return tau21(g,g,b);}
 
   // ecfs-based
-  double U1(groom g, beta b) const {return _1ecf2_vals[g][b];}
-  double U2(groom g, beta b) const {return _1ecf3_vals[g][b];}
+  double U1(groom g, beta b) const {
+    return _1ecf2_vals[g][b]/(_scalarsum_pt[g]*_scalarsum_pt[g]);
+  }
+  double U2(groom g, beta b) const {
+    return _1ecf3_vals[g][b]/(_scalarsum_pt[g]*_scalarsum_pt[g]*_scalarsum_pt[g]);
+  }
   double N2(groom g1, groom g2, beta b) const {
-    return _2ecf3_vals[g1][b] / (_1ecf2_vals[g1][b]*_1ecf2_vals[g2][b]);}
+    return _2ecf3_vals[g1][b] * _scalarsum_pt[g2] / (_1ecf2_vals[g1][b]*_1ecf2_vals[g2][b]);}
   double N2(groom g, beta b) const {return N2(g,g,b);}
   double M2(groom g1, groom g2, beta b) const {
-    return _1ecf3_vals[g1][b] / _1ecf2_vals[g2][b];}
+    return _1ecf3_vals[g1][b] / (_1ecf2_vals[g2][b] * _scalarsum_pt[g2]);}
   double M2(groom g, beta b) const {return M2(g,g,b);}
   double D2(groom g1, groom g2, beta b) const {
     return _3ecf3_vals[g1][b]
-      / (_1ecf2_vals[g1][b]*_1ecf2_vals[g1][b]*_1ecf2_vals[g2][b]);}
+      / (_1ecf2_vals[g1][b]*_1ecf2_vals[g1][b]*
+	 _1ecf2_vals[g2][b]*_scalarsum_pt[g2]*_scalarsum_pt[g2]*_scalarsum_pt[g2]);}
   double D2(groom g, beta b) const { return D2(g,g,b);}
   
 protected:

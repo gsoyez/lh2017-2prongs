@@ -70,13 +70,16 @@ void SubstructureVariables::set_jet(const PseudoJet &jet){
   PseudoJet mmdt_jet    = (*_mmdt)(ca_jet);
 
   // all quantities for the plain jet
-  _compute_one_level(jet, jet.pt(), _tau1_vals[plain], _tau2_vals[plain],
+  _compute_one_level(jet, _scalarsum_pt[plain],
+		     _tau1_vals[plain], _tau2_vals[plain],
 		     _1ecf2_vals[plain], _1ecf3_vals[plain],
 		     _2ecf3_vals[plain], _3ecf3_vals[plain]);
-  _compute_one_level(sd_jet, jet.pt(), _tau1_vals[loose], _tau2_vals[loose],
+  _compute_one_level(sd_jet, _scalarsum_pt[loose],
+		     _tau1_vals[loose], _tau2_vals[loose],
 		     _1ecf2_vals[loose], _1ecf3_vals[loose],
 		     _2ecf3_vals[loose], _3ecf3_vals[loose]);
-  _compute_one_level(mmdt_jet, jet.pt(), _tau1_vals[tight], _tau2_vals[tight],
+  _compute_one_level(mmdt_jet, _scalarsum_pt[tight],
+		     _tau1_vals[tight], _tau2_vals[tight],
 		     _1ecf2_vals[tight], _1ecf3_vals[tight],
 		     _2ecf3_vals[tight], _3ecf3_vals[tight]);
 
@@ -92,7 +95,7 @@ void SubstructureVariables::set_jet(const PseudoJet &jet){
 
 }
 
-void SubstructureVariables::_compute_one_level(const PseudoJet &jet, double ungroomed_pt,
+void SubstructureVariables::_compute_one_level(const PseudoJet &jet, double & scalarsum_pt,
                                                double (&tau1)[2], double (&tau2)[2],
 					       double (&e12)[2], double (&e13)[2],
 					       double (&e23)[2], double (&e33)[2]){
@@ -103,16 +106,19 @@ void SubstructureVariables::_compute_one_level(const PseudoJet &jet, double ungr
   tau2[beta2] = (*(_tau2[beta2]))(jet);
   
   // ecfgs
-  double ungroomed_pt2 = ungroomed_pt*ungroomed_pt;
-  double ungroomed_pt3 = ungroomed_pt2*ungroomed_pt;
-  e12[beta1] = (*(_1ecf2[beta1]))(jet)*ungroomed_pt2;
-  e13[beta1] = (*(_1ecf3[beta1]))(jet)*ungroomed_pt3;
-  e23[beta1] = (*(_2ecf3[beta1]))(jet)*ungroomed_pt3;
-  e33[beta1] = (*(_3ecf3[beta1]))(jet)*ungroomed_pt3;
+  scalarsum_pt = 0.0;
+  for (PseudoJet j : jet.constituents()) 
+    scalarsum_pt += j.pt(); 
+  double scalarsum_pt2 = scalarsum_pt*scalarsum_pt;
+  double scalarsum_pt3 = scalarsum_pt2*scalarsum_pt;
+  e12[beta1] = (*(_1ecf2[beta1]))(jet)*scalarsum_pt2;
+  e13[beta1] = (*(_1ecf3[beta1]))(jet)*scalarsum_pt3;
+  e23[beta1] = (*(_2ecf3[beta1]))(jet)*scalarsum_pt3;
+  e33[beta1] = (*(_3ecf3[beta1]))(jet)*scalarsum_pt3;
 
-  e12[beta2] = (*(_1ecf2[beta2]))(jet)*ungroomed_pt2;
-  e13[beta2] = (*(_1ecf3[beta2]))(jet)*ungroomed_pt3;
-  e23[beta2] = (*(_2ecf3[beta2]))(jet)*ungroomed_pt3;
-  e33[beta2] = (*(_3ecf3[beta2]))(jet)*ungroomed_pt3;
+  e12[beta2] = (*(_1ecf2[beta2]))(jet)*scalarsum_pt2;
+  e13[beta2] = (*(_1ecf3[beta2]))(jet)*scalarsum_pt3;
+  e23[beta2] = (*(_2ecf3[beta2]))(jet)*scalarsum_pt3;
+  e33[beta2] = (*(_3ecf3[beta2]))(jet)*scalarsum_pt3;
 }
 
