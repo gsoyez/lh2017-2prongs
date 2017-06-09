@@ -32,7 +32,7 @@ read -a colnames <<< "$colstring"
 
 # we also want to have a few helpers
 declare -A helpers
-for variant in "plain:plain" "loose:plain" "loose:loose" "tight:plain" "tight:loose" "tight:tight"; do
+for variant in "plain:plain" "plain:loose" "plain:tight" "loose:loose" "loose:tight" "tight:tight"; do
     num=${variant%:*}
     den=${variant#*:}
     acr="${num:0:1}${den:0:1}"
