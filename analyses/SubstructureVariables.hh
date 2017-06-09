@@ -79,14 +79,14 @@ public:
   double U1(groom g, beta b) const {return _1ecf2_vals[g][b];}
   double U2(groom g, beta b) const {return _1ecf3_vals[g][b];}
   double N2(groom g1, groom g2, beta b) const {
-    return _2ecf3_vals[g2][b] / (_1ecf2_vals[g2][b]*_1ecf2_vals[g2][b]);}
+    return _2ecf3_vals[g1][b] / (_1ecf2_vals[g1][b]*_1ecf2_vals[g2][b]);}
   double N2(groom g, beta b) const {return N2(g,g,b);}
   double M2(groom g1, groom g2, beta b) const {
-    return _1ecf3_vals[g2][b] / _1ecf2_vals[g2][b];}
+    return _1ecf3_vals[g1][b] / _1ecf2_vals[g2][b];}
   double M2(groom g, beta b) const {return M2(g,g,b);}
   double D2(groom g1, groom g2, beta b) const {
-    return _3ecf3_vals[g2][b]
-      / (_1ecf2_vals[g2][b]*_1ecf2_vals[g2][b]*_1ecf2_vals[g2][b]);}
+    return _3ecf3_vals[g1][b]
+      / (_1ecf2_vals[g1][b]*_1ecf2_vals[g1][b]*_1ecf2_vals[g2][b]);}
   double D2(groom g, beta b) const { return D2(g,g,b);}
   
 protected:
@@ -126,7 +126,7 @@ protected:
 
   //----------------------------------------------------------------------
   // helpers
-  void _compute_one_level(const fastjet::PseudoJet &jet, 
+  void _compute_one_level(const fastjet::PseudoJet &jet, double ungroomed_pt,
                           double (&tau1)[2], double (&tau2)[2],
 			  double (&e12)[2], double (&e13)[2],
 			  double (&e23)[2], double (&e33)[2]);
