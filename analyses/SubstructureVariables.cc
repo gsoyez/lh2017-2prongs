@@ -107,7 +107,7 @@ void SubstructureVariables::_compute_one_level(const PseudoJet &jet, double & sc
   
   // ecfgs
   scalarsum_pt = 0.0;
-  for (PseudoJet j : jet.constituents()) 
+  for (const PseudoJet &j : jet.constituents()) 
     scalarsum_pt += j.pt(); 
   e12[beta1] = (*(_1ecf2[beta1]))(jet);
   e13[beta1] = (*(_1ecf3[beta1]))(jet);
