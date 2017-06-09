@@ -1,0 +1,67 @@
+tentative list of theings that we want to perform and the tools we
+need to do it
+
+v extract ntuple of an expression given possible conditions
+v get the efficiency for a given set of conditions
+v extract a distribution from one file (possibly under conditions)
+v extract a ROC curve from 2 files (possibly under conditions)
+- get the cut curresponding to a given efficiency (possibly under conditions)
+
+------------------------------------------------------------------------
+extract ntuple of an expression given possible conditions
+------------------------------------------------------------------------
+
+Usage:
+  extract.sh "ntuple_file" "expression" "optional_condition_list"
+
+Output:
+  list of values
+
+Example:
+  extract.sh <ntuple_file> "tau2_beta2_loose/tau2_beta2_tight" "mass_tight>60.0" "mass_tight<100.0"
+
+------------------------------------------------------------------------
+get the efficiency for a given set of conditions
+------------------------------------------------------------------------
+
+Usage:
+  get_efficiency.sh "ntuple_file" "optional_condition_list"
+
+Output:
+  a single number wit the efficiency
+
+------------------------------------------------------------------------
+extract a distribution from one file (possibly under conditions)
+------------------------------------------------------------------------
+
+Usage:
+  histogram.sh "ntuple_file" "expression" lo hi binsize "optional_condition_list"
+
+Output:
+  4-columns: bin_minimum  bin_centre   bin_maximum  number of entries
+
+Example:
+  histogram.sh <ntuple_file> "tau2_beta2_loose/tau2_beta2_tight" 0.0 2.0 0.05 "mass_tight>60.0" "mass_tight<100.0"
+
+------------------------------------------------------------------------
+extract a ROC curve from 2 files (possibly under conditions)
+------------------------------------------------------------------------
+
+Usage:
+  roc.sh "ntuple_file_S" "ntuple_file_B" eps_S_min eps_S_max delta_eps_S "optional_condition_list"
+
+Output:
+  2-columns: signal_efficiency  background_efficiency
+
+Example:
+  roc.sh <ntuple_signal> <ntuple_bkg> "tau2_beta2_loose/tau2_beta2_tight" 0.0 2.0 0.01 "mass_tight>60.0" "mass_tight<100.0"
+
+------------------------------------------------------------------------
+get the cut curresponding to a given efficiency (possibly under conditions)
+------------------------------------------------------------------------
+
+Usage:
+  get_cut.sh "ntuple_file" "variable" targetted_eps_S "optional_condition_list"
+
+Output:
+  one numbber (the cut value)
