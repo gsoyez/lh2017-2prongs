@@ -1,0 +1,14 @@
+
+
+some description text goes HERE
+
+========================================================================
+Generating ntuples
+========================================================================
+
+./build-variables-ntuples -hard <event_file.pu14.gz> -out <res/output.ntuple> -nev <nev> -jet.ptmin <cut>  -R <radius>
+
+
+default ptmin is 500, default R is 1.0
+
+

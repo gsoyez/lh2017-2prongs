@@ -35,12 +35,12 @@ SubstructureVariables::SubstructureVariables(CmdLine &cmdline) {
   /// shape tools
   contrib::WTA_KT_Axes  axes_kt;
   contrib::GenKT_Axes   axes_gkt(0.5);
-  contrib::UnnormalizedMeasure measure1(1);
-  contrib::UnnormalizedMeasure measure2(2);
-  _tau1[beta1].reset(new Nsubjettiness(1, axes_kt,  measure1));
-  _tau1[beta2].reset(new Nsubjettiness(2, axes_kt,  measure1));
-  _tau2[beta1].reset(new Nsubjettiness(1, axes_gkt, measure2));
-  _tau2[beta2].reset(new Nsubjettiness(2, axes_gkt, measure2));
+  contrib::UnnormalizedMeasure measure_beta1(1);
+  contrib::UnnormalizedMeasure measure_beta2(2);
+  _tau1[beta1].reset(new Nsubjettiness(1, axes_kt,  measure_beta1));
+  _tau1[beta2].reset(new Nsubjettiness(1, axes_kt,  measure_beta2));
+  _tau2[beta1].reset(new Nsubjettiness(2, axes_gkt, measure_beta1));
+  _tau2[beta2].reset(new Nsubjettiness(2, axes_gkt, measure_beta2));
   _1ecf2[beta1].reset(new EnergyCorrelatorGeneralized(1, 2, 1));
   _1ecf3[beta1].reset(new EnergyCorrelatorGeneralized(1, 3, 1));
   _2ecf3[beta1].reset(new EnergyCorrelatorGeneralized(2, 3, 1));

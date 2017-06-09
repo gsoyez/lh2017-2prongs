@@ -30,7 +30,6 @@
 ///   -mmdt.zcut  [0.1]
 ///   -sd.beta    [2]
 ///   -sd.zcut    [0.05]
-///   -shape.beta [1]
 ///
 /// Internal note: the explicit variable name structure makes for
 /// readibility but it would be much more compact to store that in a
