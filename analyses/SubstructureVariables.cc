@@ -109,16 +109,14 @@ void SubstructureVariables::_compute_one_level(const PseudoJet &jet, double & sc
   scalarsum_pt = 0.0;
   for (PseudoJet j : jet.constituents()) 
     scalarsum_pt += j.pt(); 
-  double scalarsum_pt2 = scalarsum_pt*scalarsum_pt;
-  double scalarsum_pt3 = scalarsum_pt2*scalarsum_pt;
-  e12[beta1] = (*(_1ecf2[beta1]))(jet)*scalarsum_pt2;
-  e13[beta1] = (*(_1ecf3[beta1]))(jet)*scalarsum_pt3;
-  e23[beta1] = (*(_2ecf3[beta1]))(jet)*scalarsum_pt3;
-  e33[beta1] = (*(_3ecf3[beta1]))(jet)*scalarsum_pt3;
+  e12[beta1] = (*(_1ecf2[beta1]))(jet);
+  e13[beta1] = (*(_1ecf3[beta1]))(jet);
+  e23[beta1] = (*(_2ecf3[beta1]))(jet);
+  e33[beta1] = (*(_3ecf3[beta1]))(jet);
 
-  e12[beta2] = (*(_1ecf2[beta2]))(jet)*scalarsum_pt2;
-  e13[beta2] = (*(_1ecf3[beta2]))(jet)*scalarsum_pt3;
-  e23[beta2] = (*(_2ecf3[beta2]))(jet)*scalarsum_pt3;
-  e33[beta2] = (*(_3ecf3[beta2]))(jet)*scalarsum_pt3;
+  e12[beta2] = (*(_1ecf2[beta2]))(jet);
+  e13[beta2] = (*(_1ecf3[beta2]))(jet);
+  e23[beta2] = (*(_2ecf3[beta2]))(jet);
+  e33[beta2] = (*(_3ecf3[beta2]))(jet);
 }
 
