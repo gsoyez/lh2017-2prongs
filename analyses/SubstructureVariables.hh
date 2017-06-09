@@ -36,7 +36,7 @@
 /// map or an array
 class SubstructureVariables{
 public:
-  enum groom {plain, loose, tight, trim};
+  enum groom {loose, tight, plain, trim};
   enum beta {beta1, beta2};
   /// ctor (initialises all tools)
   SubstructureVariables(CmdLine &cmdline);
@@ -53,13 +53,16 @@ public:
     return _tau2_vals[b][g1]/_tau2_vals[b][g2];}
   double tau21(groom g, beta b) const { return tau21(g,g,b);}
 
-
   // ecfgs
   double ecfg_v1_N2(groom g, beta b) const {return _1ecf2_vals[g][b];}
   double ecfg_v1_N3(groom g, beta b) const {return _1ecf3_vals[g][b];}
   double ecfg_v2_N3(groom g, beta b) const {return _2ecf3_vals[g][b];}
   double ecfg_v3_N3(groom g, beta b) const {return _3ecf3_vals[g][b];}
 
+  // groomed energy fraction, angle
+  double zg(groom g) const {return _zg_vals[g];}
+  double thetag(groom g) const {return _thetag_vals[g];}
+  
   // ecfs based observables
   double U1(groom g, beta b) const {return _1ecf2_vals[g][b];}
   double U2(groom g, beta b) const {return _1ecf3_vals[g][b];}
@@ -88,6 +91,10 @@ protected:
   double _1ecf3_vals[3][2]; ///< 1ecfg3(beta=1,2)
   double _2ecf3_vals[3][2]; ///< 2ecfg3(beta=1,2)
   double _3ecf3_vals[3][2]; ///< 3ecfg3(beta=1,2)
+
+  // z_g and theta_g
+  double _zg_vals[2];
+  double _thetag_vals[2];
   
   //----------------------------------------------------------------------
   // substructure tools
