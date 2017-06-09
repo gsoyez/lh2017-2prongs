@@ -27,16 +27,29 @@ done
 echo "# N-tuple file: ${ntuple_file}"
 echo "# binning '${expression}' under the conditions '${conditions[*]}'"
 
+
+#----------------------------------------------------------------------
+# decide which too to use according to file compression
+mygrep="grep"
+mycat="cat"
+if [[ "$ntuple_file" == *.gz ]]; then
+    mygrep="zgrep"
+    mycat="zcat"
+fi
+
 #----------------------------------------------------------------------
 # build the awk expression string
 
 # get the column contents
-colstring=`grep -m1 "#columns: " ${ntuple_file}`
+colstring=`${mygrep} -m1 "#columns: " ${ntuple_file}`
 colstring=${colstring/"#columns: "/}
 read -a colnames <<< "$colstring"
 
 # we also want to have a few helpers
 declare -A helpers
+for variant in "plain" "loose" "tight" "trim"; do
+    helpers["m_${variant}"]="mass_${variant}"
+done
 for variant in "plain:plain" "plain:loose" "plain:tight" "loose:loose" "loose:tight" "tight:tight"; do
     num=${variant%:*}
     den=${variant#*:}
@@ -71,4 +84,4 @@ done
 
 
 echo "# awk runs with ${awk_script}"
-grep -v "^#" ${ntuple_file} | awk "${awk_script}"
+${mygrep} -v "^#" ${ntuple_file} | awk "${awk_script}"

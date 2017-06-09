@@ -20,6 +20,17 @@ if [[ $# -eq 0 ]]; then usage; fi; vmin="$1"; shift
 if [[ $# -eq 0 ]]; then usage; fi; vmax="$1"; shift
 if [[ $# -eq 0 ]]; then usage; fi; dv="$1"  ; shift
 
+#----------------------------------------------------------------------
+# decide which too to use according to file compression
+mygrep="grep"
+mycat="cat"
+if [[ "$ntuple_file_S" == *.gz ]]; then
+    mygrep="zgrep"
+    mycat="zcat"
+fi
+
+#----------------------------------------------------------------------
+
 script_full_path=$(dirname "$0")
 
 cdtstring=''
@@ -29,8 +40,8 @@ while [[ $# -gt 0 ]]; do
 done
 
 # get the number of entries in the file
-NentriesS=`tail -n1 ${ntuple_file_S} | sed 's/.*=//'`
-NentriesB=`tail -n1 ${ntuple_file_B} | sed 's/.*=//'`
+NentriesS=`${mycat} ${ntuple_file_S} | tail -n1 | sed 's/.*=//'`
+NentriesB=`${mycat} ${ntuple_file_B} | tail -n1 | sed 's/.*=//'`
 
 paste <(${script_full_path}/histogram.sh "${ntuple_file_S}" "${expression}" ${vmin} ${vmax} ${dv} ${cdtstring}) \
       <(${script_full_path}/histogram.sh "${ntuple_file_B}" "${expression}" ${vmin} ${vmax} ${dv} ${cdtstring}) \

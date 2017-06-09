@@ -23,15 +23,27 @@ while [[ $# -gt 0 ]]; do
 done
 
 #----------------------------------------------------------------------
+# decide which too to use according to file compression
+mygrep="grep"
+mycat="cat"
+if [[ "$ntuple_file" == *.gz ]]; then
+    mygrep="zgrep"
+    mycat="zcat"
+fi
+
+#----------------------------------------------------------------------
 # build the awk expression string
 
 # get the column contents
-colstring=`grep -m1 "#columns: " ${ntuple_file}`
+colstring=`${mygrep} -m1 "#columns: " ${ntuple_file}`
 colstring=${colstring/"#columns: "/}
 read -a colnames <<< "$colstring"
 
 # we also want to have a few helpers
 declare -A helpers
+for variant in "plain" "loose" "tight" "trim"; do
+    helpers["m_${variant}"]="mass_${variant}"
+done
 for variant in "plain:plain" "plain:loose" "plain:tight" "loose:loose" "loose:tight" "tight:tight"; do
     num=${variant%:*}
     den=${variant#*:}
@@ -64,7 +76,7 @@ for colname in ${colnames[*]}; do
     ((index++))
 done
 
-ntotal=`tail -n1 ${ntuple_file} | sed 's/.*=//'`
-nkept=`grep -v "^#" ${ntuple_file} | awk "${awk_script}"`
+ntotal=`${mycat} ${ntuple_file} | tail -n1 | sed 's/.*=//'`
+nkept=`${mygrep} -v "^#" ${ntuple_file} | awk "${awk_script}"`
 
 echo "$nkept.0/$ntotal" | bc -l

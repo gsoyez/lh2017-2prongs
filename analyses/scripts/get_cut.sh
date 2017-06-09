@@ -17,6 +17,16 @@ if [[ $# -eq 0 ]]; then usage; fi; ntuple_file="$1"; shift
 if [[ $# -eq 0 ]]; then usage; fi; expression="$1" ; shift
 if [[ $# -eq 0 ]]; then usage; fi; eff="$1"        ; shift
 
+#----------------------------------------------------------------------
+# decide which too to use according to file compression
+mygrep="grep"
+mycat="cat"
+if [[ "$ntuple_file" == *.gz ]]; then
+    mygrep="zgrep"
+    mycat="zcat"
+fi
+
+#----------------------------------------------------------------------
 script_full_path=$(dirname "$0")
 
 cdtstring=''
@@ -25,7 +35,7 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-Nentries=`tail -n1 ${ntuple_file} | sed 's/.*=//'`
+Nentries=`${myzcat} ${ntuple_file} | tail -n1 | sed 's/.*=//'`
 Nexpected=`echo "$Nentries*$eff" | bc -l`
 Nexpected=${Nexpected%%.*}
 ${script_full_path}/extract.sh "${ntuple_file}" "${expression}" ${cdtstring} | sort -g | grep -v "^#" | sed "${Nexpected}q;d"
