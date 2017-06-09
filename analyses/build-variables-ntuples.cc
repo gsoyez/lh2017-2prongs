@@ -32,13 +32,14 @@ int main (int argc, char ** argv) {
   Selector sel_hard_jets = SelectorNHardest(2) * SelectorPtMin(jet_ptmin) * SelectorAbsRapMax(jet_rapmax);
 
   ostringstream header;
+  header << "# Ran: " << cmdline.command_line() << endl;
   header << "# Used jet definition: " << jet_def.description() << endl;
   
   //-------------------------------------------------------------------------
   // set up substructure tools
   SubstructureVariables subvars(cmdline);
   //TODO: add this once Fredericc has finished playing w the file
-  //header << subvars.description() << "#" << endl;
+  header << subvars.description() << "#" << endl;
   
   //------------------------------------------------------------------------
   // create mixer that will construct events by mixing hard and pileup
@@ -58,7 +59,7 @@ int main (int argc, char ** argv) {
   ostr << "mass_loose mass_tight mass_plain mass_trim ";
   ostr << "zg_loose zg_tight ";
   ostr << "thetag_loose thetag_tight ";
-  for (const auto & name : {"tau1", "tau2", "1e2", "2e3", "3e3"}){
+  for (const auto & name : {"tau1", "tau2", "1e2", "1e3", "2e3", "3e3"}){
     for (int beta=1; beta<=2; ++beta){
       for (const auto & level : {"loose", "tight", "plain"}){
         ostr << name << "_beta" << beta << "_" << level << " ";
@@ -121,6 +122,14 @@ int main (int argc, char ** argv) {
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
            ostr << subvars.ecfg_v1_N2((SubstructureVariables::groom) igroom,
+                                      (SubstructureVariables::beta) ibeta) << " ";
+         }
+       }
+
+       // 1e3
+       for (int ibeta = 0; ibeta<2; ++ibeta){
+         for (int igroom = 0; igroom<3; ++igroom){
+           ostr << subvars.ecfg_v1_N3((SubstructureVariables::groom) igroom,
                                       (SubstructureVariables::beta) ibeta) << " ";
          }
        }
