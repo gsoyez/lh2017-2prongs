@@ -2,6 +2,7 @@
 #define __SUBSTRUCTURE_VARIABLES_HH__
 
 #include <sstream>
+#include <cassert>
 #include <CmdLine.hh>
 #include <fastjet/tools/Filter.hh>   // for trimming
 #include <fastjet/tools/Recluster.hh>
@@ -38,7 +39,7 @@ class SubstructureVariables{
 public:
   enum groom {loose, tight, plain, trim};
   enum beta {beta1, beta2};
-
+  
   /// ctor (initialises all tools)
   SubstructureVariables(CmdLine &cmdline);
 
@@ -98,6 +99,10 @@ protected:
   double _1ecf3_vals[3][2]; ///< 1ecfg3(beta=1,2)
   double _2ecf3_vals[3][2]; ///< 2ecfg3(beta=1,2)
   double _3ecf3_vals[3][2]; ///< 3ecfg3(beta=1,2)
+
+  // z_g and theta_g
+  double _zg_vals[2];
+  double _thetag_vals[2];
   
   //----------------------------------------------------------------------
   // substructure tools
