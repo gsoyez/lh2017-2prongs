@@ -27,6 +27,6 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-${script_full_path}/extract.sh "${ntuple_file}" "${expression}" ${cdtstring} | histogram.pl $hist_lo $hist_hi $binsize
+${script_full_path}/extract.sh "${ntuple_file}" "${expression}" ${cdtstring} | ${script_full_path}/histogram.pl $hist_lo $hist_hi $binsize
 
 
