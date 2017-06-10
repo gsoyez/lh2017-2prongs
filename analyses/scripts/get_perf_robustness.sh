@@ -39,6 +39,12 @@ done
 
 # we first need to get the cut as obtained y the reference signal
 vcut=`${script_full_path}/get_cut.sh "${ntuple_file_S_reference}" "${expression}" $effSref ${cdtstring}`
+
+if [[ -z ${vcut} ]]; then
+    echo "0.0 0.0 0.0"
+    exit 1
+fi
+
 effBref=`${script_full_path}/get_efficiency.sh "${ntuple_file_B_reference}"   ${cdtstring} "${expression}<${vcut}"`
 effSalt=`${script_full_path}/get_efficiency.sh "${ntuple_file_S_alternative}" ${cdtstring} "${expression}<${vcut}"`
 effBalt=`${script_full_path}/get_efficiency.sh "${ntuple_file_B_alternative}" ${cdtstring} "${expression}<${vcut}"`
