@@ -110,11 +110,6 @@ int main (int argc, char ** argv) {
        for (int igroom = 0; igroom<4; ++igroom){
          (*ostr) << subvars.m((SubstructureVariables::groom) igroom) << " ";
        }
-
-       // add scalar sum pt
-       for (int igroom = 0; igroom<3; ++igroom){
-         (*ostr) << subvars.scalarsum_pt((SubstructureVariables::groom) igroom) << " ";
-       }
        
        (*ostr) << subvars.zg(SubstructureVariables::loose) << " ";
        (*ostr) << subvars.zg(SubstructureVariables::tight) << " ";
