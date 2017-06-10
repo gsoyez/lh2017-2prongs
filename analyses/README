@@ -1,14 +1,34 @@
 
+========================================================================
+Building and event samples
+========================================================================
 
-some description text goes HERE
+Compile the local code by running (remember to put your fastjet
+installation path in a .fastjet directory)
+
+  ./mkmk
+  make
+
+The event samples are available from
+
+  https://cernbox.cern.ch/index.php/s/9RHMbxtO8Eb6M4F
+
+[not all of them yet!]
 
 ========================================================================
 Generating ntuples
 ========================================================================
 
-./build-variables-ntuples -hard <event_file.pu14.gz> -out <res/output.ntuple> -nev <nev> -jet.ptmin <cut>  -R <radius>
+For each event fileyou should run
 
+  ./build-variables-ntuples -hard <event_file.pu14.gz> -out <res/output.ntuple.gz> -nev <nev> -jet.ptmin <cut>  -R <radius>
 
 default ptmin is 500, default R is 1.0
 
+========================================================================
+Parsing the output
+========================================================================
+
+The ntuples can be analysed using the scripts available in the
+"script" directory. See the README in there for details
 
