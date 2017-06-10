@@ -101,27 +101,17 @@ void SubstructureVariables::set_jet(const PseudoJet &jet){
   _tau21_trimmed_vals[beta2] = (tau1[beta1]>0) ? (*(_tau2[beta2]))(trimmed_jet)/tau1[beta2] : 0.0;
 
   double e12[2];
-  double e13[2];
-  double e23[2];
-  double e33[2];
-
   e12[beta1] = (*(_1ecf2[beta1]))(trimmed_jet);
-  e13[beta1] = (*(_1ecf3[beta1]))(trimmed_jet);
-  e23[beta1] = (*(_2ecf3[beta1]))(trimmed_jet);
-  e33[beta1] = (*(_3ecf3[beta1]))(trimmed_jet);
   e12[beta2] = (*(_1ecf2[beta2]))(trimmed_jet);
-  e13[beta2] = (*(_1ecf3[beta2]))(trimmed_jet);
-  e23[beta2] = (*(_2ecf3[beta2]))(trimmed_jet);
-  e33[beta2] = (*(_3ecf3[beta2]))(trimmed_jet);
 
-  _D2_trimmed_vals[beta1] = (e12[beta1]>0) ? e33[beta1] / (e12[beta1]*e12[beta1]*e12[beta1]) : 0.0;
-  _D2_trimmed_vals[beta2] = (e12[beta2]>0) ? e33[beta2] / (e12[beta2]*e12[beta2]*e12[beta2]) : 0.0;
+  _D2_trimmed_vals[beta1] = (e12[beta1]>0) ? (*(_3ecf3[beta1]))(trimmed_jet) / (e12[beta1]*e12[beta1]*e12[beta1]) : 0.0;
+  _D2_trimmed_vals[beta2] = (e12[beta2]>0) ? (*(_3ecf3[beta2]))(trimmed_jet) / (e12[beta2]*e12[beta2]*e12[beta2]) : 0.0;
 
-  _N2_trimmed_vals[beta1] = (e12[beta1]>0) ? e23[beta1] / (e12[beta1]*e12[beta1]) : 0.0;
-  _N2_trimmed_vals[beta2] = (e12[beta2]>0) ? e23[beta2] / (e12[beta2]*e12[beta2]) : 0.0;
+  _N2_trimmed_vals[beta1] = (e12[beta1]>0) ? (*(_2ecf3[beta1]))(trimmed_jet) / (e12[beta1]*e12[beta1]) : 0.0;
+  _N2_trimmed_vals[beta2] = (e12[beta2]>0) ? (*(_2ecf3[beta2]))(trimmed_jet) / (e12[beta2]*e12[beta2]) : 0.0;
 
-  _M2_trimmed_vals[beta1] = (e12[beta1]>0) ? e13[beta1] / e12[beta1] : 0.0;
-  _M2_trimmed_vals[beta2] = (e12[beta2]>0) ? e13[beta2] / e12[beta2] : 0.0;
+  _M2_trimmed_vals[beta1] = (e12[beta1]>0) ? (*(_1ecf3[beta1]))(trimmed_jet) / e12[beta1] : 0.0;
+  _M2_trimmed_vals[beta2] = (e12[beta2]>0) ? (*(_1ecf3[beta2]))(trimmed_jet) / e12[beta2] : 0.0;
 
 }
 
