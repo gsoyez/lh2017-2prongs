@@ -1,0 +1,5 @@
+#!/bin/bash
+../2014PileupWorkshop/scripts/mkcxx.pl -f -1 -i '-I../2014PileupWorkshop/Framework -Wno-deprecated-declarations' -b -a DetectorModel
+
+#-l '-L../2014PileupWorkshop/Framework -lEventMixer -lz -lfastjetcontribfragile -lgsl -lgslcblas -lm' 
+ 
