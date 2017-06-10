@@ -7,7 +7,7 @@
 
 function usage {
     echo "Usage:"
-    echo "  get_cut.sh \"ntuple_file\" \"requested_efficiency \"optional_condition_list\""
+    echo "  get_cut.sh \"ntuple_file\" \"expression\" \"requested_efficiency \"optional_condition_list\""
     exit
 }
 
@@ -35,9 +35,8 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-Nentries=`${myzcat} ${ntuple_file} | tail -n1 | sed 's/.*=//'`
+Nentries=`${mycat} ${ntuple_file} | tail -n1 | sed 's/.*=//'`
 Nexpected=`echo "$Nentries*$eff" | bc -l`
 Nexpected=${Nexpected%%.*}
-${script_full_path}/extract.sh "${ntuple_file}" "${expression}" ${cdtstring} | sort -g | grep -v "^#" | sed "${Nexpected}q;d"
-
-
+${script_full_path}/extract.sh "${ntuple_file}" "${expression}" ${cdtstring} | sort -g | grep -v "^#" \
+    | awk -v Nexp=${Nexpected} 'BEGIN{N=0}{N=N+1;if (N==Nexp){print $1; exit}}'

@@ -75,6 +75,11 @@ int main (int argc, char ** argv) {
       }
     }
   }
+  for (const auto & name : {"tau21", "D2", "M2", "N2"}){
+    for (int beta=1; beta<=2; ++beta){
+      (*ostr) << name << "_beta" << beta << "_trimmed ";
+    }
+  }  
   (*ostr) << endl;
   
   //------------------------------------------------------------------------
@@ -110,11 +115,6 @@ int main (int argc, char ** argv) {
        for (int igroom = 0; igroom<4; ++igroom){
          (*ostr) << subvars.m((SubstructureVariables::groom) igroom) << " ";
        }
-
-       // add scalar sum pt
-       for (int igroom = 0; igroom<3; ++igroom){
-         (*ostr) << subvars.scalarsum_pt((SubstructureVariables::groom) igroom) << " ";
-       }
        
        (*ostr) << subvars.zg(SubstructureVariables::loose) << " ";
        (*ostr) << subvars.zg(SubstructureVariables::tight) << " ";
@@ -125,7 +125,7 @@ int main (int argc, char ** argv) {
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
            (*ostr) << subvars.tau1((SubstructureVariables::groom) igroom,
-                                (SubstructureVariables::beta) ibeta) << " ";
+                                   (SubstructureVariables::beta) ibeta) << " ";
          }
        }
 
@@ -133,7 +133,7 @@ int main (int argc, char ** argv) {
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
            (*ostr) << subvars.tau2((SubstructureVariables::groom) igroom,
-                                (SubstructureVariables::beta) ibeta) << " ";
+                                   (SubstructureVariables::beta) ibeta) << " ";
          }
        }
 
@@ -141,7 +141,7 @@ int main (int argc, char ** argv) {
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
            (*ostr) << subvars.ecfg_v1_N2((SubstructureVariables::groom) igroom,
-                                      (SubstructureVariables::beta) ibeta) << " ";
+                                         (SubstructureVariables::beta) ibeta) << " ";
          }
        }
 
@@ -149,7 +149,7 @@ int main (int argc, char ** argv) {
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
            (*ostr) << subvars.ecfg_v1_N3((SubstructureVariables::groom) igroom,
-                                      (SubstructureVariables::beta) ibeta) << " ";
+                                         (SubstructureVariables::beta) ibeta) << " ";
          }
        }
 
@@ -157,7 +157,7 @@ int main (int argc, char ** argv) {
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
            (*ostr) << subvars.ecfg_v2_N3((SubstructureVariables::groom) igroom,
-                                      (SubstructureVariables::beta) ibeta) << " ";
+                                         (SubstructureVariables::beta) ibeta) << " ";
          }
        }
        
@@ -165,9 +165,23 @@ int main (int argc, char ** argv) {
        for (int ibeta = 0; ibeta<2; ++ibeta){
          for (int igroom = 0; igroom<3; ++igroom){
            (*ostr) << subvars.ecfg_v3_N3((SubstructureVariables::groom) igroom,
-                                      (SubstructureVariables::beta) ibeta) << " ";
+                                         (SubstructureVariables::beta) ibeta) << " ";
          }
        }
+
+       // trimmed versions for ATLAS
+       for (int ibeta = 0; ibeta<2; ++ibeta)
+         (*ostr) << subvars.tau21(SubstructureVariables::trim, 
+                                  (SubstructureVariables::beta) ibeta) << " ";
+       for (int ibeta = 0; ibeta<2; ++ibeta)
+         (*ostr) << subvars.D2(SubstructureVariables::trim, 
+                               (SubstructureVariables::beta) ibeta) << " ";
+       for (int ibeta = 0; ibeta<2; ++ibeta)
+         (*ostr) << subvars.M2(SubstructureVariables::trim, 
+                               (SubstructureVariables::beta) ibeta) << " ";
+       for (int ibeta = 0; ibeta<2; ++ibeta)
+         (*ostr) << subvars.N2(SubstructureVariables::trim, 
+                               (SubstructureVariables::beta) ibeta) << " ";
 
        (*ostr) << endl;
 

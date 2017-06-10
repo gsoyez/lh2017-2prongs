@@ -62,7 +62,7 @@ for condition in ${conditions[*]}; do
     awk_script="${awk_script} if (!(${condition})){ next;} "
 done
 # record the event
-awk_script="${awk_script}n=n+1}END{print n}"
+awk_script="${awk_script} n=n+1}END{print n}"
 
 # replace variables bby column numbers
 #
@@ -78,5 +78,4 @@ done
 
 ntotal=`${mycat} ${ntuple_file} | tail -n1 | sed 's/.*=//'`
 nkept=`${mygrep} -v "^#" ${ntuple_file} | awk "${awk_script}"`
-
 echo "$nkept.0/$ntotal" | bc -l

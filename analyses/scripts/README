@@ -1,11 +1,12 @@
 tentative list of theings that we want to perform and the tools we
 need to do it
 
-v extract ntuple of an expression given possible conditions
-v get the efficiency for a given set of conditions
-v extract a distribution from one file (possibly under conditions)
-v extract a ROC curve from 2 files (possibly under conditions)
+- extract ntuple of an expression given possible conditions
+- get the efficiency for a given set of conditions
+- extract a distribution from one file (possibly under conditions)
+- extract a ROC curve from 2 files (possibly under conditions)
 - get the cut curresponding to a given efficiency (possibly under conditions)
+- get the quality measures
 
 ------------------------------------------------------------------------
 extract ntuple of an expression given possible conditions
@@ -65,3 +66,13 @@ Usage:
 
 Output:
   one numbber (the cut value)
+
+------------------------------------------------------------------------
+get the quality measures
+------------------------------------------------------------------------
+
+Usage:
+  get_perf_robustness.sh "ntuple_file_S_ref" "ntuple_file__refB" "ntuple_file_S_alt" "ntuple_file_B_alt" "expression" eps_S_ref "optional_condition_list"
+
+Output:
+  3 numbers: signal_significance_for_ref  eff_S_alt/eff_S_ref  eff_B_alt/eff_B_ref
