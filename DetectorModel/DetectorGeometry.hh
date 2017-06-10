@@ -45,7 +45,7 @@ namespace Detector {
       ///@name Setting the point
       ///@{
       void setCoordinates(double x,double y); ///<@brief Set point coordinates
-      Point2d& operator=(const Point2d& p);   ///<@brief Assigment operator
+      //Point2d& operator=(const Point2d& p);   ///<@brief Assigment operator
       ///@}
 
       ///@name Measures
