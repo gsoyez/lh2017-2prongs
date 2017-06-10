@@ -1,5 +1,5 @@
 
-#include "DetectorGeometry.h"
+#include "DetectorGeometry.hh"
 
 ///////////
 // Point //

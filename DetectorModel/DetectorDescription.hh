@@ -2,10 +2,10 @@
 #ifndef DETECTORMODEL_DETECTORDESCRIPTION_H
 #define DETECTORMODEL_DETECTORDESCRIPTION_H
 
-#include "DetectorTags.h"
-#include "DetectorGeometry.h"
+#include "DetectorTags.hh"
+#include "DetectorGeometry.hh"
 
-#include "TowerGrid.h"
+#include "TowerGrid.hh"
 
 #include <string>
 

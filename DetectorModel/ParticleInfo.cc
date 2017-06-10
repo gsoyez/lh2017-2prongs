@@ -1,5 +1,5 @@
 
-#include "ParticleInfo.h"
+#include "ParticleInfo.hh"
 
 #include <algorithm>
 

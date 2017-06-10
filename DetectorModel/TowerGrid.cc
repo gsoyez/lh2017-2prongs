@@ -1,5 +1,5 @@
 
-#include "TowerGrid.h"
+#include "TowerGrid.hh"
 
 #include <cstdio>
 

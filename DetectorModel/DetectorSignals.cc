@@ -1,5 +1,5 @@
 
-#include "DetectorSignals.h"
+#include "DetectorSignals.hh"
 
 #include "fastjet/Selector.hh"
 

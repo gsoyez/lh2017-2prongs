@@ -5,7 +5,7 @@
 #include "fastjet/PseudoJet.hh"
 #include "fastjet/Selector.hh"
 
-#include "TowerGrid.h"
+#include "TowerGrid.hh"
 
 #include <vector>
 #include <memory>

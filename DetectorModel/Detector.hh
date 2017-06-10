@@ -1,6 +1,6 @@
 // -*- c++ -*-
-#include "DetectorTags.h"
-#include "DetectorDescription.h"
-#include "DetectorGeometry.h"
-#include "DetectorExperiment.h"
-#include "DetectorSignals.h"
+#include "DetectorTags.hh"
+#include "DetectorDescription.hh"
+#include "DetectorGeometry.hh"
+#include "DetectorExperiment.hh"
+#include "DetectorSignals.hh"

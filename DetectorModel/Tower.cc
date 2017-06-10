@@ -1,7 +1,7 @@
 
-#include "Tower.h"
+#include "Tower.hh"
 
-#include "ParticleInfo.h"
+#include "ParticleInfo.hh"
 
 #include <algorithm>
 

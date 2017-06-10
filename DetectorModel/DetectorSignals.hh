@@ -3,11 +3,11 @@
 #define DETECTORMODEL_DETECTORSIGNALS_H
 
 #include "fastjet/PseudoJet.hh"
-#include "ParticleInfo.h"
+#include "ParticleInfo.hh"
 
-#include "DetectorExperiment.h"
+#include "DetectorExperiment.hh"
 
-#include "Tower.h"
+#include "Tower.hh"
 
 #include <memory>
 #include <vector>

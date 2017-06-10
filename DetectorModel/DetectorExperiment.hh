@@ -4,11 +4,11 @@
 
 #include "fastjet/PseudoJet.hh"
 
-#include "ParticleInfo.h"
-#include "TowerGrid.h"
+#include "ParticleInfo.hh"
+#include "TowerGrid.hh"
 
-#include "DetectorDescription.h"
-#include "DetectorTags.h"
+#include "DetectorDescription.hh"
+#include "DetectorTags.hh"
 
 #include <string>
 #include <map>
