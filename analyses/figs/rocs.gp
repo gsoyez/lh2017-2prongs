@@ -37,7 +37,7 @@ set style line 15 dt 2 lc 4 lw 2 # trim
 
 shapes=base.'_beta2_pt '.base.'_beta2_lt '.base.'_beta2_tt '.base.'_beta2_ll '.base.'_beta2_pp'
 labs="pt lt tt ll pp"
-m(pt,level,shape)=sprintf('< ../scripts/roc.sh ../res/WW%s-pythia84C-%s.ntuple.gz ../res/dijets%s-pythia84C-%s.ntuple.gz "%s" %g %g %g "mass_tight>60.0" "mass_tight<100.0"',pt,level,pt,level,shape,vmin,vmax,dv)
+m(pt,level,shape)=sprintf('< ../scripts/roc.sh ../res/lhc14-WW%s-pythia84C-%s.ntuple.gz ../res/lhc14-dijets%s-pythia84C-%s.ntuple.gz "%s" %g %g %g "mass_tight>60.0" "mass_tight<100.0"',pt,level,pt,level,shape,vmin,vmax,dv)
 
 print m('1000','parton','D2_beta2_lt')
 do for [level in "parton truth"]{

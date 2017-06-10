@@ -36,7 +36,7 @@ set style line 15 dt 2 lc 4 lw 2             pt 11 ps 0.5 # trim
 shapes="pt lt tt ll"
 labs='"plain/tight" "loose/tight" "tight/tight" "loose/loose"'
 
-m(shape,levelref,levelalt)=sprintf('< for pt in 500 1000 2000; do ../scripts/get_perf_robustness.sh ../res/WW${pt}-pythia84C-%s.ntuple.gz ../res/dijets${pt}-pythia84C-%s.ntuple.gz ../res/WW${pt}-pythia84C-%s.ntuple.gz ../res/dijets${pt}-pythia84C-%s.ntuple.gz "%s" %g "mass_tight>60.0" "mass_tight<100.0"; done',levelref,levelref,levelalt,levelalt,shape,eS)
+m(shape,levelref,levelalt)=sprintf('< for pt in 500 1000 2000; do ../scripts/get_perf_robustness.sh ../res/lhc14-WW${pt}-pythia84C-%s.ntuple.gz ../res/lhc14-dijets${pt}-pythia84C-%s.ntuple.gz ../res/lhc14-WW${pt}-pythia84C-%s.ntuple.gz ../res/lhc14-dijets${pt}-pythia84C-%s.ntuple.gz "%s" %g "mass_tight>60.0" "mass_tight<100.0"; done',levelref,levelref,levelalt,levelalt,shape,eS)
 
 
 do for [level in "parton hadron"]{
