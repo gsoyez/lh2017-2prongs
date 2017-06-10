@@ -33,7 +33,7 @@ set style line 15 dt 2 lc 4 lw 2 # trim
 
 shapes=base.'_beta2_pt '.base.'_beta2_lt '.base.'_beta2_tt '.base.'_beta2_ll '.base.'_beta2_pp'
 labs="pt lt tt ll pp"
-m(proc,level,shape)=sprintf('< ../scripts/histogram.sh ../res/%s-pythia84C-%s.ntuple.gz "%s" %g %g %g "mass_tight>60.0" "mass_tight<100.0"',proc,level,shape,vmin,vmax,dv)
+m(proc,level,shape)=sprintf('< ../scripts/histogram.sh ../res/lhc14-%s-pythia84C-%s.ntuple.gz "%s" %g %g %g "mass_tight>60.0" "mass_tight<100.0"',proc,level,shape,vmin,vmax,dv)
 
 do for [proc in "WW dijets"]{
     do for [level in "parton truth"]{

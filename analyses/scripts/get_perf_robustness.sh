@@ -7,7 +7,7 @@
 #
 # Output:
 #      eff_ref          robu_S         robu_B
-#   [S/sqrt(B)]_ref  [S_alt/S_ref]  [B_alt/B_ref]
+#   [S/sqrt(B)]_ref  [S_ref/S_alt]  [B_ref/B_alt]
 #
 # Note:
 #   (eff_alt-eff_ref)/(eff_alt+eff_ref) = (eff_alt/eff_ref-1)/(eff_alt/eff_ref+1)
@@ -39,6 +39,12 @@ done
 
 # we first need to get the cut as obtained y the reference signal
 vcut=`${script_full_path}/get_cut.sh "${ntuple_file_S_reference}" "${expression}" $effSref ${cdtstring}`
+
+if [[ -z ${vcut} ]]; then
+    echo "0.0 0.0 0.0"
+    exit 1
+fi
+
 effBref=`${script_full_path}/get_efficiency.sh "${ntuple_file_B_reference}"   ${cdtstring} "${expression}<${vcut}"`
 effSalt=`${script_full_path}/get_efficiency.sh "${ntuple_file_S_alternative}" ${cdtstring} "${expression}<${vcut}"`
 effBalt=`${script_full_path}/get_efficiency.sh "${ntuple_file_B_alternative}" ${cdtstring} "${expression}<${vcut}"`
@@ -46,8 +52,8 @@ effBalt=`${script_full_path}/get_efficiency.sh "${ntuple_file_B_alternative}" ${
 # and construct the observables: perf and robustness
 perf=`echo "$effSref/sqrt($effBref)" | bc -l`
 #robu=`echo "($effSalt/sqrt($effBalt)-$effSref/sqrt($effBref))/($effSalt/sqrt($effBalt)+$effSref/sqrt($effBref))" | bc -l`
-robuS=`echo "$effSalt/$effSref" | bc -l`
-robuB=`echo "$effBalt/$effBref" | bc -l`
+robuS=`echo "$effSref/$effSalt" | bc -l`
+robuB=`echo "$effBref/$effBalt" | bc -l`
 echo "$perf $robuS $robuB"
 
 

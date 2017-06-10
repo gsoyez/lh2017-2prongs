@@ -38,8 +38,8 @@ SubstructureVariables::SubstructureVariables(CmdLine &cmdline) {
   contrib::UnnormalizedMeasure measure_beta1(1);
   contrib::UnnormalizedMeasure measure_beta2(2);
   _tau1[beta1].reset(new Nsubjettiness(1, axes_kt,  measure_beta1));
-  _tau1[beta2].reset(new Nsubjettiness(1, axes_kt,  measure_beta2));
-  _tau2[beta1].reset(new Nsubjettiness(2, axes_gkt, measure_beta1));
+  _tau1[beta2].reset(new Nsubjettiness(1, axes_gkt, measure_beta2));
+  _tau2[beta1].reset(new Nsubjettiness(2, axes_kt,  measure_beta1));
   _tau2[beta2].reset(new Nsubjettiness(2, axes_gkt, measure_beta2));
   _1ecf2[beta1].reset(new EnergyCorrelatorGeneralized(1, 2, 1));
   _1ecf3[beta1].reset(new EnergyCorrelatorGeneralized(1, 3, 1));
@@ -92,6 +92,26 @@ void SubstructureVariables::set_jet(const PseudoJet &jet){
   _m_vals[loose] = sd_jet.m();
   _m_vals[tight] = mmdt_jet.m();
   _m_vals[trim]  = trimmed_jet.m();
+
+  // specific points for the ATLAS trimmed mass + trimmed shape configurations
+  double tau1[2];
+  tau1[beta1] = (*(_tau1[beta1]))(trimmed_jet);
+  tau1[beta2] = (*(_tau1[beta2]))(trimmed_jet);
+  _tau21_trimmed_vals[beta1] = (tau1[beta1]>0) ? (*(_tau2[beta1]))(trimmed_jet)/tau1[beta1] : 0.0;
+  _tau21_trimmed_vals[beta2] = (tau1[beta1]>0) ? (*(_tau2[beta2]))(trimmed_jet)/tau1[beta2] : 0.0;
+
+  double e12[2];
+  e12[beta1] = (*(_1ecf2[beta1]))(trimmed_jet);
+  e12[beta2] = (*(_1ecf2[beta2]))(trimmed_jet);
+
+  _D2_trimmed_vals[beta1] = (e12[beta1]>0) ? (*(_3ecf3[beta1]))(trimmed_jet) / (e12[beta1]*e12[beta1]*e12[beta1]) : 0.0;
+  _D2_trimmed_vals[beta2] = (e12[beta2]>0) ? (*(_3ecf3[beta2]))(trimmed_jet) / (e12[beta2]*e12[beta2]*e12[beta2]) : 0.0;
+
+  _N2_trimmed_vals[beta1] = (e12[beta1]>0) ? (*(_2ecf3[beta1]))(trimmed_jet) / (e12[beta1]*e12[beta1]) : 0.0;
+  _N2_trimmed_vals[beta2] = (e12[beta2]>0) ? (*(_2ecf3[beta2]))(trimmed_jet) / (e12[beta2]*e12[beta2]) : 0.0;
+
+  _M2_trimmed_vals[beta1] = (e12[beta1]>0) ? (*(_1ecf3[beta1]))(trimmed_jet) / e12[beta1] : 0.0;
+  _M2_trimmed_vals[beta2] = (e12[beta2]>0) ? (*(_1ecf3[beta2]))(trimmed_jet) / e12[beta2] : 0.0;
 
 }
 

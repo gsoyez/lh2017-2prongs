@@ -27,7 +27,7 @@ set style line 13 dt 2 lc 7 lw 2  # tight
 set style line 14 dt 2 lc rgb "#00dd00" lw 2 # trim
 
 
-m(proc,level,groom)=sprintf('< ../scripts/histogram.sh ../res/%s-pythia84C-%s.ntuple.gz "mass_%s" %g %g %g',proc,level,groom,mmin,mmax,dm)
+m(proc,level,groom)=sprintf('< ../scripts/histogram.sh ../res/lhc14-%s-pythia84C-%s.ntuple.gz "mass_%s" %g %g %g',proc,level,groom,mmin,mmax,dm)
 
 
 do for [proc in "WW dijets"]{

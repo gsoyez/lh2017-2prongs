@@ -73,7 +73,12 @@ public:
   // N-subjettiness-based
   double tau21(groom g1, groom g2, beta b) const {
     return _tau2_vals[b][g1]/_tau2_vals[b][g2];}
-  double tau21(groom g, beta b) const { return tau21(g,g,b);}
+  double tau21(groom g, beta b) const {
+    if (g==trim)
+      return _tau21_trimmed_vals[b];
+    else
+      return tau21(g,g,b);
+  }
 
   // ecfs-based
   double U1(groom g, beta b) const {
@@ -84,14 +89,29 @@ public:
   }
   double N2(groom g1, groom g2, beta b) const {
     return _2ecf3_vals[g1][b] / (_1ecf2_vals[g1][b]*_1ecf2_vals[g2][b]);}
-  double N2(groom g, beta b) const {return N2(g,g,b);}
+  double N2(groom g, beta b) const {
+    if (g==trim)
+      return _N2_trimmed_vals[b];
+    else
+      return N2(g,g,b);
+  }
   double M2(groom g1, groom g2, beta b) const {
     return _1ecf3_vals[g1][b] / _1ecf2_vals[g2][b];}
-  double M2(groom g, beta b) const {return M2(g,g,b);}
+  double M2(groom g, beta b) const {
+    if (g==trim)
+      return _M2_trimmed_vals[b];
+    else
+      return M2(g,g,b);
+  }
   double D2(groom g1, groom g2, beta b) const {
     return _3ecf3_vals[g1][b]
       / (_1ecf2_vals[g1][b]*_1ecf2_vals[g1][b]*_1ecf2_vals[g2][b]);}
-  double D2(groom g, beta b) const { return D2(g,g,b);}
+  double D2(groom g, beta b) const {
+    if (g==trim)
+      return _D2_trimmed_vals[b];
+    else
+      return D2(g,g,b);
+  }
   
 protected:
   //----------------------------------------------------------------------
@@ -112,6 +132,12 @@ protected:
   // z_g and theta_g
   double _zg_vals[2];
   double _thetag_vals[2];
+
+  // we want the "trimmed-trimmed" ratios for ATLAS:
+  double _tau21_trimmed_vals[2];
+  double _D2_trimmed_vals[2];
+  double _M2_trimmed_vals[2];
+  double _N2_trimmed_vals[2];
   
   //----------------------------------------------------------------------
   // substructure tools
