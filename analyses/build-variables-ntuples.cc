@@ -123,7 +123,7 @@ int main (int argc, char ** argv) {
      }
      
      // extract particles from event 
-     vector<PseudoJet> full_event = mixer.particles() ;
+     vector<PseudoJet> full_event = sel_particles(mixer.particles()) ;
 
      // apply the Soft Killer if needed
      if (sk) full_event = (*sk)(full_event);
