@@ -23,7 +23,18 @@ TowerGrid::TowerGrid(int neta,double etamin,double etamax,int nphi,double phimin
   }
   _etaWidth = (_etaMax-_etaMin)/((double)_etaBins);
   _phiWidth = (_phiMax-_phiMin)/((double)_phiBins);
+}
 
+TowerGrid::TowerGrid() :
+  TowerGrid(TowerDescriptor::Constants::Binning::Rap::bins,
+	    TowerDescriptor::Constants::Binning::Rap::xmin,
+	    TowerDescriptor::Constants::Binning::Rap::xmax,
+	    TowerDescriptor::Constants::Binning::Phi::bins,
+	    TowerDescriptor::Constants::Binning::Phi::xmin,
+	    TowerDescriptor::Constants::Binning::Phi::xmax)
+{ 
+  _etaWidth = (_etaMax-_etaMin)/((double)_etaBins);
+  _phiWidth = (_phiMax-_phiMin)/((double)_phiBins);
 }
 
 TowerGrid::~TowerGrid() { }

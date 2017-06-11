@@ -27,8 +27,8 @@ public:
 
 private:
 
-  std::vector<fastjet::PseudoJet> _towers;
   std::unique_ptr<TowerGrid>      _grid;
+  std::vector<fastjet::PseudoJet> _towers;
 };
 
 inline bool Tower::empty() { return _towers.empty(); }

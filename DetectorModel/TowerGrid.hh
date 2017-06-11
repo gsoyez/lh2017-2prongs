@@ -24,18 +24,18 @@ namespace TowerDescriptor {
       }
     }
   }
-  namespace Binning {
-    namespace Rap {
-      static int    bins = Constants::Binning::Rap::bins;
-      static double xmin = Constants::Binning::Rap::xmin;
-      static double xmax = Constants::Binning::Rap::xmax;
-    }
-    namespace Phi {
-      static int    bins = Constants::Binning::Phi::bins;
-      static double xmin = Constants::Binning::Phi::xmin;
-      static double xmax = Constants::Binning::Phi::xmax; 
-    }
-  }
+  // namespace Binning {
+  //   namespace Rap {
+  //     static int    bins = Constants::Binning::Rap::bins;
+  //     static double xmin = Constants::Binning::Rap::xmin;
+  //     static double xmax = Constants::Binning::Rap::xmax;
+  //   }
+  //   namespace Phi {
+  //     static int    bins = Constants::Binning::Phi::bins;
+  //     static double xmin = Constants::Binning::Phi::xmin;
+  //     static double xmax = Constants::Binning::Phi::xmax; 
+  //   }
+  // }
 }
 
 ///@brief Tower grid

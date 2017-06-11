@@ -61,8 +61,8 @@
 // Build known experiments //
 /////////////////////////////
 
-Detector::ATLASExperiment* Detector::buildATLAS() { return new ATLASExperiment(); }
-Detector::CMSExperiment*   Detector::buildCMS()   { return new CMSExperiment(); }
+//Detector::ATLASExperiment* Detector::buildATLAS() { return new ATLASExperiment(); }
+//Detector::CMSExperiment*   Detector::buildCMS()   { return new CMSExperiment(); }
 
 ////////////////
 // Experiment //
@@ -127,17 +127,17 @@ std::string Detector::Experiment::description()
 {
   static char _buffer[2048];
 
-  sprintf(_buffer,"Detector::%-5.5s set up\n",_name.c_str());
+  sprintf(_buffer,"Detector::%-5.5s set up detector smearing and acceptance\n",_name.c_str());
   std::string mstr(_buffer);
   sprintf(_buffer,"Detector::%-5.5s Solenoid field %.1f T in inner cavity with radius %4.0f mm\n",_name.c_str(),_solenoidField,_cavityRadius);
   mstr += std::string(_buffer);
-  sprintf(_buffer,"Detector::%-5.5s Track acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], resolution function (%.3f p_T + %.3f) %%\n",
+  sprintf(_buffer,"Detector::%-5.5s Track acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative pT resolution function (%.3f p_T + %.3f)%%\n",
 	  _name.c_str(),_trkPtMin,_trkPtMax, _trkEtaMin, _trkEtaMax, _trkPtResoA*100., _trkPtResoB*100.);
   mstr += std::string(_buffer);
-  sprintf(_buffer,"Detector::%-5.5s EMC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], resolution function (%.1f/sqrt(E) + %.1f/E + %.1f/E^2) %%\n",
+  sprintf(_buffer,"Detector::%-5.5s EMC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relatve E resolution function (%.1f/sqrt(E) + %.1f/E + %.1f)%%\n",
 	  _name.c_str(), _emcPtMin, _emcPtMax, _emcEtaMin, _emcEtaMax, _emcResoA*100., _emcResoB*100., _emcResoC*100.);
   mstr += std::string(_buffer);	      
-  sprintf(_buffer,"Detector::ATLAS(\042%s\042) HAC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], resolution function (%.1f/sqrt(E) + %.1f/E + %.1f/E^2) %%\n",
+  sprintf(_buffer,"Detector::%-5.5s HAC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative E resolution function (%.1f/sqrt(E) + %.1f/E + %.1f)%%\n",
 	  _name.c_str(), _hacPtMin, _hacPtMax, _hacEtaMin, _hacEtaMax, _hacResoA*100., _hacResoB*100., _hacResoC*100.);
   mstr += std::string(_buffer);
   return mstr;
@@ -163,6 +163,19 @@ void Detector::Experiment::setHACTowerGrid(const TowerGrid& tgrid) {
 	 _hacTowers.etaBins(),_hacTowers.phiBins(),_hacTowers.etaMin(),_hacTowers.phiMin(),_hacTowers.etaMax(),_hacTowers.phiMax(),
 	 tgrid.etaBins(),     tgrid.phiBins(),     tgrid.etaMin(),     tgrid.phiMin(),     tgrid.etaMax(),     tgrid.phiMax() ); 
   _hacTowers = tgrid; 
+}
+
+void Detector::Experiment::_setAcceptance(key_t key,double ptmin,double ptmax,double etamin,double etamax)
+{ 
+  auto fmap(_detector_acceptance.find(key));
+  if ( fmap != _detector_acceptance.end() ) { 
+    fmap->second.get<0>() = ptmin;
+    fmap->second.get<1>() = ptmax;
+    fmap->second.get<2>() = etamin;
+    fmap->second.get<3>() = etamax; 
+  } else {
+    _detector_acceptance[key] = accept_t(ptmin,ptmax,etamin,etamax);
+  }
 }
 
 void Detector::Experiment::_fillAccept()

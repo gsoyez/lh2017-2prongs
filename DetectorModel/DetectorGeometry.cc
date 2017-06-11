@@ -172,33 +172,31 @@ unsigned int Detector::Geometry::Circle::intersect(const Circle& cc,Point2d& p0,
   double dy(q-v);                                    /////////////////////////////////
   if ( dy == 0. || dx == 0. ) { return 0; }
   // derivates: differences of squares
-  double sqrdr(r*r-R*R);
-  double sqrdx(p*p-u*u);
-  double sqrdy(q*q-v*v);
-  double k(sqrdr-sqrdx-sqrdy);
+  double r2(r*r), R2(R*R), p2(p*p), q2(q*q), u2(u*u), v2(v*v);
+  double k = r2-R2-(p2-u2)-(q2-v2);
   // derivates: y dependence on x
   double m(-dx/dy);
   double c(-k/(2.*dy));
+  double dsq(c-q);
 
-  // solving: x                                       ////////////////////////////////
-  double qa(1.+m*m);                                  // Investing y to solve for x //
-  double qb(2.*(m*(c-q)-p));                          ////////////////////////////////
-  double qt(c+q);
-  double qc(qt*qt+p*p-r*r);
-  double f(qb*qb-4*qa);
-  if ( f < 0. )       { return 0; } // no overlap
-  if ( f < 0.000001 ) {             // tangential
-    double x(-qb/(2.*qa));
-    double y(m*x+c);
+  // solving: x 
+  double x(0.), y(0.);
+  double alpha(1.+m*m);      double twoalpha(2.*alpha);
+  double beta(2.*(m*dsq-p));
+  double gamma(p2+dsq*dsq-r2);
+  double xarg(beta*beta-4.*alpha*gamma);
+  if ( xarg < 0. )       { return 0; } // no overlap
+  if ( xarg < 0.000001 ) {             // tangential
+    x = beta/twoalpha; y = m*x+c;
     p0.setCoordinates(x,y);
     return 1;
-  } 
-  double x0((-qb+std::sqrt(qt))/(2.*qa));
-  double y0(m*x0+c);
-  double x1((-qb-std::sqrt(qt))/(2.*qa));
-  double y1(m*x1+c);
-  p0.setCoordinates(x0,y0);
-  p1.setCoordinates(x1,y1);
-
+  }                                    // secant 
+  xarg = std::sqrt(xarg);
+  x = (-beta+xarg)/twoalpha;
+  y = m*x+c;
+  p0.setCoordinates(x,y);
+  x = (-beta-xarg)/twoalpha;
+  y = m*x+c;
+  p1.setCoordinates(x,y);
   return 2;
 }

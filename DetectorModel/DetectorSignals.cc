@@ -32,6 +32,7 @@ bool Detector::Signals::_setup()
   _tracks.reserve(         _SIGNAL_CACHE_RESERVE );
   _muons.reserve(          _SIGNAL_CACHE_RESERVE );
   _noninteracting.reserve( _SIGNAL_CACHE_RESERVE );
+  return true;
 }
 
 bool Detector::Signals::operator()(const std::vector<fastjet::PseudoJet>& input) { return this->fill(input); }
@@ -129,6 +130,8 @@ bool Detector::Signals::_fillTracks()
       ++fparticle;
     } // charged particle
   } // particle loop
+  //
+  return !_tracks.empty();
 }
 
 bool Detector::Signals::_fillTowers()                  /////////////////

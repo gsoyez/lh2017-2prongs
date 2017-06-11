@@ -101,7 +101,9 @@ int                    ParticleInfo::pdg() const     { return base_t::pdg_id(); 
 ParticleInfo::charge_t ParticleInfo::icharge() const { return base_t::three_charge()/3; }
 ParticleInfo::type_t   ParticleInfo::type() const    { return _type; } 
 
-void ParticleInfo::setType(type_t t) { _type = t; }
+void ParticleInfo::setType(type_t t)    { _type |= t ; }
+void ParticleInfo::clearType()          { _type  = Unknown; }
+void ParticleInfo::removeType(type_t t) { _type &= (~t); }
 
 bool ParticleInfo::isCharged(const fastjet::PseudoJet& pjet)
 { return 

@@ -14,6 +14,8 @@
 #include <map>
 #include <random>
 
+#include <limits>
+
 #include <boost/tuple/tuple.hpp>
 
 ///@brief Detector geometry and descriptions
@@ -24,13 +26,16 @@ namespace Detector {
   class Experiment
   {
   public:
-
-    typedef unsigned int detector_t;
     
     ///@name Range and look-up
     ///@{
-    typedef std::pair<double,double> range_t;    ///<@brief Useful for e.g. bin descriptions
-    typedef std::map<range_t,double> lookup_t;   ///<@brief Lookup table using a value range key
+    typedef std::pair<double,double>                          range_t;    ///<@brief Useful for e.g. bin descriptions
+    typedef std::map<range_t,double>                          lookup_t;   ///<@brief Lookup table using a value range key
+    typedef ParticleInfo::pdg_t                               pdg_t;
+    typedef ParticleInfo::pdglist_t                           pdglist_t;
+    typedef unsigned int                                      detector_t;
+    typedef boost::tuples::tuple<pdg_t,detector_t>            key_t;
+    typedef boost::tuples::tuple<double,double,double,double> accept_t;
     ///@}
     
     ///@brief Default constructor
@@ -42,9 +47,9 @@ namespace Detector {
     
     ///@name Set calorimeter parameters
     ///@{
-    virtual void setEtaCoverage(double etamin,double etamax);                            ///<@brief Set maximum eta coverage 
-    virtual void setEMCTowerGrid(const TowerGrid& tgrid);                                ///<@brief Set ElectroMagnetic Calorimeter (EMC) tower readout grid
-    virtual void setHACTowerGrid(const TowerGrid& tgrid);                                ///<@brief Set HAdronic Calorimeter (HAC) tower readout grid
+    void setEtaCoverage(double etamin,double etamax);                            ///<@brief Set maximum eta coverage 
+    void setEMCTowerGrid(const TowerGrid& tgrid);                                ///<@brief Set ElectroMagnetic Calorimeter (EMC) tower readout grid
+    void setHACTowerGrid(const TowerGrid& tgrid);                                ///<@brief Set HAdronic Calorimeter (HAC) tower readout grid
     ///@brief Set nominal (relative) energy resolution in EMC
     ///
     /// Defined by three parameters, one for the stochastic/sampling term (@f$ a @f$), the noise term (@f$ b @f$), and the constant term (@f$ c @f$).
@@ -52,7 +57,7 @@ namespace Detector {
     ///@f[
     ///    \sigma/E = \sqrt{a^{2}/E+b^{2}/E^{2}+c^{2}}\,.
     ///@f]
-    virtual void setEMCEnergyResolution(double a=0.1,double b=0.,double c=0.005);
+    void setEMCEnergyResolution(double a=0.1,double b=0.,double c=0.005);
     ///@brief Set nominal (relative) energy resolution in HAC
     ///
     /// Defined by three parameters, one for the stochastic/sampling term (@f$ a @f$), the noise term (@f$ b @f$), and the constant term (@f$ c @f$).
@@ -60,21 +65,21 @@ namespace Detector {
     ///@f[
     ///    \sigma_{E}/E = \sqrt{a^{2}/E+b^{2}/E^{2}+c^{2}}\,.
     ///@f]
-    virtual void setHACEnergyResolution(double a=0.6,double b=0.,double c=0.05);
+    void setHACEnergyResolution(double a=0.6,double b=0.,double c=0.05);
     ///@brief Set the acceptance for EMC
     ///
     /// The acceptance is specified for a given particle in terms of a @f$ p_{\rm T} @f$ threshold and an @f$ \eta @f$ range. 
     ///
     /// @warning Setting these parameters overwrites the default settings. This is not recommended unless you absolutely know
     /// what you are doing.
-    virtual void setEMCAcceptance(int pdg,double ptmin,double etamin,double etamax);
+    void setEMCAcceptance(int pdg,double ptmin,double etamin,double etamax);
     ///@brief Set the acceptance for HAC
     ///
     /// The acceptance is specified for a given particle in terms of a @f$ p_{\rm T} @f$ threshold and an @f$ \eta @f$ range.
     ///
     /// @warning Setting these parameters overwrites the default settings. This is not recommended unless you absolutely know
     /// what you are doing.
-    virtual void setHACAcceptance(int pdg,double ptmin,double etamin,double etamax);
+    void setHACAcceptance(int pdg,double ptmin,double etamin,double etamax);
     ///@}
 
     ///@name Setting the tracking parameters
@@ -86,12 +91,14 @@ namespace Detector {
     ///@f[
     ///   \sigma_{p_{\rm T}}/p_{\rm T} = \sqrt{a^{2} p_{\rm T}^{2} + b^{2}}\,.
     ///@f] 
-    virtual void setTrackingResolution(double a=5e-04,double b=0.01);
-    virtual void setTrackingAcceptance(double ptmin,double ptmax,double etamin,double etamx);
+    void setTrackingResolution(double a=5e-04,double b=0.01);
+    void setTrackingAcceptance(int pdg,double ptmin,double ptmax,double etamin,double etamx);
     ///@}
 
-    virtual const TowerGrid& getEMCTowerGrid() const;
-    virtual const TowerGrid& getHACTowerGrid() const;
+    void setMuonAcceptance(int pdg,double ptmin,double ptmax,double etamin,double etamx);
+
+    const TowerGrid& getEMCTowerGrid() const;
+    const TowerGrid& getHACTowerGrid() const;
 
     virtual double emcResoSmearing(double e);
     virtual double emcResoSmearing(const fastjet::PseudoJet& pjet);
@@ -100,8 +107,8 @@ namespace Detector {
     virtual double trkResoSmearing(double pT);
     virtual double trkResoSmearing(const fastjet::PseudoJet& pjet);
 
-    fastjet::PseudoJet smearedTrack(const fastjet::PseudoJet& pjet);
-    fastjet::PseudoJet smearedCaloSignal(const fastjet::PseudoJet& pjet);
+    virtual fastjet::PseudoJet smearedTrack(const fastjet::PseudoJet& pjet);
+    virtual fastjet::PseudoJet smearedCaloSignal(const fastjet::PseudoJet& pjet);
 
     virtual bool emcAccept(const fastjet::PseudoJet& signal,bool etaOnly);
     virtual bool hacAccept(const fastjet::PseudoJet& signal,bool etaOnly);
@@ -111,9 +118,10 @@ namespace Detector {
     virtual bool accept(const fastjet::PseudoJet& signal,bool etaOnly);
 
     virtual bool adjustPhi(const fastjet::PseudoJet& ptrack,fastjet::PseudoJet& pmodtrack);
-    virtual fastjet::PseudoJet applyMagneticField(const fastjet::PseudoJet& ptrack);
+    fastjet::PseudoJet applyMagneticField(const fastjet::PseudoJet& ptrack);
  
     std::string description();
+
     const std::string& name()     const { return _name; }
     unsigned int       tag()      const { return _tag; }
     unsigned int       recoMode() const { return _recomode; }
@@ -176,11 +184,6 @@ namespace Detector {
 
     TowerGrid _emcTowers;
     TowerGrid _hacTowers;
-
-    typedef ParticleInfo::pdg_t                               pdg_t;
-    typedef ParticleInfo::pdglist_t                           pdglist_t;
-    typedef boost::tuples::tuple<pdg_t,detector_t>            key_t;
-    typedef boost::tuples::tuple<double,double,double,double> accept_t;
     
     struct less
     {
@@ -202,6 +205,7 @@ namespace Detector {
     
     void _fillAccept();
     void _computeDerivedQuantities();
+    void _setAcceptance(key_t key,double ptmin,double ptmax,double etamin,double etamax);
 
     std::ranlux48                    _random_engine;
     std::normal_distribution<double> _normal_dist;
@@ -224,7 +228,16 @@ namespace Detector {
     virtual Experiment* clone();
   };
 
-  static ATLASExperiment* buildATLAS();
-  static CMSExperiment*   buildCMS();
+  struct Build 
+  {
+    static ATLASExperiment* ATLAS() { return new ATLASExperiment(); }
+    static CMSExperiment*   CMS()   { return new CMSExperiment();   }
+  };
+
+  // ATLASExperiment* buildATLAS() { return Build::ATLAS(); }
+  // CMSExperiment*   buildCMS()   { return Build::CMS();   } 
+
 } // Detector
+
+#include "DetectorExperiment.icc"
 #endif
