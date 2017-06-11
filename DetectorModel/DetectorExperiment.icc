@@ -1,0 +1,23 @@
+// -*- c++ -*-
+inline void Detector::Experiment::setEMCEnergyResolution(double a,double b,double c) 
+{ _emcResoA = a; _emcResoB = b; _emcResoC = c; _computeDerivedQuantities(); }
+inline void Detector::Experiment::setHACEnergyResolution(double a,double b,double c) 
+{ _hacResoA = a; _hacResoB = b; _hacResoC = c; _computeDerivedQuantities(); }
+inline void Detector::Experiment::setTrackingResolution(double a,double b)
+{ _trkPtResoA = a; _trkPtResoB = b; _computeDerivedQuantities(); }
+
+inline void Detector::Experiment::setEMCAcceptance(int pdg,double ptmin,double etamin,double etamax)
+{ _setAcceptance(key_t((ParticleInfo::pdg_t)pdg,EmCalorimeter),ptmin,std::numeric_limits<double>::max(),etamin,etamax); }
+inline void Detector::Experiment::setHACAcceptance(int pdg,double ptmin,double etamin,double etamax)
+{ _setAcceptance(key_t((ParticleInfo::pdg_t)pdg,HadCalorimeter),ptmin,std::numeric_limits<double>::max(),etamin,etamax); }
+inline void Detector::Experiment::setTrackingAcceptance(int pdg,double ptmin,double ptmax,double etamin,double etamax)
+{ _setAcceptance(key_t((ParticleInfo::pdg_t)pdg,Tracking),ptmin,ptmax,etamin,etamax); }
+inline void Detector::Experiment::setMuonAcceptance(int pdg,double ptmin,double ptmax,double etamin,double etamax)
+{ _setAcceptance(key_t((ParticleInfo::pdg_t)pdg,MuonSpectrometer),ptmin,ptmax,etamin,etamax); }
+
+inline const TowerGrid& Detector::Experiment::getEMCTowerGrid() const { return _emcTowers; }
+inline const TowerGrid& Detector::Experiment::getHACTowerGrid() const { return _hacTowers; }
+
+inline fastjet::PseudoJet Detector::Experiment::applyMagneticField(const fastjet::PseudoJet& ptrack)
+{ fastjet::PseudoJet pmodtrack; adjustPhi(ptrack,pmodtrack); return pmodtrack; }
+
