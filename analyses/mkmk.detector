@@ -1,0 +1,2 @@
+#!/bin/bash
+../2014PileupWorkshop/scripts/mkcxx.pl -f -s -1 -i '-I../2014PileupWorkshop/Framework -I../DetectorModel -Wno-deprecated-declarations -std=c++11' -l '-L../2014PileupWorkshop/Framework -lEventMixer  -L../DetectorModel -lDetectorModel -lz -lRecursiveTools -lEnergyCorrelator -lNsubjettiness -lgsl -lgslcblas -lm' -b
