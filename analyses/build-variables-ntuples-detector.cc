@@ -133,7 +133,7 @@ int main (int argc, char ** argv) {
        continue;
      }
 
-     cout << "Found " << signal_processor->getTowers().size() << " towers" << endl;
+     cout << "Found " << signal_processor->getTowers().size() << " towers for " << full_event.size() << " particles " << endl;
      
      ClusterSequence cs_hard(full_event,jet_def);
      vector<PseudoJet> jets = sel_hard_jets(cs_hard.inclusive_jets());
