@@ -19,11 +19,27 @@ The event samples are available from
 Generating ntuples
 ========================================================================
 
-For each event fileyou should run
+For each event file one should run
 
   ./build-variables-ntuples -hard <event_file.pu14.gz> -out <res/output.ntuple.gz> -nev <nev> -jet.ptmin <cut>  -R <radius>
 
-default ptmin is 500, default R is 1.0
+additional command-line arguments are as follows
+
+Basic flags:
+  -particle.rapmax <value> maximal rapidity for particles [-1 means no cut]
+
+Clustering:
+  -jet.ptmin <value>       specify the cut on the jet pt [500.0]
+  -jet.rapmax <value>      specify the rapidity cut on the jets [2.5]
+  -R <value>               jet radius [1.0]
+
+Pileup:
+  -pileup <string>         specify minbias file to be used for pileup
+  -mupu <value>            average (Poisson-distrubuted) number of PU vertices
+                           (if not specified one gets exactly 20 PU events for each hard event)
+  -pusub                   when present, apply pileyp subtraction (uses SoftKiller)
+  -sk.grid <value>         tile size for the Soft Killer [0.4] (hint: use 0.5 with CHS events)
+  
 
 ========================================================================
 Parsing the output
