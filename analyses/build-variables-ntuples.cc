@@ -12,6 +12,9 @@
 #include "SubstructureVariables.hh"
 #include <fstream>
 
+//#include "Detector.hh"
+#include <fastjet/contrib/SoftKiller.hh>
+
 using namespace std;
 using namespace fastjet;
 
@@ -26,10 +29,25 @@ int main (int argc, char ** argv) {
   // some definitions
   JetDefinition jet_def(antikt_algorithm,R);       // the jet definition....
 
+  double particle_rapmax = cmdline.value("-particle.rapmax",  -1.0); // ineffective when -ve
   double jet_rapmax = cmdline.value("-jet.rapmax",  2.5);
   double jet_ptmin  = cmdline.value("-jet.ptmin", 500.0);
+
+  // pileup subtraction (uses the SoftKiller)
+  bool pu_subtraction = cmdline.present("-pusub");
+  double sk_grid_size = cmdline.value("-sk.grid", 0.4);
+  if (pu_subtraction){
+    if (particle_rapmax < 0){
+      cerr << "ERROR: pileup subtraction requires a maximal rapidity for particles." << endl
+           << "       Set it using -particle.rapmax <value> option." << endl;
+      return 1;
+    }
+  }
   
   // selection of the hardest jets
+  Selector sel_particles = SelectorIdentity();
+  if (particle_rapmax > 0)
+    sel_particles = SelectorAbsRapMax(particle_rapmax);
   Selector sel_hard_jets = SelectorNHardest(2) * SelectorPtMin(jet_ptmin) * SelectorAbsRapMax(jet_rapmax);
 
   ostringstream header;
@@ -52,6 +70,12 @@ int main (int argc, char ** argv) {
   
   assert(cmdline.all_options_used());
 
+  //------------------------------------------------------------------------
+  // optional pileup subtraction
+  SharedPtr<contrib::SoftKiller> sk;
+  if (pu_subtraction)
+    sk.reset(new contrib::SoftKiller(particle_rapmax, sk_grid_size));
+  
   //------------------------------------------------------------------------
   // prepare the output
   ostream *ostr;  
@@ -82,6 +106,9 @@ int main (int argc, char ** argv) {
   }  
   (*ostr) << endl;
   
+  //SharedPtr<Detector::ATLASExperiment> detector( new Detector::ATLASExperiment());
+  
+  
   //------------------------------------------------------------------------
   // loop over events
   int iev = 0;
@@ -90,16 +117,19 @@ int main (int argc, char ** argv) {
   while ( mixer.next_event() && iev < nev ) {
      // increment event number    
      iev++;
-     
-     // extract particles from event 
-     vector<PseudoJet> full_event = mixer.particles() ;
      if (iev % periodic_iev_output == 0){
        cout << "Event " << iev << endl;
        if (iev == 15 * periodic_iev_output) periodic_iev_output*=10;
      }
      
-     ClusterSequence cs_hard(full_event,jet_def);
-     vector<PseudoJet> jets = sel_hard_jets(cs_hard.inclusive_jets());
+     // extract particles from event 
+     vector<PseudoJet> full_event = mixer.particles() ;
+
+     // apply the Soft Killer if needed
+     if (sk) full_event = (*sk)(full_event);
+     
+     ClusterSequence cs_full(full_event,jet_def);
+     vector<PseudoJet> jets = sel_hard_jets(cs_full.inclusive_jets());
 
      // loop over the jets
      for (const PseudoJet &jet : jets){
