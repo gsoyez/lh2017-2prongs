@@ -9,6 +9,10 @@
 #define _SIGNAL_CACHE_RESERVE 50000
 #endif
 
+#ifdef _MONITOR_WITH_ROOT
+#include <TFile.h>
+#endif
+
 Detector::Signals::Signals(Experiment* exp)
   : _emcTowers(new Tower())
   , _hacTowers(new Tower())
@@ -20,6 +24,9 @@ Detector::Signals::Signals(Experiment* exp)
     _hacTowers  = std::unique_ptr<Tower>(new Tower(_experiment->getHACTowerGrid()));
     _enabled    = true;
     this->_setup();
+#ifdef _MONITOR_WITH_ROOT
+    this->book();
+#endif
   } else {
     printf("Detector::Signals::Signals(...) ERROR invalid pointer to Detector::Experiment object\n");
   }
@@ -53,6 +60,9 @@ bool Detector::Signals::fill(const std::vector<fastjet::PseudoJet>& input)
 
   // filter non-interacting particles (and muons) and fill detector input caches
   if ( !this->_filterInput(input) ) { return false; } // empty after filter 
+#ifdef _MONITOR_WITH_ROOT
+  fillHists_input(input);
+#endif
 
   // process input
   switch ( _experiment->recoMode() )
@@ -180,6 +190,10 @@ bool Detector::Signals::_emcSignalPrep(const fastjet::PseudoJet& particle,bool& 
     if ( _experiment->adjustPhi(particle,fj) ) {
       // smear with nominal energy resolution
       fj *= _experiment->emcResoSmearing(particle)/particle.e();
+#ifdef _MONITOR_WITH_ROOT
+      _FILL_SCATTER( _tower,     particle, fj );
+      _FILL_SCATTER( _tower_emc, particle, fj );
+#endif
       // add signal information
       ParticleInfo::type_t t = particle.user_info<ParticleInfo::base_t>().vertex() == 0 
 	? ParticleInfo::HardScatter : ParticleInfo::Pileup;
@@ -188,8 +202,9 @@ bool Detector::Signals::_emcSignalPrep(const fastjet::PseudoJet& particle,bool& 
       _cache.emcTowerInput.push_back(fj);
       _emcTowers->add(fj);
       generatedSignal = true;
+      isLost          = false;
     } else {
-      isLost = true; // particle does not reach calorimeter -> complete loss!
+      isLost = true;
     }
   } // EM particle
   return generatedSignal;
@@ -208,6 +223,10 @@ bool Detector::Signals::_hacSignalPrep(const fastjet::PseudoJet& particle,bool& 
       } else{ 
         fj*=_experiment->hacResoSmearing(particle)/particle.e();
       }
+#ifdef _MONITOR_WITH_ROOT
+      _FILL_SCATTER( _tower,     particle, fj );
+      _FILL_SCATTER( _tower_hac, particle, fj );
+#endif
       // add signal information
       ParticleInfo::Type t = particle.user_info<ParticleInfo::base_t>().vertex() == 0 ? ParticleInfo::HardScatter : ParticleInfo::Pileup;
       fj.set_user_info(new ParticleInfo(t,particle.user_info<ParticleInfo::base_t>()));
@@ -227,12 +246,20 @@ bool Detector::Signals::_collectTowerOutput()
   size_t isize(_fullevent.size());
   double ptmin(0.), ptmax(0.);
   _experiment->selectedPtRange(Detector::EmCalorimeter,ptmin,ptmax);
-  std::vector<fastjet::PseudoJet> etowers(_emcTowers->towers(fastjet::SelectorPtRange(ptmin,ptmax)));
+  _emc_towers = _emcTowers->towers(fastjet::SelectorPtMin(ptmin));
   _experiment->selectedPtRange(Detector::HadCalorimeter,ptmin,ptmax);
-  std::vector<fastjet::PseudoJet> htowers(_hacTowers->towers(fastjet::SelectorPtRange(ptmin,ptmax)));
-  _calotowers.insert(_calotowers.end(),etowers.begin(),etowers.end());
-  _calotowers.insert(_calotowers.end(),htowers.begin(),htowers.end());
+  _hac_towers = _hacTowers->towers(fastjet::SelectorPtMin(ptmin));
+
+  _calotowers.insert(_calotowers.end(),_emc_towers.begin(),_emc_towers.end());
+  _calotowers.insert(_calotowers.end(),_hac_towers.begin(),_hac_towers.end());
   _fullevent.insert(_fullevent.end(),_calotowers.begin(),_calotowers.end());
+
+#ifdef _MONITOR_WITH_ROOT
+  this->fillHists_tower(_calotowers);
+  this->fillHists_tower_emc(_emc_towers);
+  this->fillHists_tower_hac(_hac_towers);
+#endif
+
   return _fullevent.size()-isize > 0;
 }
 
@@ -240,6 +267,9 @@ bool Detector::Signals::_collectTrackOutput()
 {
   size_t isize(_fullevent.size());
   _fullevent.insert(_fullevent.end(),_tracks.begin(),_tracks.end());
+#ifdef _MONITOR_WITH_ROOT
+  this->fillHists_track(_tracks);
+#endif
   return _fullevent.size()-isize > 0;
 }
 
@@ -247,6 +277,9 @@ bool Detector::Signals::_collectMuonOutput()
 {
   size_t isize(_fullevent.size());
   _fullevent.insert(_fullevent.end(),_muons.begin(),_muons.end());
+#ifdef _MONITOR_WITH_ROOT
+  this->fillHists_muons(_muons);
+#endif
   return _fullevent.size()-isize > 0;
 }
 
@@ -256,6 +289,8 @@ void Detector::Signals::reset()
   _hacTowers->reset();
   _fullevent.clear();
   _calotowers.clear();
+  _emc_towers.clear();
+  _hac_towers.clear();
   _tracks.clear();
   _muons.clear();
   _noninteracting.clear();
@@ -277,6 +312,49 @@ bool Detector::Signals::_filterInput(const std::vector<fastjet::PseudoJet>& inpu
       _cache.particleInput.push_back(particle);
     } // particle type/flavor check
   } // loop on input
+#ifdef _MONITOR_WITH_ROOT
+  this->fillHists_noint(_noninteracting);
+#endif
   // true if input has been extracted
   return !_cache.particleInput.empty() || !_cache.muonInput.empty();
 }
+
+#ifndef _MONITOR_WITH_ROOT
+bool Detector::Signals::finalize()
+{ return true; }
+#else 
+bool Detector::Signals::finalize(const std::string& fn)
+{
+  TFile* f = new TFile( fn.c_str() , "RECREATE" );
+  if ( f == 0 ) {
+    printf("Detector::Signals::finalize() WARNING could not open file \042%s\042\n", fn.c_str() );
+    return false;
+  }
+  _WRITE_ALL ;
+
+  f->Close();
+
+  return true;
+}
+
+void Detector::Signals::book()
+{
+  std::string hgroup;
+  hgroup = "InputParticles"; _BOOK_HIST( _input, hgroup );
+  hgroup = "CaloTowers";     _BOOK_HIST( _tower, hgroup );
+  hgroup = "EMCTowers";      _BOOK_HIST( _tower_emc, hgroup );
+  hgroup = "HACTowers";      _BOOK_HIST( _tower_hac, hgroup );
+  hgroup = "RecoTracks";     _BOOK_HIST( _track, hgroup );
+  hgroup = "Muons";          _BOOK_HIST( _muons, hgroup );
+  hgroup = "NonInteracting"; _BOOK_HIST( _noint, hgroup );
+}
+
+_IMPL_MONITOR( _input )
+_IMPL_MONITOR( _tower )
+_IMPL_MONITOR( _tower_emc )
+_IMPL_MONITOR( _tower_hac )
+_IMPL_MONITOR( _track )
+_IMPL_MONITOR( _muons )
+_IMPL_MONITOR( _noint )
+
+#endif
