@@ -12,7 +12,7 @@
 #include "SubstructureVariables.hh"
 #include <fstream>
 
-#include "DetectorExperiment.hh"
+#include "Detector.hh"
 
 using namespace std;
 using namespace fastjet;
@@ -36,25 +36,25 @@ int main (int argc, char ** argv) {
   bool buildATLAS = cmdline.present("-ATLAS");
   bool buildCMS   = cmdline.present("-CMS");
    
-  Detector::Experiment* dptr = 0; 
+  Detector::Experiment* detector_model_ptr = 0; 
   if ( buildATLAS ) {
     if ( buildCMS ) {
       cout << "Found both the -ATLAS and -CMS option, can only build one detector" << endl;
-      return -1;
+      return 0;
     }
-    cout << "Use ATLAS-like detector performance" << endl;
-    dptr = Detector::Build::ATLAS();
+    detector_model_ptr = Detector::Build::ATLAS();
   } else {
     if ( buildCMS ) { 
-      cout << "Use CMS-like detector performance" << endl;
-      dptr = Detector::Build::CMS();
+      detector_model_ptr = Detector::Build::CMS();
     } else  {
       cout << "No detector smearing configured, nothing to do" << endl;
       return 0; 
     }
   }
+  SharedPtr<Detector::Experiment> shared_detector_model_ptr(detector_model_ptr);
 
-  SharedPtr<Detector::Experiment> sdptr = SharedPtr<Detector::Experiment>(dptr);
+  // get a signal processor - the processor takes ownership of the detector model object
+  SharedPtr<Detector::Signals> signal_processor(new Detector::Signals(detector_model_ptr)); 
 
   // selection of the hardest jets
   Selector sel_hard_jets = SelectorNHardest(2) * SelectorPtMin(jet_ptmin) * SelectorAbsRapMax(jet_rapmax);
@@ -77,7 +77,7 @@ int main (int argc, char ** argv) {
   header << "# EventGeneration: " << mixer.description() << endl;
   header << "#" << endl;
   
-  assert(cmdline.all_options_used());
+  //assert(cmdline.all_options_used());
 
   //------------------------------------------------------------------------
   // prepare the output
@@ -114,9 +114,11 @@ int main (int argc, char ** argv) {
   int iev = 0;
   int periodic_iev_output=10;
   int nentries = 0;
+  cout << "Start running for " << nev << " events" << endl; 
   while ( mixer.next_event() && iev < nev ) {
      // increment event number    
      iev++;
+     cout << "Event " << iev << endl;
      
      // extract particles from event 
      vector<PseudoJet> full_event = mixer.particles() ;
@@ -124,6 +126,14 @@ int main (int argc, char ** argv) {
        cout << "Event " << iev << endl;
        if (iev == 15 * periodic_iev_output) periodic_iev_output*=10;
      }
+
+     // collect detector signals
+     if ( !signal_processor->fill(full_event) ) {
+       cout << "Empty event or signal processor is disabled" << endl;
+       continue;
+     }
+
+     cout << "Found " << signal_processor->getTowers().size() << " towers" << endl;
      
      ClusterSequence cs_hard(full_event,jet_def);
      vector<PseudoJet> jets = sel_hard_jets(cs_hard.inclusive_jets());

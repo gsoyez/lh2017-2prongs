@@ -5,7 +5,7 @@
 
 TowerGrid::index_t TowerGrid::_invalidIndex = -1;
 
-TowerGrid::TowerGrid(int neta,double etamin,double etamax,int nphi,double phimin,double phimax)
+TowerGrid::TowerGrid(int neta,double etamin,double etamax,int nphi,double phimin,double phimax,bool message)
   : _etaBins(neta)
   , _etaMin(etamin)
   , _etaMax(etamax)
@@ -16,10 +16,14 @@ TowerGrid::TowerGrid(int neta,double etamin,double etamax,int nphi,double phimin
   if ( _etaMin >= _etaMax || _etaBins <= 0 || _etaBins == _invalidIndex ) {
     printf("TowerGrid::TowerGrid(...) ERROR invalid eta/y bin description (%i bins in [%.3f,%.3f], no grid\n",_etaBins,_etaMin,_etaMax);
     _etaWidth = -1;
+  } else if ( message )  {
+    printf("TowerGrid::TowerGrid(...) INFO eta/y bin description (%i bins in [%.3f,%.3f]\n",_etaBins,_etaMin,_etaMax);
   }
-  if ( _phiMin >- _phiMax || _phiBins <= 0 || _phiBins == _invalidIndex ) { 
+  if ( _phiMin >= _phiMax || _phiBins <= 0 || _phiBins == _invalidIndex ) { 
     printf("TowerGrid::TowerGrid(...) ERROR invalid phi bin description (%i bins in [%.3f,%.3f], no grid\n",_phiBins,_phiMin,_phiMax);
     _phiWidth = -1;
+  } else if ( message ) {
+    printf("TowerGrid::TowerGrid(...) INFO phi   bin description (%i bins in [%.3f,%.3f]\n",_phiBins,_phiMin,_phiMax);
   }
   _etaWidth = (_etaMax-_etaMin)/((double)_etaBins);
   _phiWidth = (_phiMax-_phiMin)/((double)_phiBins);

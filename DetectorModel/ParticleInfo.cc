@@ -51,6 +51,15 @@ const ParticleInfo::chargemap_t& ParticleInfo::_allocateCharge()
 ParticleInfo::charge_t ParticleInfo::particleCharge(pdg_t pdg) 
 { const auto & cmap = _allocateCharge(); auto fmap = cmap.find(pdg); return (fmap!= cmap.end()) ? fmap->second : 0; }
 
+ParticleInfo::charge_t ParticleInfo::particleCharge(const fastjet::PseudoJet& pjet)
+{
+  if ( pjet.has_user_info<ParticleInfo>() ) { 
+    return pjet.user_info<ParticleInfo>().icharge();
+  } else {
+    return pjet.has_user_info<ParticleInfo::base_t>() ? pjet.user_info<ParticleInfo::base_t>().three_charge()/3 : 0.;
+  }
+}
+
 bool ParticleInfo::isCharged(pdg_t pdg)
 { return particleCharge(pdg) != 0; }
 

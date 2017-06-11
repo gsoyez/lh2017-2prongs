@@ -8,8 +8,8 @@
 #include <chrono>
 
 #define _EXPERIMENT_IMPL( D )						\
-  Detector::D::D()							\
-    : Experiment(Description::D::experimentName)			\
+  Detector::D::D(bool prnt)						\
+    : Experiment(Description::D::experimentName,true)			\
   {									\
     _tag            = Description::D::experimentTag;			\
     _recomode       = Description::D::recoMode;				\
@@ -46,16 +46,18 @@
     _muoEtaMax      = Description::D::muoEtaMax;			\
     _expEtaMin      = Description::D::hacEtaMin;			\
     _expEtaMax      = Description::D::hacEtaMax;			\
-    setEMCTowerGrid(TowerGrid(_emcEtaBin,_emcEtaMin,_emcEtaMax,_emcPhiBin)); \
-    setHACTowerGrid(TowerGrid(_hacEtaBin,_hacEtaMin,_hacEtaMax,_hacPhiBin)); \
     _computeDerivedQuantities();					\
     _fillAccept();							\
-    printf("\n#--------------------------------\n");			\
-    printf("%s\n",description().c_str());				\
-    printf("\n#--------------------------------\n");			\
+    if ( prnt ) {							\
+      printf("\n#----------------------------------------------------------------------------------\n\n"); \
+      setEMCTowerGrid(TowerGrid(_emcEtaBin,_emcEtaMin,_emcEtaMax,_emcPhiBin)); \
+      setHACTowerGrid(TowerGrid(_hacEtaBin,_hacEtaMin,_hacEtaMax,_hacPhiBin)); \
+      printf("%s\n",description().c_str());				\
+      printf("#----------------------------------------------------------------------------------\n"); \
+    }									\
   }									\
   Detector::D::~D() { }							\
-  Detector::Experiment* Detector::D::clone() { return new D; }		
+  Detector::Experiment* Detector::D::clone() { return new D(false); }		
 
 /////////////////////////////
 // Build known experiments //
@@ -68,7 +70,7 @@
 // Experiment //
 ////////////////
 
-Detector::Experiment::Experiment(const std::string& name)
+Detector::Experiment::Experiment(const std::string& name,bool /*prnt*/)
   : _name(name)
   , _tag(UnknownExperiment)
   , _recomode(UnknownMode)
@@ -129,39 +131,42 @@ std::string Detector::Experiment::description()
 
   sprintf(_buffer,"Detector::%-5.5s set up detector smearing and acceptance\n",_name.c_str());
   std::string mstr(_buffer);
-  sprintf(_buffer,"Detector::%-5.5s Solenoid field %.1f T in inner cavity with radius %4.0f mm\n",_name.c_str(),_solenoidField,_cavityRadius);
+  sprintf(_buffer,"Detector::%-5.5s Solenoid field %.1f T in inner cavity with radius %4.0f mm (pTmin_det = %.3f GeV, 1/bend = %.3f m/(T GeV))\n",
+	  _name.c_str(),_solenoidField,_cavityRadius,_trkPtCritical,_trkRadiusCalc/1000.);
   mstr += std::string(_buffer);
-  sprintf(_buffer,"Detector::%-5.5s Track acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative pT resolution function (%.3f p_T + %.3f)%%\n",
+  sprintf(_buffer,"Detector::%-5.5s Track acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative pT resolution function %.3f%% p_T + %.3f%%\n",
 	  _name.c_str(),_trkPtMin,_trkPtMax, _trkEtaMin, _trkEtaMax, _trkPtResoA*100., _trkPtResoB*100.);
   mstr += std::string(_buffer);
-  sprintf(_buffer,"Detector::%-5.5s EMC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relatve E resolution function (%.1f/sqrt(E) + %.1f/E + %.1f)%%\n",
+  sprintf(_buffer,"Detector::%-5.5s EMC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative E resolution function %5.1f%%/sqrt(E) + %4.1f%%/E + %4.1f%%\n",
 	  _name.c_str(), _emcPtMin, _emcPtMax, _emcEtaMin, _emcEtaMax, _emcResoA*100., _emcResoB*100., _emcResoC*100.);
   mstr += std::string(_buffer);	      
-  sprintf(_buffer,"Detector::%-5.5s HAC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative E resolution function (%.1f/sqrt(E) + %.1f/E + %.1f)%%\n",
+  sprintf(_buffer,"Detector::%-5.5s HAC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative E resolution function %5.1f%%/sqrt(E) + %4.1f%%/E + %4.1f%%\n",
 	  _name.c_str(), _hacPtMin, _hacPtMax, _hacEtaMin, _hacEtaMax, _hacResoA*100., _hacResoB*100., _hacResoC*100.);
   mstr += std::string(_buffer);
   return mstr;
 }
 
 void Detector::Experiment::setEtaCoverage(double etamax,double etamin) {
-  printf("Experiment[\042%s\042]::setEtaCoverage(...) INFO updated overall eta coverage from [%7.3f,%7.3f] to [%7.3f,%7.3f]\n",
+  printf("Detector::%-5.5s::setEtaCoverage(...) INFO updated overall eta coverage from [%7.3f,%7.3f] to [%7.3f,%7.3f]\n",
 	 this->name().c_str(),_expEtaMin,_expEtaMax,etamin,etamax); 
   _expEtaMin = etamin; _expEtaMax =  etamax; 
 }
 
 void Detector::Experiment::setEMCTowerGrid(const TowerGrid& tgrid) {
-  printf("Experiment[\042%s\042]::setEMCTowerGrid(...) INFO updated EMC tower grid from %i(%i) eta(phi) bins between [%7.3f(%6.3f),%7.3f(%6.3f)] to %i(%i) bins between [%7.3f(%6.3f),%7.3f(%6.3f)]\n",
+  printf("Detector::%-5.5s::setEMCTowerGrid(...) EMC tower grid %i(%i) -> %3i(%3i) eta(phi) bins in [%5.2f(%6.3f),%5.2f(%6.3f)] -> [%5.2f(%6.3f),%5.2f(%6.3f)]\n",
 	 this->name().c_str(),
-	 _emcTowers.etaBins(),_emcTowers.phiBins(),_emcTowers.etaMin(),_emcTowers.phiMin(),_emcTowers.etaMax(),_emcTowers.phiMax(),
-	 tgrid.etaBins(),     tgrid.phiBins(),     tgrid.etaMin(),     tgrid.phiMin(),     tgrid.etaMax(),     tgrid.phiMax() ); 
+	 _emcTowers.etaBins(),_emcTowers.phiBins(),tgrid.etaBins(),tgrid.phiBins(),
+	 _emcTowers.etaMin(),_emcTowers.phiMin(),_emcTowers.etaMax(),_emcTowers.phiMax(),
+	 tgrid.etaMin(),     tgrid.phiMin(),     tgrid.etaMax(),     tgrid.phiMax() ); 
   _emcTowers = tgrid; 
 }
 
 void Detector::Experiment::setHACTowerGrid(const TowerGrid& tgrid) {
-  printf("Experiment[\042%s\042]::setHACTowerGrid(...) INFO updated HAC tower grid from %i(%i) eta(phi) bins between [%7.3f(%6.3f),%7.3f(%6.3f)] to %i(%i) bins between [%7.3f(%6.3f),%7.3f(%6.3f)]\n",
+  printf("Detector::%-5.5s::setHACTowerGrid(...) HAC tower grid %i(%i) -> %3i(%3i) eta(phi) bins in [%5.2f(%6.3f),%5.2f(%6.3f)] -> [%5.2f(%6.3f),%5.2f(%6.3f)]\n",
 	 this->name().c_str(),
-	 _hacTowers.etaBins(),_hacTowers.phiBins(),_hacTowers.etaMin(),_hacTowers.phiMin(),_hacTowers.etaMax(),_hacTowers.phiMax(),
-	 tgrid.etaBins(),     tgrid.phiBins(),     tgrid.etaMin(),     tgrid.phiMin(),     tgrid.etaMax(),     tgrid.phiMax() ); 
+	 _hacTowers.etaBins(),_hacTowers.phiBins(),tgrid.etaBins(),    tgrid.phiBins(),
+	 _hacTowers.etaMin(), _hacTowers.phiMin(), _hacTowers.etaMax(),_hacTowers.phiMax(),
+	 tgrid.etaMin(),      tgrid.phiMin(),      tgrid.etaMax(),     tgrid.phiMax() ); 
   _hacTowers = tgrid; 
 }
 
@@ -360,8 +365,11 @@ void Detector::Experiment::_computeDerivedQuantities()
 
 bool Detector::Experiment::adjustPhi(const fastjet::PseudoJet& ptrack,fastjet::PseudoJet& pmodtrack)
 {
-  // not reaaching the calorimeter or not charged
-  if ( ptrack.pt() < _trkPtCritical || !ParticleInfo::isCharged(ptrack) ) { pmodtrack = ptrack; return false; }
+  // not reaching the calorimeter - remove the signal 
+  if ( ptrack.pt() < _trkPtCritical  ) { pmodtrack.reset_momentum(0.,0.,0.,0.); return false; }
+
+  // not charged
+  if ( !ParticleInfo::isCharged(ptrack) ) { pmodtrack = ptrack; return true; }
   
   // get the radius of the trajetory
   double rtraj(_trkRadiusCalc*ptrack.pt());
@@ -372,7 +380,7 @@ bool Detector::Experiment::adjustPhi(const fastjet::PseudoJet& ptrack,fastjet::P
 
   //find intersection of trajectory with calo frontface
   Detector::Geometry::Line2d ut(Detector::Geometry::Line2d(Detector::Geometry::Point2d(0.,0.),Detector::Geometry::Point2d(rtraj*cosPhi,rtraj*sinPhi)).getNormal());
-  if ( ptrack.user_info<ParticleInfo>().icharge() < 0 ) { 
+  if ( ParticleInfo::particleCharge(ptrack) < 0 ) { 
     ut.setPoints(Detector::Geometry::Point2d(0.,0.),Detector::Geometry::Point2d(-ut.end().x(),-ut.end().y())); 
   } 
 

@@ -98,8 +98,8 @@ namespace Detector {
     bool               _filterInput(const std::vector<fastjet::PseudoJet>& input);
     fastjet::PseudoJet _getInput(const fastjet::PseudoJet& particle,ParticleInfo::type_t t);
     bool               _fillTowers();
-    bool               _emcSignalPrep(const fastjet::PseudoJet& particle);
-    bool               _hacSignalPrep(const fastjet::PseudoJet& particle);
+    bool               _emcSignalPrep(const fastjet::PseudoJet& particle,bool& isLost);
+    bool               _hacSignalPrep(const fastjet::PseudoJet& particle,bool& isLost);
     bool               _fillTracks();
     bool               _fillMuons();
     bool               _collectTowerOutput();
@@ -108,5 +108,19 @@ namespace Detector {
     bool               _setup();
     ///@}
   };
+}
+
+inline std::vector<fastjet::PseudoJet> Detector::Signals::get()               const { return _fullevent; }
+inline std::vector<fastjet::PseudoJet> Detector::Signals::getTowers()         const { return _calotowers; }
+inline std::vector<fastjet::PseudoJet> Detector::Signals::getTracks()         const { return _tracks; }
+inline std::vector<fastjet::PseudoJet> Detector::Signals::getMuons()          const { return _muons; }
+inline std::vector<fastjet::PseudoJet> Detector::Signals::getNonInteracting() const { return _noninteracting; }
+inline std::vector<fastjet::PseudoJet> Detector::Signals::getPFlow()          const
+{ 
+  std::vector<fastjet::PseudoJet> pf; 
+  pf.reserve(_calotowers.size()+_tracks.size());
+  pf.insert(pf.end(),_calotowers.begin(),_calotowers.end());
+  pf.insert(pf.end(),_tracks.begin(),_tracks.end());
+  return pf;
 }
 #endif

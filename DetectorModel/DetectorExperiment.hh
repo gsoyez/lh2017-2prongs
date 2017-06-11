@@ -41,7 +41,7 @@ namespace Detector {
     ///@brief Default constructor
     ///
     /// Experiments can be set up with a name.
-    Experiment(const std::string& name="Generic");
+    Experiment(const std::string& name="Generic",bool prnt=false);
     ///@brief Destructor
     virtual ~Experiment();
     
@@ -215,7 +215,7 @@ namespace Detector {
   class ATLASExperiment : public Experiment
   {
   public:
-    ATLASExperiment();
+    ATLASExperiment(bool prnt=true);
     virtual ~ATLASExperiment();
     virtual Experiment* clone();
   };
@@ -223,7 +223,7 @@ namespace Detector {
   class CMSExperiment : public Experiment
   {
   public:
-    CMSExperiment();
+    CMSExperiment(bool prnt=true);
     virtual ~CMSExperiment();
     virtual Experiment* clone();
   };

@@ -5,12 +5,15 @@
 #include <string>
 #include <cmath>
 
+//#include <iostream>
+
 ///@brief Tower description
 namespace TowerDescriptor {
   ///@brief Numerical and other constants
   namespace Constants {
-    static const double pi    = std::asin(1.)*.2; ///<@brief @f$ \pi @f$
+    static const double pi    = std::asin(1.)*2.; ///<@brief @f$ \pi @f$
     static const double twopi = 2.*pi;            ///<@brief @f$ 2\pi @f$
+
     namespace Binning {
       namespace Rap {
 	static const int    bins = 100;
@@ -23,6 +26,7 @@ namespace TowerDescriptor {
 	static const double xmax =  pi;
       }
     }
+
   }
   // namespace Binning {
   //   namespace Rap {
@@ -63,8 +67,9 @@ public:
   /// A default for azimuthal grid binning is provided.
   TowerGrid(int    neta,double etamin,double etamax,
 	    int    nphi=TowerDescriptor::Constants::Binning::Phi::bins,
-	    double phimin=TowerDescriptor::Constants::Binning::Phi::xmax,
-	    double phimax=TowerDescriptor::Constants::Binning::Phi::xmin);
+	    double phimin=TowerDescriptor::Constants::Binning::Phi::xmin,
+	    double phimax=TowerDescriptor::Constants::Binning::Phi::xmax,
+	    bool message=false);
   ///@brief Base class Destructor
   virtual ~TowerGrid();
 
@@ -169,5 +174,7 @@ inline TowerGrid::index_t TowerGrid::index(double eta,double phi) const
 }
 
 inline double TowerGrid::eta(index_t index) const 
-{ index_t idx(etaIndex(index)); return idx != _invalidIndex ? _etaMin+(idx+0.5)*_etaWidth : _etaMin-_etaWidth; } 
+{ index_t idx(etaIndex(index)); return idx != _invalidIndex ? _etaMin+((double)idx+0.5)*_etaWidth : _etaMin-_etaWidth; } 
+inline double TowerGrid::phi(index_t index) const 
+{ index_t idx(phiIndex(index)); return idx != _invalidIndex ? _phiMin+((double)idx+0.5)*_phiWidth : _phiMin-_phiWidth; } 
 #endif

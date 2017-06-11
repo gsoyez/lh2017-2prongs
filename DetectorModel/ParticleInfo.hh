@@ -87,6 +87,7 @@ public:
   static const pdglist_t& nonInteractingParticles();             ///<@brief @return List of PDG codes of particles not interacting with matter
   static const pdglist_t& ionizingParticles();                   ///<@brief @return List of PDG codes of particles ionizing matter but not ionizing it
   static charge_t         particleCharge(pdg_t pdg);             ///<@brief @return Integer particle charge
+  static charge_t         particleCharge(const fastjet::PseudoJet& pjet);
   static pdg_t            particlePdg(const fastjet::PseudoJet& pjet);
   static type_t           particleType(const fastjet::PseudoJet& pjet);
   static bool             isCharged(pdg_t pdg);                           

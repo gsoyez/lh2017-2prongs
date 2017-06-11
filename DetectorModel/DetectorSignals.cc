@@ -25,6 +25,9 @@ Detector::Signals::Signals(Experiment* exp)
   }
 }
 
+Detector::Signals::~Signals()
+{ }
+
 bool Detector::Signals::_setup()
 {
   _fullevent.reserve(      _SIGNAL_CACHE_RESERVE );
@@ -134,26 +137,28 @@ bool Detector::Signals::_fillTracks()
   return !_tracks.empty();
 }
 
-bool Detector::Signals::_fillTowers()                  /////////////////
-{                                                      // Fill towers //
-  // pick up particles                                 /////////////////
-  auto fparticle(_cache.particleInput.begin());
-  while ( fparticle != _cache.particleInput.end() ) {
-    auto particle = *fparticle;
-    // particles measured with the EMC
-    if ( ParticleInfo::isEM(particle) ) {
-      if      ( this->_emcSignalPrep(particle) ) { fparticle = _cache.particleInput.erase(fparticle); }  // remove from signal input -> generated signal
-      else if ( this->_hacSignalPrep(particle) ) { fparticle = _cache.particleInput.erase(fparticle); }
-      else                                       { ++fparticle; } 
-    } // isEM 
-    // particles measured with HAC
-    //    else if ( ParticleInfo::isHAD(particle) ) {
-    else {
-      if ( this->_hacSignalPrep(particle) ) { fparticle = _cache.particleInput.erase(fparticle); }
-      else                                  { ++fparticle; }
-    } // isHAD (non-EM really - muons and non-interacting need to be filtered beforehand!
+bool Detector::Signals::_fillTowers()                  /////////////////////////////////////////////////////////////////////
+{                                                      // First, it is tried to add particles with EM shower character to //
+  // pick up particles                                 // the EM calorimeter signal. If they are (1) out of coverage or   //
+  auto fparticle(_cache.particleInput.begin());        // (2) they are bend away from the EMC in a magnetic field, they   // 
+  while ( fparticle != _cache.particleInput.end() ) {  // are handed to the HAC in case (1), because the HAC has larger   //
+    auto particle = *fparticle;                        // coverage (eta only). In case (2), they are left in the input    //
+    bool isLost(false); bool isLeft(true);             // collection for downstream detectors, if any... Particles with   //           
+    if ( ParticleInfo::isEM(particle) ) {              // hadronic showers are handed to the HAC. If they do not reach    //
+      // particles measured with the EMC               // it, they are treated like the ones from case (1).               //
+      if ( this->_emcSignalPrep(particle,isLost) )  {  /////////////////////////////////////////////////////////////////////
+	fparticle = _cache.particleInput.erase(fparticle); isLeft = false;   // removed from input -> added to EMC signal 
+      } else {
+	if ( !isLost && this->_hacSignalPrep(particle,isLost) ) { 
+	  fparticle = _cache.particleInput.erase(fparticle); isLeft = false; // removed from input -> added to HAC signal
+	}
+      } // end of calorimeter signal collection for EM particles
+    } else {
+      // particles measured with HAC
+      if ( this->_hacSignalPrep(particle,isLost) ) { fparticle = _cache.particleInput.erase(fparticle); isLeft = false; } // removed from input -> added to HAC signal 
+    } // end of calorimeter signal collection for HAD particles
+    if ( isLeft ) { ++fparticle; } // particle did not contribute to calorimeter signal, leave in input collection for downstream detetors
   } // input signal loop
-  //
   return !_emcTowers->empty() || !_hacTowers->empty();
 }
 
@@ -166,46 +171,55 @@ fastjet::PseudoJet Detector::Signals::_getInput(const fastjet::PseudoJet& partic
   return fj;
 }
 
-bool Detector::Signals::_emcSignalPrep(const fastjet::PseudoJet& particle)
+bool Detector::Signals::_emcSignalPrep(const fastjet::PseudoJet& particle,bool& isLost)
 {
+  bool generatedSignal(false);
   if ( _experiment->emcAccept(particle,true) ) {
-    // smear pT using energy resolution
-    double sfact(_experiment->emcResoSmearing(particle)/particle.e());
-    // create a signal object with smeared pT and bend in magnetic field if requested/charged
-    fastjet::PseudoJet fj; _experiment->adjustPhi(particle,fj); fj *= sfact;
-    // add signal information
-    ParticleInfo::type_t t = particle.user_info<ParticleInfo::base_t>().vertex() == 0 
-      ? ParticleInfo::HardScatter : ParticleInfo::Pileup;
-    fj.set_user_info(new ParticleInfo(t,particle.user_info<ParticleInfo::base_t>()));
-    // collect for projection to towers
-    _cache.emcTowerInput.push_back(fj);
-    _emcTowers->add(fj);
-    return true;
-  } else {
-    return false; 
-  }
+    // check  if  particle makes it into the EMC
+    fastjet::PseudoJet fj;
+    if ( _experiment->adjustPhi(particle,fj) ) {
+      // smear with nominal energy resolution
+      fj *= _experiment->emcResoSmearing(particle)/particle.e();
+      // add signal information
+      ParticleInfo::type_t t = particle.user_info<ParticleInfo::base_t>().vertex() == 0 
+	? ParticleInfo::HardScatter : ParticleInfo::Pileup;
+      fj.set_user_info(new ParticleInfo(t,particle.user_info<ParticleInfo::base_t>()));
+      // collect for projection to towers
+      _cache.emcTowerInput.push_back(fj);
+      _emcTowers->add(fj);
+      generatedSignal = true;
+    } else {
+      isLost = true; // particle does not reach calorimeter -> complete loss!
+    }
+  } // EM particle
+  return generatedSignal;
 }
 
-bool Detector::Signals::_hacSignalPrep(const fastjet::PseudoJet& particle)
+bool Detector::Signals::_hacSignalPrep(const fastjet::PseudoJet& particle,bool& isLost)
 {
+  bool generatedSignal(false);
   if ( _experiment->hacAccept(particle,true) ) {
-    // HAC has wider acceptance, incoming particle may be EM!!!!
-    // smear pT using energy resolution
-    double sfact = ParticleInfo::isEM(particle) 
-      ? _experiment->emcResoSmearing(particle)/particle.e() 
-      : _experiment->hacResoSmearing(particle)/particle.e();
-    // create a signal object with smeared pT and bend in magnetic field if requested/charged
-    fastjet::PseudoJet fj; _experiment->adjustPhi(particle,fj); fj *= sfact;
-    // add signal information
-    ParticleInfo::Type t = particle.user_info<ParticleInfo::base_t>().vertex() == 0 ? ParticleInfo::HardScatter : ParticleInfo::Pileup;
-    fj.set_user_info(new ParticleInfo(t,particle.user_info<ParticleInfo::base_t>()));
-    // collect for projection to towers
-    _cache.hacTowerInput.push_back(fj);
-    _hacTowers->add(fj);
-    return true;
-  } else {
-    return false; 
+    // check  if  particle makes it into the HAC
+    fastjet::PseudoJet fj;
+    if ( _experiment->adjustPhi(particle,fj) ) {
+      // smear pT using energy resolution - HAC has wider acceptance, incoming particle may be EM!!!!
+      if ( ParticleInfo::isEM(particle) ) { 
+	fj*=_experiment->emcResoSmearing(particle)/particle.e();
+      } else{ 
+        fj*=_experiment->hacResoSmearing(particle)/particle.e();
+      }
+      // add signal information
+      ParticleInfo::Type t = particle.user_info<ParticleInfo::base_t>().vertex() == 0 ? ParticleInfo::HardScatter : ParticleInfo::Pileup;
+      fj.set_user_info(new ParticleInfo(t,particle.user_info<ParticleInfo::base_t>()));
+      // collect for projection to towers
+      _cache.hacTowerInput.push_back(fj);
+      _hacTowers->add(fj);
+      generatedSignal = true;
+    } else {
+      isLost = true; // particle does not reach calorimeter -> complete loss!
+    }
   }
+  return generatedSignal;
 }
 
 bool Detector::Signals::_collectTowerOutput()
