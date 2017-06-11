@@ -27,6 +27,12 @@ but here's a basic digest:
 
      git submodule update --remote 2014PileupWorkshop
 
+   Note added: rhe above command seems to require git 1.8.?. For older
+   versions (e.g. 1.7.1 installed by default on lxplux), you should
+   try the following:
+
+     git submodule foreach "(git checkout master; git pull)"
+
 ### Building the framework
 
 Detailed information on how to build and use the framework is
