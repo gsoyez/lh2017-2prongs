@@ -1,0 +1,3 @@
+#!/bin/bash
+../2014PileupWorkshop/scripts/mkcxx.pl -f -s -1 -i '-g -D _MONITOR_WITH_ROOT  -I../2014PileupWorkshop/Framework -Wno-deprecated-declarations -I../DetectorModel' -l '-L../2014PileupWorkshop/Framework -lEventMixer -lz -L../DetectorModel -lDetectorModel_Monitor -lgsl -lgslcblas -lm' -b -r
+

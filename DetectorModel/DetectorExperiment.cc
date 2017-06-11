@@ -7,6 +7,10 @@
 #include <cmath>
 #include <chrono>
 
+#ifdef _MONITOR_WITH_ROOT
+#include <iostream>
+#endif
+
 #define _EXPERIMENT_IMPL( D )						\
   Detector::D::D(bool prnt)						\
     : Experiment(Description::D::experimentName,true)			\
@@ -129,18 +133,19 @@ std::string Detector::Experiment::description()
 {
   static char _buffer[2048];
 
-  sprintf(_buffer,"Detector::%-5.5s set up detector smearing and acceptance\n",_name.c_str());
+  sprintf(_buffer,"# Detector::%-5.5s set up detector smearing and acceptance\n",_name.c_str());
   std::string mstr(_buffer);
-  sprintf(_buffer,"Detector::%-5.5s Solenoid field %.1f T in inner cavity with radius %4.0f mm (pTmin_det = %.3f GeV, 1/bend = %.3f m/(T GeV))\n",
-	  _name.c_str(),_solenoidField,_cavityRadius,_trkPtCritical,_trkRadiusCalc/1000.);
+  std::string magOn = magneticFieldOn() ? "ON" : "OFF";
+  sprintf(_buffer,"# Detector::%-5.5s Solenoid field %.1f T in inner cavity with radius %4.0f mm (pTmin_det = %.3f GeV, 1/bend = %.1f m/(T GeV)) Field is %s\n",
+	  _name.c_str(),_solenoidField,_cavityRadius,_trkPtCritical,_trkRadiusCalc*1000.,magOn.c_str());
   mstr += std::string(_buffer);
-  sprintf(_buffer,"Detector::%-5.5s Track acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative pT resolution function %.3f%% p_T + %.3f%%\n",
+  sprintf(_buffer,"# Detector::%-5.5s Track acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative pT resolution function %.3f%% p_T + %.3f%%\n",
 	  _name.c_str(),_trkPtMin,_trkPtMax, _trkEtaMin, _trkEtaMax, _trkPtResoA*100., _trkPtResoB*100.);
   mstr += std::string(_buffer);
-  sprintf(_buffer,"Detector::%-5.5s EMC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative E resolution function %5.1f%%/sqrt(E) + %4.1f%%/E + %4.1f%%\n",
+  sprintf(_buffer,"# Detector::%-5.5s EMC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative E resolution function %5.1f%%/sqrt(E) + %4.1f%%/E + %4.1f%%\n",
 	  _name.c_str(), _emcPtMin, _emcPtMax, _emcEtaMin, _emcEtaMax, _emcResoA*100., _emcResoB*100., _emcResoC*100.);
   mstr += std::string(_buffer);	      
-  sprintf(_buffer,"Detector::%-5.5s HAC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative E resolution function %5.1f%%/sqrt(E) + %4.1f%%/E + %4.1f%%\n",
+  sprintf(_buffer,"# Detector::%-5.5s HAC acceptance %.1f < pT < %.1f GeV, eta in [%4.2f,%4.2f], relative E resolution function %5.1f%%/sqrt(E) + %4.1f%%/E + %4.1f%%\n",
 	  _name.c_str(), _hacPtMin, _hacPtMax, _hacEtaMin, _hacEtaMax, _hacResoA*100., _hacResoB*100., _hacResoC*100.);
   mstr += std::string(_buffer);
   return mstr;
@@ -358,44 +363,58 @@ void Detector::Experiment::_computeDerivedQuantities()
   _trkPtResoA2      = _trkPtResoA * _trkPtResoA;
   _trkPtResoB2      = _trkPtResoB * _trkPtResoB;
   if ( _solenoidField != 0. ) { 
-    _trkPtCritical = 0.15 * _solenoidField * _cavityRadius/1000.; /* Tm */ 
-    _trkRadiusCalc = 1000./(0.15*_solenoidField);                 /* mm */
+    double f(0.15e-03*_solenoidField);
+    _trkPtCritical = f * _cavityRadius; /* Tmm */ 
+    _trkRadiusCalc = 1./f;              /* mm */
   }
 }
 
 bool Detector::Experiment::adjustPhi(const fastjet::PseudoJet& ptrack,fastjet::PseudoJet& pmodtrack)
 {
-  // not reaching the calorimeter - remove the signal 
-  if ( ptrack.pt() < _trkPtCritical  ) { pmodtrack.reset_momentum(0.,0.,0.,0.); return false; }
+  // magnetic field is off
+  if ( magneticFieldOff() || !ParticleInfo::isCharged(ptrack) ) { pmodtrack = ptrack; return true; }
 
-  // not charged
-  if ( !ParticleInfo::isCharged(ptrack) ) { pmodtrack = ptrack; return true; }
+  // not reaching the calorimeter - remove the signal
+  if ( ptrack.pt() < _trkPtCritical  ) { pmodtrack.reset_momentum(0.,0.,0.,0.); return false; }
   
   // get the radius of the trajetory
   double rtraj(_trkRadiusCalc*ptrack.pt());
-
+  
   // create circular particle trajectory
-  double cosPhi(ptrack.px()/ptrack.pt());
-  double sinPhi(ptrack.py()/ptrack.pt());
+  double dphi = ParticleInfo::particleCharge(ptrack) > 0 
+    ? TowerGrid::phi_std(ptrack.phi_std()+TowerDescriptor::Constants::halfpi)
+    : TowerGrid::phi_std(ptrack.phi_std()-TowerDescriptor::Constants::halfpi);
+  Detector::Geometry::Line2d ut(Detector::Geometry::Point2d(0.,0.),Detector::Geometry::Point2d(rtraj*std::cos(dphi),rtraj*std::sin(dphi)));
+  Detector::Geometry::Circle ccir(ut.end(),ut.length());
 
+  //  double cosPhi(ptrack.px()/ptrack.pt());
+  //  double sinPhi(ptrack.py()/ptrack.pt());
+  //
   //find intersection of trajectory with calo frontface
-  Detector::Geometry::Line2d ut(Detector::Geometry::Line2d(Detector::Geometry::Point2d(0.,0.),Detector::Geometry::Point2d(rtraj*cosPhi,rtraj*sinPhi)).getNormal());
-  if ( ParticleInfo::particleCharge(ptrack) < 0 ) { 
-    ut.setPoints(Detector::Geometry::Point2d(0.,0.),Detector::Geometry::Point2d(-ut.end().x(),-ut.end().y())); 
-  } 
+  // Detector::Geometry::Line2d ur(Detector::Geometry::Point2d(0.,0.),Detector::Geometry::Point2d(cosPhi,sinPhi));
+  // Detector::Geometry::Line2d ut(ur.getNormal());
+  // double bx(ut.end().x()*rtraj); double by(ut.end().y()*rtraj);
+  // if ( ParticleInfo::particleCharge(ptrack) < 0 ) { 
+  //   ut.setPoints(Detector::Geometry::Point2d(0.,0.),Detector::Geometry::Point2d(-bx,-by));
+  // } else {
+  //   ut.setPoints(Detector::Geometry::Point2d(0.,0.),Detector::Geometry::Point2d(bx,by));
+  // }
+  // std::cout << "Detector::Experiment::adjustPhi - DEBUG - pT_track = " << ptrack.pt() << " GeV, phi/phi_turned/charge/radius = "
+  // 	    << ptrack.phi_std() << "/" << dphi << "/" << ParticleInfo::particleCharge(ptrack) << "/" << rtraj << ", center_traj = (" << ut.end().x() << ","
+  // 	    << ut.end().y() << "), l = " << ut.length() << ", phi = " << ut.angle()
+  // 	    << std::endl;
 
-  Detector::Geometry::Circle  ccir(ut.end(),ut.length());
+  // find intersects with cavity envelope
   Detector::Geometry::Point2d cit0, cit1;
   double phi(0.);
-  if ( ccir.intersect(_cavityEnvelope,cit0,cit1) == 1 ) {
+  if ( ccir.intersect(_cavityEnvelope,cit0,cit1) == 1 ) {      // tangential
     phi = cit0.phi();
-  } else {
-    Detector::Geometry::Point2d ep(_cavityRadius*cosPhi,_cavityRadius*sinPhi);
-    if ( ep.distance(cit0) < ep.distance(cit1) ) { 
-      phi = cit0.phi(); 
-    } else {
-      phi = cit1.phi();
-    }
+  } else {                                                     // secant
+    Detector::Geometry::Point2d pri(_cavityRadius*ptrack.px()/ptrack.pt(),_cavityRadius*ptrack.py()/ptrack.pt());
+    if ( pri.distance(cit0) < pri.distance(cit1) ) { phi = cit0.phi(); } else { phi = cit1.phi(); }
+    //    double dp0(std::abs(TowerGrid::phi_std(cit0.phi()-dphi))); // secant - choose the smallest angular distance 
+    //    double dp1(std::abs(TowerGrid::phi_std(cit1.phi()-dphi)));
+    //   phi = dp0 < dp1 ? cit0.phi() : cit1.phi();
   }
 
   // new direction

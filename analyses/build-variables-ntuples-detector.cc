@@ -132,7 +132,6 @@ int main (int argc, char ** argv) {
        continue;
      }
 
-          
      vector<PseudoJet> jets = sel_hard_jets(jet_def(signal_processor->get()));
 
      // loop over the jets

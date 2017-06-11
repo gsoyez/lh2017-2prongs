@@ -131,6 +131,15 @@ namespace Detector {
     virtual bool selectedPtRange(detector_t t,double& ptmin,double& ptmax);
     virtual bool selectedEtaRange(detector_t t,double& etamin,double& etamax); 
 
+    bool magneticFieldOn();
+    bool magneticFieldOff();
+
+    void turnMagneticFieldOff();
+    void turnMagneticFieldOn();
+
+    void switchMagneticField(bool on);
+    
+
   protected:
 
     std::string  _name;
@@ -184,6 +193,8 @@ namespace Detector {
 
     TowerGrid _emcTowers;
     TowerGrid _hacTowers;
+
+    bool _magneticFieldOn;
     
     struct less
     {

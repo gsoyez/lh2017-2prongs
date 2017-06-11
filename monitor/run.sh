@@ -1,0 +1,1 @@
+./monitor_detector -hard /eos/atlas/user/l/lochp/public/LesHouches2017/TwoProng/lhc14-pythia8-4C-dijets450-nev1e5.pu14.gz -out monitor_ATLAS.root -ATLAS -nev 1000000

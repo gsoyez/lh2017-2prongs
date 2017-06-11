@@ -21,3 +21,10 @@ inline const TowerGrid& Detector::Experiment::getHACTowerGrid() const { return _
 inline fastjet::PseudoJet Detector::Experiment::applyMagneticField(const fastjet::PseudoJet& ptrack)
 { fastjet::PseudoJet pmodtrack; adjustPhi(ptrack,pmodtrack); return pmodtrack; }
 
+inline void Detector::Experiment::switchMagneticField(bool on) { _magneticFieldOn = on; }
+inline void Detector::Experiment::turnMagneticFieldOn()        { _magneticFieldOn = true; }
+inline void Detector::Experiment::turnMagneticFieldOff()       { _magneticFieldOn = false; }
+
+inline bool Detector::Experiment::magneticFieldOn()  { return _magneticFieldOn; }
+inline bool Detector::Experiment::magneticFieldOff() { return !_magneticFieldOn; }
+

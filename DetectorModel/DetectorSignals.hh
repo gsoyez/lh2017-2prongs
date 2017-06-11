@@ -13,6 +13,83 @@
 #include <vector>
 #include <list>
 
+#ifdef _MONITOR_WITH_ROOT
+
+#include <TH1D.h>
+#include <TH2D.h>
+
+#define _DECL_MONITOR( T )						\
+  TH1D* h_n##T ;							\
+  TH1D* h_pt##T ;							\
+  TH1D* h_eta##T ;							\
+  TH1D* h_phi##T ;							\
+  TH2D* d_phi_vs_phi##T ;						\
+  TH2D* d_dphi_vs_phi##T ;						\
+  TH2D* d_esmear_vs_e##T ;						\
+  TH2D* d_de_vs_e##T ;							\
+  TH2D* d_dpxy_vs_phi##T;						\
+  TH2D* d_dpxy_vs_pt##T;						\
+  void fillHists##T (const std::vector<fastjet::PseudoJet>& data);	\
+  void writeHists##T ()
+
+#define _IMPL_MONITOR( T )\
+  void Detector::Signals::fillHists##T (const std::vector<fastjet::PseudoJet>& data) \
+  {									\
+    h_n##T ->Fill( static_cast<double>(data.size()) );			\
+    for ( auto item : data ) {						\
+      h_pt##T ->Fill( item.pt() );					\
+      h_eta##T ->Fill( item.pseudorapidity() );				\
+      h_phi##T ->Fill( item.phi_std() );				\
+    }									\
+  }									\
+  void Detector::Signals::writeHists##T ()				\
+  {									\
+    if ( h_n##T != 0 )           { h_n##T ->Write();}			\
+    if ( h_pt##T != 0 )          { h_pt##T ->Write(); }			\
+    if ( h_eta##T != 0 )         { h_eta##T ->Write(); }			\
+    if ( h_phi##T != 0 )         { h_phi##T ->Write(); }			\
+    if ( d_phi_vs_phi##T != 0  && d_phi_vs_phi##T ->GetEntries() > 0 )  { d_phi_vs_phi##T ->Write(); } \
+    if ( d_dphi_vs_phi##T != 0 && d_dphi_vs_phi##T ->GetEntries() > 0 ) { d_dphi_vs_phi##T ->Write(); } \
+    if ( d_phi_vs_phi##T != 0  && d_phi_vs_phi##T ->GetEntries() > 0 )  { d_phi_vs_phi##T ->Write(); } \
+    if ( d_esmear_vs_e##T != 0 && d_esmear_vs_e##T ->GetEntries() > 0 ) { d_esmear_vs_e##T ->Write(); } \
+    if ( d_de_vs_e##T != 0 && d_de_vs_e##T ->GetEntries() > 0 ) { d_de_vs_e##T ->Write(); } \
+    if ( d_dpxy_vs_phi##T != 0 && d_dpxy_vs_phi##T ->GetEntries() > 0 ) { d_dpxy_vs_phi##T ->Write(); } \
+    if ( d_dpxy_vs_pt##T != 0 && d_dpxy_vs_pt##T ->GetEntries() > 0 ) { d_dpxy_vs_pt##T ->Write(); } \
+  }
+
+#define _WRITE_ALL					\
+  writeHists_input();					\
+  writeHists_tower();					\
+  writeHists_tower_emc();				\
+  writeHists_tower_hac();				\
+  writeHists_track();					\
+  writeHists_muons();					\
+  writeHists_noint()
+
+#define _BOOK_HIST( T, N )			\
+  h_n##T           = new TH1D( ( N + std::string("/h_n")           + std::string( #T ) ).c_str(), "Number spectrum",        200, 0., 1000. ); \
+  h_pt##T          = new TH1D( ( N + std::string("/h_pt")          + std::string( #T ) ).c_str(), "p_{T} spectrum",         200, 0., 1000. ); \
+  h_eta##T         = new TH1D( ( N + std::string("/h_eta")         + std::string( #T ) ).c_str(), "#eta spectrum",          100, -5., 5.   ); \
+  h_phi##T         = new TH1D( ( N + std::string("/h_phi")         + std::string( #T ) ).c_str(), "#phi spectrum",          128,  -3.2, 3.2  ); \
+  d_phi_vs_phi##T  = new TH2D( ( N + std::string("/d_phi_vs_phi")  + std::string( #T ) ).c_str(), "#phi_{smeared} vs #phi", 128, -3.2, 3.2, 128, -3.2, 3.2); \
+  d_dphi_vs_phi##T = new TH2D( ( N + std::string("/d_dphi_vs_phi") + std::string( #T ) ).c_str(), "#Delta#phi vs #phi",     128, -3.2, 3.2, 512, -3.2, 3.2 ); \
+  d_esmear_vs_e##T = new TH2D( ( N + std::string("/d_esmear_vs_e") + std::string( #T ) ).c_str(), "E_{smeared} vs E",       200, 0., 1000., 200, 0., 1000. ); \
+  d_de_vs_e##T     = new TH2D( ( N + std::string("/d_de_vs_e")     + std::string( #T ) ).c_str(), "#DeltaE_{smeared} vs E", 200, 0., 1000., 200,-2.5,2.5   ); \
+  d_dpxy_vs_phi##T = new TH2D( ( N + std::string("/d_dpxy_vs_phi") + std::string( #T ) ).c_str(), "#Delta(p_{x,y} vs #phi", 128, -3.2, 3.2, 200,-10.,10.   ); \
+  d_dpxy_vs_pt##T  = new TH2D( ( N + std::string("/d_dpxy_vs_pt")  + std::string( #T ) ).c_str(), "#Delta(p_{x,y} vs p_{T}", 200, 0., 1000., 200,-10.,10.  )
+
+#define _FILL_SCATTER( T, P, J )				\
+  d_phi_vs_phi##T  ->Fill( P.phi_std(), J.phi_std());		\
+  d_dphi_vs_phi##T ->Fill( P.phi_std(),TowerGrid::phi_std( J.phi_std() - P.phi_std())); \
+  d_esmear_vs_e##T ->Fill( P.e(), J.e());				\
+  d_de_vs_e##T     ->Fill( P.e(),( J.e() - J.e() )/ P.e() );		\
+  d_dpxy_vs_phi##T ->Fill( P.phi_std(), J.px() - P.px() );		\
+  d_dpxy_vs_phi##T ->Fill( P.phi_std(), J.py() - P.py() );		\
+  d_dpxy_vs_pt##T  ->Fill( P.pt(), J.px() - P.px() );			\
+  d_dpxy_vs_pt##T  ->Fill( P.pt(), J.py() - P.py() ) 
+
+#endif
+
 namespace Detector {
   ///@brief Signal generator for detector-like signals
   ///
@@ -50,6 +127,15 @@ namespace Detector {
     ///@brief Reset internal caches
     void reset();
 
+    ///@brief Finalize
+    ///
+    /// Any final statistics collection and clean-up
+#ifndef _MONITOR_WITH_ROOT
+    bool finalize();
+#else
+    bool finalize(const std::string& fn);
+#endif
+
   private:
     
     ///@name Process control and output stores
@@ -63,6 +149,8 @@ namespace Detector {
     ///@{
     std::vector<fastjet::PseudoJet>  _fullevent;       ///<@brief Full event 
     std::vector<fastjet::PseudoJet>  _calotowers;      ///<@brief Calorimeter towers
+    std::vector<fastjet::PseudoJet>  _emc_towers;      ///<@brief EMC towers
+    std::vector<fastjet::PseudoJet>  _hac_towers;      ///<@brief HAC towers
     std::vector<fastjet::PseudoJet>  _tracks;          ///<@brief Tracks
     std::vector<fastjet::PseudoJet>  _muons;           ///<@brief Muons
     std::vector<fastjet::PseudoJet>  _noninteracting;  ///<@brief Non-interacting particles
@@ -107,6 +195,19 @@ namespace Detector {
     bool               _collectMuonOutput();
     bool               _setup();
     ///@}
+#ifdef _MONITOR_WITH_ROOT
+    ///@name Monitoring
+    ///@{
+    void book();                  ///<@brief Book histograms
+    _DECL_MONITOR( _input );      ///<@brief Input monitoring histograms, fill, write
+    _DECL_MONITOR( _tower );      ///<@brief Tower monitoring histograms, fill, write
+    _DECL_MONITOR( _tower_emc );  ///<@brief Tower monitoring histograms, fill, write
+    _DECL_MONITOR( _tower_hac );  ///<@brief Tower monitoring histograms, fill, write
+    _DECL_MONITOR( _track );      ///<@brief Track monitoring histograms, fill, write
+    _DECL_MONITOR( _muons );      ///<@brief Muon monitoring histograms, fill, write
+    _DECL_MONITOR( _noint );      ///<@brief Non-interacting monitoring histograms, fill, write
+    ///@}
+#endif
   };
 }
 

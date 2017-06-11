@@ -11,8 +11,9 @@
 namespace TowerDescriptor {
   ///@brief Numerical and other constants
   namespace Constants {
-    static const double pi    = std::asin(1.)*2.; ///<@brief @f$ \pi @f$
-    static const double twopi = 2.*pi;            ///<@brief @f$ 2\pi @f$
+    static const double halfpi = std::asin(1.);  
+    static const double pi     = 2.*halfpi;        ///<@brief @f$ \pi @f$
+    static const double twopi  = 2.*pi;            ///<@brief @f$ 2\pi @f$
 
     namespace Binning {
       namespace Rap {
