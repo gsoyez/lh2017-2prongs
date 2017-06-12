@@ -191,8 +191,10 @@ bool Detector::Signals::_emcSignalPrep(const fastjet::PseudoJet& particle,bool& 
       // smear with nominal energy resolution
       fj *= _experiment->emcResoSmearing(particle)/particle.e();
 #ifdef _MONITOR_WITH_ROOT
-      _FILL_SCATTER( _tower,     particle, fj );
-      _FILL_SCATTER( _tower_emc, particle, fj );
+      if ( ParticleInfo::isCharged(particle)  ) {
+	_FILL_SCATTER( _tower,     particle, fj );
+	_FILL_SCATTER( _tower_emc, particle, fj );
+      }
 #endif
       // add signal information
       ParticleInfo::type_t t = particle.user_info<ParticleInfo::base_t>().vertex() == 0 
@@ -224,8 +226,10 @@ bool Detector::Signals::_hacSignalPrep(const fastjet::PseudoJet& particle,bool& 
         fj*=_experiment->hacResoSmearing(particle)/particle.e();
       }
 #ifdef _MONITOR_WITH_ROOT
-      _FILL_SCATTER( _tower,     particle, fj );
-      _FILL_SCATTER( _tower_hac, particle, fj );
+      if ( ParticleInfo::isCharged(particle) ) {
+	_FILL_SCATTER( _tower,     particle, fj );
+	_FILL_SCATTER( _tower_hac, particle, fj );
+      }
 #endif
       // add signal information
       ParticleInfo::Type t = particle.user_info<ParticleInfo::base_t>().vertex() == 0 ? ParticleInfo::HardScatter : ParticleInfo::Pileup;

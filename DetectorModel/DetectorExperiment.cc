@@ -119,6 +119,7 @@ Detector::Experiment::Experiment(const std::string& name,bool /*prnt*/)
   , _muoEtaMax(0.)
   , _expEtaMin(0.)
   , _expEtaMax(0.)
+  , _magneticFieldOn(true)			\
 {
   _random_engine = std::ranlux48(std::chrono::system_clock::now().time_since_epoch().count());
   _normal_dist   = std::normal_distribution<double>(0.,1.);
@@ -218,14 +219,18 @@ double Detector::Experiment::emcResoSmearing(double e)
 {
   if ( e <= 0. ) { return 0.; }
   double sigma(std::sqrt(_emcResoA2/e+_emcResoB2/(e*e)+_emcResoC2)*e);
-  return e+sigma*_normal_dist(_random_engine);
+  double es(sigma*_normal_dist(_random_engine));
+  //  std::cout << "EMC: E = " << e << " GeV, sigma = " << sigma << ", fluct = " << es << "GeV, E_smear = " << e+es << " GeV" << std::endl; 
+  return e+es;
 }
 
 double Detector::Experiment::hacResoSmearing(double e)
 {
   if ( e <= 0. ) { return 0.; }
   double sigma(std::sqrt(_hacResoA2/e+_hacResoB2/(e*e)+_hacResoC2)*e);
-  return e*+sigma*_normal_dist(_random_engine);
+  double es(sigma*_normal_dist(_random_engine));
+  //  std::cout << "HAC: E = " << e << " GeV, sigma = " << sigma << ", fluct = " << es << " GeV, E_smear = " << e+es << " GeV" << std::endl; 
+  return e+es;
 }
 
 double Detector::Experiment::trkResoSmearing(double pT)
@@ -238,7 +243,7 @@ double Detector::Experiment::emcResoSmearing(const fastjet::PseudoJet& pjet)
 { return this->emcResoSmearing(pjet.e()); }
 
 double Detector::Experiment::hacResoSmearing(const fastjet::PseudoJet& pjet)
-{ return this->emcResoSmearing(pjet.e()); }
+{ return this->hacResoSmearing(pjet.e()); }
 
 double Detector::Experiment::trkResoSmearing(const fastjet::PseudoJet& pjet)
 { return this->trkResoSmearing(pjet.perp()); }
@@ -410,11 +415,14 @@ bool Detector::Experiment::adjustPhi(const fastjet::PseudoJet& ptrack,fastjet::P
   if ( ccir.intersect(_cavityEnvelope,cit0,cit1) == 1 ) {      // tangential
     phi = cit0.phi();
   } else {                                                     // secant
-    Detector::Geometry::Point2d pri(_cavityRadius*ptrack.px()/ptrack.pt(),_cavityRadius*ptrack.py()/ptrack.pt());
-    if ( pri.distance(cit0) < pri.distance(cit1) ) { phi = cit0.phi(); } else { phi = cit1.phi(); }
-    //    double dp0(std::abs(TowerGrid::phi_std(cit0.phi()-dphi))); // secant - choose the smallest angular distance 
-    //    double dp1(std::abs(TowerGrid::phi_std(cit1.phi()-dphi)));
-    //   phi = dp0 < dp1 ? cit0.phi() : cit1.phi();
+    double d0(std::abs(TowerGrid::phi_std(cit0.phi()-ptrack.phi())));
+    double d1(std::abs(TowerGrid::phi_std(cit1.phi()-ptrack.phi())));
+    if ( d0 < d1 ) { phi = cit0.phi(); } else { phi = cit1.phi(); }
+    // Detector::Geometry::Point2d pri(_cavityRadius*ptrack.px()/ptrack.pt(),_cavityRadius*ptrack.py()/ptrack.pt());
+    // Detector::Geometry::Point2d pr0(_cavityRadius*cit0.x()/cit0.r(),_cavityRadius*cit0.y()/cit0.r());
+    // Detector::Geometry::Point2d pr1(_cavityRadius*cit1.x()/cit1.r(),_cavityRadius*cit1.y()/cit1.r());
+    // double d0(pri.distance(pr0)); double d1(pri.distance(pr1));
+    //    if ( d0 < d1 ) { phi = pr0.phi(); } else { phi = pr1.phi(); }
   }
 
   // new direction

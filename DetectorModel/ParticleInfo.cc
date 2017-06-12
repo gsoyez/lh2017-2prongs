@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-ParticleInfo::pdglist_t ParticleInfo::_emShowerParticles       = { 11, -11, 21, -21, 111, -111 };
+ParticleInfo::pdglist_t ParticleInfo::_emShowerParticles       = { 11, -11, 22, -22, 111, -111 };
 ParticleInfo::pdglist_t ParticleInfo::_hadShowerParticles      = { 15, -15, 2212, -2212, 2112, -2112,  211, -211, 213, -213, 130, -130, 310, -310, 311, -311, 321, -321 };
 ParticleInfo::pdglist_t ParticleInfo::_nonInteractingParticles = { 12, -12, 14, -14, 16, -16, 18,  -18 };
 ParticleInfo::pdglist_t ParticleInfo::_ionizingParticles       = { 13, -13 };

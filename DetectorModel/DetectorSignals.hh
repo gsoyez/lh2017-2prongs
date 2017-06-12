@@ -25,6 +25,7 @@
   TH1D* h_phi##T ;							\
   TH2D* d_phi_vs_phi##T ;						\
   TH2D* d_dphi_vs_phi##T ;						\
+  TH2D* d_dphi_vs_pt##T;						\
   TH2D* d_esmear_vs_e##T ;						\
   TH2D* d_de_vs_e##T ;							\
   TH2D* d_dpxy_vs_phi##T;						\
@@ -32,7 +33,7 @@
   void fillHists##T (const std::vector<fastjet::PseudoJet>& data);	\
   void writeHists##T ()
 
-#define _IMPL_MONITOR( T )\
+#define _IMPL_MONITOR( T )						\
   void Detector::Signals::fillHists##T (const std::vector<fastjet::PseudoJet>& data) \
   {									\
     h_n##T ->Fill( static_cast<double>(data.size()) );			\
@@ -50,6 +51,7 @@
     if ( h_phi##T != 0 )         { h_phi##T ->Write(); }			\
     if ( d_phi_vs_phi##T != 0  && d_phi_vs_phi##T ->GetEntries() > 0 )  { d_phi_vs_phi##T ->Write(); } \
     if ( d_dphi_vs_phi##T != 0 && d_dphi_vs_phi##T ->GetEntries() > 0 ) { d_dphi_vs_phi##T ->Write(); } \
+    if ( d_dphi_vs_pt##T != 0 && d_dphi_vs_pt##T ->GetEntries() > 0 ) { d_dphi_vs_pt##T ->Write(); } \
     if ( d_phi_vs_phi##T != 0  && d_phi_vs_phi##T ->GetEntries() > 0 )  { d_phi_vs_phi##T ->Write(); } \
     if ( d_esmear_vs_e##T != 0 && d_esmear_vs_e##T ->GetEntries() > 0 ) { d_esmear_vs_e##T ->Write(); } \
     if ( d_de_vs_e##T != 0 && d_de_vs_e##T ->GetEntries() > 0 ) { d_de_vs_e##T ->Write(); } \
@@ -73,14 +75,16 @@
   h_phi##T         = new TH1D( ( N + std::string("/h_phi")         + std::string( #T ) ).c_str(), "#phi spectrum",          128,  -3.2, 3.2  ); \
   d_phi_vs_phi##T  = new TH2D( ( N + std::string("/d_phi_vs_phi")  + std::string( #T ) ).c_str(), "#phi_{smeared} vs #phi", 128, -3.2, 3.2, 128, -3.2, 3.2); \
   d_dphi_vs_phi##T = new TH2D( ( N + std::string("/d_dphi_vs_phi") + std::string( #T ) ).c_str(), "#Delta#phi vs #phi",     128, -3.2, 3.2, 512, -3.2, 3.2 ); \
+  d_dphi_vs_pt##T  = new TH2D( ( N + std::string("/d_dphi_vs_pt")  + std::string( #T ) ).c_str(), "#Delta#phi vs p_{T}",    200, 0., 1000., 512, -3.2, 3.2 ); \
   d_esmear_vs_e##T = new TH2D( ( N + std::string("/d_esmear_vs_e") + std::string( #T ) ).c_str(), "E_{smeared} vs E",       200, 0., 1000., 200, 0., 1000. ); \
   d_de_vs_e##T     = new TH2D( ( N + std::string("/d_de_vs_e")     + std::string( #T ) ).c_str(), "#DeltaE_{smeared} vs E", 200, 0., 1000., 200,-2.5,2.5   ); \
-  d_dpxy_vs_phi##T = new TH2D( ( N + std::string("/d_dpxy_vs_phi") + std::string( #T ) ).c_str(), "#Delta(p_{x,y} vs #phi", 128, -3.2, 3.2, 200,-10.,10.   ); \
-  d_dpxy_vs_pt##T  = new TH2D( ( N + std::string("/d_dpxy_vs_pt")  + std::string( #T ) ).c_str(), "#Delta(p_{x,y} vs p_{T}", 200, 0., 1000., 200,-10.,10.  )
+  d_dpxy_vs_phi##T = new TH2D( ( N + std::string("/d_dpxy_vs_phi") + std::string( #T ) ).c_str(), "#Delta(p_{x,y}) vs #phi", 128, -3.2, 3.2, 300,-15.,15.   ); \
+  d_dpxy_vs_pt##T  = new TH2D( ( N + std::string("/d_dpxy_vs_pt")  + std::string( #T ) ).c_str(), "#Delta(p_{x,y}) vs p_{T}", 200, 0., 1000., 300,-15.,15.  )
 
 #define _FILL_SCATTER( T, P, J )				\
   d_phi_vs_phi##T  ->Fill( P.phi_std(), J.phi_std());		\
   d_dphi_vs_phi##T ->Fill( P.phi_std(),TowerGrid::phi_std( J.phi_std() - P.phi_std())); \
+  d_dphi_vs_pt##T ->Fill( P.pt(),TowerGrid::phi_std( J.phi_std() - P.phi_std())); \
   d_esmear_vs_e##T ->Fill( P.e(), J.e());				\
   d_de_vs_e##T     ->Fill( P.e(),( J.e() - J.e() )/ P.e() );		\
   d_dpxy_vs_phi##T ->Fill( P.phi_std(), J.px() - P.px() );		\
