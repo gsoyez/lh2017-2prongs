@@ -52,7 +52,6 @@
     if ( d_phi_vs_phi##T != 0  && d_phi_vs_phi##T ->GetEntries() > 0 )  { d_phi_vs_phi##T ->Write(); } \
     if ( d_dphi_vs_phi##T != 0 && d_dphi_vs_phi##T ->GetEntries() > 0 ) { d_dphi_vs_phi##T ->Write(); } \
     if ( d_dphi_vs_pt##T != 0 && d_dphi_vs_pt##T ->GetEntries() > 0 ) { d_dphi_vs_pt##T ->Write(); } \
-    if ( d_phi_vs_phi##T != 0  && d_phi_vs_phi##T ->GetEntries() > 0 )  { d_phi_vs_phi##T ->Write(); } \
     if ( d_esmear_vs_e##T != 0 && d_esmear_vs_e##T ->GetEntries() > 0 ) { d_esmear_vs_e##T ->Write(); } \
     if ( d_de_vs_e##T != 0 && d_de_vs_e##T ->GetEntries() > 0 ) { d_de_vs_e##T ->Write(); } \
     if ( d_dpxy_vs_phi##T != 0 && d_dpxy_vs_phi##T ->GetEntries() > 0 ) { d_dpxy_vs_phi##T ->Write(); } \
