@@ -11,8 +11,10 @@ R=default_R
 pt=default_pt
 levelref=default_levelref
 levelalt=default_levelalt
-
 level=levelref.'_'.levelalt
+
+reflabel=default_levelref_label
+altlabel=default_levelalt_label
 
 set xlabel 'resilience'
 set xrange [0:5]
@@ -26,13 +28,12 @@ set label 102 '{/*0.8 Pythia8(4C), anti-k_t('.R.')}' left at graph 0.03,0.05
 set label 103 '{/*0.8 60<m<100}'                     left at graph 0.03,0.10
 set label 101 sprintf('{/*0.8 {/Symbol e}_S=%g',eS)  left at graph 0.03,0.15
 
-m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'-truth_parton.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'-truth_parton.res',shape)
+m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'.res',shape)
 
 resilience ="1.0/sqrt(column('Bcorrection_'.level)**2+column('Scorrection_'.level)**2)"
 performance="column('significance_'.levelref)"
 
 set macros
-set title levelref.' v. '.levelalt 
 
 
 groomers="trimmed tpp tlt lll ttt"
@@ -52,7 +53,7 @@ set key spacing 1.5
 # produce one plot for each grooming level
 do for [ishape=1:words(shapes)]{
     shape=word(shapes,ishape)
-    set title '{/*1.4 '.word(shape_labels,ishape).'} ('.levelref.' v. '.levelalt.')'
+    set title '{/*1.4 '.word(shape_labels,ishape).'} ('.reflabel.' v. '.altlabel.')'
     plot for [igroomer=1:words(groomers)] m(shape.'_'.word(groomers,igroomer)) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp ls igroomer ps variable t word(groomer_labels,igroomer) 
 }
      

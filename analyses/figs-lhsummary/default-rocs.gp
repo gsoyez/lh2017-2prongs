@@ -11,6 +11,9 @@ levelref=default_levelref
 levelalt=default_levelalt
 level=levelref.'_'.levelalt
 
+reflabel=default_levelref_label
+altlabel=default_levelalt_label
+
 set xlabel '{/Symbol e}_S'
 set xrange [0:0.8]
 
@@ -30,7 +33,7 @@ set key top left reverse Left
 
 #------------------------------------------------------------------------
 # ATLAS
-set title '{/*1.4 ATLAS-like} ('.levelref.' v. '.levelalt.')'
+set title '{/*1.4 ATLAS-like} ('.reflabel.' v. '.altlabel.')'
 
 m(level)=sprintf('< ../scripts/roc.sh ../res/lhc14-WW%s-pythia84C-%s-R'.R.'.ntuple.gz ../res/lhc14-dijets%s-pythia84C-%s-R'.R.'.ntuple.gz "%s" 0.0 %g %g "mass_%s>60.0" "mass_%s<100.0"',pt,level,pt,level,atlas_shape,atlas_vmax,atlas_dv,atlas_mass,atlas_mass)
 eS1="0.4"
@@ -42,8 +45,8 @@ eB2=system(sprintf('../scripts/get_efficiency.sh ../res/lhc14-dijets%s-pythia84C
 set arrow 1 from eS1+0.0,0.0001  to eS1+0.0,eB1+0.0 nohead dt 2 lw 1.5 lc 3
 set arrow 2 from eS1+0.0,eB1+0.0 to eS2+0.0,eB2+0.0 nohead dt 2 lw 1.5 lc 7
 
-set label 21 '{/*0.8 performance}'        at eS1+0.03,sqrt(0.0001*eB1)       rotate by 90
-set label 22 '{/*0.8 resilience}'  center at 0.5*(eS1+eS2),1.7*sqrt(eB1*eB2) rotate by 35
+set label 21 '{/*0.8 performance}'         at eS1+0.03,sqrt(0.0001*eB1)       rotate by 90
+set label 22 '{/*0.8 1/resilience}' center at 0.5*(eS1+eS2),1.7*sqrt(eB1*eB2) rotate by 35
 
 print m(levelref)
 plot m(levelref) u 1:2 w l dt 1 lw 3 lc 3 t levelref,\
@@ -53,7 +56,7 @@ plot m(levelref) u 1:2 w l dt 1 lw 3 lc 3 t levelref,\
 
 #------------------------------------------------------------------------
 # CMS
-set title '{/*1.4 CMS-like} ('.levelref.' v. '.levelalt.')'
+set title '{/*1.4 CMS-like} ('.reflabel.' v. '.altlabel.')'
 
 m(level)=sprintf('< ../scripts/roc.sh ../res/lhc14-WW%s-pythia84C-%s-R'.R.'.ntuple.gz ../res/lhc14-dijets%s-pythia84C-%s-R'.R.'.ntuple.gz "%s" 0.0 %g %g "mass_%s>60.0" "mass_%s<100.0"',pt,level,pt,level,cms_shape,cms_vmax,cms_dv,cms_mass,cms_mass)
 eS1="0.4"
@@ -65,8 +68,8 @@ eB2=system(sprintf('../scripts/get_efficiency.sh ../res/lhc14-dijets%s-pythia84C
 set arrow 1 from eS1+0.0,0.0001  to eS1+0.0,eB1+0.0 nohead dt 2 lw 1.5 lc 3
 set arrow 2 from eS1+0.0,eB1+0.0 to eS2+0.0,eB2+0.0 nohead dt 2 lw 1.5 lc 7
 
-set label 21 '{/*0.8 performance}'        at eS1+0.03,sqrt(0.0001*eB1)       rotate by 90
-set label 22 '{/*0.8 resilience}'  center at 0.5*(eS1+eS2),1.7*sqrt(eB1*eB2) rotate by 35
+set label 21 '{/*0.8 performance}'         at eS1+0.03,sqrt(0.0001*eB1)       rotate by 90
+set label 22 '{/*0.8 1/resilience}' center at 0.5*(eS1+eS2),1.7*sqrt(eB1*eB2) rotate by 35
 
 print m(levelref)
 plot m(levelref) u 1:2 w l dt 1 lw 3 lc 3 t levelref,\
@@ -76,7 +79,7 @@ plot m(levelref) u 1:2 w l dt 1 lw 3 lc 3 t levelref,\
 
 #------------------------------------------------------------------------
 # resilient
-set title '{/*1.4 resilience-oriented} ('.levelref.' v. '.levelalt.')'
+set title '{/*1.4 resilience-oriented} ('.reflabel.' v. '.altlabel.')'
 
 m(level)=sprintf('< ../scripts/roc.sh ../res/lhc14-WW%s-pythia84C-%s-R'.R.'.ntuple.gz ../res/lhc14-dijets%s-pythia84C-%s-R'.R.'.ntuple.gz "%s" 0.0 %g %g "mass_%s>60.0" "mass_%s<100.0"',pt,level,pt,level,resi_shape,resi_vmax,resi_dv,resi_mass,resi_mass)
 eS1="0.4"
@@ -88,8 +91,8 @@ eB2=system(sprintf('../scripts/get_efficiency.sh ../res/lhc14-dijets%s-pythia84C
 set arrow 1 from eS1+0.0,0.0001  to eS1+0.0,eB1+0.0 nohead dt 2 lw 1.5 lc 3
 set arrow 2 from eS1+0.0,eB1+0.0 to eS2+0.0,eB2+0.0 nohead dt 2 lw 1.5 lc 7
 
-set label 21 '{/*0.8 performance}'        at eS1+0.03,sqrt(0.0001*eB1)       rotate by 90
-set label 22 '{/*0.8 resilience}'  center at 0.5*(eS1+eS2),1.7*sqrt(eB1*eB2) rotate by 35
+set label 21 '{/*0.8 performance}'         at eS1+0.03,sqrt(0.0001*eB1)       rotate by 90
+set label 22 '{/*0.8 1/resilience}' center at 0.5*(eS1+eS2),1.7*sqrt(eB1*eB2) rotate by 35
 
 print m(levelref)
 plot m(levelref) u 1:2 w l dt 1 lw 3 lc 3 t levelref,\
@@ -99,7 +102,7 @@ plot m(levelref) u 1:2 w l dt 1 lw 3 lc 3 t levelref,\
 
 #------------------------------------------------------------------------
 # performant
-set title '{/*1.4 performance-oriented} ('.levelref.' v. '.levelalt.')'
+set title '{/*1.4 performance-oriented} ('.reflabel.' v. '.altlabel.')'
 
 m(level)=sprintf('< ../scripts/roc.sh ../res/lhc14-WW%s-pythia84C-%s-R'.R.'.ntuple.gz ../res/lhc14-dijets%s-pythia84C-%s-R'.R.'.ntuple.gz "%s" 0.0 %g %g "mass_%s>60.0" "mass_%s<100.0"',pt,level,pt,level,perf_shape,perf_vmax,perf_dv,perf_mass,perf_mass)
 eS1="0.4"
@@ -111,8 +114,8 @@ eB2=system(sprintf('../scripts/get_efficiency.sh ../res/lhc14-dijets%s-pythia84C
 set arrow 1 from eS1+0.0,0.0001  to eS1+0.0,eB1+0.0 nohead dt 2 lw 1.5 lc 3
 set arrow 2 from eS1+0.0,eB1+0.0 to eS2+0.0,eB2+0.0 nohead dt 2 lw 1.5 lc 7
 
-set label 21 '{/*0.8 performance}'        at eS1+0.03,sqrt(0.0001*eB1)       rotate by 90
-set label 22 '{/*0.8 resilience}'  center at 0.5*(eS1+eS2),1.7*sqrt(eB1*eB2) rotate by 35
+set label 21 '{/*0.8 performance}'         at eS1+0.03,sqrt(0.0001*eB1)       rotate by 90
+set label 22 '{/*0.8 1/resilience}' center at 0.5*(eS1+eS2),1.7*sqrt(eB1*eB2) rotate by 35
 
 print m(levelref)
 plot m(levelref) u 1:2 w l dt 1 lw 3 lc 3 t levelref,\

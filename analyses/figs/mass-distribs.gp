@@ -10,11 +10,12 @@ set xlabel 'm [GeV]'
 set xrange [mmin:mmax]
 
 pt='1000'
+R='0.8'
 
 groomers="plain loose tight trim"
 
-set label 101 '{/=10 p_{t,jet}>'.pt.' GeV}'     right at graph 0.97,0.6
-set label 102 '{/=10 Pythia8(4C), anti-k_t(1)}' right at graph 0.97,0.54
+set label 101 '{/=10 p_{t,jet}>'.pt.' GeV}'         right at graph 0.97,0.6
+set label 102 '{/=10 Pythia8(4C), anti-k_t('.R.')}' right at graph 0.97,0.54
 
 set style line 1 dt 1 lc 1 lw 2  # plain
 set style line 2 dt 1 lc 3 lw 2  # loose
@@ -27,7 +28,7 @@ set style line 13 dt 2 lc 7 lw 2  # tight
 set style line 14 dt 2 lc rgb "#00dd00" lw 2 # trim
 
 
-m(proc,level,groom)=sprintf('< ../scripts/histogram.sh ../res/lhc14-%s-pythia84C-%s.ntuple.gz "mass_%s" %g %g %g',proc,level,groom,mmin,mmax,dm)
+m(proc,level,groom)=sprintf('< ../scripts/histogram.sh ../res/lhc14-%s-pythia84C-%s-R'.R.'.ntuple.gz "mass_%s" %g %g %g',proc,level,groom,mmin,mmax,dm)
 
 
 do for [proc in "WW dijets"]{

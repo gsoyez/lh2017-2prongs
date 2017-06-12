@@ -10,8 +10,10 @@ eS=0.4
 R=default_R
 levelref=default_levelref
 levelalt=default_levelalt
-
 level=levelref.'_'.levelalt
+
+reflabel=default_levelref_label
+altlabel=default_levelalt_label
 
 set xlabel 'resilience'
 set xrange [0:5]
@@ -32,7 +34,7 @@ groomers="ppp lll lpl lpp ttt tlt tpt tll tpl tpp trimmed"
 shapes="tau21_beta1 tau21_beta2 N2_beta1 N2_beta2 D2_beta1 D2_beta2 M2_beta1 M2_beta2"
 #slabs='"{/Symbol t}_{21}" "N_2" "D_2" "M_2"'
 
-m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'-truth_parton.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'-truth_parton.res',shape)
+m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'.res',shape)
 
 resilience ="1.0/sqrt(column('Bcorrection_'.level)**2+column('Scorrection_'.level)**2)"
 performance="column('significance_'.levelref)"
@@ -52,7 +54,7 @@ set style line 6 dt 1 lc rgb "#0000ff" lw 2
 set style line 7 dt 2 lc rgb "#00dd00" lw 2
 set style line 8 dt 1 lc rgb "#00dd00" lw 2
 
-set title levelref.' v. '.levelalt 
+set title reflabel.' v. '.altlabel 
 
 plot for [is=1:words(shapes)] for [ig=1:words(groomers)] \
      m(word(shapes,is).'_'.word(groomers,ig)) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) \

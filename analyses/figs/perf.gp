@@ -7,6 +7,7 @@ set label 1 '{/Symbol e}_S=0.4' at graph 0.03,0.95
 eS=0.4
 
 pt='1000'
+R='0.8'
 
 set xlabel 'background robustness'
 set xrange [0.4:1.4]
@@ -17,9 +18,9 @@ set yrange [0:7]
 set grid
 set arrow 1 from 1.0,0.0 to 1.0,7.0 nohead dt 1 lw 2 lc 7
 
-set label 102 '{/=10 Pythia8(4C), anti-k_t(1)}'    right at graph 0.97,0.60
-set label 103 '{/=10 60<m_{tight}<100}'            right at graph 0.97,0.54
-set label 101 sprintf('{/=10 {/Symbol e}_S=%g',eS) right at graph 0.97,0.48
+set label 102 '{/=10 Pythia8(4C), anti-k_t('.R.')}'  right at graph 0.97,0.60
+set label 103 '{/=10 60<m_{tight}<100}'              right at graph 0.97,0.54
+set label 101 sprintf('{/=10 {/Symbol e}_S=%g',eS)   right at graph 0.97,0.48
 
 set style line 1 dt 1 lc 7 lw 2             pt  6 ps 0.6 #  tight  loose  tight
 set style line 2 dt 1 lc rgb "#00dd00" lw 2 pt  4 ps 0.6 #  loose  loose  loose
@@ -47,7 +48,7 @@ labs='"tight{/Symbol \304}loose/tight" "loose{/Symbol \304}loose/loose" "tight{/
 shapes="tau21 N2 D2 M2"
 slabs='"{/Symbol t}_{21}" "N_2" "D_2" "M_2"'
 
-m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities.res',shape)
+m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'.res',shape)
 
 set macros
 

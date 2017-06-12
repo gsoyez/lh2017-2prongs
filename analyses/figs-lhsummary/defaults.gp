@@ -33,4 +33,6 @@ cms_mass='tight'
 
 default_levelref='truth'
 default_levelalt='parton'
+default_levelref_label='particle'
+default_levelalt_label='parton'
 
