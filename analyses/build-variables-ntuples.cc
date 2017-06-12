@@ -170,11 +170,13 @@ int main (int argc, char ** argv) {
 
     //----------------------------------------------------------------------
     // apply the optional Detector simulation
-    if ( !signal_processor->fill(full_event) ) {
-      cout << "WARNING: detector simulation failed (likely an empty event or a disabled signal processor). Discarding event " << iev << endl;
-       continue;
-     }
-    full_event = signal_processor->get();
+    if (detector_model_ptr){
+      if ( !signal_processor->fill(full_event) ) {
+        cout << "WARNING: detector simulation failed (likely an empty event or a disabled signal processor). Discarding event " << iev << endl;
+        continue;
+      }
+      full_event = signal_processor->get();
+    }
     
     //----------------------------------------------------------------------
     // apply the optional Soft Killer
