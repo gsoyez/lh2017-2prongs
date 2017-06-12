@@ -4,36 +4,45 @@
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "EventMixer.hh"
-#include "CmdLine.hh"
-#include "PU14.hh"
-#include "zfstream.h"
-#include "fastjet/ClusterSequence.hh"
-#include "SubstructureVariables.hh"
-#include <fstream>
-
-//#include "Detector.hh"
-#include <fastjet/contrib/SoftKiller.hh>
+#include <fstream>                        //< file I/O
+#include "zfstream.h"                     //< gzipepd file I/O
+#include "CmdLine.hh"                     //< arguments from the command line
+#include "EventMixer.hh"                  //< event interface
+#include "PU14.hh"                        //< adidtional info for particles
+#include "fastjet/ClusterSequence.hh"     //< clustering
+#include "SubstructureVariables.hh"       //< all the measures sustructure variables
+#include "Detector.hh"                    //< Peter's detector simulatiom
+#include <fastjet/contrib/SoftKiller.hh>  //< for pileup subtraction
 
 using namespace std;
 using namespace fastjet;
 
 int main (int argc, char ** argv) {
+  //========================================================================
+  // Parse th ecommand line
+  //========================================================================
   CmdLine cmdline(argc,argv);
-  // inputs read from command line
+
+  //----------------------------------------------------------------------
+  // basic input
   int nev = cmdline.value<int>("-nev",1);  // first argument: command line option; second argument: default value
-  double R = cmdline.value<double>("-R",1.0);
-
   string outname = cmdline.value<string>("-out");
-  
-  // some definitions
-  JetDefinition jet_def(antikt_algorithm,R);       // the jet definition....
 
+  //----------------------------------------------------------------------
+  // various physical quantities and cuts
+  double R = cmdline.value<double>("-R",1.0);
   double particle_rapmax = cmdline.value("-particle.rapmax",  -1.0); // ineffective when -ve
   double jet_rapmax = cmdline.value("-jet.rapmax",  2.5);
   double jet_ptmin  = cmdline.value("-jet.ptmin", 500.0);
 
-  // pileup subtraction (uses the SoftKiller)
+  //------------------------------------------------------------------------
+  // create mixer that will construct events by mixing hard and pileup
+  // events read from files given from command line using 
+  // -hard hard_events_file(.gz) -pileup pileup_events_file(.gz)
+  EventMixer mixer(&cmdline);
+
+  //----------------------------------------------------------------------
+  // optional pileup subtraction (uses the SoftKiller)
   bool pu_subtraction = cmdline.present("-pusub");
   double sk_grid_size = cmdline.value("-sk.grid", 0.4);
   if (pu_subtraction){
@@ -43,41 +52,74 @@ int main (int argc, char ** argv) {
       return 1;
     }
   }
-  
-  // selection of the hardest jets
-  Selector sel_particles = SelectorIdentity();
-  if (particle_rapmax > 0)
-    sel_particles = SelectorAbsRapMax(particle_rapmax);
-  Selector sel_hard_jets = SelectorNHardest(2) * SelectorPtMin(jet_ptmin) * SelectorAbsRapMax(jet_rapmax);
 
-  ostringstream header;
-  header << "# Ran: " << cmdline.command_line() << endl;
-  header << "# Used jet definition: " << jet_def.description() << endl;
+  //----------------------------------------------------------------------
+  // optional detector simulation
+  bool buildATLAS = cmdline.present("-ATLAS");
+  bool buildCMS   = cmdline.present("-CMS");
+  if ((buildATLAS) && (buildCMS)) {
+    cout << "ERROR: One is no tallowed to specify both the ATLAS and CMS detector in a single run" << endl;
+    return 1;
+  }
+
+  assert(cmdline.all_options_used());
+
+  //========================================================================
+  // construct the objects needed for the analysis
+  //========================================================================
+
+  // jet reconstruction
+  JetDefinition jet_def(antikt_algorithm,R);       // the jet definition....
+
+  // selection of the particles and jets
+  Selector sel_particles = SelectorIdentity();
+  if (particle_rapmax>0) sel_particles = SelectorAbsRapMax(particle_rapmax);
+  Selector sel_hard_jets = SelectorNHardest(2) * SelectorPtMin(jet_ptmin) * SelectorAbsRapMax(jet_rapmax);
   
   //-------------------------------------------------------------------------
   // set up substructure tools
   SubstructureVariables subvars(cmdline);
-  //TODO: add this once Fredericc has finished playing w the file
-  header << subvars.description() << "#" << endl;
-  
-  //------------------------------------------------------------------------
-  // create mixer that will construct events by mixing hard and pileup
-  // events read from files given from command line using 
-  // -hard hard_events_file(.gz) -pileup pileup_events_file(.gz)
-  EventMixer mixer(&cmdline);
-  header << "# EventGeneration: " << mixer.description() << endl;
-  header << "#" << endl;
-  
-  assert(cmdline.all_options_used());
 
   //------------------------------------------------------------------------
   // optional pileup subtraction
   SharedPtr<contrib::SoftKiller> sk;
   if (pu_subtraction)
     sk.reset(new contrib::SoftKiller(particle_rapmax, sk_grid_size));
+
+  //----------------------------------------------------------------------
+  // optional detector simulation
+  Detector::Experiment* detector_model_ptr = 0; 
+  if (buildATLAS) detector_model_ptr = Detector::Build::ATLAS();
+  if (buildCMS  ) detector_model_ptr = Detector::Build::CMS();
+
+  // store as a shared ptr for easier memory management and get a
+  // signal processor - the processor takes ownership of the detector
+  // model object
+  SharedPtr<Detector::Experiment> shared_detector_model_ptr;
+  SharedPtr<Detector::Signals> signal_processor;
+
+  if (detector_model_ptr){
+    shared_detector_model_ptr.reset(detector_model_ptr);
+    signal_processor.reset(new Detector::Signals(detector_model_ptr));
+  }
+
+  //----------------------------------------------------------------------
+  // create a header with run info
+  ostringstream header;
+  header << "# Ran: " << cmdline.command_line() << endl;
+  header << "# Used jet definition: " << jet_def.description() << endl;
+  header << "# EventGeneration: " << mixer.description() << endl;
+  header << subvars.description() << "#" << endl;
+  header << "#" << endl;
+  if (pu_subtraction)
+    header << "# Pileup suibtraction using: " << sk->description() << endl;
+  if (detector_model_ptr)
+    header << detector_model_ptr->description();
+  header << "#------------------------------------------------------------------------" << endl;
   
-  //------------------------------------------------------------------------
+  //========================================================================
   // prepare the output
+  //========================================================================
   ostream *ostr;  
   if (outname.length() > 3 && outname.find(std::string(".gz")) +3 == outname.length()) {
     ostr = new gzofstream(outname.c_str());
@@ -105,118 +147,129 @@ int main (int argc, char ** argv) {
     }
   }  
   (*ostr) << endl;
+    
   
-  //SharedPtr<Detector::ATLASExperiment> detector( new Detector::ATLASExperiment());
-  
-  
-  //------------------------------------------------------------------------
-  // loop over events
+  //========================================================================
+  // event loop
+  //========================================================================
   int iev = 0;
   int periodic_iev_output=10;
   int nentries = 0;
   while ( mixer.next_event() && iev < nev ) {
-     // increment event number    
-     iev++;
-     if (iev % periodic_iev_output == 0){
-       cout << "Event " << iev << endl;
-       if (iev == 15 * periodic_iev_output) periodic_iev_output*=10;
+    //----------------------------------------------------------------------
+    // increment event number    
+    iev++;
+    if (iev % periodic_iev_output == 0){
+      cout << "Event " << iev << endl;
+      if (iev == 15 * periodic_iev_output) periodic_iev_output*=10;
+    }
+     
+    //----------------------------------------------------------------------
+    // extract particles from event 
+    vector<PseudoJet> full_event = sel_particles(mixer.particles()) ;
+
+    //----------------------------------------------------------------------
+    // apply the optional Detector simulation
+    if ( !signal_processor->fill(full_event) ) {
+      cout << "WARNING: detector simulation failed (likely an empty event or a disabled signal processor). Discarding event " << iev << endl;
+       continue;
      }
+    full_event = signal_processor->get();
+    
+    //----------------------------------------------------------------------
+    // apply the optional Soft Killer
+    if (sk) full_event = (*sk)(full_event);
      
-     // extract particles from event 
-     vector<PseudoJet> full_event = sel_particles(mixer.particles()) ;
+    ClusterSequence cs_full(full_event,jet_def);
+    vector<PseudoJet> jets = sel_hard_jets(cs_full.inclusive_jets());
 
-     // apply the Soft Killer if needed
-     if (sk) full_event = (*sk)(full_event);
-     
-     ClusterSequence cs_full(full_event,jet_def);
-     vector<PseudoJet> jets = sel_hard_jets(cs_full.inclusive_jets());
+    //----------------------------------------------------------------------
+    // loop over the jets
+    for (const PseudoJet &jet : jets){
+      subvars.set_jet(jet);
+      ++nentries;
 
-     // loop over the jets
-     for (const PseudoJet &jet : jets){
-       subvars.set_jet(jet);
-       ++nentries;
-
-       // handle scalar pt sums
-       for (int igroom = 0; igroom<3; ++igroom){
-         (*ostr) << subvars.scalarsum_pt((SubstructureVariables::groom) igroom) << " ";
-       }       
+      // handle scalar pt sums
+      for (int igroom = 0; igroom<3; ++igroom){
+        (*ostr) << subvars.scalarsum_pt((SubstructureVariables::groom) igroom) << " ";
+      }       
          
-       // handle masses
-       for (int igroom = 0; igroom<4; ++igroom){
-         (*ostr) << subvars.m((SubstructureVariables::groom) igroom) << " ";
-       }
+      // handle masses
+      for (int igroom = 0; igroom<4; ++igroom){
+        (*ostr) << subvars.m((SubstructureVariables::groom) igroom) << " ";
+      }
        
-       (*ostr) << subvars.zg(SubstructureVariables::loose) << " ";
-       (*ostr) << subvars.zg(SubstructureVariables::tight) << " ";
-       (*ostr) << subvars.thetag(SubstructureVariables::loose) << " ";
-       (*ostr) << subvars.thetag(SubstructureVariables::tight) << " ";
+      (*ostr) << subvars.zg(SubstructureVariables::loose) << " ";
+      (*ostr) << subvars.zg(SubstructureVariables::tight) << " ";
+      (*ostr) << subvars.thetag(SubstructureVariables::loose) << " ";
+      (*ostr) << subvars.thetag(SubstructureVariables::tight) << " ";
 
-       // tau1
-       for (int ibeta = 0; ibeta<2; ++ibeta){
-         for (int igroom = 0; igroom<3; ++igroom){
-           (*ostr) << subvars.tau1((SubstructureVariables::groom) igroom,
-                                   (SubstructureVariables::beta) ibeta) << " ";
-         }
-       }
-
-       // tau2
-       for (int ibeta = 0; ibeta<2; ++ibeta){
-         for (int igroom = 0; igroom<3; ++igroom){
-           (*ostr) << subvars.tau2((SubstructureVariables::groom) igroom,
-                                   (SubstructureVariables::beta) ibeta) << " ";
-         }
-       }
-
-       // 1e2
-       for (int ibeta = 0; ibeta<2; ++ibeta){
-         for (int igroom = 0; igroom<3; ++igroom){
-           (*ostr) << subvars.ecfg_v1_N2((SubstructureVariables::groom) igroom,
-                                         (SubstructureVariables::beta) ibeta) << " ";
-         }
-       }
-
-       // 1e3
-       for (int ibeta = 0; ibeta<2; ++ibeta){
-         for (int igroom = 0; igroom<3; ++igroom){
-           (*ostr) << subvars.ecfg_v1_N3((SubstructureVariables::groom) igroom,
-                                         (SubstructureVariables::beta) ibeta) << " ";
-         }
-       }
-
-       // 2e3
-       for (int ibeta = 0; ibeta<2; ++ibeta){
-         for (int igroom = 0; igroom<3; ++igroom){
-           (*ostr) << subvars.ecfg_v2_N3((SubstructureVariables::groom) igroom,
-                                         (SubstructureVariables::beta) ibeta) << " ";
-         }
-       }
-       
-       // 3e3
-       for (int ibeta = 0; ibeta<2; ++ibeta){
-         for (int igroom = 0; igroom<3; ++igroom){
-           (*ostr) << subvars.ecfg_v3_N3((SubstructureVariables::groom) igroom,
-                                         (SubstructureVariables::beta) ibeta) << " ";
-         }
-       }
-
-       // trimmed versions for ATLAS
-       for (int ibeta = 0; ibeta<2; ++ibeta)
-         (*ostr) << subvars.tau21(SubstructureVariables::trim, 
+      // tau1
+      for (int ibeta = 0; ibeta<2; ++ibeta){
+        for (int igroom = 0; igroom<3; ++igroom){
+          (*ostr) << subvars.tau1((SubstructureVariables::groom) igroom,
                                   (SubstructureVariables::beta) ibeta) << " ";
-       for (int ibeta = 0; ibeta<2; ++ibeta)
-         (*ostr) << subvars.D2(SubstructureVariables::trim, 
-                               (SubstructureVariables::beta) ibeta) << " ";
-       for (int ibeta = 0; ibeta<2; ++ibeta)
-         (*ostr) << subvars.M2(SubstructureVariables::trim, 
-                               (SubstructureVariables::beta) ibeta) << " ";
-       for (int ibeta = 0; ibeta<2; ++ibeta)
-         (*ostr) << subvars.N2(SubstructureVariables::trim, 
-                               (SubstructureVariables::beta) ibeta) << " ";
+        }
+      }
 
-       (*ostr) << endl;
+      // tau2
+      for (int ibeta = 0; ibeta<2; ++ibeta){
+        for (int igroom = 0; igroom<3; ++igroom){
+          (*ostr) << subvars.tau2((SubstructureVariables::groom) igroom,
+                                  (SubstructureVariables::beta) ibeta) << " ";
+        }
+      }
+
+      // 1e2
+      for (int ibeta = 0; ibeta<2; ++ibeta){
+        for (int igroom = 0; igroom<3; ++igroom){
+          (*ostr) << subvars.ecfg_v1_N2((SubstructureVariables::groom) igroom,
+                                        (SubstructureVariables::beta) ibeta) << " ";
+        }
+      }
+
+      // 1e3
+      for (int ibeta = 0; ibeta<2; ++ibeta){
+        for (int igroom = 0; igroom<3; ++igroom){
+          (*ostr) << subvars.ecfg_v1_N3((SubstructureVariables::groom) igroom,
+                                        (SubstructureVariables::beta) ibeta) << " ";
+        }
+      }
+
+      // 2e3
+      for (int ibeta = 0; ibeta<2; ++ibeta){
+        for (int igroom = 0; igroom<3; ++igroom){
+          (*ostr) << subvars.ecfg_v2_N3((SubstructureVariables::groom) igroom,
+                                        (SubstructureVariables::beta) ibeta) << " ";
+        }
+      }
+       
+      // 3e3
+      for (int ibeta = 0; ibeta<2; ++ibeta){
+        for (int igroom = 0; igroom<3; ++igroom){
+          (*ostr) << subvars.ecfg_v3_N3((SubstructureVariables::groom) igroom,
+                                        (SubstructureVariables::beta) ibeta) << " ";
+        }
+      }
+
+      // trimmed versions for ATLAS
+      for (int ibeta = 0; ibeta<2; ++ibeta)
+        (*ostr) << subvars.tau21(SubstructureVariables::trim, 
+                                 (SubstructureVariables::beta) ibeta) << " ";
+      for (int ibeta = 0; ibeta<2; ++ibeta)
+        (*ostr) << subvars.D2(SubstructureVariables::trim, 
+                              (SubstructureVariables::beta) ibeta) << " ";
+      for (int ibeta = 0; ibeta<2; ++ibeta)
+        (*ostr) << subvars.M2(SubstructureVariables::trim, 
+                              (SubstructureVariables::beta) ibeta) << " ";
+      for (int ibeta = 0; ibeta<2; ++ibeta)
+        (*ostr) << subvars.N2(SubstructureVariables::trim, 
+                              (SubstructureVariables::beta) ibeta) << " ";
+
+      (*ostr) << endl;
 
 
-     } // end of loop over jets
+    } // end of loop over jets
   } // end of loop over events
   (*ostr) << "#Nentries=" << nentries << endl;
   

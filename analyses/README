@@ -39,7 +39,10 @@ Pileup:
                            (if not specified one gets exactly 20 PU events for each hard event)
   -pusub                   when present, apply pileyp subtraction (uses SoftKiller)
   -sk.grid <value>         tile size for the Soft Killer [0.4] (hint: use 0.5 with CHS events)
-  
+
+Detector simulation
+  -ATLAS                   run through an ATLAS-like detector
+  -CMS                     run through an CMS-like detector
 
 ========================================================================
 Parsing the output
