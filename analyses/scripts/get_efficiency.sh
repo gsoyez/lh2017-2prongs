@@ -52,7 +52,7 @@ for variant in "plain:plain" "plain:loose" "plain:tight" "loose:loose" "loose:ti
         helpers["tau21_${b}_${acr}"]="(tau2_${b}_${num}/tau1_${b}_${den})"
         helpers["M2_${b}_${acr}"]="(1e3_${b}_${num}/1e2_${b}_${den})"
         helpers["N2_${b}_${acr}"]="(2e3_${b}_${num}/(1e2_${b}_${num}*1e2_${b}_${den}))"
-        helpers["D2_${b}_${acr}"]="(3e3_${b}_${num}/(1e2_${b}_${num}**2*1e2_${b}_${den}))"
+        helpers["D2_${b}_${acr}"]="(3e3_${b}_${num}/(1e2_${b}_${num}*1e2_${b}_${num}*1e2_${b}_${den}))"
     done
 done
     
