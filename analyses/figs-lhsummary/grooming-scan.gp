@@ -35,20 +35,17 @@ set macros
 set title levelref.' v. '.levelalt 
 
 
-groomers="trimmed tpp ltl lll tpt ttt"
-groomer_labels='"trimmed" "tight{/Symbol \304}plain/plain" "tight{/Symbol \304}loose/tight" "loose{/Symbol \304}loose/loose" "tight{/Symbol \304}plain/tight" "tight{/Symbol \304}tight/tight"'
+groomers="trimmed tpp tlt lll ttt"
+groomer_labels='"trimmed" "tight{/Symbol \304}plain/plain" "tight{/Symbol \304}loose/tight" "loose{/Symbol \304}loose/loose" "tight{/Symbol \304}tight/tight"'
 
 shapes="tau21_beta1 tau21_beta2 N2_beta1 N2_beta2 D2_beta1 D2_beta2 M2_beta1 M2_beta2"
 shape_labels='"{/Symbol t}@_{21}^{(1)}" "{/Symbol t}@_{21}^{(2)}" "N@_2^{(1)}" "N@_2^{(2)}" "D@_2^{(1)}" "D@_2^{(2)}" "M@_2^{(1)}" "M@_2^{(2)}"'
 
-set style line 1 dt 2 lc rgb "#ff0000" lw 2 pt 5
-set style line 2 dt 1 lc rgb "#ff0000" lw 2 pt 4
-set style line 3 dt 2 lc rgb "#000000" lw 2 pt 7
-set style line 4 dt 1 lc rgb "#000000" lw 2 pt 6
-set style line 5 dt 2 lc rgb "#0000ff" lw 2 pt 9
-set style line 6 dt 1 lc rgb "#0000ff" lw 2 pt 8
-set style line 7 dt 2 lc rgb "#00dd00" lw 2 pt 13
-set style line 8 dt 1 lc rgb "#00dd00" lw 2 pt 12
+set style line 1 dt 1 lc rgb "#000000" lw 2 pt 5
+set style line 2 dt 1 lc rgb "#00dd00" lw 2 pt 4
+set style line 3 dt 1 lc rgb "#0000ff" lw 2 pt 7
+set style line 4 dt 1 lc rgb "#ff0000" lw 2 pt 6
+set style line 5 dt 1 lc rgb "#00dddd" lw 2 pt 9
 
 set key spacing 1.5
 
