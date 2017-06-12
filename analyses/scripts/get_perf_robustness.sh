@@ -6,8 +6,8 @@
 #  get_perf_robustness.sh "ntuple_file_S_reference" "ntuple_file_B_reference" "ntuple_file_S_alternative" "ntuple_file_B_alternative" "expression" requested_efficiency "optional_condition_list"
 #
 # Output:
-#      eff_ref          robu_S         robu_B
-#   [S/sqrt(B)]_ref  [S_ref/S_alt]  [B_ref/B_alt]
+#      eff_ref          robu_S              robu_B
+#   [S/sqrt(B)]_ref  [(Salt-Sref)/Sref]  [(Balt-Bref)/Bref]
 #
 # Note:
 #   (eff_alt-eff_ref)/(eff_alt+eff_ref) = (eff_alt/eff_ref-1)/(eff_alt/eff_ref+1)
@@ -52,8 +52,8 @@ effBalt=`${script_full_path}/get_efficiency.sh "${ntuple_file_B_alternative}" ${
 # and construct the observables: perf and robustness
 perf=`echo "$effSref/sqrt($effBref)" | bc -l`
 #robu=`echo "($effSalt/sqrt($effBalt)-$effSref/sqrt($effBref))/($effSalt/sqrt($effBalt)+$effSref/sqrt($effBref))" | bc -l`
-robuS=`echo "$effSref/$effSalt" | bc -l`
-robuB=`echo "$effBref/$effBalt" | bc -l`
+robuS=`echo "($effSalt-$effSref)/$effSref" | bc -l`
+robuB=`echo "($effBalt-$effBref)/$effBref" | bc -l`
 echo "$perf $robuS $robuB"
 
 
