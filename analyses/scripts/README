@@ -8,6 +8,23 @@ need to do it
 - get the cut curresponding to a given efficiency (possibly under conditions)
 - get the quality measures
 
+Note :
+
+The variables name are as in the ntuple files bbut a few helpers have
+been added. They are of the form
+
+   <base>_beta<beta>_<grooming>
+
+where
+  base      is one of tau21, D2, M2 or N2
+  beta      is 1 or 2
+  grooming  is a 2-letter core corresponding to the first letters of
+            the grooming levels used of the numerator and denominator
+            e.g., one uses   pp   for plain/plain
+                             lt   for loose/tight
+                             ...
+                             
+
 ------------------------------------------------------------------------
 extract ntuple of an expression given possible conditions
 ------------------------------------------------------------------------
@@ -19,7 +36,7 @@ Output:
   list of values
 
 Example:
-  extract.sh <ntuple_file> "tau2_beta2_loose/tau2_beta2_tight" "mass_tight>60.0" "mass_tight<100.0"
+  extract.sh <ntuple_file> "tau2_beta2_loose/tau1_beta2_tight" "mass_tight>60.0" "mass_tight<100.0"
 
 ------------------------------------------------------------------------
 get the efficiency for a given set of conditions
@@ -42,20 +59,20 @@ Output:
   4-columns: bin_minimum  bin_centre   bin_maximum  number of entries
 
 Example:
-  histogram.sh <ntuple_file> "tau2_beta2_loose/tau2_beta2_tight" 0.0 2.0 0.05 "mass_tight>60.0" "mass_tight<100.0"
+  histogram.sh <ntuple_file> "tau2_beta2_loose/tau1_beta2_tight" 0.0 2.0 0.05 "mass_tight>60.0" "mass_tight<100.0"
 
 ------------------------------------------------------------------------
 extract a ROC curve from 2 files (possibly under conditions)
 ------------------------------------------------------------------------
 
 Usage:
-  roc.sh "ntuple_file_S" "ntuple_file_B" eps_S_min eps_S_max delta_eps_S "optional_condition_list"
+  roc.sh "ntuple_file_S" "ntuple_file_B" vmin vmax dv "optional_condition_list"
 
 Output:
   2-columns: signal_efficiency  background_efficiency
 
 Example:
-  roc.sh <ntuple_signal> <ntuple_bkg> "tau2_beta2_loose/tau2_beta2_tight" 0.0 2.0 0.01 "mass_tight>60.0" "mass_tight<100.0"
+  roc.sh <ntuple_signal> <ntuple_bkg> "tau2_beta2_loose/tau1_beta2_tight" 0.0 2.0 0.01 "mass_tight>60.0" "mass_tight<100.0"
 
 ------------------------------------------------------------------------
 get the cut curresponding to a given efficiency (possibly under conditions)
