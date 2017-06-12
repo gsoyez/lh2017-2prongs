@@ -1,2 +1,2 @@
 #!/bin/bash
-../2014PileupWorkshop/scripts/mkcxx.pl -f -s -1 -i '-g -I../2014PileupWorkshop/Framework -Wno-deprecated-declarations -I../DetectorModel' -l '-L../2014PileupWorkshop/Framework -lEventMixer -lz -lRecursiveTools -lNsubjettiness -lEnergyCorrelator -lSoftKiller -lgsl -lgslcblas -lm -L../DetectorModel -lDetectorModel' -b
+../2014PileupWorkshop/scripts/mkcxx.pl -f -s -1 -i '-g -I../2014PileupWorkshop/Framework -Wno-deprecated-declarations -I../DetectorModel' -l '-L../2014PileupWorkshop/Framework -lEventMixer -lz -lRecursiveTools -lNsubjettiness -lEnergyCorrelator -lSoftKiller -lgsl -lgslcblas -lm -L../DetectorModel -lDetectorModel' 
