@@ -68,15 +68,15 @@
   writeHists_noint()
 
 #define _BOOK_HIST( T, N )			\
-  h_n##T           = new TH1D( ( N + std::string("/h_n")           + std::string( #T ) ).c_str(), "Number spectrum",        200, 0., 1000. ); \
-  h_pt##T          = new TH1D( ( N + std::string("/h_pt")          + std::string( #T ) ).c_str(), "p_{T} spectrum",         200, 0., 1000. ); \
+  h_n##T           = new TH1D( ( N + std::string("/h_n")           + std::string( #T ) ).c_str(), "Number spectrum",        5000, 0., 25000. ); \
+  h_pt##T          = new TH1D( ( N + std::string("/h_pt")          + std::string( #T ) ).c_str(), "p_{T} spectrum",         5000, 0., 25000. ); \
   h_eta##T         = new TH1D( ( N + std::string("/h_eta")         + std::string( #T ) ).c_str(), "#eta spectrum",          100, -5., 5.   ); \
   h_phi##T         = new TH1D( ( N + std::string("/h_phi")         + std::string( #T ) ).c_str(), "#phi spectrum",          128,  -3.2, 3.2  ); \
   d_phi_vs_phi##T  = new TH2D( ( N + std::string("/d_phi_vs_phi")  + std::string( #T ) ).c_str(), "#phi_{smeared} vs #phi", 128, -3.2, 3.2, 128, -3.2, 3.2); \
   d_dphi_vs_phi##T = new TH2D( ( N + std::string("/d_dphi_vs_phi") + std::string( #T ) ).c_str(), "#Delta#phi vs #phi",     128, -3.2, 3.2, 500, -1.0, 1.0 ); \
-  d_dphi_vs_pt##T  = new TH2D( ( N + std::string("/d_dphi_vs_pt")  + std::string( #T ) ).c_str(), "#Delta#phi vs log(p_{T})", 400, 0.01, 3., 500, -1., 1. ); \
-  d_esmear_vs_e##T = new TH2D( ( N + std::string("/d_esmear_vs_e") + std::string( #T ) ).c_str(), "E_{smeared} vs E",       5000, 0., 25000., 200, 0., 1000. ); \
-  d_de_vs_e##T     = new TH2D( ( N + std::string("/d_de_vs_e")     + std::string( #T ) ).c_str(), "#DeltaE_{smeared} vs E", 5000, 0., 25000., 200,-2.5,2.5   ); \
+  d_dphi_vs_pt##T  = new TH2D( ( N + std::string("/d_dphi_vs_pt")  + std::string( #T ) ).c_str(), "#Delta#phi vs log(p_{T})", 500, -2., 3., 500, -1., 1. ); \
+  d_esmear_vs_e##T = new TH2D( ( N + std::string("/d_esmear_vs_e") + std::string( #T ) ).c_str(), "E_{smeared} vs E",       200, 0., 1000., 200, 0., 1000. ); \
+  d_de_vs_e##T     = new TH2D( ( N + std::string("/d_de_vs_e")     + std::string( #T ) ).c_str(), "#DeltaE_{smeared} vs E", 200, 0., 1000., 200,-2.5,2.5   ); \
   d_dpxy_vs_phi##T = new TH2D( ( N + std::string("/d_dpxy_vs_phi") + std::string( #T ) ).c_str(), "#Delta(p_{x,y}) vs #phi", 128, -3.2, 3.2, 300,-15.,15.   ); \
   d_dpxy_vs_pt##T  = new TH2D( ( N + std::string("/d_dpxy_vs_pt")  + std::string( #T ) ).c_str(), "#Delta(p_{x,y}) vs p_{T}", 200, 0., 1000., 300,-15.,15.  )
 
