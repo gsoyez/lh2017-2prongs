@@ -1,0 +1,28 @@
+This folder contains the figures prepared for the LH summary talk
+
+
+The files we want are as follows:
+
+ v shape distribution for dijets(dashed) and WW(solid), parton (red) and truth (blue)
+   we'll show one performant and one resilient
+
+ v ROC curves for dijets v. WW, parton (red) and truth (blue)
+   we'll show one performant and one resilient
+
+ v a quality plot with just the 2 above points
+
+ v a quality plot with just the 2 above lines including pt scan
+
+ v a nightmare plot with all observables and grooming levels [global-scan.pdf]
+
+ v for each of the 8 shape (1 per page), a scan over the grooming strategies
+   use: trimmed (ATLAS)
+        tpp     (CMS)
+        tlt     (dichroic)
+        lll     (higher eps_S)
+        ttt     (resilient but not perf)
+        tpp     (perf but not resilient)
+
+ v for each of the 11 grooming strategies (1 per page), a scan over shapes
+
+Defaults: pt=1000, R=0.8
