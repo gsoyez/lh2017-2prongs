@@ -47,7 +47,7 @@ set label 22 'performant'     left   at 0.45,5.55
 set label 13 'better'         center at 3.5,5.2 rotate by 43
 
 plot m0(atlas_tag) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 7             lw 3 pt 6 ps variable t 'ATLAS',\
-     m0(cms_tag)   u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00dd00' lw 3 pt 5 ps variable t 'CMS' 
+     m0(cms_tag)   u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00cc00' lw 3 pt 5 ps variable t 'CMS' 
 
 set label 51 '{/*0.85  500}' at 2.15,2.5
 set label 52 '{/*0.85 1000}' at 1.75,3.15
@@ -56,6 +56,6 @@ set label 54 '{/*0.85  500}' at 0.95,3.5
 set label 55 '{/*0.85 1000}' at 0.95,4.15
 
 plot m(atlas_tag) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 7             lw 3 pt 6 ps variable t 'ATLAS',\
-     m(cms_tag)   u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00dd00' lw 3 pt 5 ps variable t 'CMS' 
+     m(cms_tag)   u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00cc00' lw 3 pt 5 ps variable t 'CMS' 
      
 set out

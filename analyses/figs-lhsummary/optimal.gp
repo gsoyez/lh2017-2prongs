@@ -46,15 +46,6 @@ mycolour(i)=(i==0) ? 'rgb "#ff0000"' : ((i==1) ? 'rgb "#00dd00"' : ((i==2) ? 'rg
 mydt(i)=(i-1)%2
 mypoint(ig)=(ig<=9) ? ig : ig+2
 
-set style line 1 dt 2 lc rgb "#ff0000" lw 2
-set style line 2 dt 1 lc rgb "#ff0000" lw 2
-set style line 3 dt 2 lc rgb "#000000" lw 2
-set style line 4 dt 1 lc rgb "#000000" lw 2
-set style line 5 dt 2 lc rgb "#0000ff" lw 2
-set style line 6 dt 1 lc rgb "#0000ff" lw 2
-set style line 7 dt 2 lc rgb "#00dd00" lw 2
-set style line 8 dt 1 lc rgb "#00dd00" lw 2
-
 set title reflabel.' v. '.altlabel 
 
 
@@ -62,8 +53,8 @@ set key spacing 1.2
 do for [pt in "500 1000 2000"]{
     set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
     plot m(pt) i 0 u 2:3 w p pt 7 ps 0.5 lc 1 t 'all',\
-         m(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt  9 ps 1.2 lc rgb "#00dd00" t 'ATLAS-like',\
-         m(pt).' | grep "^N2_beta1_tpp"'  u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'CMS-like',\
+         m(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
+         m(pt).' | grep "^N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
          m(pt) i 1 u 2:3 w l lc 3 lw 3 t 'optimal'
          
 }
