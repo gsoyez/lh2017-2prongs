@@ -1,6 +1,8 @@
 # a set of defaults to be used across the plots
 
-default_R="0.8"
+default_R="1.0"
+default_Ratlas="1.0"
+default_Rcms="0.8"
 default_pt="1000"
 
 resi_tag='M2_beta2_ttt'

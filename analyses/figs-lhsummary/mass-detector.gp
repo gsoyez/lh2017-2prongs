@@ -32,6 +32,8 @@ set style line 8 dt 1 lc rgb "#000000" lw 2
 
 m(lev,pt,mtype,Rv)=sprintf('< ../scripts/histogram.sh ../res/lhc14-WW%s-pythia84C-%s-R%s.ntuple.gz m_%s 10.0 200 1.0',pt,lev,Rv,mtype)
 
+set label 66 '{/*2.5 UNCALIBRATED}' center at graph 0.5,0.5 rotate by 45 tc rgb "#cccccc"
+
 #------------------------------------------------------------------------
 # ATLAS v CMS
 set title '{/*1.4 ATLAS-like(trimmed) v. CMS-like (tight)}'

@@ -14,7 +14,7 @@ reflabel=default_levelref_label
 altlabel=default_levelalt_label
 
 set xlabel 'resilience'
-set xrange [0:5]
+set xrange [0:7]
 
 set ylabel 'performance'
 set yrange [0:7]
@@ -25,7 +25,10 @@ set grid dt 3 lw 1
 groomers="ppp lpl lll lpp tpp tpt tlt tll ttt tpl trimmed"
 shapes="D2_beta1 D2_beta2 N2_beta1 N2_beta2 tau21_beta1 tau21_beta2 M2_beta1 M2_beta2"
 
-resilience ="1.0/sqrt(column('Bcorrection_'.level)**2+column('Scorrection_'.level)**2)"
+# x = (a-b)/b = a/b -1 => a/b = x+1
+# ---> y = 2 (a-b)/(a+b) = 2x/(x+2)
+resilience ="1.0/sqrt((2.0*column('Bcorrection_'.level)/(column('Bcorrection_'.level)+2.0))**2+(2*column('Scorrection_'.level)/(column('Scorrection_'.level)+2.0))**2)"
+#resilience ="1.0/sqrt(column('Bcorrection_'.level)**2+column('Scorrection_'.level)**2)"
 performance="column('significance_'.levelref)"
 
 set macros
@@ -46,19 +49,32 @@ set style line 8 dt 2 lc rgb "#ff0000" lw 2 pt 9  # M2
 
 set title reflabel.' v. '.altlabel 
 
-do for [R in "0.8 1.0"]{
-    set out 'global-scan-R'.R.'.pdf'
+set out 'global-scan.pdf'
 
-    set label 102 '{/*0.8 Pythia8(4C), anti-k_t('.R.')}' right at graph 0.97,0.96
-    set label 103 '{/*0.8 60<m<100}'                     right at graph 0.97,0.92
-    set label 101 sprintf('{/*0.8 {/Symbol e}_S=%g',eS)  right at graph 0.97,0.88
-    
-    m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'.res',shape)
+set label 103 '{/*0.8 60<m<100}'                     right at graph 0.97,0.92
+set label 101 sprintf('{/*0.8 {/Symbol e}_S=%g',eS)  right at graph 0.97,0.88
 
-    plot for [is=1:words(shapes)] for [ig=1:words(groomers)] \
-         m(word(shapes,is).'_'.word(groomers,ig)) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) \
-         w linesp ls is pt mypoint(ig) ps variable not
-}
+m(shape,R)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'.res',shape)
+
+set label 102 '{/*0.8 Pythia8(4C), anti-k_t(0.8 or 1.0)}' right at graph 0.97,0.96
+plot for [is=1:words(shapes)] for [ig=1:words(groomers)] \
+     m(word(shapes,is).'_'.word(groomers,ig),'0.8') u (@resilience):(@performance):((0.001*$2)**0.5*0.6) \
+     w linesp ls is pt mypoint(ig) ps variable not,\
+     for [is=1:words(shapes)] for [ig=1:words(groomers)] \
+     m(word(shapes,is).'_'.word(groomers,ig),'1.0') u (@resilience):(@performance):((0.001*$2)**0.5*0.6) \
+     w linesp ls is pt mypoint(ig) ps variable not
+
+set label 102 '{/*0.8 Pythia8(4C), anti-k_t(0.8)}' right at graph 0.97,0.96
+plot for [is=1:words(shapes)] for [ig=1:words(groomers)] \
+     m(word(shapes,is).'_'.word(groomers,ig),'0.8') u (@resilience):(@performance):((0.001*$2)**0.5*0.6) \
+     w linesp ls is pt mypoint(ig) ps variable not
+
+set label 102 '{/*0.8 Pythia8(4C), anti-k_t(1)}' right at graph 0.97,0.96
+plot for [is=1:words(shapes)] for [ig=1:words(groomers)] \
+     m(word(shapes,is).'_'.word(groomers,ig),'1.0') u (@resilience):(@performance):((0.001*$2)**0.5*0.6) \
+     w linesp ls is pt mypoint(ig) ps variable not
+
+
 
 
 # examples of performant but not too resilient :
