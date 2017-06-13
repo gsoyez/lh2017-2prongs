@@ -1,0 +1,32 @@
+# ROC-curve for SM-WW versus W-longitudinal polarized and W-transversely polarized
+set size square
+set key reverse
+set key Left
+set key left
+set key font ",14"
+set xlabel font ",14"
+set ylabel font ",14"
+
+set xr[0:0.8]
+set xtics font ", 11"
+set ytics font ", 11"
+
+
+
+set xlabel "{/Symbol e}_{S}"
+set ylabel  "{/Symbol e}_{B}(SM-W)"
+
+set title font ",14"
+set title "ROC (z_{g}) with p_{T} >  1 TeV "
+
+#./roc.sh lhc14-WW-M3000-long-pythia8M13-R1.0.ntuple.gz lhc14-WW1000-pythia84C-truth-R1.0.ntuple.gz "0.5-zg_tight" 0.0 0.5 0.01 "mass_tight>60.0" "mass_tight<100.0" > roc_zg_long-WW-R1.0.dat
+pl "roc_zg_long-WW-R1.0.dat" u 1:2 w l lc rgb 'red' lw 1.2 title 'Longitudinal-W'
+
+
+#./roc.sh lhc14-WW-M3000-trans-pythia8M13-R1.0.ntuple.gz lhc14-WW1000-pythia84C-truth-R1.0.ntuple.gz "0.5-zg_tight" 0.0 0.5 0.01 "mass_tight>60.0" "mass_tight<100.0" > roc_zg_trans-WW-R1.0.dat
+repl "roc_zg_trans-WW-R1.0.dat" u 1:2 w l lc rgb 'blue' lw 1.2 title 'Transverse-W'
+
+
+repl x not w l  lw 1.5  lc rgb 'black' dashtype (10,5)
+
+

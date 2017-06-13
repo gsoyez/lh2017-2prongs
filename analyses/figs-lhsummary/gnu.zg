@@ -1,0 +1,29 @@
+# This evaluates zg for 1 TeV pT cut
+set size square
+set key reverse
+set key Left
+set key left
+set key font ",14"
+set xlabel font ",14"
+set ylabel font ",14"
+set xrange [0:0.4]
+set xtics font ", 11" 
+set ytics font ", 11" 
+set xlabel "0.5 - z_{g} (tight)"
+set ylabel "Normalized frequency"
+
+set title font ",14"
+set title "p_{T} > 1 TeV "
+
+#./histogram.sh lhc14-WW-M3000-long-pythia8M13-R1.0.ntuple.gz "0.5-zg_tight" 0.0 0.6 0.01 "mass_tight>60.0" "mass_tight<100.0" > new_plots/zg_tight_lhc14-WW-M3000-long-pythia8M13-R1.0.dat
+pl "zg_tight_lhc14-WW-M3000-long-pythia8M13-R1.0.dat" u 2:($4/39489) w histeps lc rgb "red" lw 1.4  title "WW-longitudinal"
+
+#./histogram.sh lhc14-WW-M3000-trans-pythia8M13-R1.0.ntuple.gz "0.5 - zg_tight" 0.0 0.6 0.01 "mass_tight>60.0" "mass_tight<100.0" > new_plots/zg_tight_lhc14-WW-M3000-trans-pythia8M13-R1.0.dat
+repl "zg_tight_lhc14-WW-M3000-trans-pythia8M13-R1.0.dat" u 2:($4/17277) w histeps lc rgb "blue" lw 1.4 title "WW-transverse"
+
+
+#./histogram.sh lhc14-dijets1000-pythia84C-truth-R1.0.ntuple.gz "0.5 - zg_tight" 0.0 0.6 0.01 "mass_tight>60.0" "mass_tight<100.0" > new_plots/zg_tight_lhc14-dijets1000-pythia84C-truth-R1.0.dat
+repl "zg_tight_lhc14-dijets1000-pythia84C-truth-R1.0.dat" u 2:($4/9577) w histeps lc  rgb "black" lw 1.4 title "di-jets"
+
+# ./histogram.sh lhc14-WW1000-pythia84C-truth-R1.0.ntuple.gz "0.5 - zg_tight" 0.0 0.6 0.01 "mass_tight>60.0" "mass_tight<100.0" > new_plots/zg_tight_lhc14-WW1000-pythia84C-truth-R1.0.dat
+repl "zg_tight_lhc14-WW1000-pythia84C-truth-R1.0.dat" u 2:($4/74364) w histeps   lc rgb "green" lw 1.4 title "WW-SM"

@@ -1,0 +1,31 @@
+# This script calculates d2_beta=2(loose-tight) for M_resonance = 3 TeV with a pT cut of 1 TeV.
+set size square
+set key reverse
+set key Left
+set key font ",14"
+set xlabel font ",14"
+set ylabel font ",14"
+
+set xlabel "D_{2} ({/Symbol b}=2)"
+set ylabel "Normalized frequency"
+set title font ",14"
+set title "p_{T} > 1 TeV "
+set xtics font ", 11"
+set ytics font ", 11"
+
+
+#./histogram.sh lhc14-WW-M3000-long-pythia8M13-R1.0.ntuple.gz "D2_beta2_lt" 0.0 5.0 0.05 "mass_tight>60.0" "mass_tight<100.0" > new_plots/d2_b2_lt_lhc14-WW-M3000-long-pythia8M13-R1.0.dat
+
+pl "d2_b2_lt_lhc14-WW-M3000-long-pythia8M13-R1.0.dat" u 2:($4/39489) w histeps lc rgb "red" lw 1.4  title "WW-longitudinal"
+
+
+# ./histogram.sh lhc14-WW-M3000-trans-pythia8M13-R1.0.ntuple.gz "D2_beta2_lt" 0.0 5.0 0.05 "mass_tight>60.0" "mass_tight<100.0" > new_plots/d2_b2_lt_lhc14-WW-M3000-trans-pythia8M13-R1.0.dat
+repl "d2_b2_lt_lhc14-WW-M3000-trans-pythia8M13-R1.0.dat" u 2:($4/17277) w histeps lc rgb "blue" lw 1.4 title "WW-transverse"
+
+
+# ./histogram.sh lhc14-WW1000-pythia84C-truth-R1.0.ntuple.gz "D2_beta2_lt" 0.0 5.0 0.05 "mass_tight>60.0" "mass_tight<100.0" > new_plots/d2_b2_lt_lhc14-WW1000-pythia84C-truth-R1.0.dat
+repl "d2_b2_lt_lhc14-WW1000-pythia84C-truth-R1.0.dat" u 2:($4/74364) w histeps   lc rgb "green" lw 1.4 title "WW-SM"
+
+# ./histogram.sh lhc14-dijets1000-pythia84C-truth-R1.0.ntuple.gz "D2_beta2_lt" 0.0 5.0 0.05 "mass_tight>60.0" "mass_tight<100.0" > new_plots/d2_b2_lt_lhc14-dijets1000-pythia84C-truth-R1.0.dat
+repl "d2_b2_lt_lhc14-dijets1000-pythia84C-truth-R1.0.dat" u 2:($4/9577) w histeps lc  rgb "black" lw 1.4 title "di-jets"
+

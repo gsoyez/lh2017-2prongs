@@ -1,0 +1,29 @@
+# This script generates roc curves for the WW polarized samples and the SM samples with di-jets. 
+# pT cut of 1 TeV 
+
+set size square
+set log y
+set key right bottom reverse  Left
+set key font ",14"
+set xlabel '{/symbol e}_S' font ',16'
+set xr[0:0.8]
+set xtics font ",11"
+set ytics font ",11"
+set format y "10^{%-04T}"
+#set ytics "1,0.1,0.01,0.001,0.0001"
+
+set title 'ROC (D_2,  {/symbol b} = 2) with p_T > 1.0 TeV' font ',14'
+set ylabel '{/symbol e}_B\ (di-jets)' font ',16'
+
+pl x not w l  lw 1.5  lc rgb 'black' dashtype (10,5)
+
+#./roc.sh lhc14-WW-M3000-long-pythia8M13-R1.0.ntuple.gz lhc14-dijets1000-pythia84C-truth-R1.0.ntuple.gz "D2_beta2_lt" 0.0 5.0 0.05 "mass_tight>60.0" "mass_tight<100.0" > new_plots/roc-d2-long-dijets-1TeV-R1.0.dat
+repl 'roc-d2-long-dijets-1TeV-R1.0.dat' u 1:2 w l lc rgb 'red' lw 1.2 title 'Longitudinal-W'
+
+#./roc.sh lhc14-WW-M3000-trans-pythia8M13-R1.0.ntuple.gz lhc14-dijets1000-pythia84C-truth-R1.0.ntuple.gz "D2_beta2_lt" 0.0 5.0 0.05 "mass_tight>60.0" "mass_tight<100.0" > new_plots/roc_d2_trans-dijets-1TeV-R1.0.dat
+repl 'roc_d2_trans-dijets-1TeV-R1.0.dat' u 1:2 w l lc rgb 'blue' lw 1.2 title 'Transverse-W'
+
+#./roc.sh lhc14-WW1000-pythia84C-truth-R1.0.ntuple.gz lhc14-dijets1000-pythia84C-truth-R1.0.ntuple.gz "D2_beta2_lt" 0.0 5.0 0.05 "mass_tight>60.0" "mass_tight<100.0" > new_plots/roc-d2-WWsm-dijets-1TeV-R1.0.dat
+repl 'roc-d2-WWsm-dijets-1TeV-R1.0.dat' u 1:2 w l lc rgb 'green' lw 1.2 title 'SM-W'
+
+
