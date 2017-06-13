@@ -23,7 +23,7 @@ set yrange [0:7]
 set grid dt 3 lw 1
 
 
-resilience ="1.0/sqrt(column('Bcorrection_'.level)**2+column('Scorrection_'.level)**2)"
+resilience ="1.0/sqrt((2*column('Bcorrection_'.level)/(column('Bcorrection_'.level)+2.0))**2+(2*column('Scorrection_'.level)/(column('Scorrection_'.level)+2.0))**2)"
 performance="column('significance_'.levelref)"
 
 set macros

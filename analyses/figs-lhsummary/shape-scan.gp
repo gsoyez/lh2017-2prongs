@@ -37,14 +37,14 @@ resilience ="1.0/sqrt((2*column('Bcorrection_'.level)/(column('Bcorrection_'.lev
 #resilience ="1.0/sqrt(column('Bcorrection_'.level)**2+column('Scorrection_'.level)**2)"
 performance="column('significance_'.levelref)"
 
-set style line 1 dt 1 lc rgb "#000000" lw 2 pt 12 # D2
-set style line 2 dt 2 lc rgb "#000000" lw 2 pt 13 # D2
-set style line 3 dt 1 lc rgb "#00cc00" lw 2 pt 4  # N2
-set style line 4 dt 2 lc rgb "#00cc00" lw 2 pt 5  # N2
-set style line 5 dt 1 lc rgb "#0000ff" lw 2 pt 6  # tau21
-set style line 6 dt 2 lc rgb "#0000ff" lw 2 pt 7  # tau21
-set style line 7 dt 1 lc rgb "#ff0000" lw 2 pt 8  # M2
-set style line 8 dt 2 lc rgb "#ff0000" lw 2 pt 9  # M2
+set style line 1 dt 1     lc rgb "#000000" lw 2 pt 13 # D2
+set style line 2 dt (7,7) lc rgb "#000000" lw 2 pt 12 # D2
+set style line 3 dt 1     lc rgb "#00cc00" lw 2 pt 5  # N2
+set style line 4 dt (7,7) lc rgb "#00cc00" lw 2 pt 4  # N2
+set style line 5 dt 1     lc rgb "#0000ff" lw 2 pt 7  # tau21
+set style line 6 dt (7,7) lc rgb "#0000ff" lw 2 pt 6  # tau21
+set style line 7 dt 1     lc rgb "#ff0000" lw 2 pt 9  # M2
+set style line 8 dt (7,7) lc rgb "#ff0000" lw 2 pt 8  # M2
 
 set out 'shape-scan.pdf'
 
