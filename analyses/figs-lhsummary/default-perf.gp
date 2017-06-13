@@ -22,6 +22,7 @@ set xrange [0:5]
 set ylabel 'performance'
 set yrange [0:7]
 
+set key spacing 1.3
 set grid dt 3 lw 1
 
 set label 102 '{/*0.8 Pythia8(4C), anti-k_t('.R.')}' left at graph 0.03,0.05
@@ -46,8 +47,8 @@ set label 12 'more'           left   at 0.65,5.85
 set label 22 'performant'     left   at 0.45,5.55
 set label 13 'better'         center at 3.5,5.2 rotate by 43
 
-plot m0(atlas_tag) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 7             lw 3 pt 6 ps variable t 'ATLAS',\
-     m0(cms_tag)   u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00cc00' lw 3 pt 5 ps variable t 'CMS' 
+plot m0(atlas_tag) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 7             lw 3 pt 6 ps variable t 'ATLAS-like',\
+     m0(cms_tag)   u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00cc00' lw 3 pt 5 ps variable t 'CMS-like' 
 
 set label 51 '{/*0.85  500}' at 2.15,2.5
 set label 52 '{/*0.85 1000}' at 1.75,3.15
@@ -55,7 +56,7 @@ set label 53 '{/*0.85 2000}' at 0.9,5.0
 set label 54 '{/*0.85  500}' at 0.95,3.5
 set label 55 '{/*0.85 1000}' at 0.95,4.15
 
-plot m(atlas_tag) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 7             lw 3 pt 6 ps variable t 'ATLAS',\
-     m(cms_tag)   u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00cc00' lw 3 pt 5 ps variable t 'CMS' 
+plot m(atlas_tag) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 7             lw 3 pt 6 ps variable t 'ATLAS-like',\
+     m(cms_tag)   u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00cc00' lw 3 pt 5 ps variable t 'CMS-like' 
      
 set out

@@ -45,8 +45,9 @@ set multiplot layout 2,1
 
 set ylabel 'W mass (trim)'
 set yrange [70:120]
-plot m('ATLAS', 'trim') u ($1*1.02):3:2:4 w yerr dt 1 lc 7 lw 3 pt 13 t 'ATLAS',\
-     m('truth', 'trim') u ($1/1.02):3:2:4 w yerr dt 1 lc 1 lw 3 pt  2 t 'truth',\
+plot m('ATLAS', 'trim') u ($1*1.04):3:2:4 w yerr dt 1 lc 7 lw 3 pt 13 t 'ATLAS-like',\
+     m('pu50',  'trim') u ($1*1.00):3:2:4 w yerr dt 1 lc 1 lw 3 pt  8 t 'PU({/Symbol m}=40',\
+     m('truth', 'trim') u ($1/1.04):3:2:4 w yerr dt 1 lc 3 lw 3 pt  2 t 'truth',\
      80.4 w l dt 2 lc 7 not
 
 
@@ -55,8 +56,9 @@ plot m('ATLAS', 'trim') u ($1*1.02):3:2:4 w yerr dt 1 lc 7 lw 3 pt 13 t 'ATLAS',
 
 set ylabel 'W mass (tight)'
 set yrange [70:120]
-plot m('CMS',   'tight') u ($1*1.02):3:2:4 w yerr dt 1 lc rgb "#00cc00" lw 3 pt 5 t 'CMS',\
-     m('truth', 'tight') u ($1/1.02):3:2:4 w yerr dt 1 lc 1             lw 3 pt 2 t 'truth',\
+plot m('CMS',   'tight') u ($1*1.04):3:2:4 w yerr dt 1 lc rgb "#00cc00" lw 3 pt 5 t 'CMS-like',\
+     m('pu50',  'tight') u ($1*1.00):3:2:4 w yerr dt 1 lc 1             lw 3 pt 8 t 'PU({/Symbol m}=40',\
+     m('truth', 'tight') u ($1/1.04):3:2:4 w yerr dt 1 lc 3             lw 3 pt 2 t 'truth',\
      80.4 w l dt 2 lc 7 not
 
 

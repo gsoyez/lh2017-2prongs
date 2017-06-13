@@ -37,7 +37,8 @@ set macros
 
 
 groomers="trimmed tpp ttt tlt lll"
-groomer_labels='"trimmed" "tight{/Symbol \304}plain/plain" "tight{/Symbol \304}tight/tight" "tight{/Symbol \304}loose/tight" "loose{/Symbol \304}loose/loose"'
+#groomer_labels='"trimmed" "tight{/Symbol \304}plain/plain" "tight{/Symbol \304}tight/tight" "tight{/Symbol \304}loose/tight" "loose{/Symbol \304}loose/loose"'
+groomer_labels='"ATLAS-like" "CMS-like" "all tight" "dichroic" "all loose"'
 
 shapes="tau21_beta1 tau21_beta2 N2_beta1 N2_beta2 D2_beta1 D2_beta2 M2_beta1 M2_beta2"
 shape_labels='"{/Symbol t}@_{21}^{(1)}" "{/Symbol t}@_{21}^{(2)}" "N@_2^{(1)}" "N@_2^{(2)}" "D@_2^{(1)}" "D@_2^{(2)}" "M@_2^{(1)}" "M@_2^{(2)}"'

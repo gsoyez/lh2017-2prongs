@@ -32,7 +32,7 @@ groomers="ppp lpl lll lpp tpp tpt tlt tll ttt tpl trimmed"
 #groomers="ppp lll lpl lpp ttt tlt tpt tll tpl tpp trimmed"
 
 
-shapes="tau21_beta1 tau21_beta2 N2_beta1 N2_beta2 D2_beta1 D2_beta2 M2_beta1 M2_beta2"
+shapes="D2_beta1 D2_beta2 N2_beta1 N2_beta2 tau21_beta1 tau21_beta2 M2_beta1 M2_beta2"
 
 m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'.res',shape)
 
@@ -45,14 +45,15 @@ mycolour(i)=(i==0) ? 'rgb "#ff0000"' : ((i==1) ? 'rgb "#00dd00"' : ((i==2) ? 'rg
 mydt(i)=(i-1)%2
 mypoint(ig)=(ig<=9) ? ig : ig+2
 
-set style line 1 dt 2 lc rgb "#0000ff" lw 2  # tau21
-set style line 2 dt 1 lc rgb "#0000ff" lw 2  # tau21
-set style line 3 dt 2 lc rgb "#00cc00" lw 2  # N2
-set style line 4 dt 1 lc rgb "#00cc00" lw 2  # N2
-set style line 5 dt 2 lc rgb "#000000" lw 2  # D2
-set style line 6 dt 1 lc rgb "#000000" lw 2  # D2
-set style line 7 dt 2 lc rgb "#ff0000" lw 2  # M2
-set style line 8 dt 1 lc rgb "#ff0000" lw 2  # M2
+
+set style line 1 dt 1 lc rgb "#000000" lw 2 pt 12 # D2
+set style line 2 dt 2 lc rgb "#000000" lw 2 pt 13 # D2
+set style line 3 dt 1 lc rgb "#00cc00" lw 2 pt 4  # N2
+set style line 4 dt 2 lc rgb "#00cc00" lw 2 pt 5  # N2
+set style line 5 dt 1 lc rgb "#0000ff" lw 2 pt 6  # tau21
+set style line 6 dt 2 lc rgb "#0000ff" lw 2 pt 7  # tau21
+set style line 7 dt 1 lc rgb "#ff0000" lw 2 pt 8  # M2
+set style line 8 dt 2 lc rgb "#ff0000" lw 2 pt 9  # M2
 
 set title reflabel.' v. '.altlabel 
 
