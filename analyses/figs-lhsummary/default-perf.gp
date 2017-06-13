@@ -53,7 +53,7 @@ set label 13 'better'         center at 4.65,4.35 rotate by 45
 plot m0(atlas_tag,default_Ratlas) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 7             lw 3 pt 6 ps variable t 'ATLAS-like{/*0.6  (R='.default_Ratlas.')}',\
      m0(cms_tag,default_Rcms)     u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00cc00' lw 3 pt 5 ps variable t 'CMS-like{/*0.6  (R='.default_Rcms.')}' 
 
-set label 51 '{/*0.85  500}' at 2.6,2.5
+set label 51 '{/*0.85 p_t>500}' at 2.25,2.5
 set label 52 '{/*0.85 1000}' at 2.05,3.15
 set label 53 '{/*0.85 2000}' at 1.5,4.85
 set label 54 '{/*0.85  500}' at 0.7,3.5

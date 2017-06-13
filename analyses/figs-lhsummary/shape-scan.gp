@@ -48,7 +48,6 @@ set style line 8 dt 2 lc rgb "#ff0000" lw 2 pt 9  # M2
 
 set out 'shape-scan.pdf'
 
-set label 102 '{/*0.8 Pythia8(4C), anti-k_t}'        left at graph 0.03,0.05
 set label 103 '{/*0.8 60<m<100}'                     left at graph 0.03,0.10
 set label 101 sprintf('{/*0.8 {/Symbol e}_S=%g',eS)  left at graph 0.03,0.15
 
@@ -60,7 +59,8 @@ set title reflabel.' v. '.altlabel
 do for [igroomer=1:words(groomers)]{
     groomer=word(groomers,igroomer)
     R=word(Rs,igroomer)
-    set title '{/*1.4 '.word(groomer_labels,igroomer).'} (R='.R.', '.reflabel.' v. '.altlabel.')'
+    set label 102 '{/*0.8 Pythia8(4C), anti-k_t (R='.R.')}'        left at graph 0.03,0.05
+    set title '{/*1.4 '.word(groomer_labels,igroomer).'} ('.reflabel.' v. '.altlabel.')'
     plot for [ishape=1:words(shapes)] m(word(shapes,ishape).'_'.groomer,R) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp ls ishape ps variable t word(shape_labels,ishape) 
 }
      

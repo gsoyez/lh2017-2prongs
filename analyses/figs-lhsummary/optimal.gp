@@ -7,7 +7,6 @@ call 'defaults.gp'
 
 eS=0.4
 
-R=default_R
 levelref=default_levelref
 levelalt=default_levelalt
 level=levelref.'_'.levelalt
@@ -16,16 +15,16 @@ reflabel=default_levelref_label
 altlabel=default_levelalt_label
 
 set xlabel 'resilience'
-set xrange [0:*]
+set xrange [0:7]
 
 set ylabel 'performance'
 set yrange [0:7]
 
 set grid dt 3 lw 1
 
-set label 102 '{/*0.8 Pythia8(4C), anti-k_t('.R.')}' right at graph 0.97,0.05
-set label 103 '{/*0.8 60<m<100}'                     right at graph 0.97,0.10
-set label 101 sprintf('{/*0.8 {/Symbol e}_S=%g',eS)  right at graph 0.97,0.15
+set label 102 '{/*0.8 Pythia8(4C), anti-k_t(0.8 or 1)}' right at graph 0.97,0.05
+set label 103 '{/*0.8 60<m<100}'                        right at graph 0.97,0.10
+set label 101 sprintf('{/*0.8 {/Symbol e}_S=%g',eS)     right at graph 0.97,0.15
 
 #          +   x   *   sqr     o       tr     dia
 groomers="ppp lll lpl lpp ttt tlt tpt tll tpl tpp trimmed"
@@ -94,7 +93,7 @@ do for [pt in "500 1000 2000"]{
          mtruth(pt) i 1 u 2:3 w l lc 3 lw 3 not,\
          mtruth(pt).' | grep "^R1.0-D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
          mtruth(pt).' | grep "^R0.8-N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
-         mtruth(pt).' | grep -v "^no" | sed "s/_/./g" ' i 1 u 2:3:1 w labels not rotate by 60 left offset 0.25,0.4 font ",8"
+         mtruth(pt).' | grep -v "^no" | sed "s/_/./g" ' i 1 u 2:3:1 w labels not rotate by 80 left offset 0.25,0.4 font ",8"
 }
 
 # set title 'Pileup({/Symbol m}=40) v. no pileup'

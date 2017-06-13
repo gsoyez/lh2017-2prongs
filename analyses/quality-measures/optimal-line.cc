@@ -16,7 +16,9 @@ public:
   Info(const string &i_method, double sigeff, double Scorr, double Bcorr){
     method = i_method;
     perf = sigeff;
-    resi = 1.0/sqrt(Scorr*Scorr+Bcorr*Bcorr);
+    double Ssym = 2.0*Scorr/(2.0+Scorr);
+    double Bsym = 2.0*Bcorr/(2.0+Bcorr);
+    resi = 1.0/sqrt(Ssym*Ssym+Bsym*Bsym);
   }
 
   string method;
