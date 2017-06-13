@@ -10,7 +10,7 @@ set out 'mass-detector.pdf'
 
 call 'defaults.gp'
 
-R=default_R
+#R=default_R
 
 set xlabel 'reconstructed m_W [GeV]'
 set xrange [0:200]
@@ -18,8 +18,6 @@ set xrange [0:200]
 set ylabel 'dN/dm_W'
 
 set grid dt 3 lw 1
-
-set label 102 '{/*0.8 Pythia8(4C), anti-k_t('.R.')}' right at graph 0.97,0.58
 
 set key spacing 1.3
 
@@ -32,50 +30,56 @@ set style line 6 dt 1 lc rgb "#0000ff" lw 2
 set style line 7 dt 2 lc rgb "#000000" lw 2
 set style line 8 dt 1 lc rgb "#000000" lw 2
 
-m(lev,pt,mtype)=sprintf('< ../scripts/histogram.sh ../res/lhc14-WW%s-pythia84C-%s-R%s.ntuple.gz m_%s 10.0 200 1.0',pt,lev,R,mtype)
+m(lev,pt,mtype,Rv)=sprintf('< ../scripts/histogram.sh ../res/lhc14-WW%s-pythia84C-%s-R%s.ntuple.gz m_%s 10.0 200 1.0',pt,lev,Rv,mtype)
 
 #------------------------------------------------------------------------
 # ATLAS v CMS
 set title '{/*1.4 ATLAS-like(trimmed) v. CMS-like (tight)}'
 
-set label 1 'solid: ATLAS' right at graph 0.95,0.5
-set label 2 'dashed: CMS'  right at graph 0.95,0.42
+set label 1 'solid: ATLAS-like {/*0.7 (R=1)}'  right at graph 0.95,0.5
+set label 2 'dashed: CMS-like {/*0.7 (R=0.8)}' right at graph 0.95,0.42
 
-plot m('ATLAS',  '500', 'trim' ) u 2:4 w l dt 1     lc 1 lw 3 t 'p_t= 500 GeV',\
-     m('ATLAS', '1000', 'trim' ) u 2:4 w l dt 1     lc 3 lw 3 t 'p_t=1000 GeV',\
-     m('ATLAS', '2000', 'trim' ) u 2:4 w l dt 1     lc 7 lw 3 t 'p_t=2000 GeV',\
-     m('CMS',    '500', 'tight') u 2:4 w l dt (7,4) lc 1 lw 3 not,\
-     m('CMS',   '1000', 'tight') u 2:4 w l dt (7,4) lc 3 lw 3 not,\
-     m('CMS',   '2000', 'tight') u 2:4 w l dt (7,4) lc 7 lw 3 not
+set label 102 '{/*0.8 Pythia8(4C), anti-k_t}' right at graph 0.97,0.58
+
+plot m('ATLAS',  '500', 'trim' , '1.0') u 2:4 w l dt 1     lc 1 lw 3 t 'p_t= 500 GeV',\
+     m('ATLAS', '1000', 'trim' , '1.0') u 2:4 w l dt 1     lc 3 lw 3 t 'p_t=1000 GeV',\
+     m('ATLAS', '2000', 'trim' , '1.0') u 2:4 w l dt 1     lc 7 lw 3 t 'p_t=2000 GeV',\
+     m('CMS',    '500', 'tight', '0.8') u 2:4 w l dt (7,4) lc 1 lw 3 not,\
+     m('CMS',   '1000', 'tight', '0.8') u 2:4 w l dt (7,4) lc 3 lw 3 not,\
+     m('CMS',   '2000', 'tight', '0.8') u 2:4 w l dt (7,4) lc 7 lw 3 not
 
 
 #------------------------------------------------------------------------
 # ATLAS
 set title '{/*1.4 ATLAS-like}'
 
-set label 1 'solid: ATLAS'      right at graph 0.95,0.5
+set label 1 'solid: ATLAS-like' right at graph 0.95,0.5
 set label 2 'dashed: particle'  right at graph 0.95,0.42
 
-plot m('truth',  '500', 'trim') u 2:4 w l dt (7,4) lc 1 lw 3 not,\
-     m('truth', '1000', 'trim') u 2:4 w l dt (7,4) lc 3 lw 3 not,\
-     m('truth', '2000', 'trim') u 2:4 w l dt (7,4) lc 7 lw 3 not,\
-     m('ATLAS',  '500', 'trim') u 2:4 w l dt 1     lc 1 lw 3 t 'p_t= 500 GeV',\
-     m('ATLAS', '1000', 'trim') u 2:4 w l dt 1     lc 3 lw 3 t 'p_t=1000 GeV',\
-     m('ATLAS', '2000', 'trim') u 2:4 w l dt 1     lc 7 lw 3 t 'p_t=2000 GeV'
+set label 102 '{/*0.8 Pythia8(4C), anti-k_t(1)}' right at graph 0.97,0.58
+
+plot m('truth',  '500', 'trim', '1.0') u 2:4 w l dt (7,4) lc 1 lw 3 not,\
+     m('truth', '1000', 'trim', '1.0') u 2:4 w l dt (7,4) lc 3 lw 3 not,\
+     m('truth', '2000', 'trim', '1.0') u 2:4 w l dt (7,4) lc 7 lw 3 not,\
+     m('ATLAS',  '500', 'trim', '1.0') u 2:4 w l dt 1     lc 1 lw 3 t 'p_t= 500 GeV',\
+     m('ATLAS', '1000', 'trim', '1.0') u 2:4 w l dt 1     lc 3 lw 3 t 'p_t=1000 GeV',\
+     m('ATLAS', '2000', 'trim', '1.0') u 2:4 w l dt 1     lc 7 lw 3 t 'p_t=2000 GeV'
 
 #------------------------------------------------------------------------
 # CMS
 set title '{/*1.4 CMS-like}'
 
-set label 1 'solid: CMS'      right at graph 0.95,0.5
-set label 2 'dashed: particle'  right at graph 0.95,0.42
+set label 1 'solid: CMS'       right at graph 0.95,0.5
+set label 2 'dashed: particle' right at graph 0.95,0.42
 
-plot m('truth',  '500', 'tight') u 2:4 w l dt (7,4) lc 1 lw 3 not,\
-     m('truth', '1000', 'tight') u 2:4 w l dt (7,4) lc 3 lw 3 not,\
-     m('truth', '2000', 'tight') u 2:4 w l dt (7,4) lc 7 lw 3 not,\
-     m('CMS',    '500', 'tight') u 2:4 w l dt 1     lc 1 lw 3 t 'p_t= 500 GeV',\
-     m('CMS',   '1000', 'tight') u 2:4 w l dt 1     lc 3 lw 3 t 'p_t=1000 GeV',\
-     m('CMS',   '2000', 'tight') u 2:4 w l dt 1     lc 7 lw 3 t 'p_t=2000 GeV'
+set label 102 '{/*0.8 Pythia8(4C), anti-k_t(0.8)}' right at graph 0.97,0.58
+
+plot m('truth',  '500', 'tight', '0.8') u 2:4 w l dt (7,4) lc 1 lw 3 not,\
+     m('truth', '1000', 'tight', '0.8') u 2:4 w l dt (7,4) lc 3 lw 3 not,\
+     m('truth', '2000', 'tight', '0.8') u 2:4 w l dt (7,4) lc 7 lw 3 not,\
+     m('CMS',    '500', 'tight', '0.8') u 2:4 w l dt 1     lc 1 lw 3 t 'p_t= 500 GeV',\
+     m('CMS',   '1000', 'tight', '0.8') u 2:4 w l dt 1     lc 3 lw 3 t 'p_t=1000 GeV',\
+     m('CMS',   '2000', 'tight', '0.8') u 2:4 w l dt 1     lc 7 lw 3 t 'p_t=2000 GeV'
 
 
 

@@ -35,11 +35,14 @@ shapes="tau21_beta1 tau21_beta2 N2_beta1 N2_beta2 D2_beta1 D2_beta2 M2_beta1 M2_
 #slabs='"{/Symbol t}_{21}" "N_2" "D_2" "M_2"'
 
 # let us hardcode the column numbers for truth v. parton, ATLAS, CMS and pileup
-mtruth(pt)='< grep -v "^#" ../quality-measures/qualities-R'.R.'.res | awk "{if (\$2=='.pt.'){print \$1,\$9,\$10,\$11}}" | ../quality-measures/optimal-line'
-mpu50 (pt)='< grep -v "^#" ../quality-measures/qualities-R'.R.'.res | awk "{if (\$2=='.pt.'){print \$1,\$12,\$13,\$14}}" | ../quality-measures/optimal-line'
-matlas(pt)='< grep -v "^#" ../quality-measures/qualities-R'.R.'.res | awk "{if (\$2=='.pt.'){print \$1,\$15,\$16,\$17}}" | ../quality-measures/optimal-line'
-mcms  (pt)='< grep -v "^#" ../quality-measures/qualities-R'.R.'.res | awk "{if (\$2=='.pt.'){print \$1,\$18,\$19,\$20}}" | ../quality-measures/optimal-line'
+merge(pt)="< bash -c \" cat <( grep -v '^#' ../quality-measures/qualities-R0.8.res | sed 's/^/R0.8-/g') <( grep -v '^#' ../quality-measures/qualities-R1.0.res | sed 's/^/R1.0-/g') \" "
 
+mtruth(pt)=merge(pt).' | awk "{if (\$2=='.pt.'){print \$1,\$9,\$10,\$11}}"  | ../quality-measures/optimal-line'
+mpu50 (pt)=merge(pt).' | awk "{if (\$2=='.pt.'){print \$1,\$12,\$13,\$14}}" | ../quality-measures/optimal-line'
+matlas(pt)=merge(pt).' | awk "{if (\$2=='.pt.'){print \$1,\$15,\$16,\$17}}" | ../quality-measures/optimal-line'
+mcms  (pt)=merge(pt).' | awk "{if (\$2=='.pt.'){print \$1,\$18,\$19,\$20}}" | ../quality-measures/optimal-line'
+
+print mtruth('1000')
 set macros
 
 set key spacing 1.2
@@ -49,8 +52,8 @@ set title reflabel.' v. '.altlabel
 do for [pt in "500 1000 2000"]{
     set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
     plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.5 lc 1 t 'all',\
-         mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
-         mtruth(pt).' | grep "^N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
+         mtruth(pt).' | grep "^R1.0-D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
+         mtruth(pt).' | grep "^R0.8-N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
          mtruth(pt) i 1 u 2:3 w l lc 3 lw 3 t 'optimal'         
 }
 
@@ -59,8 +62,8 @@ do for [pt in "500 1000 2000"]{
 # do for [pt in "500"]{
 #     set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
 #     plot mpu50(pt) i 0 u 2:3 w p pt 7 ps 0.5 lc 1 t 'all',\
-#          mpu50(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
-#          mpu50(pt).' | grep "^N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
+#          mpu50(pt).' | grep "^R1.0-D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
+#          mpu50(pt).' | grep "^R0.8-N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
 #          mpu50(pt) i 1 u 2:3 w l lc 3 lw 3 t 'optimal'         
 # }
 # 
@@ -69,8 +72,8 @@ do for [pt in "500 1000 2000"]{
 # do for [pt in "500"]{
 #     set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
 #     plot matlas(pt) i 0 u 2:3 w p pt 7 ps 0.5 lc 1 t 'all',\
-#          matlas(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
-#          matlas(pt).' | grep "^N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
+#          matlas(pt).' | grep "^R1.0-D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
+#          matlas(pt).' | grep "^R0.8-N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
 #          matlas(pt) i 1 u 2:3 w l lc 3 lw 3 t 'optimal'         
 # }
 # 
@@ -78,8 +81,8 @@ do for [pt in "500 1000 2000"]{
 # do for [pt in "500"]{
 #     set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
 #     plot mcms(pt) i 0 u 2:3 w p pt 7 ps 0.5 lc 1 t 'all',\
-#          mcms(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
-#          mcms(pt).' | grep "^N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
+#          mcms(pt).' | grep "^R1.0-D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
+#          mcms(pt).' | grep "^R0.8-N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
 #          mcms(pt) i 1 u 2:3 w l lc 3 lw 3 t 'optimal'         
 # }
 
@@ -89,6 +92,8 @@ do for [pt in "500 1000 2000"]{
     set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
     plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.7 lc 1 not,\
          mtruth(pt) i 1 u 2:3 w l lc 3 lw 3 not,\
+         mtruth(pt).' | grep "^R1.0-D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
+         mtruth(pt).' | grep "^R0.8-N2_beta1_tpp"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
          mtruth(pt).' | grep -v "^no" | sed "s/_/./g" ' i 1 u 2:3:1 w labels not rotate by 60 left offset 0.25,0.4 font ",8"
 }
 

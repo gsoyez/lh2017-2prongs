@@ -1,13 +1,11 @@
 reset
 set term pdfcairo enhanced size 9cm,9cm
 set colors classic
-set out 'grooming-scan.pdf'
 
 call 'defaults.gp'
 
 eS=0.4
 
-R=default_R
 pt=default_pt
 levelref=default_levelref
 levelalt=default_levelalt
@@ -24,11 +22,6 @@ set yrange [0:7]
 
 set grid dt 3 lw 1
 
-set label 102 '{/*0.8 Pythia8(4C), anti-k_t('.R.')}' left at graph 0.03,0.05
-set label 103 '{/*0.8 60<m<100}'                     left at graph 0.03,0.10
-set label 101 sprintf('{/*0.8 {/Symbol e}_S=%g',eS)  left at graph 0.03,0.15
-
-m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'.res',shape)
 
 resilience ="1.0/sqrt(column('Bcorrection_'.level)**2+column('Scorrection_'.level)**2)"
 performance="column('significance_'.levelref)"
@@ -51,11 +44,21 @@ set style line 5 dt 1 lc rgb "#ff0000" lw 2 pt 3
 
 set key spacing 1.5
 
-# produce one plot for each grooming level
-do for [ishape=1:words(shapes)]{
-    shape=word(shapes,ishape)
-    set title '{/*1.4 '.word(shape_labels,ishape).'} ('.reflabel.' v. '.altlabel.')'
-    plot for [igroomer=1:words(groomers)] m(shape.'_'.word(groomers,igroomer)) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp ls igroomer ps variable t word(groomer_labels,igroomer) 
+do for [R in "0.8 1.0"]{
+    set out 'grooming-scan-R'.R.'.pdf'
+
+    set label 102 '{/*0.8 Pythia8(4C), anti-k_t('.R.')}' left at graph 0.03,0.05
+    set label 103 '{/*0.8 60<m<100}'                     left at graph 0.03,0.10
+    set label 101 sprintf('{/*0.8 {/Symbol e}_S=%g',eS)  left at graph 0.03,0.15
+    
+    m(shape)=sprintf('< grep -m1 "^#columns:" ../quality-measures/qualities-R'.R.'.res | sed "s/#columns: //"; grep %s ../quality-measures/qualities-R'.R.'.res',shape)
+
+    # produce one plot for each grooming level
+    do for [ishape=1:words(shapes)]{
+        shape=word(shapes,ishape)
+        set title '{/*1.4 '.word(shape_labels,ishape).'} ('.reflabel.' v. '.altlabel.')'
+        plot for [igroomer=1:words(groomers)] m(shape.'_'.word(groomers,igroomer)) u (@resilience):(@performance):((0.001*$2)**0.5*0.6) w linesp ls igroomer ps variable t word(groomer_labels,igroomer) 
+    }
 }
      
 set out
