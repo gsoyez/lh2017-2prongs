@@ -43,6 +43,7 @@ Pileup:
 Detector simulation
   -ATLAS                   run through an ATLAS-like detector
   -CMS                     run through an CMS-like detector
+  -noB                     switch off the manetic field
 
 ========================================================================
 Parsing the output

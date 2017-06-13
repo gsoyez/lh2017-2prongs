@@ -61,6 +61,7 @@ int main (int argc, char ** argv) {
     cout << "ERROR: One is no tallowed to specify both the ATLAS and CMS detector in a single run" << endl;
     return 1;
   }
+  bool no_magnetic_field = cmdline.present("-noB");
 
   assert(cmdline.all_options_used());
 
@@ -91,7 +92,6 @@ int main (int argc, char ** argv) {
   Detector::Experiment* detector_model_ptr = 0; 
   if (buildATLAS) detector_model_ptr = Detector::Build::ATLAS();
   if (buildCMS  ) detector_model_ptr = Detector::Build::CMS();
-
   // store as a shared ptr for easier memory management and get a
   // signal processor - the processor takes ownership of the detector
   // model object
@@ -99,6 +99,9 @@ int main (int argc, char ** argv) {
   SharedPtr<Detector::Signals> signal_processor;
 
   if (detector_model_ptr){
+    if (no_magnetic_field)
+      detector_model_ptr->turnMagneticFieldOff();
+
     shared_detector_model_ptr.reset(detector_model_ptr);
     signal_processor.reset(new Detector::Signals(detector_model_ptr));
   }
