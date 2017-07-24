@@ -194,10 +194,11 @@
 
 \begin{document}
 
+\preprint{MIT-CTP XXXX}
 
 %\title{Performance versus Robustness for Two-Prong Jet Substructure}
 \title{Performance versus Robustness:\\
-Two-Prong Substructure Taggers at the LHC}
+Two-Prong Substructure Taggers for the LHC}
 
 \author[a]{Disha Bhatia,}
 \author[a]{Reina Camacho,}
@@ -209,6 +210,7 @@ Two-Prong Substructure Taggers at the LHC}
 \author[a]{Ian Moult,}
 \emailAdd{ianmoult@lbl.gov}
 \author[a]{Ben Nachman,}
+\emailAdd{bpnachman@lbl.gov}
 \author[a]{Andreas Papaefstathiou,}
 \author[a]{Tousik Samui,}
 \author[a]{Andrzej Siodmok,}
@@ -218,8 +220,12 @@ Two-Prong Substructure Taggers at the LHC}
 \emailAdd{jthaler@mit.edu}
 
 \affiliation[a]{Les Houches}
+\affiliation[5]{Center for Theoretical Physics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA}
+\affiliation[3]{Berkeley Center for Theoretical Physics, University of California, Berkeley, CA 94720, USA}
+\affiliation[4]{Theoretical Physics Group, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA}
 
-\abstract{The ability to robustly identify boosted hadronically decaying resonances plays a central role at the LHC, both in searches for new physics, as well as for probing the Standard Model in extreme regions of phase space. While a variety of powerful different approaches exist, and the theoretical behavior of the observables is well understood, different behavior is observed in realistic experimental context, and the different experiments use different choices, without a well understood motivation. In this paper we perform a systematic study contrasting the robustness and performance of different theoretical approaches to designing jet substructure observables. These include the standard observables $\tau_{21}$, $D_2$, and $N_2$, currently used by the experiments, as well as generalizations, which are designed to simultaneously maximize both robustness and performance. We focus on the signal robustness, including the dependence on the polarization, the theoretical robustness to non-perturbative effects,  and the experimental robustness to detector effects. Additionally, we identify strategies to tag the polarization of the decaying boson. We discuss the different choices used by CMS and ATLAS within this picture, and make recommendations for future tagging strategies to ensure robust procedures based on sound theoretical organizing principles.
+
+\abstract{The ability to robustly identify boosted hadronically decaying resonances plays a central role at the LHC, both in searches for new physics, as well as for probing the Standard Model in extreme regions of phase space. While a variety of powerful and theoretically well understood approaches exist, different behavior is often observed in realistic experimental contexts, and the different experiments use different strategies, without a well understood motivation. In this paper we perform a systematic study contrasting the robustness and performance of different theoretical approaches to designing jet substructure observables. These include the standard observables $\tau_{21}$, $D_2$, and $N_2$, and grooming strategies, currently used by the experiments, as well as generalizations, based on the idea of dichroic ratios, which are designed to simultaneously maximize both robustness and performance. For signal jets, we focus on robustness to the polarization of the sample, while for QCD jets, we focus on theoretical robustness to non-perturbative effects,  and experimental robustness to detector effects. Additionally, we identify strategies to tag the polarization of hadronically decaying bosons. We discuss the different choices used by CMS and ATLAS in the context of robustness vs. performance, and make recommendations for future tagging strategies to ensure robust procedures based on sound theoretical organizing principles. Additionally, we introduce reliable metrics for quantifying robustness and performance for substructure observables.
 
 }
 
@@ -229,26 +235,24 @@ Two-Prong Substructure Taggers at the LHC}
 \section{Introduction}\label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-With the ever increasing LHC dataset, we are able to probe the Standard Model, and search for Beyond the Standard Model physics in increasingly extreme regions of phase space. Well understood theoretical observables that are sensitive to such extreme regions of phase space are therefore playing an increasingly important role at the LHC. One of the most exciting new approaches which has emerged at the LHC are tools from jet substructure, which allow for the identification of boosted hadronically decaying particles within jets by a detailed study of their radiation pattern. Techniques from jet substructure have now been widely used for Standard Model measurements \cite{Chatrchyan:2012sn,CMS:2013cda,Aad:2015cua,Aad:2015lxa,ATLAS-CONF-2015-035,Aad:2015rpa,Aad:2015hna,ATLAS-CONF-2016-002,ATLAS-CONF-2016-039,ATLAS-CONF-2016-034,CMS-PAS-TOP-16-013,CMS-PAS-HIG-16-004}, as well as for searches of new physics  \cite{CMS:2011bqa,Fleischmann:2013woa,Pilot:2013bla,TheATLAScollaboration:2013qia,Chatrchyan:2012ku,CMS-PAS-B2G-14-001,CMS-PAS-B2G-14-002,Khachatryan:2015axa,Khachatryan:2015bma,Aad:2015owa,Aaboud:2016okv,Aaboud:2016trl,Aaboud:2016qgg,ATLAS-CONF-2016-055,ATLAS-CONF-2015-071,ATLAS-CONF-2015-068,CMS-PAS-EXO-16-037,CMS-PAS-EXO-16-040,Khachatryan:2016mdm,CMS-PAS-HIG-16-016,CMS-PAS-B2G-15-003,CMS-PAS-EXO-16-017}. \footnote{This is by no means a complete list.  Other studies from the LHC using jet substructure can be found at \url{https://twiki.cern.ch/twiki/bin/view/AtlasPublic} and \url{http://cms-results.web.cern.ch/cms-results/public-results/publications/}.} 
+With the ever increasing LHC dataset, we are able to probe the Standard Model and search for physics beyond the Standard Model in increasingly extreme regions of phase space. Well understood theoretical observables that are sensitive to such extreme regions of phase space are therefore playing an increasingly important role at the LHC. One of the most exciting new approaches which has emerged at the LHC are tools from jet substructure, which allow for the identification of boosted hadronically decaying particles within jets by a detailed study of their radiation pattern. Techniques from jet substructure have now been widely used for Standard Model measurements \cite{Chatrchyan:2012sn,CMS:2013cda,Aad:2015cua,Aad:2015lxa,ATLAS-CONF-2015-035,Aad:2015rpa,Aad:2015hna,ATLAS-CONF-2016-002,ATLAS-CONF-2016-039,ATLAS-CONF-2016-034,CMS-PAS-TOP-16-013,CMS-PAS-HIG-16-004}, as well as for searches of new physics  \cite{CMS:2011bqa,Fleischmann:2013woa,Pilot:2013bla,TheATLAScollaboration:2013qia,Chatrchyan:2012ku,CMS-PAS-B2G-14-001,CMS-PAS-B2G-14-002,Khachatryan:2015axa,Khachatryan:2015bma,Aad:2015owa,Aaboud:2016okv,Aaboud:2016trl,Aaboud:2016qgg,ATLAS-CONF-2016-055,ATLAS-CONF-2015-071,ATLAS-CONF-2015-068,CMS-PAS-EXO-16-037,CMS-PAS-EXO-16-040,Khachatryan:2016mdm,CMS-PAS-HIG-16-016,CMS-PAS-B2G-15-003,CMS-PAS-EXO-16-017}.\footnote{More LHC studies using jet substructure can be found at \url{https://twiki.cern.ch/twiki/bin/view/AtlasPublic} and \url{http://cms-results.web.cern.ch/cms-results/public-results/publications/}.} 
 
-% Standard Model measurements \cite{Chatrchyan:2012sn,CMS:2013cda,Aad:2015cua,Aad:2015lxa,ATLAS-CONF-2015-035,Aad:2015rpa,Aad:2015hna,ATLAS-CONF-2016-002,ATLAS-CONF-2016-039,ATLAS-CONF-2016-034,CMS-PAS-TOP-16-013,CMS-PAS-HIG-16-004} to searches for new physics \cite{CMS:2011bqa,Fleischmann:2013woa,Pilot:2013bla,TheATLAScollaboration:2013qia,Chatrchyan:2012ku,CMS-PAS-B2G-14-001,CMS-PAS-B2G-14-002,Khachatryan:2015axa,Khachatryan:2015bma,Aad:2015owa,Aaboud:2016okv,Aaboud:2016trl,Aaboud:2016qgg,ATLAS-CONF-2016-055,ATLAS-CONF-2015-071,ATLAS-CONF-2015-068,CMS-PAS-EXO-16-037,CMS-PAS-EXO-16-040,Khachatryan:2016mdm,CMS-PAS-HIG-16-016,CMS-PAS-B2G-15-003,CMS-PAS-EXO-16-017}.\footnote{This is by no means a complete list.  Other studies from the LHC using jet substructure can be found at \url{https://twiki.cern.ch/twiki/bin/view/AtlasPublic} and \url{http://cms-results.web.cern.ch/cms-results/public-results/publications/}.}  As the field of jet substructure matures \cite{Abdesselam:2010pt,Altheimer:2012mn,Altheimer:2013yza,Adams:2015hiv}, 
+
  
- With the growing importance of jet substructure techniques, there has been a significant effort by both the theory and experimental community to develop a more detailed understanding of the theoretical and experimental behavior of these observables. On the theory side, there has been a push through explicit calculations \cite{Feige:2012vc,Field:2012rw,Dasgupta:2013ihk,Dasgupta:2013via,Larkoski:2014pca,Dasgupta:2015yua,Seymour:1997kj,Li:2011hy,Larkoski:2012eh,Jankowiak:2012na,Chien:2014nsa,Chien:2014zna,Isaacson:2015fra,Krohn:2012fg,Waalewijn:2012sv,Larkoski:2014tva,Procura:2014cba,Bertolini:2015pka,Bhattacherjee:2015psa,Larkoski:2015kga,Dasgupta:2015lxh,Frye:2016okc,Frye:2016aiz,Kang:2016ehg,Hornig:2016ahz,Marzani:2017mva}, scaling arguments \cite{Walsh:2011fz,Larkoski:2014gra,Larkoski:2014zma} and machine learning \cite{Cogan:2014oua,deOliveira:2015xxd,Almeida:2015jua,Baldi:2016fql,Guest:2016iqz,Conway:2016caq,Barnard:2016qma} approaches. On the experimental side, there have been detailed studies of the behavior of these observables in data, and their interplay with experimental realities, such as detector resolution and pile up. Summaries of the advances over the years can be found in the reviews \cite{Abdesselam:2010pt,Altheimer:2012mn,Altheimer:2013yza,Adams:2015hiv}.
+ With the growing importance of jet substructure techniques, there has been a significant effort by both the theory and experimental communities to develop a more detailed understanding of the theoretical and experimental behavior of jet substructure observables. On the theory side, this has been pursued through explicit calculations \cite{Feige:2012vc,Field:2012rw,Dasgupta:2013ihk,Dasgupta:2013via,Larkoski:2014pca,Dasgupta:2015yua,Seymour:1997kj,Li:2011hy,Larkoski:2012eh,Jankowiak:2012na,Chien:2014nsa,Chien:2014zna,Isaacson:2015fra,Krohn:2012fg,Waalewijn:2012sv,Larkoski:2014tva,Procura:2014cba,Bertolini:2015pka,Bhattacherjee:2015psa,Larkoski:2015kga,Dasgupta:2015lxh,Frye:2016okc,Frye:2016aiz,Kang:2016ehg,Hornig:2016ahz,Marzani:2017mva}, scaling arguments \cite{Walsh:2011fz,Larkoski:2014gra,Larkoski:2014zma} and machine learning \cite{Cogan:2014oua,deOliveira:2015xxd,Almeida:2015jua,Baldi:2016fql,Guest:2016iqz,Conway:2016caq,Barnard:2016qma} approaches. On the experimental side, there have been detailed studies of the behavior of substructure observables in data, and their interplay with experimental realities, such as detector resolution and pile up. Summaries can be found in \cite{Abdesselam:2010pt,Altheimer:2012mn,Altheimer:2013yza,Adams:2015hiv}.
 
-There now exist a number of theoretically well motivated jet substructure tools. Modern two-prong taggers typically consist of two ingredients: a groomer and a jet shape.
-For jet shapes, it is well understood how to organize and study their behavior using power counting. A variety of different classes of observables exist, for example the Energy correlation functions and N-subjettiness observables, and their relation is understood. The behavior of groomers is also now well understood, and their exist groomers with nice experimental and theoretical properties. However, despite the theoretical understanding of the behavior of the observables, it is not always clear how this translates to experimental reality, due to the presence of hadronization, underlying event, detector effects and pile up. Indeed, the different experiments have settled on different tagging combinations. For grooming, which removes low energy contamination,  ATLAS using trimming \cite{Krohn:2009th}, CMS uses soft drop\cite{Larkoski:2014wba}. For observable, ATLAS uses $D_2$ \cite{Larkoski:2014gra,Larkoski:2015kga}, while CMS uses $N$-subjettiness ratio $\tau_{2,1}$ \cite{Thaler:2010tr,Thaler:2011gf}, or $N_2$ \cite{Moult:2016cvt} with DDT \cite{Dolen:2016kst}. It is not clear if this is driven by detector definitions, or an optimization with different criteria, samples, or modelling, as it is generally not well understood the extent to which the substructure observables are robust to such issues.
-
-
+As a result of these efforts, there now exist a number of theoretically well motivated jet substructure tools. For tagging hadronically decaying $W/Z/H$ bosons, which decay primarily to jets with two well resolved prongs, or subjets, a variety of powerful two-prong taggers have been developed.  Modern two-prong taggers typically consist of two ingredients: a groomer and a jet shape observable.
+For jet shapes, it is well understood how to organize and study their behavior using power counting \cite{Larkoski:2014gra}. A variety of different classes of observables exist, for example the Energy correlation functions \cite{Larkoski:2013eya} and N-subjettiness observables \cite{Thaler:2010tr,Thaler:2011gf}, and their relation is understood. The behavior of groomers is also now well understood, and their exist groomers with nice experimental and theoretical properties \cite{Dasgupta:2013ihk,Larkoski:2014wba}. However, despite the theoretical understanding of the behavior of the observables, it is not always clear how this translates to experimental reality, due to the presence of hadronization, underlying event, detector effects and pile up. Indeed, the different experiments have settled on different tagging combinations. For grooming, which removes low energy contamination,  ATLAS using trimming \cite{Krohn:2009th}, while CMS uses soft drop\cite{Larkoski:2014wba}. For observable, ATLAS uses $D_2$ \cite{Larkoski:2014gra,Larkoski:2015kga}, while CMS uses $N$-subjettiness ratio $\tau_{2,1}$ \cite{Thaler:2010tr,Thaler:2011gf}, or $N_2$ \cite{Moult:2016cvt} with DDT \cite{Dolen:2016kst}. It is not clear if this is driven by differences in the detectors, or an optimization with respect to different criteria, samples, or modelling, as it is generally not well understood the extent to which the substructure observables are robust to such issues.
 
 
 
 
 
-In this paper we perform a comprehensive study of two-prong tagging techniques using a theoretical organization into different categories of tagging strategies based on the idea of dichroic observables, which generalizes ratio observables to allow hybrid combinations of groomed and ungroomed shapes. These categories contain as special instances all the familiar observables used by the experiments, as well as introduces new observables, such as dichroic versions of the $N_2$ and $D_2$ observables. We therefore place the ATLAS and CMS strategies as specific examples of broader classes of theoretical approaches for tagging two-prong substructure. 
-We discuss the physics associated with each of the different classes of approaches, and consider families characterized by different parameters within each of these classes. This allows us to optimize within each of these classes, as well as to compare the behavior within different classes.
+In this paper we perform a comprehensive study of performance and robustness for two-prong tagging techniques using a theoretical organization into different categories of tagging strategies based on the idea of dichroic observables \cite{Salam:2016yht}, which generalize ratio observables to allow hybrid combinations of groomed and ungroomed shapes. These categories contain as special instances all the familiar observables used by the experiments, as well as new observables, such as dichroic versions of the $N_2$ and $D_2$ observables. We therefore place the ATLAS and CMS strategies as specific examples of broader classes of theoretical approaches for tagging two-prong substructure, about which we can draw general conclusions regarding robustness and performance.
+%We discuss the physics associated with each of the different classes of approaches, and consider families characterized by different parameters within each of these classes. This allows us to optimize within each of these classes, as well as to compare the behavior within different classes.
 
 
-A key aspect of this study is that we study the interplay between robustness and performance. Here robustness refers to modifications of the substructure observables as different physics aspects are added. In particular, we consider robustness to non-perturbative effects, namely hadronization and underlying event, robustness to detector effects, and robustness to pile up radiation. We are then able to study the robustness of each of these classes in general, and the CMS and ATLAS approaches in particular. This provides considerable insight into the interplay between robustness and performance, and the choices made by different experiments. Furthermore, we believe that the metrics introduced here will be useful in future studies of jet substructure observables. In all cases, we are able to identify observables with improved robustness and performance as compared with those currently used by the experiments. As an additional aspect of this study, we also consider the robustness of the signal tagging efficiency to the polarization of the decaying boson, and study techniques to perform polarimetry. 
+The primary focus of this study is the interplay between robustness and performance. Here robustness refers to modifications of the substructure observables as different physics aspects are added. In particular, we consider robustness to non-perturbative effects, namely hadronization and underlying event, robustness to detector effects, and robustness to pile up radiation. We are able to study the robustness of each of these classes in general, and the CMS and ATLAS approaches in particular. This provides considerable insight into the interplay between robustness and performance, and the choices made by the different experiments. We also introduce metrics for quantifying robustness, that we believe will be useful in future studies of jet substructure observables. In all cases, we are able to identify observables with improved robustness and performance as compared with those currently used by the experiments. As an additional aspect of this study, we also consider the robustness of the signal tagging efficiency to the polarization of the decaying boson, and study techniques to perform polarimetry for boosted hadronic decays. 
 
 
 
@@ -321,19 +325,18 @@ A key aspect of this study is that we study the interplay between robustness and
 
 
 
-An outline of this paper is as follows. In \Sec{sec:pres} we discuss our metrics for studying robustness as well as how we will present our results. In \Sec{sec:obs_def} we define all jet substructure observables that will be used throughout this paper. This includes jet shapes, groomers and techniques for pile-up suppression. In \Sec{sec:hybrid_ratio} we discuss theoretical approaches to designing robust two-prong taggers. We extend the approach of \cite{Salam:2016yht} and define several new dichroic observables formed from the energy correlation functions.  In \Sec{sec:samples} we discuss the samples and parameters that we will study. In \Sec{sec:polar} we study the robustness of the signal distribution to the polarization of the decaying boson. We also introduce observables to distinguish polarized samples. In \Sec{sec:np} we study the robustness of the observables to non-perturbative radiation both from hadronization, and underlying event. In \Sec{sec:exp} we study robustness to detector and pile up. In \Sec{sec:exp_compare} we specialize to the particular observables used by CMS and ATLAS, which are representative of our more general strategies. We summarize our results in \Sec{sec:conc} and discuss the conclusions of our results which may have an influence in the application of two-prong taggers at the LHC.
+An outline of this paper is as follows. In \Sec{sec:pres} we define our metrics for studying robustness as well as how we will present our results. We discuss the key physics issues that we would like to assess robustness to, both theoretical and experimental, and describe a chain of different steps in our simulation process such that each physics issue can be isolated and studied. In \Sec{sec:obs_def} we define all jet substructure observables that will be used throughout this paper. This includes jet shapes, groomers and techniques for pile-up suppression. In \Sec{sec:hybrid_ratio} we discuss theoretical approaches to designing robust two-prong taggers. We extend the approach of \cite{Salam:2016yht} and define several new dichroic observables formed from the energy correlation functions.  In \Sec{sec:samples} we discuss the samples and parameters that we will study. In \Sec{sec:polar} we study the robustness of substructure observables to the polarization of a decaying $W/Z$ boson. We also introduce observables to distinguish polarized samples. In \Sec{sec:np} we study the robustness of the observables to non-perturbative radiation both from hadronization, and underlying event. In \Sec{sec:exp} we study robustness to detector and pile up. In \Sec{sec:exp_compare} we specialize to the particular observables used by CMS and ATLAS, which are representative of our more general strategies. We summarize our results in \Sec{sec:conc}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Quantifying Robustness and Presentation of Results}\label{sec:pres}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-Since the goal of this paper is to study the interplay between tagging performance and robustness for two-prong taggers, it is essential to begin by providing a precise definition, and metric, that we will use to measure both the robustness, and the tagging performance.
-Since we are able to generate pure signal and background samples, the tagging performance is straightforward to define using the signal and background efficiencies 
+The goal of this paper is to study the interplay between tagging performance and robustness for two-prong taggers. This requires a precise definition of the physics effects to which we are, or are not robust, as well as a metric to quantify both performance and robustness. Since we are able to generate pure signal and background samples, the tagging performance is straightforward to define using the signal and background efficiencies 
 \begin{align}
 \epsilon=\frac{\epsilon_S}{\sqrt{\epsilon_B}}\,,
 \end{align}
-as is commonly done.
+as is commonly done, and we will use this as our metric for performance.
 
 \begin{figure}[t!]
 \begin{center}
@@ -343,22 +346,23 @@ as is commonly done.
 \label{fig:realism}
 \end{figure}
 
-We will approach robustness by moving from an idealized partonic description to a complete detector simulation including pileup, a "realistic" scenario representative of the LHC environment. This chain of realism is shown in \Fig{fig:realism}, which illustrates the following stages:
+We will approach robustness by moving from an idealized partonic description to a complete detector simulation including pileup; a``realistic" scenario representative of the LHC environment. This chain of realism is shown in \Fig{fig:realism}, which illustrates the following stages:
 \begin{itemize}
-\item Parton: We define the parton level result as the perturbative distribution for the active-active scattering (i.e. we do not include possible perturbative contributions to the underlying event). While this can be defined in an analytic calculation, it is more difficult in the context of parton shower Monte Carlos, as there is necessarily a cut-off that must be imposed between perturbative and non-perturbative physics. Only the complete result is physical, and intermediate results should be interpreted with care. Nevertheless, to have some measure of the impact of non-perturbative effects, we will define parton level as generated by a parton shower Monte Carlo with all hadronization effects turned off.
-\item Hadron: We define the hadron level result as that including hadronization in the shower, but not including any effects from the underlying event.
-\item Truth: We define truth as the hadronized results including the underlying event as implemented in an event generator. Truth therefore represents a complete hard scattering process in a hadron-hadron collider in isolation.
-\item Detector: Detector level results are defined as truth level events passed through a detector simulation as implemented by TowerGrid. See \Sec{sec:det_model} for details of the detector simulation.
-\item Pileup: In the final stage of realism we include pile-up by superimposing uncorrelated minimum bias events at detector level. These represent to the level that we can consider in this paper, realistic events as seen by the experiments at the LHC.
+\item Parton Level: We define the parton level result as the perturbative distribution for the active-active scattering (i.e. we do not include possible perturbative contributions to the underlying event). While this can be defined in an analytic calculation, it is more difficult in the context of parton shower Monte Carlos, as there is necessarily a cut-off that must be imposed between perturbative and non-perturbative physics. Only the complete result is physical, and intermediate results should be interpreted with care. Nevertheless, to have some measure of the impact of non-perturbative effects, we will define parton level as generated by a parton shower Monte Carlo with all hadronization effects turned off. We will use multiple parton shower Monte Carlos with different hadronization models to ensure the robustness of our conclusions.
+\item Hadron Level: We define the hadron level result as that including hadronization in the shower, but not including any effects from the underlying event.
+\item Truth Level: We define truth as the hadronized results including the underlying event as implemented in an event generator. Truth level therefore represents a complete hard scattering process in a hadron-hadron collider in isolation.
+\item Detector Level: Detector level results are defined as truth level events passed through a detector simulation as implemented by TowerGrid. See \Sec{sec:det_model} for details of the detector simulation.
+\item Pileup Level: In the final stage of realism we include pile-up by superimposing uncorrelated minimum bias events at detector level. These represent to the level that we can consider in this paper, realistic events as seen by the experiments at the LHC.
 \end{itemize}
-Comparing the differences as we progress step by step through this sequence allows us to address at each stage the robustness to distinct physics issues
+
+Comparing the differences as we progress step by step through this sequence allows us to address at each stage the robustness to distinct physics issues, and we hope that our segmentation is sufficiently fine that we have a comprehensive view of robustness. In particular, the different steps in the chain allow us to study robustness to the following physics: 
 \begin{itemize}
 \item Parton$\to$ Hadron: Changes in the distribution from parton level to hadron level probe non-pertubative physics associated with hadronization. For many event shapes, hadronization corrections can be given a field theory definition in terms of a matrix element whose symmetry properties can be used to prove basic results. However, ultimately such corrections cannot be computed from first principles and must be included through models, such as those included in parton shower Monte Carlos, or through shape functions in analytic calculations \cite{Korchemsky:1999kt,Korchemsky:2000kp,Bosch:2004th,Hoang:2007vb,Ligeti:2008ac}.  To have the best theoretical control and understanding of jet substructure observables, it is therefore desirable that their performance is robust to the effects of hadronization.
 \item Hadron $\to$ Truth: Changes in the distribution from hadron level to truth level probe the impact of the underlying event, namely the physics associated with interactions of the colliding protons, and their remnants. Such contributions are in principle both perturbative and non-perturbative. They are poorly understood theoretically, and it is currently not known how to treat them systematically, or define them field theoretically. It has been found empirically that the effects of underlying event are well modeled by a shape function \cite{Stewart:2014nna}, although the theoretical justification for this is not clear.  The underlying event is implemented in Monte Carlo event generators using models which are tuned to data, and we take these models as our definition of the underlying event. Due to this lack of theoretical understanding, as well as the fact that radiation from the underlying event is typically not associated with the physics that we are interested in probing, it is desirable that jet substructure observables be robust to underlying event.
 \item Truth $\to$ Detector: Since we are ultimately interested in using jet substructure in the experiments, the behavior of the detectors plays an essential role. The finite energy and spatial resolution of the detectors ultimately degrades the behavior of the observables. Furthermore, the detector response must be unfolded, and is therefore difficult to compute analytically, or to include to higher accuracy. Therefore, both for performance, and calculability it is desirable that jet substructure observables are robust to detector effects.
 \item Detector $\to$ Pileup: Finally, due to the high-pile up environment of the LHC, significant soft radiation can contaminate the jet substructure observables of interest. Since this radiation is not correlated with the event of interest, it is not associated with the physics of interest, and therefore can only act to degrade the performance. Furthermore, it is difficult to model in an analytic calculation. While techniques exist to mitigate pile-up, as were reviewed in \Sec{sec:pu_tech}, it is desirable the substructure observables are as robust as possible to pile-up contamination.
 \end{itemize}
-The first two of these are classified as sources of ``Theory" uncertainty, while the second two are classified as sources of ``Experimental" uncertainty.
+We will classify the first two of these as sources of ``Theory" uncertainty, which will be discussed in \Sec{sec:np}, while the second two are classified as sources of ``Experimental" uncertainty, and will be discussed in \Sec{sec:exp}. This decomposition is of course somewhat arbitrary, as a coherent understanding involving the complete chain is required, however, it is chosen such that the ``Theory" issues cover an idealized hadronic collision in isolation. 
 
 \begin{figure}
 \begin{center}
@@ -372,18 +376,18 @@ Having detailed the different stages we will consider, and the physics that is i
 \begin{align}
 \zeta=\left(  \frac{\Delta \epsilon_S^2}{ \langle \epsilon \rangle_S^2}  +\frac{\Delta \epsilon_B^2}{ \langle \epsilon \rangle_B^2}  \right)^{-1/2}\,.
 \end{align}
-This is shown schematically in \Fig{fig:zeta_def}.
-This metric does not detect, for example, a uniform shift in both the signal and background distributions. While this would of course be an undesirable feature of the observable, since the physics associated with the signal distribution and the background distribution are sufficiently different, we believe such situations are perverse. We therefore believe that $\zeta$ provides a good metric for assessing the robustness of the tagger. When presenting our results, we will characterize observables in the plane of tagging-performance - $\zeta$, with better observables being in the upper right corner. We find that this allows us to synthesize the information about a large number of observables in a compact manner. A similar metric and presentation style was used in \cite{Salam:2016yht} to study robustness to non-perturbative effects. In addition to showing plots of $\zeta$, we will in particular cases of interest also show the modification of the distribution itself to provide additional insight into the robustness of the observable.
+The meaning of $\zeta$ is illustrated in \Fig{fig:zeta_def}.
+This metric does not detect, for example, a uniform shift in both the signal and background distributions. While this would of course be an undesirable feature of the observable, since the physics associated with the signal distribution and the background distribution are sufficiently different, we believe such situations are perverse. We therefore believe that $\zeta$ provides a good metric for assessing the robustness of the tagger. When presenting our results, we will characterize observables in the plane of $\epsilon$ - $\zeta$, with better observables being in the upper right corner. We find that this allows us to synthesize the information about a large number of observables in a compact manner. A similar metric and presentation style was used in \cite{Salam:2016yht} to study robustness to non-perturbative effects. In addition to showing plots of the $\epsilon$-$\zeta$ plane, we will, in particular cases of interest, also show the modification of the distribution itself to provide additional insight into the robustness of the observable.
 
 
-It is important to emphasize that it is impossible to completely characterize an optimal observable, particularly as jet substructure observables are being used for increasingly specific purposes. However, we hope that issues that we have chosen to focus on our representative of the issues that will be important for a broad range of applications. Other aspects, such as stability as a function of mass or $p_T$, which are important, particularly for certain applications are beyond the scope of the current project, but it would be interesting to investigate them using similar techniques.
+It is important to emphasize that it is impossible to completely characterize an optimal observable, particularly as jet substructure observables are being used for increasingly specific purposes. However, we hope that issues that we have chosen to focus on our representative of the issues that will be important for a broad range of applications. Other aspects, such as stability as a function of mass or $p_T$, which are important for certain applications, are beyond the scope of the current project However, it would be interesting to investigate them using similar techniques.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Observable Definitions}\label{sec:obs_def}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section we summarize all the observable definitions and tagging approaches that will be studied throughout this paper. This includes the definition of the jet substructure shape observable, the definition of the grooming procedure, and the definition of the pile-up subtraction scheme. In \Sec{sec:hybrid_ratio} we will generalize the definitions of the ratio observables to allow for different levels of grooming in the numerator and the denominator.
+In this section we summarize all the observable definitions that will be studied throughout this paper. This includes the definition of the jet substructure shape observables, the definition of the grooming procedures, and the definition of the pile-up subtraction schemes.  No new material is presented here, and we follow closely the presentation in the original references. Readers already familiar with the definitions can readily skip this section.
 
 
 
@@ -391,9 +395,7 @@ In this section we summarize all the observable definitions and tagging approach
 \subsection{Jet Shape Observables}\label{sec:shape_def}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The jet shape observables that we consider will be formed from ratios of either the energy correlation functions \cite{Larkoski:2013eya,Moult:2016cvt} or the $N$-subjettiness observables \cite{Thaler:2010tr,Thaler:2011gf}. In this section we provide precise definitions of these observables, following the literature. No new material is presented here, and readers already familiar with the definitions can readily skip this section.
-
-The $N$-subjettiness observables are defined as \cite{Stewart:2010tn,Thaler:2010tr,Thaler:2011gf}
+The jet shape observables that we consider will be formed from ratios of either the energy correlation functions \cite{Larkoski:2013eya,Moult:2016cvt} or the $N$-subjettiness observables \cite{Thaler:2010tr,Thaler:2011gf}.  The $N$-subjettiness observables are defined as \cite{Stewart:2010tn,Thaler:2010tr,Thaler:2011gf}
 \begin{equation}\label{eq:nsubdef}
 \Nsub{N}{\beta} = \frac{1}{p_{TJ}}\sum_{1\leq i \leq n_J} p_{Ti}\min\left\{
 R_{i1}^\beta,\dotsc,R_{iN}^\beta
@@ -401,22 +403,13 @@ R_{i1}^\beta,\dotsc,R_{iN}^\beta
 \end{equation}
 Here $p_{TJ}$ is the $p_T$ of the jet,  $p_{Ti}$ is the $p_T$ of particle $i$, and the sum is over all particles in the jet. The minimum is over the boost invariant angle
 \begin{align}\label{eq:ptratio}  
-R_{ij}^2 = (\phi_i-\phi_j)^2+(y_i-y_j)^2\,,
+R_{iJ}^2 = (\phi_i-\phi_J)^2+(y_i-y_J)^2\,,
 \end{align}
-to $N$ axes.
+between the particle $i$ and the axis $J$. For $N$-subjettiness there are $N$ axes.
 
-One subtlety in the definition of the $N$-subjettiness observable in \Eq{eq:nsubdef} is the definition of the axes $n_i$. While their placement is clear in the limit of a resolved substructure,\footnote{The placement of axes is also clear when used as an event shape, namely $N$-jettiness \cite{Stewart:2010tn}, or the XCone algorithm \cite{Stewart:2015waa} with well separated jets. In these cases, factorization theorems in SCET have been proven.} an algorithmic definition is required to determine their behavior in the unresolved limit.  Two main approaches have been used for defining the axes. The first approach is to define the $N$-subjettiness axes as the axes found using an exclusive jet clustering algorithm. We will consider recursive clustering algorithms with the generalized $k_T$ metric \cite{Catani:1993hr,Cacciari:2008gp,Cacciari:2011ma}
-%%%%
-\begin{equation}\label{eq:gen_kt_metric}
-\hspace{-0.025cm} d_{ij} = \min[E_i^{2p},E_j^{2p}]\frac{1-\cos\theta_{ij}}{1-\cos R}\sim  \min[E_i^{2p},E_j^{2p}]\frac{\theta_{ij}^2}{ R^2}\,.
-\end{equation}
-%%%%
-Here $E_i$ denotes the energy of particle $i$, $\theta_{ij}$ denotes the angle between particles $i$ and $j$, and $p$ and $R$ are parameters which define the choice of metric. For numerical studies, we will focus on the exclusive Cambridge-Aachen (C/A, $p=0$) \cite{Dokshitzer:1997in,Wobisch:1998wt,Wobisch:2000dk}, exclusive $p=1/2$, and exclusive $k_T$ ($p=1$) \cite{Catani:1991hj} clustering algorithms. We will also discuss how the behavior is modified using winner-take-all (WTA) recombination  \cite{Bertolini:2013iqa,Larkoski:2014uqa,Larkoski:2014bia}, in contrast to traditional $E$-scheme recombination.
+Implicit in the definition of the $N$-subjettiness observable in \Eq{eq:nsubdef} is the definition of the axes $n_i$. While their placement is unambiguous (up to power corrections) in the limit of a resolved substructure, an algorithmic definition is required to determine their behavior in the unresolved limit.  Two main approaches have been used for defining the axes. The first approach is to define the $N$-subjettiness axes as the axes found using an exclusive jet clustering algorithm, while
+the second is to minimize the sum in \Eq{eq:nsubdef} over possible light-like axes $n_i$. In this paper we use \ijm{check what Gregory did}.
 
-
-
-
-The second approach to defining the $N$-subjettiness axes is to minimize the sum in \Eq{eq:nsubdef} over possible light-like axes $n_i$. In practice, this minimization is performed starting from seed axes, typically defined using an exclusive jet clustering algorithm \cite{Thaler:2011gf,Stewart:2015waa}. In this case, it is essential that the seed axes are chosen optimally.  We use the approach of the XCone algorithm \cite{Stewart:2015waa,Thaler:2015xaa} which matches the parameters of the jet clustering metric and recombination scheme with the minimization metric of $N$-subjettiness. We find that this is essential to obtain sensible results, particularly in fixed order perturbation theory.\footnote{Multi-pass minimization can also be used, and is implemented in \fastjet{}. This procedure is non-deterministic, and not IRC safe.  Furthermore, a large number of passes are required to obtain reasonable results.} 
 
 
 
@@ -424,23 +417,18 @@ For two-prong tagging, the relevant observable is the ratio \cite{Thaler:2010tr}
 \begin{align}
 \Nsub{2,1}{\beta}\equiv \frac{\Nsub{2}{\beta}}{\Nsub{1}{\beta}}\,.
 \end{align}
-This observable has been extensively used at the LHC. It has been calculated...
+For a jet with a well resolved two-prong structure, we have $\Nsub{2,1}{\beta}\ll 1$, while for a jet without a well resolved substructure, we have $\Nsub{2,1}{\beta}\sim 1$.
+This observable has been extensively used at the LHC. It has been calculated to LL accuracy \cite{Dasgupta:2015lxh}, and the effects of axes on the perturbative behavior have been studied at NLO \cite{Larkoski:2015uaa}.
 
-The second class of observables that we will consider are based on the energy correlation functions \cite{Larkoski:2013eya}. Instead of correlating particles with axes, as is done for $N$-subjettiness, the idea of the energy correlation functions is to correlate $n$-tuples of particles. In this way, they are naturally recoil free \cite{Catani:1992jc,Dokshitzer:1998kz,Banfi:2004yd,Larkoski:2013eya,Larkoski:2014uqa}. It also means that there is no ambiguity in the choice of axes. This has facilitated analytic calculations \cite{Larkoski:2015kga}.
-
-
-It is convenient to work with dimensionless observables, written in terms of a generic energy fraction variable, $z$, and a generic angular variable, $\theta$. The precise definitions of the energy fraction and angle can be chosen depending on context and do not affect our power-counting arguments. For the case of $pp$ collisions at the LHC, which is the focus of our later studies, we work with longitudinally boost-invariant variables,
+The second class of observables that we will consider are based on the energy correlation functions \cite{Larkoski:2013eya}. Instead of correlating particles with axes, as is done for $N$-subjettiness, the idea of the energy correlation functions is to correlate $n$-tuples of particles.  In discussing the energy correlation function, it is convenient to work with dimensionless observables, written in terms of an energy fraction variable, $z$, and $R_{ij}$
 \begin{align}\label{eq:ptratio}  
-z_i\equiv\frac{p_{Ti}}{\sum_{j \in \text{jet}} p_{Tj}}\,, \qquad  \theta_{ij}^2\equiv R_{ij}^2 = (\phi_i-\phi_j)^2+(y_i-y_j)^2\,,
+z_i\equiv\frac{p_{Ti}}{\sum_{j \in \text{jet}} p_{Tj}}\,, \qquad   R_{ij}^2 = (\phi_i-\phi_j)^2+(y_i-y_j)^2\,,
 \end{align}
 where $p_{Ti}$, $\phi_i$, and $y_i$ are the transverse momentum, azimuthal angle, and rapidity of particle $i$, respectively. 
-
-
 %Tkachov \Ref{Tkachov:1995kk,Sveshnikov:1995vi,Cherzor:1997ak,Tkachov:1999py},
-
 The general energy correlation function is defined as
 \begin{equation}\label{eq:ecf_gen}
-\ecfvar{v}{n}{\beta} = \sum_{1 \leq i_1 < i_2 < \dots < i_n \leq n_J} z_{i_1} z_{i_2} \dots z_{i_n} \prod_{m = 1}^{v} \min^{(m)}_{s < t \in \{i_1, i_2 , \dots, i_n \}} \left\{ \theta_{st}^{\beta} \right\},
+\ecfvar{v}{n}{\beta} = \sum_{1 \leq i_1 < i_2 < \dots < i_n \leq n_J} z_{i_1} z_{i_2} \dots z_{i_n} \prod_{m = 1}^{v} \min^{(m)}_{s < t \in \{i_1, i_2 , \dots, i_n \}} \left\{ R_{st}^{\beta} \right\},
 \end{equation}
 where $\min^{(m)}$ denotes the $m$-th smallest element in the list.  For a jet consisting of fewer than $n$ particles, $\ecfvarnobeta{v}{n}$ is defined to be zero.  More explicitly, the three arguments of the generalized energy correlation functions are as follows.
 \begin{itemize}
@@ -454,13 +442,13 @@ where $\min^{(m)}$ denotes the $m$-th smallest element in the list.  For a jet c
 
 In this paper, we use the 2-point energy correlation function
 \begin{align}\label{eq:explicit_twopointvar}
-\ecfvar{1}{2}{\beta}&\equiv\ecf{2}{\beta}=\sum_{1\leq i<j\leq n_J} z_{i}z_{j} \, \theta_{ij}^\beta\ ,
+\ecfvar{1}{2}{\beta}&\equiv\ecf{2}{\beta}=\sum_{1\leq i<j\leq n_J} z_{i}z_{j} \, R_{ij}^\beta\ ,
 \end{align}
-whose definition is unique, since it only involves only a single pairwise angle.  We also need the 3-point correlators, which have three variants probing different angular structures:
+as well as  the 3-point correlators
 \begin{align}\label{eq:explicit_ecfvar}
-\ecfvar{1}{3}{\beta}&=\sum_{1\leq i<j<k\leq n_J} z_{i}z_{j}z_{k} \min \left\{ \theta_{ij}^\beta\,,  \theta_{ik}^\beta\,, \theta_{jk}^\beta  \right\} \ , \nonumber \\
-\ecfvar{2}{3}{\beta}&=\sum_{1\leq i<j<k\leq n_J} z_{i}z_{j}z_{k} \min \left\{\theta_{ij}^\beta \theta_{ik}^\beta\,, \theta_{ij}^\beta  \theta_{jk}^\beta\,,     \theta_{ik}^\beta \theta_{jk}^\beta    \right\}  \ , \nonumber \\
-\ecf{3}{\beta}\equiv\ecfvar{3}{3}{\beta}&=\sum_{1\leq i<j<k\leq n_J} z_{i}z_{j}z_{k} \, \theta_{ij}^\beta \theta_{ik}^\beta \theta_{jk}^\beta \,.
+\ecfvar{1}{3}{\beta}&=\sum_{1\leq i<j<k\leq n_J} z_{i}z_{j}z_{k} \min \left\{ R_{ij}^\beta\,,  R_{ik}^\beta\,, R_{jk}^\beta  \right\} \ , \nonumber \\
+\ecfvar{2}{3}{\beta}&=\sum_{1\leq i<j<k\leq n_J} z_{i}z_{j}z_{k} \min \left\{R_{ij}^\beta R_{ik}^\beta\,, R_{ij}^\beta  R_{jk}^\beta\,,     R_{ik}^\beta R_{jk}^\beta    \right\}  \ , \nonumber \\
+\ecf{3}{\beta}\equiv\ecfvar{3}{3}{\beta}&=\sum_{1\leq i<j<k\leq n_J} z_{i}z_{j}z_{k} \, R_{ij}^\beta R_{ik}^\beta R_{jk}^\beta \,.
 \end{align}
 
 
@@ -468,13 +456,15 @@ whose definition is unique, since it only involves only a single pairwise angle.
 
 
 
- A number of powerful 2-prong discriminants have been formed from the energy correlation functions  \cite{Larkoski:2013eya,Larkoski:2014gra}. Here we will focus on the observables
+ A number of powerful 2-prong discriminants have been formed from the energy correlation functions  \cite{Larkoski:2013eya,Larkoski:2014gra,Larkoski:2014zma,Moult:2016cvt}. Here we will focus on the observables
 \begin{align}
- \Dobs{2}{\beta}=\frac{\ecf{3}{\beta}}{(\ecf{2}{\beta})^{3}}\,, \qquad M_2^{(\beta)} = \frac{\ecfvar{1}{3}{\beta}}{\ecfvar{1}{2}{\beta}} \qquad  N_2^{(\beta)} = \frac{\ecfvar{2}{3}{\beta}}{(\ecfvar{1}{2}{\beta})^2}\,,
+ M_2^{(\beta)} = \frac{\ecfvar{1}{3}{\beta}}{\ecfvar{1}{2}{\beta}} \qquad  N_2^{(\beta)} = \frac{\ecfvar{2}{3}{\beta}}{(\ecfvar{1}{2}{\beta})^2}\,, \qquad  \Dobs{2}{\beta}=\frac{\ecf{3}{\beta}}{(\ecf{2}{\beta})^{3}}\,, 
 \end{align}
-Beyond their discrimination power, these observables have nice analytic properties.  First, since they can be written as a sum over particles in the jet without reference to external axes, they are automatically ``recoil-free'' \cite{Catani:1992jc,Dokshitzer:1998kz,Banfi:2004yd,Larkoski:2013eya,Larkoski:2014uqa}. Second, since they have well-defined behavior in various soft and collinear limits, they are amenable to resummed calculations;  in \Ref{Larkoski:2015kga}, $\Dobsnobeta{2}$ was calculated to next-to-leading-logarithmic (NLL) accuracy in $e^+e^-$ for both signal (boosted $Z$) and background (QCD) jets. 
+each of which probes the correlations between particles within the jet in a slightly different manner. For a detailed discussion, see \cite{Moult:2016cvt}. The $N_2$ observable has been used by CMS, and the $D_2$ observable has been used by ATLAS. The $M_2$ observable is expected to be less performant, except in particular scenarios, but we include it to investigate the possibility that it might provide additional information. We will see that it also provides an example of a remarkably robust observable.
 
-The $N_2$ observable has been used by CMS, and the $D_2$ observable has been used by ATLAS. The $M_2$ observable is expected to be less performant, except in particular scenarios, but we include it to investigate the possibility that it might provide additional information.
+
+Beyond their discrimination power, these observables have nice theoretical properties.  First, since they can be written as a sum over particles in the jet without reference to external axes, they are automatically ``recoil-free'' \cite{Catani:1992jc,Dokshitzer:1998kz,Banfi:2004yd,Larkoski:2013eya,Larkoski:2014uqa}. Second, since they have well-defined behavior in various soft and collinear limits, they are amenable to resummed calculations;  in \Ref{Larkoski:2015kga}, $\Dobsnobeta{2}$ was calculated to next-to-leading-logarithmic (NLL) accuracy in $e^+e^-$ for both signal (boosted $Z$) and background (QCD) jets. 
+
 
 
 
@@ -487,9 +477,9 @@ The $N_2$ observable has been used by CMS, and the $D_2$ observable has been use
 \subsection{Grooming Techniques}\label{sec:groom_tech}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In addition to substructure observables, one of the powerful tools which has emerged from the study of jet substructure are groomers \cite{Butterworth:2008iy,Ellis:2009su,Ellis:2009me,Krohn:2009th,Dasgupta:2013via,Dasgupta:2013ihk}. The idea of groomers is to systematically remove from the jet wide angle soft radiation. Groomers play a crucial role at the LHC both for improving mass resolution, as well as for eliminating contamination. While a variety of different grooming approaches have been defined, we will focus on Soft Drop/mMDT, which are the most theoretically well understood, and which exhibit a number of nice theoretical properties, as well as trimming, which is used by the ATLAS experiment. In this section, we review the definition of the Soft Drop/mMDT and trimming algorithms and their parameters.
+Groomers, which remove wide angle soft radiation and contamination from a jet, also play an important role in two-prong tagging. While a variety of different grooming approaches have been defined \cite{Butterworth:2008iy,Ellis:2009su,Ellis:2009me,Krohn:2009th,Dasgupta:2013via,Dasgupta:2013ihk}, we will focus on Soft Drop/mMDT, which are the most theoretically well understood, and which exhibit a number of nice theoretical properties, as well as trimming \cite{Krohn:2009th}, which is used by the ATLAS experiment. In this section, we review the definition of the Soft Drop/mMDT and trimming algorithms and their parameters.
 
-Starting from a jet identified with an IRC safe jet algorithm (such as anti-$k_t$ \cite{Cacciari:2008gp}), the soft drop algorithm is defined using Cambridge/Aachen (C/A) reclustering \cite{Dokshitzer:1997in,Wobisch:1998wt,Wobisch:2000dk}.  Specializing to the case of $\beta=0$, the algorithm proceeds as follows:
+Starting from a jet identified with an IRC safe jet algorithm (such as anti-$k_t$ \cite{Cacciari:2008gp}), the soft drop algorithm is defined using Cambridge/Aachen (C/A) reclustering \cite{Dokshitzer:1997in,Wobisch:1998wt,Wobisch:2000dk}.  Specializing to the case of $\beta=0$, where Soft Drop is equivalent to Modified Mass Drop \cite{Dasgupta:2013ihk}, the algorithm proceeds as follows:
 \begin{enumerate}
 
 \item Recluster the jet using the C/A clustering algorithm, producing an angular-ordered branching history for the jet.
@@ -503,9 +493,7 @@ Here, $\zcut$ is a parameter defining the scale below which soft radiation is re
 \item The soft drop procedure terminates once the soft drop condition is satisfied.
 
 \end{enumerate}
-Given a jet that has been groomed with the soft drop procedure, we can then measure any IRC safe observable on this jet and it will remain IRC safe.  For the case that $\beta=0$, Soft Drop is equivalent to Modified Mass Drop \cite{Dasgupta:2013ihk}.
-
-The severity of the Soft Drop grooming can be adjusting by tuning the parameters $\zcut$ and $\beta$. Larger values of $\zcut$ groom more radiation within the jet for a fixed value of $\beta$. On the other hand, as beta is increased, the grooming becomes less severe. Typically values of $\zcut$ are around $0.1$, while typical values of $\beta$ are between $0$ and $2$.
+Given a jet that has been groomed with the soft drop procedure, we can then measure any IRC safe observable on this jet and it will remain IRC safe. The severity of the Soft Drop grooming can be adjusting by tuning the parameters $\zcut$ and $\beta$. Larger values of $\zcut$ groom more radiation within the jet for a fixed value of $\beta$. On the other hand, as beta is increased, the grooming becomes less severe. Typically values of $\zcut$ are around $0.1$, while typical values of $\beta$ are between $0$ and $2$.
 
 
 
@@ -523,14 +511,14 @@ In addition to Soft Drop/mMDT, we will also consider the trimming algorithm, sin
 \item Eliminate from the jet all partons in subjets that satisfy $p_t^{\text{subjet}} > z_{\text{cut}}$.
 \item The trimmed jet is then defined to consist of the remaining partons.
 \end{enumerate}
-Trimming has been experimentally shown to be a powerful grooming algorithm, and exhibits excellent mass resolution. However, trimming is known to suffer from non-global logarithms, and does not have a smooth spectrum as a function of the trimmed mass. It was analytically calculated in \cite{Dasgupta:2013ihk}. The trimming parameters used by ATLAS are $R_{\text{sub}}=0.2$,  $ \zcut=0.05$ and the $k_T$ algorithm to perform the reclustering.
+Trimming has been experimentally shown to be a powerful grooming algorithm, and exhibits excellent mass resolution. However, trimming is known to suffer from non-global logarithms, and does not have a smooth spectrum as a function of the trimmed mass. The trimmed mass was analytically calculated in \cite{Dasgupta:2013ihk}. The trimming parameters used by ATLAS are $R_{\text{sub}}=0.2$,  $ \zcut=0.05$ and the $k_T$ algorithm to perform the reclustering.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Pile-Up Removal}\label{sec:pu_tech}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-In addition to groomers, due to the high pile-up environment of the LHC, pileup mitigation techniques \cite{Cacciari:2007fd,Alon:2011xb,Soyez:2012hv,Tseng:2013dva,Krohn:2013lba,Cacciari:2014gra,Bertolini:2014bba} are also widely used, which eliminate soft radiation from the event. Since this radiation is uncorrelated with the underlying hard scattering, this can in principle be done, and a variety of techniques exist.  In this paper we will use Area Subtraction \cite{Cacciari:2007fd,Cacciari:2008gn} and SoftKiller \cite{Cacciari:2014gra} as representative of these techniques.
+Due to the high pile-up environment of the LHC, pileup mitigation techniques \cite{Cacciari:2007fd,Alon:2011xb,Soyez:2012hv,Tseng:2013dva,Krohn:2013lba,Cacciari:2014gra,Bertolini:2014bba} are also widely used, which eliminate soft radiation from the event. Since this radiation is uncorrelated with the underlying hard scattering, this can in principle be done, and a variety of techniques exist.  In this paper we will use Area Subtraction \cite{Cacciari:2007fd,Cacciari:2008gn} and SoftKiller \cite{Cacciari:2014gra} as representative of these techniques.
 
 In the SoftKiller approach, the event is broken into patches, and we define
 \begin{align}
@@ -542,7 +530,7 @@ p_t^{\text{cut}}=\text{median} \{ p_{Ti}^{\text{max}} \}\,.
 \end{align}
 SoftKiller has been shown to provide good performance for removing pile-up contamination.
 
-
+\ijm{elaborate a bit more}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Theory Approaches to Robust Ratio Observables}\label{sec:hybrid_ratio}
@@ -556,14 +544,19 @@ SoftKiller has been shown to provide good performance for removing pile-up conta
 
 
 
-In this paper we are interested in the interplay between robustness and performance for jet substructure observables. The observables discussed in the previous section are designed to distinguish boosted bosons from QCD jets using the detailed structure of the radiation within the jets. From this perspective, it is then immediately clear that there will be an interplay between performance and robustness. By using a maximal amount of radiation within the jet, the maximal information is available to distinguish the origin of the jet. Hence, a tight grooming procedure, which removes radiation from within the jet, is expected to reduce the ability to distinguish boosted bosons from QCD jets. However, an increased sensitivity to radiation also means an increased sensitivity to contamination, both theoretically from non-perturbative hadronization effects and underlying event, as well as experimentally from pile-up. It also introduces sensitivity to the experimental reconstruction of soft momenta in the event. It is therefore an interesting theoretical question how one can simultaneously optimize the discrimination power of the observable, while minimizing the effect of soft radiation. While in the most general sense, this is the question that we are trying to address in this paper, in the particular context of perturbative radiation, this question can be addressed using an understanding of the observables in the soft and collinear limits. 
+In this paper we are interested in the interplay between robustness and performance for jet substructure observables. The observables discussed in the previous section are designed to distinguish boosted bosons from QCD jets using the detailed structure of the radiation within the jets. From this perspective, it is then immediately clear that there will be an interplay between performance and robustness. By using a maximal amount of radiation within the jet, the maximal information is available to distinguish the origin of the jet.  However, an increased sensitivity to radiation also means an increased sensitivity to contamination, both theoretically from non-perturbative hadronization effects and underlying event, as well as experimentally from pile-up. It also introduces sensitivity to the experimental reconstruction of soft momenta in the event. On the other hand, a tight grooming procedure, which removes radiation from within the jet, is expected to reduce the ability to distinguish boosted bosons from QCD jets.
+
+In this section we introduce a classification of different tagging strategies which will be an organizing framework for our study of robustness and performance. This organization will be based on the idea of dichroic observables \cite{Salam:2016yht}, which are ratio observables constructed from combinations of groomed and ungroomed observables. In \Sec{sec:dichroic} we review the physics of the dichroic approach, for the example of the $\tau_{21}$ observable that has been studied in the literature. In \Sec{sec:dichroic_new} we generalize the dichroic construction to the energy correlation function based observables, and give definitions of dichroic $N_2$, $D_2$ and $M_2$ observables. This allows us to have multiple concrete examples of observables for each of our general tagging strategies. Then, in \Sec{sec:dichroic_sum} we present the complete set of tagging strategies that we will consider in this work, including the different parameters we will scan within each general class.
+
+
+% It is therefore an interesting theoretical question how one can simultaneously optimize the discrimination power of the observable, while minimizing the effect of soft radiation. While in the most general sense, this is the question that we are trying to address in this paper, in the particular context of perturbative radiation, this question can be addressed using an understanding of the observables in the soft and collinear limits. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Review of the Dichroic Approach}\label{sec:dichroic}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-In \cite{Salam:2016yht} the authors studied the $\tau_{21}$ ratio observable. They proposed that in addition to considering the standard $\tau_{21}$, and its groomed counterpart, that one could also considered a mixed version, with a groomed denominator, and an ungroomed numerator. This observable was termed dichroic. Concretely, they considered the three observables
+In \cite{Salam:2016yht} the authors studied the $\tau_{21}$ ratio observable. They proposed that in addition to considering the standard $\tau_{21}$, and its groomed counterpart, one should also consider a mixed version, with a groomed denominator, and an ungroomed numerator. This observable was termed dichroic. Concretely, they considered the three observables
 \begin{align}
  \tau_{21} =\frac{\tau_2}{\tau_1}  \,, \qquad \tau_{21}^{\text{groomed}} =\frac{\tau_2^\groomed}{\tau_1^\groomed}\,, \qquad \tau_{21}^{\text{dichroic}} =\frac{\tau_2}{\tau_1^\groomed}\,,
 \end{align}
@@ -573,14 +566,14 @@ and they argued that the dichroic combination was optimal for performance, while
 \begin{center}
 \includegraphics[width=0.75\columnwidth]{figures/dichroic_placeholder}
 \end{center}
-\caption{Lund diagrams depicting the three possible kinematic configurations for $\tau_{21}$ with a cut on the mMDT/soft dropped mass. A detailed explanation is provided in the text. Taken from \cite{Salam:2016yht}.}
+\caption{Lund diagrams depicting the three possible kinematic configurations for $\tau_{21}$ with a cut on the mMDT/soft dropped mass. A detailed explanation is provided in the text. Figure taken from \cite{Salam:2016yht}.}
 \label{fig:dichroic}
 \end{figure}
 
 
 
 
-Using the Lund diagram in \Fig{fig:dichroic}, we can give a simple argument for the optimal performance of the dichroic observables, by considering the behavior in each of the three regions
+Using the Lund diagrams in \Fig{fig:dichroic}, we can give a simple argument for the optimal performance of the dichroic observables, by considering the behavior in each of the three regions
 \begin{itemize}
 \item Case 1: $z_c \theta_c^2 \ll z_b \theta_b^2 \ll z_a \theta_a^2$: All definitions of $\tau_{21}$ give the same result, and are therefore equivalent.
 \item Case 2: $z_b\theta_b^2 \ll z_c \theta_c^2 \ll z_a \theta_a^2$: $\tau_{21}^\groomed=z_b \theta_b^2/z_a \theta_a^2 \ll  z_c \theta_c^2/z_a \theta_a^2=\tau_{21}=\tau_{21}^\dichroic$, showing that the groomed version performs suboptimally in this region of phase space.
@@ -600,11 +593,14 @@ Since the dichroic ratio observable uses a partially groomed observable, it is a
 \subsection{New Dichroic Observables}\label{sec:dichroic_new}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The authors of \cite{Salam:2016yht} studied the dichroic $N$-subjettiness observable. It is however, straightforward to extend the definition to observables formed from the energy correlation functions. For $\tau_{21}$ it is immediately clear what is the numerator and denominator, however, this is initially less obvious for the energy correlation function based observables that have a more complicated structure. It can be shown that the correct prescription for the $N_2$ and $D_2$ observables is
+The authors of \cite{Salam:2016yht} studied the dichroic $N$-subjettiness observable. It is however, straightforward to extend the definition to observables formed from the energy correlation functions. For $\tau_{21}$ it is immediately clear what the numerator and denominator of the observable are, however, this is initially less obvious for the energy correlation function based observables that have a more complicated structure. It can be shown that the correct prescription for the $M_2$, $N_2$ and $D_2$ observables is
 %Recently it was proposed that 
 %\begin{align}
 %\mathcal{O}=\frac{\text{3-particle observable}}{\text{2-particle (mass) observable}}
 %\end{align}
+\begin{align}
+M_2= \frac{ \ecfvarnobeta{1}{3}  }{\ecfnobeta{2}}\,, \qquad  M_2^{\text{groomed}}= \frac{ \ecfvarnobeta{1}{3}  }{\ecfnobeta{2}^\groomed}\,, \qquad  N_2^{\text{dichroic}}= \frac{\ecfvarnobeta{1}{3}  }{\ecfnobeta{2}^\groomed}\,, 
+\end{align}
 \begin{align}
 N_2= \frac{\left( \ecfvarnobeta{2}{3} / \ecfnobeta{2} \right) }{\ecfnobeta{2}}\,, \qquad  N_2^{\text{groomed}}= \frac{\left( \ecfvarnobeta{2}{3} / \ecfnobeta{2} \right)^\groomed }{\ecfnobeta{2}^\groomed}\,, \qquad  N_2^{\text{dichroic}}= \frac{\left( \ecfvarnobeta{2}{3} / \ecfnobeta{2} \right) }{\ecfnobeta{2}^\groomed}\,, 
 \end{align}
@@ -612,13 +608,13 @@ and
 \begin{align}
 D_2=\frac{\left( \ecfnobeta{3} / \ecfnobeta{2}^2 \right)}{ \ecfnobeta{2}}\,, \qquad D_2^{\text{groomed}}=\frac{\left( \ecfnobeta{3} / \ecfnobeta{2}^2 \right)^\groomed}{ \ecfnobeta{2}^\groomed}\,, \qquad D_2^{\text{dichroic}}=\frac{\left( \ecfnobeta{3} / \ecfnobeta{2}^2 \right)}{ \ecfnobeta{2}^\groomed}\,.
 \end{align}
-In each case, in the denominator, it is a mass observable that is groomed. The above prescription is most easy to see for the $N_2$ observable. In the two-prong limit, the combination $ \ecfvarnobeta{2}{3} / \ecfnobeta{2} $ reduces to $\tau_2$, and therefore the dichroic $N_2$ ratio behaves similarly to the dichroic $\tau_{21}$ ratio.
+The above prescription is most easy to see for the $N_2$ observable. In the two-prong limit, the combination $ \ecfvarnobeta{2}{3} / \ecfnobeta{2} $ reduces to $\tau_2$, and therefore the dichroic $N_2$ ratio behaves similarly to the dichroic $\tau_{21}$ ratio.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Summary of Tagging Strategies}\label{sec:dichroic_sum}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The goal of our study is to understand the interplay between robustness and performance for two-prong observables. To be able to draw the most general conclusions, we do not want to focus on the study of particular observables, but rather classes of observables, from which the known examples, such as those used by ATLAS or CMS are specific examples. In this way we can draw general conclusions about tagging strategies that should be robust to changes in specific application.
+To be able to draw the most general conclusions regarding robustness and performance, we do not want to focus on the study of particular observables, but rather classes of observables, from which the known examples, such as those used by ATLAS or CMS are specific examples. In this way we can draw general conclusions about tagging strategies that should be robust to changes in specific application.
 
 %%%
 \begin{table}
@@ -639,7 +635,7 @@ Definitions of the numerators and denominators for the different jet substructur
 \end{table}
 
 
-Most tagging strategies can be put into the general form of a (groomed) mass cut followed by a cut on a two-prong tagging observable, which takes the form
+The tagging strategies we consider can be put into the general form of a (groomed) mass cut followed by a cut on a two-prong tagging observable, which takes the form
 \begin{align}
 \mathcal{O}=\frac{\text{3-particle observable}}{\text{2-particle (mass) observable}} \equiv \frac{n}{d}\,.
 \end{align}
@@ -671,7 +667,7 @@ As our organizing principle for classes of  jet substructure taggers, we will us
 \end{tabular}
 \end{center}
 \caption{
-A summary of the different tagging strategies considered, including the notation, and the degree of grooming for the mass, and numerator and denominator of the shape observable.
+A summary of the different tagging strategies considered, including the notation, and the degree of grooming for the mass, and numerator and denominator of the shape observable. For simplicity, we have suppressed the jet radius, $R$. The definitions of plain, loose, tight and trim are given in the text.
 }
 \label{tab:tag_summary}
 \end{table}
@@ -694,6 +690,32 @@ to denote the grooming applied to a particular observable. Here $R$ denotes the 
 
 
 
+While our general approach is based on studying the different classes of grooming strategies in \Tab{tab:tag_summary}, for each of these different classes of strategies, we will scan different parameters. In particular, we will scan the jet radius, jet shape, jet shape angular exponent, and jet $p_T$. The values scanned are summarized in \Tab{tab:params}. This allows us to understand if the conclusions drawn are associated with specific observables within a given strategy, as well as to optimize over these parameters. Due to the large number of physics and detector parameters that are varied in our study, only a subset of plots can be found in the paper. Additional plots of interest can be found in \App{app:more_plot}.
+
+
+
+%%%
+\begin{table}
+\begin{center}
+\begin{tabular}{| l | c | c |c |c|c|c |c|r| }
+  \hline                       
+  Parameter &  Values Scanned \\
+  Jet Radius $R$ &   $0.6$, $0.8$, $1.0$, $1.2$  \\
+  Jet Shape  &   $D_2$, $N_2$, $M_2$, $\tau_{21}$  \\
+  Jet Shape Angular Exponent $\beta$ &   $1$, $2$ \\
+  Jet $p_T$ &   $500$ GeV, $1000$ GeV, $2000$ GeV  \\
+  \hline  
+\end{tabular}
+\end{center}
+\caption{
+Jet shapes and parameters scanned for each of the different strategies proposed in \Tab{tab:tag_summary}.
+}
+\label{tab:params}
+\end{table}
+
+
+
+
 
 
 
@@ -707,7 +729,7 @@ to denote the grooming applied to a particular observable. Here $R$ denotes the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-In this section we describe in detail the samples that we will use throughout the papers. This includes both a description of the process generation in \Sec{sec:samples_sub}, including the details of the Monte Carlo parton shower generators used, as well as a description of the detector modeling used in \Sec{sec:det_model}. A summary of all physics and detector parameters scanned in our study is given in \Sec{sec:params}.
+In this section we describe in detail the samples that we will use throughout the papers. \Sec{sec:samples_sub} discusses the event generation, and \Sec{sec:det_model} discusses the details of the detector modelling. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Samples}\label{sec:samples_sub}
@@ -754,41 +776,14 @@ To include pile-up we \ijm{fill in}
 \caption{An illustration of the basic features of the CMS and ATLAS detectors.}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Summary of Parameters Scanned}\label{sec:params}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this study we have surveyed a large number of observable and parameter combinations. In this section we provide a summary. Due to the large number of physics and detector parameters that are varied in our study, only a subset of plots can be found in the paper. Additional plots of interest can be found in \App{app:more_plot}.
-
-While our general approach is based on studying the different classes of grooming strategies in \Tab{tab:tag_summary}, for each of these different classes of strategies, we will scan different parameters. In particular, we will scan the jet radius, jet shape, jet shape angular exponent, and jet $p_T$. The values scanned are summarized in \Tab{tab:params}. This allows us to understand if the conclusions drawn are associated with specific observables within a given strategy, as well as to optimize over these parameters.
-
-
-
-%%%
-\begin{table}
-\begin{center}
-\begin{tabular}{| l | c | c |c |c|c|c |c|r| }
-  \hline                       
-  Parameter &  Values Scanned \\
-  Jet Radius $R$ &   $0.6$, $0.8$, $1.0$, $1.2$  \\
-  Jet Shape  &   $D_2$, $N_2$, $M_2$, $\tau_{21}$  \\
-  Jet Shape Angular Exponent $\beta$ &   $1$, $2$ \\
-  Jet $p_T$ &   $500$ GeV, $1000$ GeV, $2000$ GeV  \\
-  \hline  
-\end{tabular}
-\end{center}
-\caption{
-Jet shapes and parameters scanned for each of the different strategies proposed in \Tab{tab:tag_summary}.
-}
-\label{tab:params}
-\end{table}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Signal Robustness}\label{sec:polar}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The focus of this paper is on the robustness of jet substructure observables for two-prong tagging. As has been discussed, for background QCD jets, one is interested in robustness to additional QCD contamination and detector effects. On the other hand, for signal jets, which have a well defined substructure, the behavior of taggers is naturally robust to contamination from low energy QCD radiation. Instead, in this section we focus on the robustness of two-prong taggers to the specific nature of the decaying electroweak scale particle. Assuming that this is a color singlet decaying to quarks, it is completely characterized by its spin structure. Jet substructure techniques have mainly been applied to identify boosted $W/Z$ bosons from new BSM resonances, or to look directly for new light particles decaying hadronically \cite{CMS-PAS-EXO-17-001}. In both cases, one would like to be able to perform the tagging independent of any assumptions about the details of the spin structure. At the very least, if it does play an important role in the tagging efficiency, this must be understood. However, it is also an interesting question whether jet substructure measurements can be used to reconstruct the polarization of the object. It is our perspective that ideally we would like to be able to separate these two aspects, namely the tagging of two prong objects in a way that is robust to assumptions about the details of the spin structure, as well as having tools to identify the polarization. In this section we address two main issues, namely the robustness of the standard jet substructure observables to the polarization of the signals, and the ability to tag polarizations using jet substructure observables measured on the hadronic decay products.
+The focus of this paper is on the robustness of jet substructure observables for two-prong tagging. As has been discussed, for background QCD jets one is interested in robustness to additional QCD contamination and detector effects. On the other hand, for signal jets, which have a well defined substructure, the behavior of taggers is naturally robust to contamination from low energy QCD radiation. However, they can be sensitive to the specific nature of the decaying electroweak scale particle. Assuming that this is a color singlet decaying to quarks, it is completely characterized by its spin structure. Jet substructure techniques have mainly been applied to identify boosted $W/Z$ bosons from new BSM resonances, or to look directly for new light particles decaying hadronically \cite{CMS-PAS-EXO-17-001}. In both cases, one would like to be able to perform the tagging independent of any assumptions about the details of the spin structure. Additionally, it is an interesting question whether jet substructure measurements can be used to reconstruct the polarization of the object. It is our perspective that ideally we would like to be able to separate these two aspects, namely tagging two prong objects in a way that is robust to assumptions about the details of the spin structure, as well as having tools to identify the polarization. In this section we address two main issues, namely the robustness of the standard jet substructure observables to the polarization of the signals, and the ability to tag polarizations using jet substructure observables measured on the hadronic decay products.
 
 
 
@@ -826,7 +821,7 @@ Before addressing the possibility of tagging particular polarizations, we begin 
 \includegraphics[width=5cm]{figures/NINJA}
 }
 \end{center}
-\caption{a) An illustration of the origin of the polarization dependence for a boosted $W$ decay. Different polarizations give rise to different angular distributions in the $W$ boson rest frame, which, when boosted, give rise to different distributions for the momentum sharing. (placeholder) b) The decaying $W$ is dressed by radiation, however, the subjets act as proxies for the quarks in the decay and their properties carry most of the polarization information of the decay.
+\caption{a) An illustration (placeholder) of the origin of the polarization dependence for a boosted $W$ decay. Different polarizations give rise to different angular distributions in the $W$ boson rest frame, which, when boosted, give rise to different distributions for the momentum sharing. (placeholder) b) The decaying $W$ is dressed by radiation, however, the subjets act as proxies for the quarks in the decay and their properties carry most of the polarization information of the decay.
 }
 \label{fig:spin_boost}
 \end{figure}
@@ -971,7 +966,7 @@ Having understood the robustness of the observables to hadronization, we now con
 \includegraphics[width=0.4\columnwidth]{figures/sweep_pt}
 \end{center}
 \caption{sweeping pt}
-\label{fig:dichroic}
+\label{fig:nolabel}
 \end{figure}
 
 \begin{figure}
@@ -979,7 +974,7 @@ Having understood the robustness of the observables to hadronization, we now con
 \includegraphics[width=0.75\columnwidth]{figures/pt_degrade}
 \end{center}
 \caption{Performance at high PT}
-\label{fig:dichroic}
+\label{fig:nolabel}
 \end{figure}
 
 
@@ -1004,7 +999,7 @@ Having understood the robustness of the observables to hadronization, we now con
 \includegraphics[width=0.75\columnwidth]{figures/sweep_obs}
 \end{center}
 \caption{sweeping observable}
-\label{fig:dichroic}
+\label{fig:nolabel}
 \end{figure}
 
 \begin{figure}
@@ -1012,7 +1007,7 @@ Having understood the robustness of the observables to hadronization, we now con
 \includegraphics[width=0.75\columnwidth]{figures/sweep_groom}
 \end{center}
 \caption{sweeping groomer}
-\label{fig:dichroic}
+\label{fig:nolabel}
 \end{figure}
 
 %\section{Jet Radius Robustness:  High pT (isolation versus shape cut, jet radius)}
@@ -1023,7 +1018,7 @@ Having understood the robustness of the observables to hadronization, we now con
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Understanding ATLAS vs. CMS}\label{sec:exp_compare}
+\section{Understanding Differences Between ATLAS and CMS}\label{sec:exp_compare}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The strategies used by ATLAS and CMS, namely trimmed  D2 \cite{Larkoski:2015kga}\cite{Larkoski:2014gra} and soft dropped N2 \cite{Moult:2016cvt} with DDT \cite{Dolen:2016kst} are specific examples of the broader approaches to two-prong tagging discussed above, and therefore our study allows us to gain insight into the different tagging strategies used by the collaborations.\footnote{And perhaps even into the sociology of the different experiments! However, such conclusions should be taken with a grain of salt.}
@@ -1044,7 +1039,7 @@ similar approaches could also be applied to study $3$-prong tagging...
 
 In all cases, we have identified taggers that outperform, in both robustness and tagging performance, those currently used by the ATLAS and CMS collaborations. We therefore believe that further studies using more detailed simulations of the ATLAS and CMS detectors, and ultimately on real data, would be of significant interest. More generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
 
-
+\ijm{this needs to be filled in once we have a more complete picture}
 
 
 
@@ -1093,6 +1088,8 @@ The work of IM is supported by Office of High Energy Physics of the U.S. Departm
 \section{Additional Plots}\label{app:more_plot}
 
 In this appendix we provide additional plots to complement those shown in the text.
+
+\ijm{put some additional plots here}
 
 %\section{Introduction}
 %\label{sec:introduction}
