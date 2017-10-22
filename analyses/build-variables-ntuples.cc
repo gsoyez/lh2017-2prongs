@@ -12,7 +12,11 @@
 #include "fastjet/ClusterSequence.hh"     //< clustering
 #include "SubstructureVariables.hh"       //< all the measures sustructure variables
 #include "Detector.hh"                    //< Peter's detector simulatiom
+#include <fastjet/tools/GridMedianBackgroundEstimator.hh>  //< for pileup subtraction
+#include <fastjet/tools/Subtractor.hh>    //< for pileup subtraction
 #include <fastjet/contrib/SoftKiller.hh>  //< for pileup subtraction
+#include <fastjet/contrib/SoftKiller.hh>  //< for pileup subtraction
+#include <iomanip>
 
 using namespace std;
 using namespace fastjet;
@@ -27,7 +31,8 @@ int main (int argc, char ** argv) {
   // basic input
   int nev = cmdline.value<int>("-nev",1);  // first argument: command line option; second argument: default value
   string outname = cmdline.value<string>("-out");
-
+  bool debug = cmdline.present("-debug");
+  
   //----------------------------------------------------------------------
   // various physical quantities and cuts
   double R = cmdline.value<double>("-R",1.0);
@@ -97,11 +102,27 @@ int main (int argc, char ** argv) {
   // model object
   SharedPtr<Detector::Experiment> shared_detector_model_ptr;
   SharedPtr<Detector::Signals> signal_processor;
+  SharedPtr<GridMedianBackgroundEstimator> gmbge_emc;
+  SharedPtr<GridMedianBackgroundEstimator> gmbge_hac;
+  SharedPtr<BackgroundRescalingYPolynomial> rescaling;
+  SharedPtr<Subtractor> area_median_subtractor;
 
   if (detector_model_ptr){
+    // option to switch off the magnetic field
     if (no_magnetic_field)
       detector_model_ptr->turnMagneticFieldOff();
 
+    // with pileup subtraction we'll need an area-median (before we run the Soft Killer)
+    if (pu_subtraction){
+      gmbge_emc.reset(new GridMedianBackgroundEstimator(detector_model_ptr->getEMCTowerGrid().etaMax(), 0.55));
+      gmbge_hac.reset(new GridMedianBackgroundEstimator(particle_rapmax, 0.55));
+      //if (buildATLAS)
+      // set for ATLAS with mupu=50.0
+      rescaling.reset(new BackgroundRescalingYPolynomial(1.0, 0, -0.0276383, 0, 0.000237878));
+      gmbge_emc->set_rescaling_class(rescaling.get());
+      gmbge_hac->set_rescaling_class(rescaling.get());
+    }
+    
     shared_detector_model_ptr.reset(detector_model_ptr);
     signal_processor.reset(new Detector::Signals(detector_model_ptr));
   }
@@ -178,13 +199,54 @@ int main (int argc, char ** argv) {
         cout << "WARNING: detector simulation failed (likely an empty event or a disabled signal processor). Discarding event " << iev << endl;
         continue;
       }
-      full_event = signal_processor->get();
+
+      // with pileup subtraction, we first apply an area--median subtraction
+      //TODO: subtract EMC and HAC separately
+      if (pu_subtraction){
+        Selector sel_hard = SelectorIsHard();
+
+        // get the tracks (and muons) (and apply CHS)
+        vector<PseudoJet> tracks = sel_hard(signal_processor->getTracks());
+        vector<PseudoJet> muons  = sel_hard(signal_processor->getMuons());
+
+        full_event = tracks;
+        if (debug) cout << "found " << setw(5) << tracks.size() << " tracks (event: " << full_event.size() << ")" << endl;
+        full_event.insert(full_event.end(), muons.begin(), muons.end());
+        if (debug) cout << "found " << setw(5) << muons.size() << " muons  (event: " << full_event.size() << ")" << endl;
+        
+        // now get and subtract the towers
+        //vector<PseudoJet> all_towers = signal_processor->getTowers();
+        // we separate EMC and HAC colours
+        vector<PseudoJet> emc_towers = signal_processor->getEMCTowers();
+        double emc_cell_area = detector_model_ptr->getEMCTowerGrid().etaWidth() * detector_model_ptr->getEMCTowerGrid().phiWidth();
+        gmbge_emc->set_particles(emc_towers);
+        for (const auto &tower : emc_towers){
+          double ptsub = tower.pt() - gmbge_emc->rho(tower)*emc_cell_area;
+          if (ptsub>0) full_event.push_back(PtYPhiM(ptsub, tower.rap(), tower.phi()));
+        }
+        if (debug) cout << "found " << setw(5) << emc_towers.size() << " EMC tw (event: " << full_event.size() << ")"
+                        << ") [rho = " << gmbge_emc->rho(PtYPhiM(1.0,0.0,0.0)) << "]" << endl;
+        
+        vector<PseudoJet> hac_towers = signal_processor->getHACTowers();
+        double hac_cell_area = detector_model_ptr->getHACTowerGrid().etaWidth() * detector_model_ptr->getHACTowerGrid().phiWidth();
+        gmbge_hac->set_particles(hac_towers);
+        for (const auto &tower : hac_towers){
+          double ptsub = tower.pt() - gmbge_hac->rho(tower)*hac_cell_area;
+          if (ptsub>0) full_event.push_back(PtYPhiM(ptsub, tower.rap(), tower.phi()));
+        }        
+        if (debug) cout << "found " << setw(5) << hac_towers.size() << " HAC tw (event: " << full_event.size()
+                        << ") [rho = " << gmbge_hac->rho(PtYPhiM(1.0,0.0,0.0)) << "]" << endl;
+      } else {
+        // we can directly get the full event
+        full_event = signal_processor->get();
+      }
+      
     }
     
     //----------------------------------------------------------------------
     // apply the optional Soft Killer
     if (sk) full_event = (*sk)(full_event);
-     
+    
     ClusterSequence cs_full(full_event,jet_def);
     vector<PseudoJet> jets = sel_hard_jets(cs_full.inclusive_jets());
 
