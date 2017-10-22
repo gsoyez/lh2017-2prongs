@@ -49,7 +49,7 @@ int main (int argc, char ** argv) {
   //----------------------------------------------------------------------
   // optional pileup subtraction (uses the SoftKiller)
   bool pu_subtraction = cmdline.present("-pusub");
-  double sk_grid_size = cmdline.value("-sk.grid", 0.4);
+  double sk_grid_size = cmdline.value("-sk.grid", 0.5);
   if (pu_subtraction){
     if (particle_rapmax < 0){
       cerr << "ERROR: pileup subtraction requires a maximal rapidity for particles." << endl
