@@ -2,7 +2,7 @@
 #
 # create a tale with the basic quality measures
 
-levelpairs="hadron_parton truth_hadron truth_parton pu50_truth ATLAS_truth CMS_truth"
+levelpairs="hadron_parton truth_hadron truth_parton truth_pu50 truth_ATLAS truth_CMS"
 Rs="0.8 1.0"
 
 for R in $Rs; do
