@@ -121,6 +121,8 @@ namespace Detector {
     ///@{
     std::vector<fastjet::PseudoJet> get()               const;  ///<@brief Full event
     std::vector<fastjet::PseudoJet> getTowers()         const;  ///<@brief CaloTowers
+    std::vector<fastjet::PseudoJet> getEMCTowers()      const;  ///<@brief EMC Towers
+    std::vector<fastjet::PseudoJet> getHACTowers()      const;  ///<@brief HAC Towers
     std::vector<fastjet::PseudoJet> getTracks()         const;  ///<@brief Charged tracks
     std::vector<fastjet::PseudoJet> getPFlow()          const;  ///<@brief Particle flow objects
     std::vector<fastjet::PseudoJet> getMuons()          const;  ///<@brief Muons
@@ -216,6 +218,8 @@ namespace Detector {
 
 inline std::vector<fastjet::PseudoJet> Detector::Signals::get()               const { return _fullevent; }
 inline std::vector<fastjet::PseudoJet> Detector::Signals::getTowers()         const { return _calotowers; }
+inline std::vector<fastjet::PseudoJet> Detector::Signals::getEMCTowers()      const { return _emc_towers; }
+inline std::vector<fastjet::PseudoJet> Detector::Signals::getHACTowers()      const { return _hac_towers; }
 inline std::vector<fastjet::PseudoJet> Detector::Signals::getTracks()         const { return _tracks; }
 inline std::vector<fastjet::PseudoJet> Detector::Signals::getMuons()          const { return _muons; }
 inline std::vector<fastjet::PseudoJet> Detector::Signals::getNonInteracting() const { return _noninteracting; }
