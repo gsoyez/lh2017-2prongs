@@ -30,7 +30,9 @@ set style line 6 dt 1 lc rgb "#0000ff" lw 2
 set style line 7 dt 2 lc rgb "#000000" lw 2
 set style line 8 dt 1 lc rgb "#000000" lw 2
 
-m(lev,mtype,R)=sprintf('< for pt in 500 1000 2000; do echo -n "$pt "; ../scripts/histogram.sh ../res/lhc14-WW${pt}-pythia8230M13-%s-R%s.ntuple.gz m_%s 0.0 500 1.0 2>/dev/null | normalise.py | ../scripts/get-width.py -f 0.4; done',lev,R,mtype)
+R=default_R
+
+m(lev,mtype)=sprintf('< for pt in 500 1000 2000; do echo -n "$pt "; ../scripts/histogram.sh ../res/lhc14-WW${pt}-pythia8230M13-%s-R%s.ntuple.gz m_%s 0.0 500 1.0 2>/dev/null | normalise.py | ../scripts/get-width.py -f 0.4; done',lev,R,mtype)
 
 
 set key top left reverse Left
@@ -39,14 +41,14 @@ set multiplot layout 2,1
 #------------------------------------------------------------------------
 # ATLAS
 
-set label 102 '{/*0.8 Pythia8(M13), anti-k_t(1)}' right at graph 0.97,0.1
+set label 102 '{/*0.8 Pythia8(M13), anti-k_t(0.8)}' right at graph 0.97,0.1
 set label 103 'trimmed mass' at graph 0.54,0.9
 
 set ylabel 'W mass'
 set yrange [70:120]
-plot m('ATLAS', 'trim', '1.0') u ($1*1.04):3:2:4 w yerr dt 1 lc 7 lw 3 pt 13 ps 0.7 t 'ATLAS-like',\
-     m('pu50',  'trim', '1.0') u ($1*1.00):3:2:4 w yerr dt 1 lc 1 lw 3 pt  8 ps 0.7 t 'PU({/Symbol m}=50)',\
-     m('truth', 'trim', '1.0') u ($1/1.04):3:2:4 w yerr dt 1 lc 3 lw 3 pt  2 ps 0.7 t 'truth',\
+plot m('ATLAS', 'trim') u ($1*1.04):3:2:4 w yerr dt 1 lc 7 lw 3 pt 13 ps 0.7 t 'ATLAS-like',\
+     m('pu50',  'trim') u ($1*1.00):3:2:4 w yerr dt 1 lc 1 lw 3 pt  8 ps 0.7 t 'PU({/Symbol m}=50)',\
+     m('truth', 'trim') u ($1/1.04):3:2:4 w yerr dt 1 lc 3 lw 3 pt  2 ps 0.7 t 'truth',\
      80.4 w l dt 2 lc 7 not
 
 
@@ -58,9 +60,9 @@ set label 103 'tight mass' at graph 0.58,0.9
 
 set ylabel 'W mass (tight)'
 set yrange [70:120]
-plot m('CMS',   'tight', '0.8') u ($1*1.04):3:2:4 w yerr dt 1 lc rgb "#00cc00" lw 3 pt 5 ps 0.7 t 'CMS-like',\
-     m('pu50',  'tight', '0.8') u ($1*1.00):3:2:4 w yerr dt 1 lc 1             lw 3 pt 8 ps 0.7 t 'PU({/Symbol m}=50)',\
-     m('truth', 'tight', '0.8') u ($1/1.04):3:2:4 w yerr dt 1 lc 3             lw 3 pt 2 ps 0.7 t 'truth',\
+plot m('CMS',   'tight') u ($1*1.04):3:2:4 w yerr dt 1 lc rgb "#00cc00" lw 3 pt 5 ps 0.7 t 'CMS-like',\
+     m('pu50',  'tight') u ($1*1.00):3:2:4 w yerr dt 1 lc 1             lw 3 pt 8 ps 0.7 t 'PU({/Symbol m}=50)',\
+     m('truth', 'tight') u ($1/1.04):3:2:4 w yerr dt 1 lc 3             lw 3 pt 2 ps 0.7 t 'truth',\
      80.4 w l dt 2 lc 7 not
 
 
