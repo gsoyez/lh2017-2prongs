@@ -882,20 +882,25 @@ As our organizing principle for classes of  jet substructure taggers, we will us
   \hline
   $p \otimes \frac{p}{p}$ & plain  &  plain & plain \\
   $l \otimes \frac{p}{p}$ & loose  &  plain & plain \\
-  $l \otimes \frac{l}{p}$ & loose  &  loose & plain \\
+  $l \otimes \frac{p}{l}$ & loose  &  plain & loose \\
+  $l \otimes \frac{l}{l}$ & loose  &  loose & loose \\
   $t \otimes \frac{p}{p}$ & tight  &  plain & plain \\
-  $t \otimes \frac{l}{p}$ & tight  &  loose & plain \\
+  $t \otimes \frac{p}{l}$ & tight  &  plain & loose \\
   $t \otimes \frac{l}{l}$ & tight  &  loose & loose \\
-  $t \otimes \frac{t}{p}$ & tight  &  tight & plain \\
-  $t \otimes \frac{t}{l}$ & tight  &  tight & loose \\
-  $t \otimes \frac{t}{t}$ & tight  &  tight & tight \\
+  $t \otimes \frac{p}{t}$ & tight  &  plain & tight \\
+  $t \otimes \frac{l}{t}$ & tight  &  loose & tight \\
+  $t \otimes \frac{t}{t}$ & tight  &  tight & toght \\
   $\text{trim}$ & trim &  trim & trim \\
   \hline  
 \end{tabular}
 \end{center}
-\caption{
-A summary of the different tagging strategies considered, including the notation, and the degree of grooming for the mass, and numerator and denominator of the shape observable. For simplicity, we have suppressed the jet radius, $R$. The definitions of plain, loose, tight and trim are given in the text.
-}
+\caption{ A summary of the different tagging strategies considered,
+  including the notation, and the degree of grooming for the mass, and
+  numerator and denominator of the shape observable. For simplicity,
+  we have suppressed the jet radius, $R$. The definitions of plain,
+  loose, tight and trim are given in the text.\gs{The table was not
+    correct (missing lll + denominator/numerator inverted), I''ve
+    updated it} }
 \label{tab:tag_summary}
 \end{table}
 
@@ -1170,10 +1175,83 @@ Since we are focused on robustness in this paper, it is also worth commenting on
 In this section we study robustness to both hadronization, \Sec{sec:hadr}, and underlying event \Sec{sec:UE}, which we categorize as ``Theory" robustness, since both of these issues are present in a complete isolated hadronic collisions. Robustness to the detector, and pileup are treated in \Sec{sec:exp}. 
 
 
+\gs{I'd first start by showing a few generic distributions and ROC
+  curves, then go into dissecting things step by step (using the
+  $\epsilon-\zeta$ plane. Maynbe before getting in the details, we
+  need a figure like \ref{fig:sweep_pt}}
+
+\begin{figure}
+  \centering{\includegraphics[width=0.5\textwidth]{figures/mass-distribs.pdf}}
+  %
+  \caption{Mass distribution after grooming for the three grommers
+    considered in this paper. The distributions are shown at parton
+    level, at hadron level and at ``truth'' level (i.e. including both
+    hadronisation and the UE).}\label{fig:mass-distribution}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=1]{figures/shape-distribs.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=2]{figures/shape-distribs.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=3]{figures/shape-distribs.pdf}
+  %
+  \caption{Distribution of three representative shapes: $D_2^{(1)}$
+    computed on the trimmed jet (ATLAS-like), $N_2^{(1)}$ computed on
+    the tight (mMDT) jet and the dichroic $D_2^{(2)}$ with numerator
+    computed on the loose jet and denominator computed on the tiht
+    jet. The distributions are shown at parton level, at hadron level
+    and at ``truth'' level (i.e. including both hadronisation and the
+    UE), for both $WW$ (solid) and dijet (dashed)
+    events.}\label{fig:shape-distribution}
+\end{figure}
+
+\begin{figure}
+  \centering{\includegraphics[width=0.5\textwidth]{figures/rocs.pdf}}
+  %
+  \caption{ROC curves corresponding to the shapes plotted on
+    Fig.~\ref{fig:shape-distribution}. The three line types correspond
+    to the three possible shape choices.}\label{fig:rocs}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Hadronization}\label{sec:hadr}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\gs{Here we have Figs.~\ref{fig:grooming-hadronisation} and~\ref{fig:shapes-hadronisation}}
+
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=25]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=13]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=31]{figures/grooming-scan-levels.pdf}
+  %
+  \caption{}\label{fig:grooming-hadronisation}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=61]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=55]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=49]{figures/shape-scan-levels.pdf}
+  %
+  \caption{}\label{fig:shapes-hadronisation}
+\end{figure}
 
 
 
@@ -1202,6 +1280,41 @@ In this section we study the robustness of the different tagging techniques to h
 \subsection{Underlying Event}\label{sec:UE}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+\gs{Here we have Figs.~\ref{fig:grooming-UE}
+  and~\ref{fig:shapes-UE}. Since we are so resilient against UE, , I'm
+  wondering if it would be better to show the combiner
+  hadronisation+UE? Or just drop UE altogether?}
+
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=26]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=14]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=32]{figures/grooming-scan-levels.pdf}
+  %
+  \caption{}\label{fig:grooming-UE}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=62]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=56]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=50]{figures/shape-scan-levels.pdf}
+  %
+  \caption{}\label{fig:shapes-UE}
+\end{figure}
+
 Having understood the robustness of the observables to hadronization, we now consider underlying event...
 
 \ijm{have some plots, have some ROC curves}
@@ -1216,6 +1329,79 @@ Having understood the robustness of the observables to hadronization, we now con
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Detector Robustness}\label{sec:detector_robust}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\gs{ATLAS: Figs.~\ref{fig:grooming-ATLAS}
+  and~\ref{fig:shapes-ATLAS}. CMS: Figs.~\ref{fig:grooming-CMS}
+  and~\ref{fig:shapes-CMS}. We need to start w mass resolution
+  anyway. Then it's unclear to me if we should show all of this or
+  just the mass.}
+
+
+\begin{figure}
+  \includegraphics[width=0.45\columnwidth]{figures/mass-detector.pdf}
+  \hfill
+  \includegraphics[width=0.45\columnwidth]{figures/mass-width-detector.pdf}
+  \caption{Mass reconstruction with detector effects}
+  \label{fig:mass-detector}
+\end{figure}
+
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=29]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=17]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=35]{figures/grooming-scan-levels.pdf}
+  %
+  \caption{}\label{fig:grooming-ATLAS}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=65]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=59]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=53]{figures/shape-scan-levels.pdf}
+  %
+  \caption{}\label{fig:shapes-ATLAS}
+\end{figure}
+
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=30]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=18]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=36]{figures/grooming-scan-levels.pdf}
+  %
+  \caption{}\label{fig:grooming-ATLAS}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=66]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=60]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=54]{figures/shape-scan-levels.pdf}
+  %
+  \caption{}\label{fig:shapes-ATLAS}
+\end{figure}
 
 \ijm{discuss detector effects}
 
@@ -1236,7 +1422,7 @@ Having understood the robustness of the observables to hadronization, we now con
 \includegraphics[width=0.4\columnwidth]{figures/sweep_pt}
 \end{center}
 \caption{sweeping pt}
-\label{fig:nolabel}
+\label{fig:sweep_pt}
 \end{figure}
 
 \begin{figure}
@@ -1258,8 +1444,7 @@ Having understood the robustness of the observables to hadronization, we now con
 \includegraphics[width=7cm]{figures/default-rocs-R1pt0}
 }
 \end{center}
-\caption{ATLAS vs. CMS
-}
+\caption{ATLAS vs. CMS}
 \label{fig:phasespace}
 \end{figure}
 
