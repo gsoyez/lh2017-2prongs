@@ -2,12 +2,10 @@
 #
 # create a tale with the basic quality measures for the polarisation robustness
 #
-# Here the "background" sample is kept fixed (i.e. taken as the same
-# for the reference and alternative levels), and the signal is varied:
-# we go from SM to longitudinal or transverse WW resonance
-#
-# THis means that we actually test how much our background rejection
-# depends on the sample used to fix the signal efficiency
+# Here we fix the cut on the shape so as to acheived a given signal
+# (W) efficiency as computed on SM WW events. For that cut, we compute
+# the signal efficiency for WW resonnances (transverse and
+# longitudinal) and for the QCD background.
 #
 # everything is done at particle/truth level
 #
@@ -20,7 +18,7 @@ Rs="0.8 1.0"
 for R in $Rs; do
     file="qualities-polarisation-R${R}.new"
     echo "# lhc14, Pythia8.230(Monash13), R=${R}, 65<m<105, epsilon_S(first)=0.4"  | tee -a ${file}
-    echo "#columns: combination pt epsilon_S_all epsilon_B_sm epsilon_B_trans epsilon_B_long"  | tee -a ${file}
+    echo "#columns: combination pt epsilon_S_SM epsilon_S_trans epsilon_S_long  epsilon_B_sm"  | tee -a ${file}
 
     # basic shapes
     for base in tau21 D2 M2 N2; do
@@ -52,20 +50,18 @@ for R in $Rs; do
 
                     # get the cut from the SM signal
                     vcut=`../scripts/get_cut.sh ../res/lhc14-WW${pt}-pythia8230M13-truth-R${R}.ntuple.gz "${base}_beta${beta}_${lshape}" 0.4 "m_${mass}>65.0" "m_${mass}<105.0"`
-                    effB=`../scripts/get_efficiency.sh ../res/lhc14-dijets${pt}-pythia8230M13-truth-R${R}.ntuple.gz "m_${mass}>65.0" "m_${mass}<105.0" "${base}_beta${beta}_${lshape}<${vcut}"`
-                    echo -n " ${effB}"  | tee -a ${file}
-                    
-                    # get the cut from the SM signal
-                    vcut=`../scripts/get_cut.sh ../res/lhc14-WW-M${M}-trans-pythia8M13-R${R}.ntuple.gz "${base}_beta${beta}_${lshape}" 0.4 "m_${mass}>65.0" "m_${mass}<105.0"`
-                    effB=`../scripts/get_efficiency.sh ../res/lhc14-dijets${pt}-pythia8230M13-truth-R${R}.ntuple.gz "m_${mass}>65.0" "m_${mass}<105.0" "${base}_beta${beta}_${lshape}<${vcut}"`
-                    echo -n " ${effB}"  | tee -a ${file}
-                    
-                    # get the cut from the SM signal
-                    vcut=`../scripts/get_cut.sh ../res/lhc14-WW-M${M}-long-pythia8M13-R${R}.ntuple.gz "${base}_beta${beta}_${lshape}" 0.4 "m_${mass}>65.0" "m_${mass}<105.0"`
-                    effB=`../scripts/get_efficiency.sh ../res/lhc14-dijets${pt}-pythia8230M13-truth-R${R}.ntuple.gz "m_${mass}>65.0" "m_${mass}<105.0" "${base}_beta${beta}_${lshape}<${vcut}"`
-                    echo -n " ${effB}"  | tee -a ${file}
-                    
-                    echo ""  | tee -a ${file}
+
+                    if [[ -z ${vcut} ]]; then
+                        echo " 0.0 0.0 0.0"  | tee -a ${file}
+                    else
+                        # for that cut, get the signal efficiency for the transverse WW resonnance, the longitudinal one and the QCD background
+                        effT=`../scripts/get_efficiency.sh ../res/lhc14-WW-M${M}-trans-pythia8M13-R${R}.ntuple.gz       "m_${mass}>65.0" "m_${mass}<105.0" "${base}_beta${beta}_${lshape}<${vcut}"`
+                        effL=`../scripts/get_efficiency.sh ../res/lhc14-WW-M${M}-long-pythia8M13-R${R}.ntuple.gz        "m_${mass}>65.0" "m_${mass}<105.0" "${base}_beta${beta}_${lshape}<${vcut}"`
+                        effB=`../scripts/get_efficiency.sh ../res/lhc14-dijets${pt}-pythia8230M13-truth-R${R}.ntuple.gz "m_${mass}>65.0" "m_${mass}<105.0" "${base}_beta${beta}_${lshape}<${vcut}"`
+                        
+                        echo " ${effT} ${effL} ${effB}"  | tee -a ${file}
+                    fi
+                        
                 done # pt loop
             done # grooming level
         done # beta
