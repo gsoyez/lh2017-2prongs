@@ -50,6 +50,23 @@
 \newcommand{\ptc}{p_{T{\rm cut}}}
 \newcommand{\ptsubc}{p_{T{\rm subcut}}}
 
+%%%%%% PL
+\newcommand{\etower}{\ensuremath{E_{\text{tower}}}}
+\newcommand{\etatower}{\ensuremath{\eta_{\text{tower}}}}
+\newcommand{\phitower}{\ensuremath{\phi_{\text{tower}}}}
+\newcommand{\pt}{\ensuremath{p_{\text{T}}}}
+\newcommand{\ptmin}{\ensuremath{p_{\text{T}}^{\text{min}}}}
+\newcommand{\ptmax}{\ensuremath{p_{\text{T}}^{\text{max}}}}
+\newcommand{\pttrk}{\ensuremath{p_{\text{T}}^{\text{track}}}}
+\newcommand{\pttower}{\ensuremath{p_{\text{T}}^{\text{tower}}}}
+\newcommand{\acalo}{\ensuremath{a_{\text{calo}}}}
+\newcommand{\bcalo}{\ensuremath{b_{\text{calo}}}}
+\newcommand{\ccalo}{\ensuremath{c_{\text{calo}}}}
+\newcommand{\atrk}{\ensuremath{a_{\text{track}}}}
+\newcommand{\ctrk}{\ensuremath{c_{\text{track}}}}
+%%%%%%%
+
+
 \newcommand{\sub}{\text{sub}}
 \newcommand{\miss}{\text{miss}}
 
@@ -207,7 +224,7 @@ Two-Prong Substructure Taggers for the LHC}
 \author[a]{Suman Chatterjee,}
 \author[5]{Frederic Dreyer,}
 \author[a]{Deepak Kar,}
-\author[a]{Peter Loch,}
+\author[b]{Peter Loch,}
 \emailAdd{loch@physics.arizona.edu}
 \author[a]{Ian Moult,}
 \emailAdd{ianmoult@lbl.gov}
@@ -222,6 +239,7 @@ Two-Prong Substructure Taggers for the LHC}
 \emailAdd{jthaler@mit.edu}
 
 \affiliation[a]{Les Houches}
+\affiliation[b]{Department of Physics, University of Arizona, Tucson, AZ 85721, USA}
 \affiliation[5]{Center for Theoretical Physics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA}
 \affiliation[3]{Berkeley Center for Theoretical Physics, University of California, Berkeley, CA 94720, USA}
 \affiliation[4]{Theoretical Physics Group, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA}
@@ -474,7 +492,7 @@ as is commonly done, and we will use this as our metric for performance.
 \end{center}
 \caption{A summary of the different stages of physics considered in
   this study from idealized parton-level events to fully realistic
-  events including detector simulation and pileup.
+  events including detectorsimulation and pileup.
   %
   This allows us to
   address robustness to physics at each stage.
@@ -1252,15 +1270,149 @@ To include pile-up we \ijm{fill in}
 \subsection{Detector Models}\label{sec:det_model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ijm{Description of TowerGrid, and the differeces between the ATLAS and CMS detectors. }
-\ijm{I have nothing here.}\gs{It would be great (best?) if Peter could
-  write a little sth here} \jdt{How much of our study will actually including Detector Models?}
+\begin{table}\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|l|c|c|c|r@{\ =\ }l|}
+\hline
+Signal  & \multicolumn{5}{c|}{Model parameters}    \\ \cline{2-6}                      
+        & Coverage
+        & \ptmin
+        & \ptmax 
+        & \multicolumn{2}{c|}{Resolution function parameters} \\
+\hline
+\multicolumn{6}{|c|}{\textbf{Configuration A} ($R_{\text{calo}} = 1150$ mm, $B_{\text{solenoid}} = 2$ T)} \\
+\hline
+Towers     & $|\eta| < 2.5$ & 500 MeV &  10 TeV   & \acalo & $10\%\times\sqrt{\GeV}$                  \\ 
+(EM)       &                &         &           & \bcalo & 0                                        \\
+           &                &         &           & \ccalo & 0.7\%                                    \\
+Towers     & $|\eta| < 4.9$ & 500 MeV &  10 TeV   & \acalo & $50\%\times\sqrt{\GeV}$                  \\
+(HAD)      &                &         &           & \bcalo & 0                                        \\
+           &                &         &           & \ccalo & 3\%                                      \\
+\hline 
+\multicolumn{6}{|c|}{\textbf{Configuration C} ($R_{\text{calo}} = 1290$ mm, $B_{\text{solenoid}} = 4$ T)} \\
+\hline
+Towers     & $|\eta| < 2.5$ & 500 MeV &  10 TeV   & \acalo & $3\%\times\sqrt{\GeV}$                   \\
+(EM)       &                &         &           & \bcalo & 0                                        \\
+           &                &         &           & \ccalo & 0.5\%                                    \\
+Towers     & $|\eta| < 4.9$ & 500 MeV &  10 TeV   & \acalo & $100\%\times\sqrt{\GeV}$                 \\
+(HAD)      &                &         &           & \bcalo & 0                                        \\
+           &                &         &           & \ccalo & 5\%                                      \\
+Tracks     & $|\eta| < 2.5$ &  1 GeV  &  300 GeV  & \atrk  & $0.015\%\times\GeV^{-1}$                  \\
+           &                &         &           & \ctrk & 0.5\%                                     \\
+\hline
+\end{tabular}
+\caption{Principal properties and smearing parameters of the detector model configurations A and C. Electromagnetic (EM) towers have a tower size of $\Delta\eta\times\Delta\phi = 0.025\times0.025$, while hadronic (HAD) towers have $\Delta\eta\times\Delta\phi = 0.1\times0.1$. Tracks are not modeled in configuration A, while configuration C models both tracks and calorimeter signals to simulate the effect of a particle flow algorithm. The resolution function parameters \acalo, \bcalo{} and \ccalo{} are used together with the resolution function in Eq.~\ref{eq:caloreso} to determine the width of the Gaussian energy smearing.
+Similarly, \atrk{} and \ctrk{} are used in Eq.~\ref{eq:trkreso} to determine the width of the track-\pt{} resolution smearing.}
+\label{tab:detmodel}
+\end{table}
+
+%%\begin{table}\centering
+%%\renewcommand{\arraystretch}{1.25}
+%%\begin{tabular}{|l|ccr@{$\,=\,$}l|ccr@{$\,=\,$}l|}
+%%\hline
+%%        & Coverage & \multicolumn{3}{c}{Calorimeter|} & \multicolumn{4}{c|}{Tracking} \\
+%%        & 
+%%        & \ptmin{}  
+%%        & \multicolumn{2}{c|}{$\sigma_{\etower}$}   
+%%        & \ptmin{}
+%%        & \ptmax{}
+%%        & \multicolumn{2}{c|}{$\sigma_{\pttrk}$} \\ 
+%%\hline
+%%\multicolumn{9}{|c|}{Configuration A: $R_{\text{calo}} = 1150$ mm, $B_{\text{solenoid}} = 2$ T}                \\
+%%\hline
+%%Towers     & $|\eta| < 2.5$ & 500 MeV &  \acalo & $10\%\sqrt{\GeV}$ &  \multicolumn{4}{l|}{\ }             \\
+%%(EM)       &                &         &  \bcalo & 0                 &  \multicolumn{4}{l|}{\ }             \\
+%%           &                &         &  \ccalo & 0.7\%             &  \multicolumn{4}{l|}{\ }             \\
+%%Towers     & $|\eta| < 4.9$ & 500 MeV &  \acalo & $50\%\sqrt{\GeV}$ &  \multicolumn{4}{l|}{\ }             \\
+%%(HAD)      &                &         &  \bcalo & 0                 &  \multicolumn{4}{l|}{\ }             \\
+%%           &                &         &  \ccalo & 3\%               &  \multicolumn{4}{l|}{\ }             \\
+%%% Tracks     & $|\eta| < 2.5$ & --      &  \multicolumn{2}{c|}{--}    &  \multicolumn{4}{l|}{not used}       \\ 
+%%\hline 
+%%\multicolumn{9}{|c|}{Configuration C: $R_{\text{calo}} = 1290$ mm, $B_{\text{solenoid}} = 4$ T}                \\
+%%\hline
+%%Towers     & $|\eta| < 2.5$ & 500 MeV &  \acalo & $3\%\sqrt{\GeV}$  &  \multicolumn{4}{l|}{\ }             \\
+%%(EM)       &                &         &  \bcalo & 0                 &  \multicolumn{4}{l|}{\ }             \\
+%%           &                &         &  \ccalo & 0.5\%             &  \multicolumn{4}{l|}{\ }             \\
+%%Towers     & $|\eta| < 4.9$ & 500 MeV &  \acalo & $100\%\sqrt{\GeV}$&  \multicolumn{4}{l|}{\ }             \\
+%%(HAD)      &                &         &  \bcalo & 0                 &  \multicolumn{4}{l|}{\ }             \\
+%%           &                &         &  \ccalo & 5\%               &  \multicolumn{4}{l|}{\ }             \\
+%%Tracks     & $|\eta| < 2.5$ &         &  \multicolumn{2}{c|}{\ }    & 1.0 & 300. &  \atrk & $0.015\%/\GeV$ \\
+%%           &                &         &  \multicolumn{2}{c|}{\ }    &     &      &  \ctrk & 0.5\%          \\
+%%\hline
+%%\end{tabular}
+%%\caption{Principal detector model properties and smearing parameters used for the detector model configurations A and C. Electromagnetic (EM) towers have a tower size of $\Delta\eta\times\Delta\phi = 0.025\times0.025$, while hadronic (HAD) towers have $\Delta\eta\times\Delta\phi = 0.1\times0.1$. Tracks are not modeled in configuration A, while configuration C models both tracks and calorimeter signals to simulate the effect of a particle flow algorithm.}
+%%\label{tab:detmodel}
+%%\end{table}
+
+%%%%% PL Jan-24-2018
+The detector response is modeled by subjecting the particle level\footnote{Those are stable particles produced by the generator that potentially reach a detector. 
+This principally requires a particle lifetime $\tau$ in the laboratory frame given by $c\tau > 10$ mm.}
+to a simple acceptance and smearing model representing tracking detectors as well as calorimeters.
+Basic detector feature descriptors are considered together with response features and signal reconstruction strategies similar to the ATLAS and CMS experiments at the LHC.
+The respective model configurations are A (\emph{ATLAS-like} \cite{PERF-2007-01}) and C (\emph{CMS-like} \cite{CMS-TDR-08-001}).
+Effects from particles showering in calorimeters are not modeled. 
+
+Both configurations feature cylindrical detectors around the collision vertex with full azimuthal coverage $-\pi < \phi < \pi$.
+The detector modeling produces a final state represented by a list of \emph{pseudoparticles} which are proxies for detector signals generated by stable particles.
+Particles emitted at pseudorapidities $|\eta| > 4.9$ and non-detectable particles like neutrinos are excluded from this modeling and thus not part of this final state. 
+
+In configuration A, the pseudoparticles are produced by a calorimeter-only detector model with regular projective readout in $(\eta,\phi)$ space. 
+The energy of all stable particles generating hadronic shower when interacting with the detector material is collected 
+in hadronic (HAD) \emph{calorimeter towers} of size $\Delta\eta\times\Delta\phi = 0.1\times0.1$. 
+Electrons, positrons, and photons emitted within $|\eta| < 2.5$ fill electromagmetic (EM) towers of size $\Delta\eta\times\Delta\phi = 0.025\times0.025$ with their energy, mimicking the typical
+coverage of the high granularity electromagnetic calorimeter. 
+The direction of neutral particles is the generated direction at the vertex, while for all charged particles $\phi$ is changed to the azimuth at the entry point of the particle
+into the calorimeter. 
+This entry point is calculated using the particle trajectory in an axial uniform magnetic field of $B_{\text{solenoid}} = 2$%
+ T and the radius $R_{\text{calo}} = 1150$ mm of
+on the calorimeter front face.
+If the transverse momentum of the charged particle  is too low to reach the calorimeter, i.e. its trajectory in the magnetic field does not exceed $R_{\text{calo}}$, 
+the particle is considered invisible for the detector and thus ignored for further analysis.   
+For particles reaching the calorimeter, the (bent) trajectory is not radial anymore at the front face.
+This suggests a distribution of the particle energy into more than one tower.
+In this model there is no energy sharing between towers, as this would require to at least model the longitudinal energy distribution in an electromagnetic or hadronic shower, with considerable computational effort.
+
+After all energy is collected, the finite calorimeter resolution is modeled by smearing the tower energy \etower{} following a Gaussian distribution with width 
+$\sigma_{\etower}$ given by to the canonical calorimeter resolution function
+\begin{align}
+  \sigma_{\etower}(\etower) = \sqrt{\acalo^{2}/\etower + (\bcalo/\etower)^{2} + \ccalo^{2}} \times \etower\,.
+  \label{eq:caloreso}
+\end{align}
+The three components of this function are the stochastic term \acalo{} reflecting sampling and intrinsic shower fluctuations, the noise term \bcalo{} quantifying the detector noise, 
+and the constant term \ccalo{} capturing fluctuations introduced in the process of the detector signal extraction.  
+The values for \acalo{} and \ccalo{} are shown in Table~\ref{tab:detmodel}. 
+The detector noise is not modeled, thus the noise term is $\bcalo=0$ for both configurations.
+
+The tower energy after smearing is required to pass $\pttower > \ptmin$. 
+Towers passing this requirement are converted into massless pseudoparticles using the 
+Using the nominal tower center $(\etatower,\phitower)$ and the tower energy \etower{} ($(\etower,\etatower,\phitower) \mapsto (\etower,\vec{p}_{\text{tower}})$ with $|\vec{p}_{\text{tower}}| = \etower$).
+
+Configuration C models a particle flow signal from a tracking detector combined with a calorimeter. 
+Charged particles are bent in an axial uniform magnetic field with $B_{\text{solenoid}} = 4$ T.
+The transverse momentum of the charged particles emitted within a tracking detector acceptance of $|\eta|<2.5$
+is smeared along a Gaussian distribution function with width $\sigma_{\pttrk}$ given by
+\begin{align}
+  \sigma_{\pttrk} = \sqrt{(\atrk\cdot\pttrk)^{2} + \ctrk^{2}} \times \pttrk\,.
+  \label{eq:trkreso}
+\end{align} 
+If \pttrk{} after smearing is within $\ptmin < \pttrk < \ptmax$, the charged particle is added to the list of pseudoparticles with its direction at the interaction vertex. 
+The trajectories of all charged particles within $|\eta| < 2.5$ and outside of this transverse momentum range, 
+and all charged particles with $|\eta| > 2.5$, are extraploted to the front face of the calorimeter at $R_{\text{calo}} = 1290$ mm.
+If the extrapolated particle trajectory reaches the calorimeter, the particle energy is added to a calorimeter tower at the extrapolated $\phi$, similar to the treatment of all charged particles in configuration A.
+
+The energy of neutral particles is added to the calorimeter tower in the same way as in configuration A. 
+The selection employing $\pttower > \ptmin$ is applied as well after the tower energy smearing with the parameters for configuration C given in Table~\ref{tab:detmodel}. 
+Figure~\ref{fig:detmodel} shows the calorimeter-only composition of a given truth-level jet in configuration A together with the track-and-calorimeter jet composition of configuration C.
+The two model configurations produce significantly different jet compositions, in particular with respect to the energy flow from low-\pt{} constituents.
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=1.0\columnwidth]{figures/CMS_vs_ATLAS_detector}
+%%%%\includegraphics[width=1.0\columnwidth]{figures/CMS_vs_ATLAS_detector}
+\includegraphics[width=0.48\columnwidth]{figures/jets_in_atlas}\quad
+\includegraphics[width=0.48\columnwidth]{figures/jets_in_cms}
 \end{center}
-\caption{An illustration of the basic features of the CMS and ATLAS detectors.}
+\caption{An illustration of the basic jet features for the configuration A (ATLAS-like, calorimeter only) and configuration C (CMS-like, particle flow using tracks and calorimeter) detector signal models. The solid black arrows indicate the jet composition from representations of neutral (pale blue) and charged (pale red) particles by calorimeter towers or reconstructed tracks. The green dashed curves show charged particle tracks bend in the magnetic field. Both illustrations show the same truth-level jet.}
+\label{fig:detmodel}
 \end{figure}
 
 
