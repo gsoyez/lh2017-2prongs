@@ -50,23 +50,6 @@
 \newcommand{\ptc}{p_{T{\rm cut}}}
 \newcommand{\ptsubc}{p_{T{\rm subcut}}}
 
-%%%%%% PL
-\newcommand{\etower}{\ensuremath{E_{\text{tower}}}}
-\newcommand{\etatower}{\ensuremath{\eta_{\text{tower}}}}
-\newcommand{\phitower}{\ensuremath{\phi_{\text{tower}}}}
-\newcommand{\pt}{\ensuremath{p_{\text{T}}}}
-\newcommand{\ptmin}{\ensuremath{p_{\text{T}}^{\text{min}}}}
-\newcommand{\ptmax}{\ensuremath{p_{\text{T}}^{\text{max}}}}
-\newcommand{\pttrk}{\ensuremath{p_{\text{T}}^{\text{track}}}}
-\newcommand{\pttower}{\ensuremath{p_{\text{T}}^{\text{tower}}}}
-\newcommand{\acalo}{\ensuremath{a_{\text{calo}}}}
-\newcommand{\bcalo}{\ensuremath{b_{\text{calo}}}}
-\newcommand{\ccalo}{\ensuremath{c_{\text{calo}}}}
-\newcommand{\atrk}{\ensuremath{a_{\text{track}}}}
-\newcommand{\ctrk}{\ensuremath{c_{\text{track}}}}
-%%%%%%%
-
-
 \newcommand{\sub}{\text{sub}}
 \newcommand{\miss}{\text{miss}}
 
@@ -97,6 +80,24 @@
 \DeclareRobustCommand{\Eqss}[3]{Eqs.~(\ref{#1}), (\ref{#2}), and (\ref{#3})}
 \DeclareRobustCommand{\Ref}[1]{Ref.~\cite{#1}}
 \DeclareRobustCommand{\Refs}[1]{Refs.~\cite{#1}}
+
+
+%%%%%% PL
+\newcommand{\etower}{\ensuremath{E_{\text{tower}}}}
+\newcommand{\etatower}{\ensuremath{\eta_{\text{tower}}}}
+\newcommand{\phitower}{\ensuremath{\phi_{\text{tower}}}}
+\newcommand{\pt}{\ensuremath{p_{\text{T}}}}
+\newcommand{\ptmin}{\ensuremath{p_{\text{T}}^{\text{min}}}}
+\newcommand{\ptmax}{\ensuremath{p_{\text{T}}^{\text{max}}}}
+\newcommand{\pttrk}{\ensuremath{p_{\text{T}}^{\text{track}}}}
+\newcommand{\pttower}{\ensuremath{p_{\text{T}}^{\text{tower}}}}
+\newcommand{\acalo}{\ensuremath{a_{\text{calo}}}}
+\newcommand{\bcalo}{\ensuremath{b_{\text{calo}}}}
+\newcommand{\ccalo}{\ensuremath{c_{\text{calo}}}}
+\newcommand{\atrk}{\ensuremath{a_{\text{track}}}}
+\newcommand{\ctrk}{\ensuremath{c_{\text{track}}}}
+%%%%%%%
+
 
 \newcommand{\be}{\begin{equation}}
 \newcommand{\ee}{\end{equation}}
@@ -224,7 +225,7 @@ Two-Prong Substructure Taggers for the LHC}
 \author[a]{Suman Chatterjee,}
 \author[5]{Frederic Dreyer,}
 \author[a]{Deepak Kar,}
-\author[b]{Peter Loch,}
+\author[a]{Peter Loch,}
 \emailAdd{loch@physics.arizona.edu}
 \author[a]{Ian Moult,}
 \emailAdd{ianmoult@lbl.gov}
@@ -239,7 +240,6 @@ Two-Prong Substructure Taggers for the LHC}
 \emailAdd{jthaler@mit.edu}
 
 \affiliation[a]{Les Houches}
-\affiliation[b]{Department of Physics, University of Arizona, Tucson, AZ 85721, USA}
 \affiliation[5]{Center for Theoretical Physics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA}
 \affiliation[3]{Berkeley Center for Theoretical Physics, University of California, Berkeley, CA 94720, USA}
 \affiliation[4]{Theoretical Physics Group, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA}
@@ -315,7 +315,7 @@ Summaries can be found in \Refs{Abdesselam:2010pt,Altheimer:2012mn,Altheimer:201
 
 As a result of these efforts, there now exist a number of theoretically well-motivated jet substructure tools.
 %
-For tagging hadronically-decaying $W/Z/H$ bosons, which decay primarily to jets with two well-resolved prongs, or subjets, a variety of powerful two-prong taggers have been developed.
+For tagging hadronically-decaying W/Z/H bosons, which decay primarily to jets with two well-resolved prongs, or subjets, a variety of powerful two-prong taggers have been developed.
 %
 Modern two-prong taggers typically consist of two ingredients: a groomer and a jet shape observable.
 %
@@ -472,7 +472,7 @@ In \Sec{sec:exp_compare}, we specialize to the particular observables used by CM
 We summarize our results in \Sec{sec:conc}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Quantifying Robustness and Presentation of Results}\label{sec:pres}
+\section{Quantifying Performance and Robustness}\label{sec:pres}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -492,7 +492,7 @@ as is commonly done, and we will use this as our metric for performance.
 \end{center}
 \caption{A summary of the different stages of physics considered in
   this study from idealized parton-level events to fully realistic
-  events including detectorsimulation and pileup.
+  events including detector simulation and pileup.
   %
   This allows us to
   address robustness to physics at each stage.
@@ -500,8 +500,7 @@ as is commonly done, and we will use this as our metric for performance.
   Detailed definitions of
   each stage, and the physics probes used, are given in the text.
   %
-  \gs{The
-    ordering between detector and PU may have to be revised.} }
+   }
 \label{fig:realism}
 \end{figure}
 
@@ -690,7 +689,7 @@ using similar techniques.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Observable Definitions}\label{sec:obs_def}
+\section{Observable and Sample Definitions}\label{sec:obs_def}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In this section, we summarize all the observable definitions that will be studied throughout this paper.
@@ -918,32 +917,51 @@ The trimmed mass was analytically calculated in \cite{Dasgupta:2013ihk}.
 %
 The trimming parameters used by ATLAS are $R_{\text{sub}}=0.2$,  $ \zcut=0.05$ and the $k_T$ algorithm to perform the reclustering.
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Pile-Up Removal}\label{sec:pu_tech}
+\subsection{Parton Shower Samples}\label{sec:samples_sub}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Due to the high pile-up environment of the LHC, pileup mitigation techniques \cite{Cacciari:2007fd,Alon:2011xb,Soyez:2012hv,Tseng:2013dva,Krohn:2013lba,Cacciari:2014gra,Bertolini:2014bba} are also widely used, which eliminate soft radiation from the event.
-%
-Since this radiation is uncorrelated with the underlying hard scattering, this can in principle be done, and a variety of techniques exist.
-%
-In this paper we use Area Subtraction \cite{Cacciari:2007fd,Cacciari:2008gn} and SoftKiller \cite{Cacciari:2014gra} as representative of these techniques.
+\ijm{need to make sure that this is correct}
 
-In the SoftKiller approach, the event is broken into patches, and we define
-\begin{align}
-\rho= \text{median} \left \{ \frac{p_{Ti}}{A_i}   \right \}\,.
-\end{align}
-SoftKiller then removes particles below a cutoff $p_t^{\text{cut}}$, chosen such that $\rho=0$. We have
-\begin{align}
-p_t^{\text{cut}}=\text{median} \{ p_{Ti}^{\text{max}} \}\,.
-\end{align}
-SoftKiller has been shown to provide good performance for removing pile-up contamination.
+For QCD background jet samples, we generated $pp\to$ dijets in both \pythia{8.226} \cite{Sjostrand:2006za,Sjostrand:2007gs} with tune $4$C, and \textsc{Herwig} 7~\cite{Bahr:2008pv,Bellm:2015jjp}.  \jdt{Do we actually have Herwig results?}
+%
+Samples were generated with hadronization off (parton level), with hadronization on but underlying event off (hadron level), and with hadronization and underlying event on (truth level).
 
-\ijm{elaborate a bit more}\gs{A few points (I'll try to come back to
-  this part later): (i) maybe the 1st equation could go into the
-  area--median description, (ii) do we want to give all the deteails
-  of the area--median parameters we've used (I'd say yes), (iii) we
-  should mention that SK is fast, (ic) wqe should add a reference to
-  PUPPI as an alternative used by CMS.}
+Regarding the polarized $W$ samples, we consider a $gg$ produced resonance, $X$, that decays to a pair of polarized $W$ bosons.
+%
+This kind of resonances decaying to longitudinally polarized $W$s appear in warped extra-dimensional models, where the SM fields propagate in the bulk.
+%
+On the other hand, models with graviton-like tensor with minimal couplings yields only transversely polarized $W$ bosons.
+%
+They were produced with the \textsc{JHUGEN} 3.1.8~\cite{Gao:2010qx,Bolognesi:2012mm} generator, interfaced with \textsc{PYTHIA} 8 \cite{Sjostrand:2007gs} for parton showering including the effect of hard gluon radiation.
+%
+Additional samples interfaced with \textsc{Herwig} 7~\cite{Bahr:2008pv,Bellm:2015jjp} were also used to study shower differences.
+%
+A resonance width of 1\% was chosen.
+%
+Table~\ref{table:polarisedSamples} shows the coupling values used to generate the polarised $W$ samples (see also \Ref{Gao:2010qx} for more information). 
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Model	&Production couplings	&Decay couplings	&Decay helicity amplitudes 	\\
+\hline
+$2_b^+$	& $g_1=1$		& $g_5=1$		& $f_{00}=0.98$			\\
+$2_m^+$	& $g_1=1$		& $g_1=g_5=1$		& $f_{00}=0.08,f_{+-}=f_{-+}=0.46$\\	
+\hline
+\end{tabular}
+\caption{\gs{Add caption. (I've changed the layout so it is coherent w
+  the previous tables)}}
+\label{table:polarisedSamples}
+\end{table}
+
+To include pile-up we \ijm{fill in}
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Theory Approaches to Robust Ratio Observables}\label{sec:hybrid_ratio}
@@ -1041,7 +1059,7 @@ Since the dichroic ratio observable uses a partially groomed observable, it is a
 %
 It therefore represents an interesting new class of observable to consider in our study of performance versus robustness. 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{New Dichroic Observables}\label{sec:dichroic_new}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1176,7 +1194,7 @@ This will allow us to draw powerful and general conclusions about the performanc
   \hline                       
   Parameter &  Values Scanned \\
   \hline
-  Jet Radius $R$ &   $0.6$, $0.8$, $1.0$, $1.2$ \gs{We only did 0.8 and 1} \\
+  Jet Radius $R$ &   $0.8$ \\
   Jet Shape  &   $D_2$, $N_2$, $M_2$, $\tau_{21}$  \\
   Jet Shape Angular Exponent $\beta$ &   $1$, $2$ \\
   Jet $p_T$ &   $500$ GeV, $1000$ GeV, $2000$ GeV  \\
@@ -1184,7 +1202,7 @@ This will allow us to draw powerful and general conclusions about the performanc
 \end{tabular}
 \end{center}
 \caption{
-Jet shapes and parameters scanned for each of the different strategies proposed in \Tab{tab:tag_summary}.  \jdt{Are we planning to try the other jet radii, or just drop it?}
+Jet shapes and parameters scanned for each of the different strategies proposed in \Tab{tab:tag_summary}. 
 }
 \label{tab:params}
 \end{table}
@@ -1200,7 +1218,17 @@ This allows us to understand if the conclusions drawn are associated with specif
 %
 Due to the large number of physics and detector parameters that are varied in our study, only a subset of plots can be found in the paper.
 %
-Additional plots of interest can be found in \App{app:more_plot}.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1217,58 +1245,251 @@ Additional plots of interest can be found in \App{app:more_plot}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Samples and Detector Models}\label{sec:samples}
+\section{Theory Robustness}\label{sec:np}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we describe in detail the samples that we will use throughout the papers.
-%
-\Sec{sec:samples_sub} discusses the event generation, and \Sec{sec:det_model} discusses the details of the detector modelling. 
+
+In this section we study robustness to both hadronization, \Sec{sec:hadr}, and underlying event \Sec{sec:UE}, which we categorize as ``Theory" robustness, since both of these issues are present in a complete isolated hadronic collisions. Robustness to the detector, and pileup are treated in \Sec{sec:exp}. 
+
+
+
+
+
+
+
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.75\columnwidth]{figures/pt_degrade}
+%\end{center}
+%\caption{Performance at high PT}
+%\label{fig:nolabel}
+%\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Samples}\label{sec:samples_sub}
+\subsection{Hadronization}\label{sec:hadr}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ijm{need to make sure that this is correct}
 
-For QCD background jet samples, we generated $pp\to$ dijets in both \pythia{8.226} \cite{Sjostrand:2006za,Sjostrand:2007gs} with tune $4$C, and \textsc{Herwig} 7~\cite{Bahr:2008pv,Bellm:2015jjp}.  \jdt{Do we actually have Herwig results?}
-%
-Samples were generated with hadronization off (parton level), with hadronization on but underlying event off (hadron level), and with hadronization and underlying event on (truth level).
 
-Regarding the polarized $W$ samples, we consider a $gg$ produced resonance, $X$, that decays to a pair of polarized $W$ bosons.
-%
-This kind of resonances decaying to longitudinally polarized $W$s appear in warped extra-dimensional models, where the SM fields propagate in the bulk.
-%
-On the other hand, models with graviton-like tensor with minimal couplings yields only transversely polarized $W$ bosons.
-%
-They were produced with the \textsc{JHUGEN} 3.1.8~\cite{Gao:2010qx,Bolognesi:2012mm} generator, interfaced with \textsc{PYTHIA} 8 \cite{Sjostrand:2007gs} for parton showering including the effect of hard gluon radiation.
-%
-Additional samples interfaced with \textsc{Herwig} 7~\cite{Bahr:2008pv,Bellm:2015jjp} were also used to study shower differences.
-%
-A resonance width of 1\% was chosen.
-%
-Table~\ref{table:polarisedSamples} shows the coupling values used to generate the polarised $W$ samples (see also \Ref{Gao:2010qx} for more information). 
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-Model	&Production couplings	&Decay couplings	&Decay helicity amplitudes 	\\
-\hline
-$2_b^+$	& $g_1=1$		& $g_5=1$		& $f_{00}=0.98$			\\
-$2_m^+$	& $g_1=1$		& $g_1=g_5=1$		& $f_{00}=0.08,f_{+-}=f_{-+}=0.46$\\	
-\hline
-\end{tabular}
-\caption{\gs{Add caption. (I've changed the layout so it is coherent w
-  the previous tables)}}
-\label{table:polarisedSamples}
-\end{table}
+\begin{figure}
+  \centering{\includegraphics[width=0.5\textwidth]{figures/mass-distribs.pdf}}
+  %
+  \caption{Mass distribution after grooming for the three grommers
+    considered in this paper. The distributions are shown at parton
+    level, at hadron level and at ``truth'' level (i.e. including both
+    hadronisation and the UE).}\label{fig:mass-distribution}
+\end{figure}
 
-To include pile-up we \ijm{fill in}
 
+
+
+
+
+
+
+In this section, we study the robustness of the different tagging techniques to hadronization.
+%
+As discussed in \Sec{sec:pres} this must be interpreted with some care, since the unhadronized events are not themselves physical.
+%
+Nevertheless, the comparison of hadronized and unhadronized distributions is the best proxy for understand the impact of hadronization, short of performing an analytic calculation.
+%
+To ensure that are conclusions are robust, ideally we would consider both the \pythia and \herwig Monte Carlos, which implement different hadronization models.
+%
+The \pythia shower uses the string model \cite{Andersson:1983ia,Andersson:1998tv}, while \herwig uses the cluster model \cite{Webber:1983if,Marchesini:1987cf}.
+%
+See for example \Refs{Buckley:2011ms,Skands:2011pf,Skands:2012ts} for a more detailed discussion. Unfortunately, due to the restricted scope of this report, here we only consider \pythia.
+%
+The effect of hadronization on two prong substructure observables has been studied in \cite{Larkoski:2015kga,Salam:2016yht}.
+
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=1]{figures/shape-distribs.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=2]{figures/shape-distribs.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=3]{figures/shape-distribs.pdf}
+  %
+  \caption{Distribution of three representative shapes: $D_2^{(1)}$
+    computed on the trimmed jet (ATLAS-like), $N_2^{(1)}$ computed on
+    the tight (mMDT) jet and the dichroic $D_2^{(2)}$ with numerator
+    computed on the loose jet and denominator computed on the tiht
+    jet. The distributions are shown at parton level, at hadron level
+    and at ``truth'' level (i.e. including both hadronisation and the
+    UE), for both $WW$ (solid) and dijet (dashed)
+    events.}\label{fig:shape-distribution}
+\end{figure}
+
+\begin{figure}
+  \centering{\includegraphics[width=0.5\textwidth]{figures/rocs.pdf}}
+  %
+  \caption{ROC curves corresponding to the shapes plotted on
+    Fig.~\ref{fig:shape-distribution}. The three line types correspond
+    to the three possible shape choices.}\label{fig:rocs}
+\end{figure}
+
+
+
+Before studying the robustness vs. performance quantitatively, we will begin by showing several distributions with and without hadronization. This will also help to introduce the different observables, as well as to give the reader a feeling for the robustness at the level of the shape of the distribution.
+
+
+In \Fig{fig:mass-distribution} we show the jet mass distribution for the three grooming strategies considered in this paper, for parton, hadron and at truth level. Although we will not focus directly on the mass distribution in this paper, it of course plays an important role, since all of our studies will be performed with jet mass cuts. Here we see two primary features. First, all three groomers give rise to significantly different mass distributions. This has been discussed in detail in \cite{}. Second, with both tight and loose grooming, the distributions are robust to hadronization, this is particularly true for tight grooming. On the other hand, the trimmed mass distribution is not robust to hadronization effects. 
+
+In \Fig{fig:shape-distribution} we show distributions on both signal and background jets for the observables that will be of primary interest in this study, namely $D_2$, $N_2$ and a dichroic version of $D_2$. 
+
+Finally, in \Fig{fig:rocs} we illustrate this robustness at the level of the ROC curves for the different shape choices.
+
+
+
+Having given a feel for the modifications due to hadronization at the level of both the distributions and the ROC curves, we now use our performance and resilience measures to perform a quantitative study. Since our visualization method allows a considerable amount of information to be condensed into a single plot, we first briefly review this with a sample plot. In \Fig{fig:sweep_pt} we show a plot in the performance-resilience plane, in which we will display our results. More performant observables appear higher on the y-axis (towards the top), while more robust (resilient) observables appear higher on the x-axis (to the right), as indicated by the arrows. A performant and resilient observable will appear in the upper right corner. For each observable, we also perform a scan of $p_T$, from $500-2000$ GeV, which are illustrated by the three connected points. 
+
+
+
+In \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} we show the performance-resilience plots for the effects of hadronization for the different observables considered in this study.
+
+In \Fig{fig:grooming-hadronisation} we show $D_2$, $N_2$ and dichoic $D_2$ for the different grooming strategies.
+In \Fig{fig:shapes-hadronisation} we consider fixed grooming strategies in each plot, but different jet shape observables.
+
+We first notice that in almost all cases, a dichroic form of the observable can be used to improve resilience while maintaining a similar level of performance.
+
+Among the shapes, we find that $D_2$ tends to be the most robust, while $N_2$ tends to be slightly more performant.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.4\columnwidth]{figures/sweep_pt}
+\end{center}
+\caption{An illustration of the performance-resilience plane that will be used to illustrate our results. More performant observables lie to the top, more resilient observables to the right, and better observables in the upper-right corner.}
+\label{fig:sweep_pt}
+\end{figure}
+
+
+
+
+
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=25]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=13]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=31]{figures/grooming-scan-levels.pdf}
+  %
+  \caption{Plots of the peformance-resilience plane under the addition of hadronization effects for the standard jet shape observables with different grooming strategies.}\label{fig:grooming-hadronisation}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=61]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=55]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=49]{figures/shape-scan-levels.pdf}
+  %
+  \caption{Plots of the peformance-resilience plane under the addition of hadronization effects for different jet shape observables, with fixed grooming strategies.}\label{fig:shapes-hadronisation}
+\end{figure}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Underlying Event}\label{sec:UE}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We can now repeat the same exercise, to study the robustness to UE. The results in the performance-resilience plane are shown in \Figs{fig:grooming-UE}{fig:shapes-UE}. These are identical to \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} but measure the robustness to UE instead of hadronization. The first thing that is clear from comparing \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} with  \Figs{fig:grooming-UE}{fig:shapes-UE} is that with modern grooming techniques, we are comparatively much less sensitive to UE then to hadronization effects. With the exception of the tight$\otimes$plain/plain grooming strategy, all the standard observables with are robust to UE for all the different grooming strategies. Similarly, with the exception of the dichroic $D_2$ observable, all the different jet shape observables in this study are also robust to UE. We believe that this should be viewed as a success of modern grooming tools. We also believe that it is desirable, since UE effects are much less under theoretical control than hadronization effects. 
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=26]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=14]{figures/grooming-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=32]{figures/grooming-scan-levels.pdf}
+  %
+  \caption{Performance-Resilience plot for truth to hadron comparing different grooming stratgies}\label{fig:grooming-UE}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.32\textwidth,page=62]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=56]{figures/shape-scan-levels.pdf}
+  %
+  \hfill
+  %
+  \includegraphics[width=0.32\textwidth,page=50]{figures/shape-scan-levels.pdf}
+  %
+  \caption{Performance-Resilience plot truth to hadron different observables. }\label{fig:shapes-UE}
+\end{figure}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Towards Improved Performance and Robustness for ATLAS and CMS}\label{sec:exp_compare}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}
+\begin{center}
+\subfloat[]{\label{fig:unsoftdropped}
+\includegraphics[width=7cm]{figures/resilience_summary}    
+}\qquad
+\subfloat[]{\label{fig:softdropped}
+\includegraphics[width=7cm]{figures/gregory_art}
+}
+\end{center}
+\caption{The performance-resilience plane for the different observables scanned in our study. The ATLAS and CMS observables are marked. In both cases, more robust, and more performant observables can be selected.
+}
+\label{fig:phasespace}
+\end{figure}
+
+The strategies used by ATLAS and CMS, namely trimmed $D_2$ \cite{Larkoski:2015kga,Larkoski:2014gra} and soft dropped $N_2$ \cite{Moult:2016cvt} with DDT \cite{Dolen:2016kst} are specific examples of the broader approaches to two-prong tagging discussed above, and therefore our study allows us to gain insight into the different tagging strategies used by the collaborations,\footnote{And perhaps even into the sociology of the different experiments! However, such conclusions should be taken with a grain of salt.} as well as to suggest improved observables.
+
+An overall scan of all the observables used in this study in the performance-resilience plane is shown in \Fig{fig:phasespace}. The current CMS and ATLAS observables are highlighted. We can see two interesting things from this plot. First, it appears as though ATLAS is using a more robust, but less performant observable, while CMS is using a more performant, but less robust observable. This however, must be caveated by the fact that we have not performed a full detector study, however, it is suggestive. Second, in both cases, we can choose from the observables considered in our study observables that are simultaneously more performant, and more resilient than those that are currently being used. 
+\ijm{what are they}
+
+We believe that it is worthwhile for the experiments to consider some of the  dichroic observables that were newly introduced in \Sec{sec:dichroic_new} with simultaneous performance and resilience in mind.
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimental Robustness}\label{sec:exp}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+In \Sec{sec:det_model} we describe our detector model. In \Sec{sec:pu_tech} we describe pile up removal. In \Sec{sec:detector_robust} we study the robustness of jet mass to detector effects. A more comprehensive study is left to a dedicated publication.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Detector Models}\label{sec:det_model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
 
 \begin{table}\centering
 \renewcommand{\arraystretch}{1.25}
@@ -1344,6 +1565,19 @@ Similarly, \atrk{} and \ctrk{} are used in Eq.~\ref{eq:trkreso} to determine the
 %%\label{tab:detmodel}
 %%\end{table}
 
+
+
+\begin{figure}
+\begin{center}
+%%%%\includegraphics[width=1.0\columnwidth]{figures/CMS_vs_ATLAS_detector}
+\includegraphics[width=0.48\columnwidth]{figures/jets_in_atlas}\quad
+\includegraphics[width=0.48\columnwidth]{figures/jets_in_cms}
+\end{center}
+\caption{An illustration of the basic jet features for the configuration A (ATLAS-like, calorimeter only) and configuration C (CMS-like, particle flow using tracks and calorimeter) detector signal models. The solid black arrows indicate the jet composition from representations of neutral (pale blue) and charged (pale red) particles by calorimeter towers or reconstructed tracks. The green dashed curves show charged particle tracks bend in the magnetic field. Both illustrations show the same truth-level jet.}
+\label{fig:detmodel}
+\end{figure}
+
+
 %%%%% PL Jan-24-2018
 The detector response is modeled by subjecting the particle level\footnote{Those are stable particles produced by the generator that potentially reach a detector. 
 This principally requires a particle lifetime $\tau$ in the laboratory frame given by $c\tau > 10$ mm.}
@@ -1405,35 +1639,73 @@ The selection employing $\pttower > \ptmin$ is applied as well after the tower e
 Figure~\ref{fig:detmodel} shows the calorimeter-only composition of a given truth-level jet in configuration A together with the track-and-calorimeter jet composition of configuration C.
 The two model configurations produce significantly different jet compositions, in particular with respect to the energy flow from low-\pt{} constituents.
 
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pile-Up Removal}\label{sec:pu_tech}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Due to the high pile-up environment of the LHC, pileup mitigation techniques \cite{Cacciari:2007fd,Alon:2011xb,Soyez:2012hv,Tseng:2013dva,Krohn:2013lba,Cacciari:2014gra,Bertolini:2014bba} are also widely used, which eliminate soft radiation from the event.
+%
+Since this radiation is uncorrelated with the underlying hard scattering, this can in principle be done, and a variety of techniques exist.
+%
+In this paper we use Area Subtraction \cite{Cacciari:2007fd,Cacciari:2008gn} and SoftKiller \cite{Cacciari:2014gra} as representative of these techniques.
+
+In the SoftKiller approach, the event is broken into patches, and we define
+\begin{align}
+\rho= \text{median} \left \{ \frac{p_{Ti}}{A_i}   \right \}\,.
+\end{align}
+SoftKiller then removes particles below a cutoff $p_t^{\text{cut}}$, chosen such that $\rho=0$. We have
+\begin{align}
+p_t^{\text{cut}}=\text{median} \{ p_{Ti}^{\text{max}} \}\,.
+\end{align}
+SoftKiller has been shown to provide good performance for removing pile-up contamination.
+
+\ijm{elaborate a bit more}\gs{A few points (I'll try to come back to
+  this part later): (i) maybe the 1st equation could go into the
+  area--median description, (ii) do we want to give all the deteails
+  of the area--median parameters we've used (I'd say yes), (iii) we
+  should mention that SK is fast, (ic) wqe should add a reference to
+  PUPPI as an alternative used by CMS.}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Impact on Mass Resolution}\label{sec:detector_robust}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section we performa study of the impact of detector effects on mass resolution. This will highlight the need to perform a more sophisticated study when considering detector effects, which will be left to a future publication.
+
+\ijm{fill in}
+
 \begin{figure}
-\begin{center}
-%%%%\includegraphics[width=1.0\columnwidth]{figures/CMS_vs_ATLAS_detector}
-\includegraphics[width=0.48\columnwidth]{figures/jets_in_atlas}\quad
-\includegraphics[width=0.48\columnwidth]{figures/jets_in_cms}
-\end{center}
-\caption{An illustration of the basic jet features for the configuration A (ATLAS-like, calorimeter only) and configuration C (CMS-like, particle flow using tracks and calorimeter) detector signal models. The solid black arrows indicate the jet composition from representations of neutral (pale blue) and charged (pale red) particles by calorimeter towers or reconstructed tracks. The green dashed curves show charged particle tracks bend in the magnetic field. Both illustrations show the same truth-level jet.}
-\label{fig:detmodel}
+  \includegraphics[width=0.45\columnwidth]{figures/mass-detector.pdf}
+  \hfill
+  \includegraphics[width=0.45\columnwidth]{figures/mass-width-detector.pdf}
+  \caption{Mass reconstruction with detector effects as a function of the jet $p_T$.}
+  \label{fig:mass-detector}
 \end{figure}
 
 
 
 
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Signal Robustness}\label{sec:polar}
+\section{Polarization Dependence}\label{sec:polar}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\gs{I think this section needs a bit of work. Quite a few things can
-  be simplified/shortened. For example, I'd remove Figure 5. I agree
-  that there are probably 2 questions here: (i) is our $W-QCD$
-  separation robust against the polarisation of the $W$? (ii) can we
-  discriminate longitudinal and transverse $W$'s?. For (i), we could
-  show one or two distributions and a $\zeta-\epsilon$ plot (now sure
-  which one, I'll probably know once we've decided what to show for
-  the plots further down). For (ii), I have done $z_g$ plots and ROC
-  curves and updated Figs 9 and 10 (which we could probably merge as a
-  single fig). I'm also wondering if we should not move this down
-  (i.e. first descrtibe the theory robustness which is what we've
-  highlighted in Section 2.)}
+
 
 
 The focus of this paper is on the robustness of jet substructure
@@ -1441,16 +1713,7 @@ observables for two-prong tagging.
 %
 As has been discussed, for
 background QCD jets one is interested in robustness to additional QCD
-contamination and detector effects.
-%
-On the other hand, for signal
-jets, which have a well defined substructure, the behavior of taggers
-is naturally robust to contamination from low energy QCD radiation
-\gs{Is that clear/true? E.g. there is a $\Delta\epsilon_S/\epsilon_S$
-  in our definition of $\zeta$.}.
-  %
-  However, they can be sensitive to the
-specific nature of the decaying electroweak scale particle.
+contamination and detector effects. For signal jets, there is another variable, namely the specific nature of the decaying electroweak scale particle, which can also affect the substructure observables.
 %
 Assuming
 that this is a color singlet decaying to quarks, it is completely
@@ -1483,23 +1746,11 @@ products.
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Physics of Polarization Dependence}\label{sec:polar_physics}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Before beginning \ijm{review basic kinematics and give expressions for the distributions before and after boost}
-
-This is illustrated in \Fig{fig:spin_boost}
-
 
 
 All of our taggers consist of two conceptually distinct components, which will be affected in different ways by the polarization.
 %
-In particular, for all of our taggers we begin by making a cut on the (groomed) mass, followed by a cut on a particular jet shape which is sensitive to the two prong structure.
-
-These two steps are associated with very different physics, particularly for a $W\to q\bar q$ decay, which has two well-resolved prongs.
-%
-A schematic of the QCD radiation surrounding this two prong structure is shown in \Fig{fig:spin_boost_dressed}.
+In particular, for all of our taggers we begin by making a cut on the (groomed) mass, followed by a cut on a particular jet shape which is sensitive to the two prong structure. These two steps are associated with very different physics, particularly for a $W\to q\bar q$ decay, which has two well-resolved prongs.
 %
 It consists of two collimated sprays of radiation, which are proxies for the $q$ and $\bar q$, along with radiation emitted from the dipole.
 %
@@ -1516,64 +1767,60 @@ On the other hand, the $2$-prong tagging observables that we consider are all fo
 This makes these observables largely insensitive to the polarization.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Robustness to Polarization}\label{sec:polar_robust}
+\subsection{Performance Impact of Polarization}\label{sec:polar_robust}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-Before addressing the possibility of tagging particular polarizations, we begin in this section by studying the sensitivity of the different taggers to polarization. To do this, we will consider samples of hadronically decaying $W$s, which are either purely transversely polarized, purely longitudinally polarized, or have the Standard Model fraction (mostly transverse). The details of the sample generation were discussed in \Sec{sec:samples}.
+Before addressing the possibility of tagging particular polarizations, we begin in this section by studying the sensitivity of the different taggers to polarization. To do this, we will consider samples of hadronically decaying $W$s, which are either purely transversely polarized, purely longitudinally polarized, or have the Standard Model fraction (mostly transverse). The details of the sample generation were discussed in \Sec{sec:samples_sub}.
+
+Iin \Fig{fig:polarization_shape} we show for concreteness the $D_2$ observable as measured on longitudinal and transverse hadronically decaying W bosons, as well as the SM mixture. From this figure, we see that the jet shape observable itself is remarkably insensitive to the polarization, due to its ratio nature. However, it is important to emphasize that this does not imply that the tagging performance is also independent of the polarization. As can be seen in \Fig{fig:polarization_shape} the tagging performance is significantly worse for transversely polarized W bosons as compared with longitudinally polarized W bosons. This is due to the fact that longitudinally polarized W bosons have a more asymmetric energy sharing, and it is therefore more likely that one of the subjet prongs is groomed away, leading to the jet failing the mass cut. This difference between longitudinally and transversely polarized bosons should be taken into account in studies at the LHC.
+
+
+
+
+%\begin{figure}
+%\begin{center}
+%\subfloat[]{\label{fig:spin_boost_bare}
+%\includegraphics[width=7cm]{figures/spin_placeholder}    
+%}\qquad
+%\subfloat[]{\label{fig:spin_boost_dressed}
+%\includegraphics[width=5cm]{figures/NINJA}
+%}
+%\end{center}
+%\caption{a) An illustration (placeholder) of the origin of the polarization dependence for a boosted $W$ decay. Different polarizations give rise to different angular distributions in the $W$ boson rest frame, which, when boosted, give rise to different distributions for the momentum sharing. (placeholder) b) The decaying $W$ is dressed by radiation, however, the subjets act as proxies for the quarks in the decay and their properties carry most of the polarization information of the decay.
+%}
+%\label{fig:spin_boost}
+%\end{figure}
 
 
 
 
 
 
-\begin{figure}
-\begin{center}
-\subfloat[]{\label{fig:spin_boost_bare}
-\includegraphics[width=7cm]{figures/spin_placeholder}    
-}\qquad
-\subfloat[]{\label{fig:spin_boost_dressed}
-\includegraphics[width=5cm]{figures/NINJA}
-}
-\end{center}
-\caption{a) An illustration (placeholder) of the origin of the polarization dependence for a boosted $W$ decay. Different polarizations give rise to different angular distributions in the $W$ boson rest frame, which, when boosted, give rise to different distributions for the momentum sharing. (placeholder) b) The decaying $W$ is dressed by radiation, however, the subjets act as proxies for the quarks in the decay and their properties carry most of the polarization information of the decay.
-}
-\label{fig:spin_boost}
-\end{figure}
 
 
-
-
-
-
-\ijm{if goal is just to tag, i.e. look for a two prong substructure, then we want to be ambivalent to the polarization. or else it needs to be included as a model assumption}
-
-\ijm{difference between polarization for the actual shape, and the acceptance for the jet mass cut}
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.4\columnwidth]{figures/mass_placeholder}
-\end{center}
-\caption{Sensitivity of the groomed mass distributions to the polarization. For aggressive grooming, the grooming removes a larger fraction of transversely polarized $W$s than longitudinally polarized $W$s, due to their more asymmetric momentum sharing. (placeholder)}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.4\columnwidth]{figures/mass_placeholder}
+%\end{center}
+%\caption{Sensitivity of the groomed mass distributions to the polarization. For aggressive grooming, the grooming removes a larger fraction of transversely polarized $W$s than longitudinally polarized $W$s, due to their more asymmetric momentum sharing. (placeholder)}
+%\end{figure}
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.3\columnwidth]{figures/D2_polarization}
+\includegraphics[width=0.4\columnwidth]{figures/D2_polarization}
+  %
+  \hfill
+  %
+\includegraphics[width=0.4\columnwidth]{figures/ROC_polarization}
 \end{center}
-\caption{Distributions of the $N_2$, $D_2$ and $\tau_{21}$ observables as measured on the samples with different polarization compositions. These observables are found to be largely insensitive to the polarization.}
+\caption{a) Distributions of the $D_2$ observable as measured on the samples with different polarization compositions. These observables are found to be largely insensitive to the polarization. b) ROC curves comparing the different grooming strategies for different polarization samples. While the polarization has a limited effect on the jet shape observables, it modifies the groomed mass acceptance, and therefore the tagging efficiency, significantly.}\label{fig:polarization_shape}
 \end{figure}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.3\columnwidth]{figures/ROC_polarization}
-\end{center}
-\caption{ROC curves comparing the different grooming strategies for different polarization samples. While the polarization has a limited effect on the jet shape observables, it modifies the groomed mass acceptance, and therefore the tagging efficiency, significantly.}
-\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Tagging Polarization}\label{sec:polar_tag}
+\subsection{Tagging Longitudinal vs.\ Transverse Bosons}\label{sec:polar_tag}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Having understood the robustness of the standard jet substructure observables to polarization, it is an interesting question to understand if jet substructure observables are able to tag distinct polarizations on hadronically decaying particles, and with what efficiency this can be done.
@@ -1582,7 +1829,7 @@ Since the standard two-prong tagging observables are not particularly sensitive 
 %
 In this section, we do not perform a comprehensive study, but restrict ourselves to studying a particular example of an observable which is sensitive to the $W$ polarization, and we evaluate its performance for distinguishing transverse and longitudinal $W$ bosons. 
 
-As discussed in \Sec{sec:polar_physics}, the sole impact of the polarization of the decaying object is to determine the kinematics of the decaying subjets.
+The sole impact of the polarization of the decaying object is to determine the kinematics of the decaying subjets.
 %
 Indeed, this can be made rigorous in the sense of a factorization theorem for boosted jets in the two-prong limit.
 %
@@ -1597,381 +1844,52 @@ Since we are focused on robustness in this paper, it is also worth commenting on
 %
 Interestingly, it is also remarkably stable on the background, where it flows in the high $p_T$ limit to the QCD splitting function \cite{Larkoski:2014wba,Larkoski:2014bia,Larkoski:2015lea}.
 
+
+In \Fig{fig:z_g_dist} we show both the $z_g$ distribution for different polarized W bosons, as well as the ROC curve for separating longitudinal from transverse W bosons. Here we see that $z_g$ provides moderate separation power for tagging the polarization of the decaying W bosons. It would be interesting to investigate this further to see if more ideal observables could be found.
+
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.45\columnwidth]{figures/polarisation-zg-distrib}
-\end{center}
-\caption{The $z_g$ distribution as measured on boosted $W$ samples with different polarization compositions. Transversely polarized $W$s behave similarly to the QCD background, while decent separation is observed between longitudinally polarized $W$s and transversely polarized $W$s.}
-\label{z_g_dist}
-\end{figure}
-
-\begin{figure}
-\begin{center}
+  %
+  \hfill
+  %
 \includegraphics[width=0.45\columnwidth]{figures/polarisation-zg-roc}
 \end{center}
-\caption{A ROC curve showing the separation between transversely- and longitudinally-polarized $W$ bosons using the $z_g$ observable. Moderate separation is observed.}
-\label{fig:z_g_ROC}
-\end{figure}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Theory Robustness}\label{sec:np}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-In this section we study robustness to both hadronization, \Sec{sec:hadr}, and underlying event \Sec{sec:UE}, which we categorize as ``Theory" robustness, since both of these issues are present in a complete isolated hadronic collisions. Robustness to the detector, and pileup are treated in \Sec{sec:exp}. 
-
-
-\gs{I'd first start by showing a few generic distributions and ROC
-  curves, then go into dissecting things step by step (using the
-  $\epsilon-\zeta$ plane. Maynbe before getting in the details, we
-  need a figure like \ref{fig:sweep_pt}}
-
-\begin{figure}
-  \centering{\includegraphics[width=0.5\textwidth]{figures/mass-distribs.pdf}}
-  %
-  \caption{Mass distribution after grooming for the three grommers
-    considered in this paper. The distributions are shown at parton
-    level, at hadron level and at ``truth'' level (i.e. including both
-    hadronisation and the UE).}\label{fig:mass-distribution}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=1]{figures/shape-distribs.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=2]{figures/shape-distribs.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=3]{figures/shape-distribs.pdf}
-  %
-  \caption{Distribution of three representative shapes: $D_2^{(1)}$
-    computed on the trimmed jet (ATLAS-like), $N_2^{(1)}$ computed on
-    the tight (mMDT) jet and the dichroic $D_2^{(2)}$ with numerator
-    computed on the loose jet and denominator computed on the tiht
-    jet. The distributions are shown at parton level, at hadron level
-    and at ``truth'' level (i.e. including both hadronisation and the
-    UE), for both $WW$ (solid) and dijet (dashed)
-    events.}\label{fig:shape-distribution}
-\end{figure}
-
-\begin{figure}
-  \centering{\includegraphics[width=0.5\textwidth]{figures/rocs.pdf}}
-  %
-  \caption{ROC curves corresponding to the shapes plotted on
-    Fig.~\ref{fig:shape-distribution}. The three line types correspond
-    to the three possible shape choices.}\label{fig:rocs}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Hadronization}\label{sec:hadr}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\gs{Here we have Figs.~\ref{fig:grooming-hadronisation} and~\ref{fig:shapes-hadronisation}}
-
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=25]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=13]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=31]{figures/grooming-scan-levels.pdf}
-  %
-  \caption{}\label{fig:grooming-hadronisation}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=61]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=55]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=49]{figures/shape-scan-levels.pdf}
-  %
-  \caption{}\label{fig:shapes-hadronisation}
+\caption{a) The $z_g$ distribution as measured on boosted $W$ samples with different polarization compositions. Transversely polarized $W$s behave similarly to the QCD background, while decent separation is observed between longitudinally polarized $W$s and transversely polarized $W$s. b) A ROC curve showing the separation between transversely- and longitudinally-polarized $W$ bosons using the $z_g$ observable. Moderate separation is observed.}
+\label{fig:z_g_dist}
 \end{figure}
 
 
 
 
 
-\begin{figure}
-\begin{center}
-\subfloat[]{\label{fig:unsoftdropped}
-\includegraphics[width=7cm]{figures/N2_UE_dist}    
-}\qquad
-\subfloat[]{\label{fig:softdropped}
-\includegraphics[width=7cm]{figures/D2_UE_dist}
-}
-\end{center}
-\caption{ 
-}
-\label{fig:UE}
-\end{figure}
-
-In this section, we study the robustness of the different tagging techniques to hadronization.
-%
-As discussed in \Sec{sec:pres} this must be interpreted with some care, since the unhadronized events are not themselves physical.
-%
-Nevertheless, the comparison of hadronized and unhadronized distributions is the best proxy for understand the impact of hadronization, short of performing an analytic calculation.
-%
-To ensure that are conclusions are robust, we consider both the \pythia and \herwig Monte Carlos, which implement different hadronization models.
-%
-The \pythia shower uses the string model \cite{Andersson:1983ia,Andersson:1998tv}, while \herwig uses the cluster model \cite{Webber:1983if,Marchesini:1987cf}.
-%
-See for example \Refs{Buckley:2011ms,Skands:2011pf,Skands:2012ts} for a more detailed discussion.
-%
-The effect of hadronization on two prong substructure observables has been studied in \cite{Larkoski:2015kga,Salam:2016yht}.
-
-
-\ijm{have some plots, have some ROC curves. Not much else to say until then.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Underlying Event}\label{sec:UE}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\gs{Here we have Figs.~\ref{fig:grooming-UE}
-  and~\ref{fig:shapes-UE}. Since we are so resilient against UE, , I'm
-  wondering if it would be better to show the combiner
-  hadronisation+UE? Or just drop UE altogether?}
-
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=26]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=14]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=32]{figures/grooming-scan-levels.pdf}
-  %
-  \caption{}\label{fig:grooming-UE}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=62]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=56]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=50]{figures/shape-scan-levels.pdf}
-  %
-  \caption{}\label{fig:shapes-UE}
-\end{figure}
-
-Having understood the robustness of the observables to hadronization, we now consider underlying event...
-
-\ijm{have some plots, have some ROC curves}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Experimental Robustness}\label{sec:exp}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\ijm{I have nothing here.}   \ijm{can skip the detector robustness if need be for time}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Detector Robustness}\label{sec:detector_robust}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\gs{ATLAS: Figs.~\ref{fig:grooming-ATLAS}
-  and~\ref{fig:shapes-ATLAS}. CMS: Figs.~\ref{fig:grooming-CMS}
-  and~\ref{fig:shapes-CMS}. We need to start w mass resolution
-  anyway. Then it's unclear to me if we should show all of this or
-  just the mass.}
-
-
-\begin{figure}
-  \includegraphics[width=0.45\columnwidth]{figures/mass-detector.pdf}
-  \hfill
-  \includegraphics[width=0.45\columnwidth]{figures/mass-width-detector.pdf}
-  \caption{Mass reconstruction with detector effects}
-  \label{fig:mass-detector}
-\end{figure}
-
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=29]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=17]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=35]{figures/grooming-scan-levels.pdf}
-  %
-  \caption{}\label{fig:grooming-ATLAS}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=65]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=59]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=53]{figures/shape-scan-levels.pdf}
-  %
-  \caption{}\label{fig:shapes-ATLAS}
-\end{figure}
-
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=30]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=18]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=36]{figures/grooming-scan-levels.pdf}
-  %
-  \caption{}\label{fig:grooming-ATLAS}
-\end{figure}
-
-\begin{figure}
-  \includegraphics[width=0.32\textwidth,page=66]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=60]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
-  \includegraphics[width=0.32\textwidth,page=54]{figures/shape-scan-levels.pdf}
-  %
-  \caption{}\label{fig:shapes-ATLAS}
-\end{figure}
-
-\ijm{discuss detector effects}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Pile-Up Robustness}\label{sec:pu_robust}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ijm{show plots as a function of pile up}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Tagging at Extreme $p_T$}\label{sec:pt_robust}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ijm{show plots as a function of $p_T$, degradation}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.4\columnwidth]{figures/sweep_pt}
-\end{center}
-\caption{sweeping pt}
-\label{fig:sweep_pt}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.75\columnwidth]{figures/pt_degrade}
-\end{center}
-\caption{Performance at high PT}
-\label{fig:nolabel}
-\end{figure}
-
-
-
-\begin{figure}
-\begin{center}
-\subfloat[]{\label{fig:unsoftdropped}
-\includegraphics[width=7cm]{figures/default-rocs-R0pt8}    
-}\qquad
-\subfloat[]{\label{fig:softdropped}
-\includegraphics[width=7cm]{figures/default-rocs-R1pt0}
-}
-\end{center}
-\caption{ATLAS vs. CMS}
-\label{fig:phasespace}
-\end{figure}
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.75\columnwidth]{figures/sweep_obs}
-\end{center}
-\caption{sweeping observable}
-\label{fig:nolabel}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.75\columnwidth]{figures/sweep_groom}
-\end{center}
-\caption{sweeping groomer}
-\label{fig:nolabel}
-\end{figure}
-
-%\section{Jet Radius Robustness:  High pT (isolation versus shape cut, jet radius)}
-
-%\ijm{I think no longer have this in this separate section}
 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Understanding Differences Between ATLAS and CMS}\label{sec:exp_compare}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-The strategies used by ATLAS and CMS, namely trimmed $D_2$ \cite{Larkoski:2015kga,Larkoski:2014gra} and soft dropped $N_2$ \cite{Moult:2016cvt} with DDT \cite{Dolen:2016kst} are specific examples of the broader approaches to two-prong tagging discussed above, and therefore our study allows us to gain insight into the different tagging strategies used by the collaborations.\footnote{And perhaps even into the sociology of the different experiments! However, such conclusions should be taken with a grain of salt.}
-
-\ijm{I think for our purposes we can ignore the DDT. }
-
-\ijm{this needs to be filled in once we have a more complete picture}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Summary and Recommendations}\label{sec:conc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we have performed a comprehensive study of performance and robustness for two-prong tagging, and provided a unifying approach to understanding different approaches for two-prong tagging. 
+In this paper, we have performed a comprehensive study of performance and robustness for two-prong tagging, and provided a unifying approach to understanding different classes of two-prong taggers. 
 
-similar approaches could also be applied to study $3$-prong tagging...
+We have introduced measures of robustness, in addition to the standard measures of performance. We used these measures to study the resilience of two-prong taggers to theory issues, namely hadronization and underlying event. 
+
+ We believe that these will be of more general utility in jet substructure, and could be applied also to study $3$-prong tagging, for example.
+
+We have also introduced a number of new dichroic observables, which generalize the dichroic $N$-subjettiness observable. This offers a general and unifying approach to designing new jet substructure observables which are simultaneously performant and resilient
+
+We have also studied the effect of polarization on two-prong taggers. We proposed the observable $z_g$ as an effective polarization tagger.
 
 
 In all cases, we have identified taggers that outperform, in both robustness and tagging performance, those currently used by the ATLAS and CMS collaborations. We therefore believe that further studies using more detailed simulations of the ATLAS and CMS detectors, and ultimately on real data, would be of significant interest. More generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
 
-\ijm{this needs to be filled in once we have a more complete picture}
 
 
 
 
-\begin{figure}
-\begin{center}
-\subfloat[]{\label{fig:unsoftdropped}
-\includegraphics[width=7cm]{figures/resilience_summary}    
-}\qquad
-\subfloat[]{\label{fig:softdropped}
-\includegraphics[width=7cm]{figures/gregory_art}
-}
-\end{center}
-\caption{Gregory's Art
-}
-\label{fig:phasespace}
-\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1998,13 +1916,9 @@ The work of IM is supported by Office of High Energy Physics of the U.S. Departm
 
 
 
-\appendix
 
-\section{Additional Plots}\label{app:more_plot}
 
-In this appendix we provide additional plots to complement those shown in the text.
 
-\ijm{put some additional plots here}
 
 %\section{Introduction}
 %\label{sec:introduction}
