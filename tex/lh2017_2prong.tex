@@ -1038,6 +1038,14 @@ Readers interested in a more detailed discussion of the dichroic approach, inclu
 \label{fig:dichroic}
 \end{figure}
 
+\begin{figure}[t]
+\begin{center}
+\includegraphics[width=0.5\columnwidth]{figures/dichroic-illust}
+\end{center}
+\caption{Distributions of the tight, loose and dichroic $\tau_{21}$ observables with a cut on the mMDT/soft dropped mass. The dichroic approach offers considerably improved performance as compared with the tight grooming, almost preserving the performance of the loose grooming at high signal purity. Figure taken from \Ref{Salam:2016yht}.}
+\label{fig:dichroic_distribution}
+\end{figure}
+
 Using the Lund diagrams in \Fig{fig:dichroic}, we can give a simple argument for the optimal performance of the dichroic observables, by considering the behavior in each of the three regions:
 \begin{itemize}
 \item Case 1: $z_c \theta_c^2 \ll z_b \theta_b^2 \ll z_a \theta_a^2$: All definitions of $\tau_{21}$ give the same result, and are therefore equivalent.
@@ -1050,12 +1058,8 @@ ratio is optimal.
 %
 The identical argument can be reversed to show that
 using a groomed numerator and an ungroomed denominator is not optimal.
-\gs{If we have any for of space constraint, we can probably drop the
-  discussion above and, optionally, replace it w a plot of the
-  distributions (similar to Fig~7 in the dichroic paper), maybe
-  including $\tau_{21}$ and $N_2$ or $D_2$.}
 
-Since the dichroic ratio observable uses a partially groomed observable, it is also less sensitive to non-perturbative effects due to hadronization.
+These benefits of the dichroic approach can also be seen in a less abstract manner by considering the distributions of the tight, loose and dichroic observables. This is shown in \Fig{fig:dichroic_distribution} for the particular case of $\tau_{21}$. Here we see by comparing the tight and loose grooming that considerable performance is lost, since the background distribution is pushed to lower values of $\tau_{21}$. However, for the dichroic observable, the behavior of the loose and dichroic observables is identical at small values of $\tau_{21}$, leading to improved performance. Indeed, at high signal purity, the performance of the dichroic observable is nearly equal to that of loose grooming. However, since the dichroic ratio observable uses a partially groomed observable, it is less sensitive to non-perturbative effects due to hadronization.
 %
 It therefore represents an interesting new class of observable to consider in our study of performance versus robustness. 
 
@@ -1273,7 +1277,7 @@ In this section we study robustness to both hadronization, \Sec{sec:hadr}, and u
 
 
 \begin{figure}
-  \centering{\includegraphics[width=0.5\textwidth]{figures/mass-distribs.pdf}}
+  \centering{\includegraphics[width=0.4\textwidth]{figures/mass-distribs.pdf}}
   %
   \caption{Mass distribution after grooming for the three grommers
     considered in this paper. The distributions are shown at parton
@@ -1325,7 +1329,7 @@ The effect of hadronization on two prong substructure observables has been studi
 \end{figure}
 
 \begin{figure}
-  \centering{\includegraphics[width=0.5\textwidth]{figures/rocs.pdf}}
+  \centering{\includegraphics[width=0.4\textwidth]{figures/rocs.pdf}}
   %
   \caption{ROC curves corresponding to the shapes plotted on
     Fig.~\ref{fig:shape-distribution}. The three line types correspond
@@ -1334,29 +1338,11 @@ The effect of hadronization on two prong substructure observables has been studi
 
 
 
-Before studying the robustness vs. performance quantitatively, we will begin by showing several distributions with and without hadronization. This will also help to introduce the different observables, as well as to give the reader a feeling for the robustness at the level of the shape of the distribution.
+Before studying the robustness vs. performance quantitatively, we will begin by showing several distributions with and without hadronization. This will also help to introduce the different observables, as well as to give the reader a feeling for the robustness at the level of the shape of the distribution. In \Fig{fig:mass-distribution} we show the jet mass distribution for the three grooming strategies considered in this paper, for parton, hadron and at truth level. Although we will not focus directly on the mass distribution in this paper, it of course plays an important role, since all of our studies will be performed with jet mass cuts. Here we see two primary features. First, all three groomers give rise to significantly different mass distributions. This has been discussed in detail in \cite{}. Second, with both tight and loose grooming, the distributions are robust to hadronization, this is particularly true for tight grooming. On the other hand, the trimmed mass distribution is not robust to hadronization effects. 
 
+In \Fig{fig:shape-distribution} we show distributions on both signal and background jets for the observables that will be of primary interest in this study, namely $D_2$, $N_2$ and a dichroic version of $D_2$.   In all cases, we see that hadronization has a sizeable effect on the shape of the distribution, pushing it to larger values. For the $D_2$ observable, hadronization is mostly isolated to small values of the observable, and at larger values reduces simply to a shift of the distribution. This has been discussed in detail in \cite{}. For the $N_2$ observable, hadronization effects are larger, and are significant throughout the entire distribution. Indeed, when we study performance and robustness quantitatively, we will find that while $N_2$ type observables tend to be more performant, they are also less resilient to hadronization effects. 
 
-In \Fig{fig:mass-distribution} we show the jet mass distribution for the three grooming strategies considered in this paper, for parton, hadron and at truth level. Although we will not focus directly on the mass distribution in this paper, it of course plays an important role, since all of our studies will be performed with jet mass cuts. Here we see two primary features. First, all three groomers give rise to significantly different mass distributions. This has been discussed in detail in \cite{}. Second, with both tight and loose grooming, the distributions are robust to hadronization, this is particularly true for tight grooming. On the other hand, the trimmed mass distribution is not robust to hadronization effects. 
-
-In \Fig{fig:shape-distribution} we show distributions on both signal and background jets for the observables that will be of primary interest in this study, namely $D_2$, $N_2$ and a dichroic version of $D_2$. 
-
-Finally, in \Fig{fig:rocs} we illustrate this robustness at the level of the ROC curves for the different shape choices.
-
-
-
-Having given a feel for the modifications due to hadronization at the level of both the distributions and the ROC curves, we now use our performance and resilience measures to perform a quantitative study. Since our visualization method allows a considerable amount of information to be condensed into a single plot, we first briefly review this with a sample plot. In \Fig{fig:sweep_pt} we show a plot in the performance-resilience plane, in which we will display our results. More performant observables appear higher on the y-axis (towards the top), while more robust (resilient) observables appear higher on the x-axis (to the right), as indicated by the arrows. A performant and resilient observable will appear in the upper right corner. For each observable, we also perform a scan of $p_T$, from $500-2000$ GeV, which are illustrated by the three connected points. 
-
-
-
-In \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} we show the performance-resilience plots for the effects of hadronization for the different observables considered in this study.
-
-In \Fig{fig:grooming-hadronisation} we show $D_2$, $N_2$ and dichoic $D_2$ for the different grooming strategies.
-In \Fig{fig:shapes-hadronisation} we consider fixed grooming strategies in each plot, but different jet shape observables.
-
-We first notice that in almost all cases, a dichroic form of the observable can be used to improve resilience while maintaining a similar level of performance.
-
-Among the shapes, we find that $D_2$ tends to be the most robust, while $N_2$ tends to be slightly more performant.
+Since the primary role of hadronization is to push the distributions to larger values at small values of the observable, the performance of the observables is typically highly sensitive to hadronization, particularly at high signal purity. In \Fig{fig:rocs} we illustrate this robustness at the level of the ROC curves for the different shape choices. In all cases, we see that hadronization considerably improves the performance of the observables. This is particularly true at high signal purity, but decreases as the signal purity is decreased. This emphasizes the importance of understanding the robustness of observables to hadronization effects.
 
 \begin{figure}
 \begin{center}
@@ -1365,6 +1351,15 @@ Among the shapes, we find that $D_2$ tends to be the most robust, while $N_2$ te
 \caption{An illustration of the performance-resilience plane that will be used to illustrate our results. More performant observables lie to the top, more resilient observables to the right, and better observables in the upper-right corner.}
 \label{fig:sweep_pt}
 \end{figure}
+
+
+
+Having given a feel for the modifications due to hadronization at the level of both the distributions and the ROC curves, we now use our performance and resilience measures to perform a quantitative study. Since our visualization method allows a considerable amount of information to be condensed into a single plot, we first briefly review this with a sample plot. In \Fig{fig:sweep_pt} we show a plot in the performance-resilience plane, in which we will display our results. More performant observables appear higher on the y-axis (towards the top), while more robust (resilient) observables appear higher on the x-axis (to the right), as indicated by the arrows. A performant and resilient observable will appear in the upper right corner. For each observable, we also perform a scan of $p_T$, from $500-2000$ GeV, which are illustrated by the three connected points. This will be the default format in which we display our results throughout the rest of this paper.
+
+
+
+In \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} we show the performance-resilience plots for the effects of hadronization for the different observables considered in this study. \Fig{fig:grooming-hadronisation} shows $D_2$, $N_2$ and dichoic $D_2$ for the different grooming strategies, while in \Fig{fig:shapes-hadronisation} we consider fixed grooming strategies in each plot, but different jet shape observables. We first notice that in almost all cases, a dichroic form of the observable can be used to improve resilience while maintaining a similar level of performance. Among the shapes, we find that $D_2$ tends to be the most robust, while $N_2$ tends to be slightly more performant. This agrees with what was seen by studying the distributions in \Fig{fig:shape-distribution} by eye, however, we are now able to quantify this. We will see that this conclusion remains true under a larger scan of observables in \Sec{sec:exp_compare}. We also notice that for almost all the observables the trends with $p_T$ are similar.
+
 
 
 
@@ -1421,7 +1416,7 @@ We can now repeat the same exercise, to study the robustness to UE. The results 
   %
   \includegraphics[width=0.32\textwidth,page=32]{figures/grooming-scan-levels.pdf}
   %
-  \caption{Performance-Resilience plot for truth to hadron comparing different grooming stratgies}\label{fig:grooming-UE}
+  \caption{Plots of the peformance-resilience plane going from hadron level to truth level (inclusion of UE) for the standard jet shape observables with different grooming strategies.}\label{fig:grooming-UE}
 \end{figure}
 
 \begin{figure}
@@ -1435,7 +1430,7 @@ We can now repeat the same exercise, to study the robustness to UE. The results 
   %
   \includegraphics[width=0.32\textwidth,page=50]{figures/shape-scan-levels.pdf}
   %
-  \caption{Performance-Resilience plot truth to hadron different observables. }\label{fig:shapes-UE}
+  \caption{Plots of the peformance-resilience plane going from hadron level to truth level (inclusion of UE) for different jet shape observables, with fixed grooming strategies.}\label{fig:shapes-UE}
 \end{figure}
 
 
@@ -1448,26 +1443,40 @@ We can now repeat the same exercise, to study the robustness to UE. The results 
 \subsection{Towards Improved Performance and Robustness for ATLAS and CMS}\label{sec:exp_compare}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%\begin{figure}
+%\begin{center}
+%\subfloat[]{\label{fig:unsoftdropped}
+%\includegraphics[width=7cm]{figures/resilience_summary}    
+%}\qquad
+%\subfloat[]{\label{fig:softdropped}
+%\includegraphics[width=7cm]{figures/gregory_art}
+%}
+%\end{center}
+%\caption{The performance-resilience plane for the different observables scanned in our study. The ATLAS and CMS observables are marked. In both cases, more robust, and more performant observables can be selected.
+%}
+%\label{fig:phasespace}
+%\end{figure}
+
 \begin{figure}
 \begin{center}
 \subfloat[]{\label{fig:unsoftdropped}
-\includegraphics[width=7cm]{figures/resilience_summary}    
+\includegraphics[width=7cm]{figures/optimal_2}    
 }\qquad
 \subfloat[]{\label{fig:softdropped}
-\includegraphics[width=7cm]{figures/gregory_art}
+\includegraphics[width=7cm]{figures/optimal_1}
 }
 \end{center}
-\caption{The performance-resilience plane for the different observables scanned in our study. The ATLAS and CMS observables are marked. In both cases, more robust, and more performant observables can be selected.
+\caption{The performance-resilience plane for the different observables scanned in our study at $500$ GeV in a) and $1000$ GeV in b). The ATLAS and CMS observables are marked in black and green respectively. In both cases, more robust, and more performant observables can be selected, and a number of such observables are marked.
 }
 \label{fig:phasespace}
 \end{figure}
 
 The strategies used by ATLAS and CMS, namely trimmed $D_2$ \cite{Larkoski:2015kga,Larkoski:2014gra} and soft dropped $N_2$ \cite{Moult:2016cvt} with DDT \cite{Dolen:2016kst} are specific examples of the broader approaches to two-prong tagging discussed above, and therefore our study allows us to gain insight into the different tagging strategies used by the collaborations,\footnote{And perhaps even into the sociology of the different experiments! However, such conclusions should be taken with a grain of salt.} as well as to suggest improved observables.
 
-An overall scan of all the observables used in this study in the performance-resilience plane is shown in \Fig{fig:phasespace}. The current CMS and ATLAS observables are highlighted. We can see two interesting things from this plot. First, it appears as though ATLAS is using a more robust, but less performant observable, while CMS is using a more performant, but less robust observable. This however, must be caveated by the fact that we have not performed a full detector study, however, it is suggestive. Second, in both cases, we can choose from the observables considered in our study observables that are simultaneously more performant, and more resilient than those that are currently being used. 
-\ijm{what are they}
+An overall scan of all the observables used in this study in the performance-resilience plane is shown in \Fig{fig:phasespace}. The current CMS and ATLAS observables are highlighted with the black and green markers, respectively. We can see two interesting things from this plot. First, it appears as though ATLAS is using a more robust, but less performant observable, while CMS is using a more performant, but less robust observable. This however, must be caveated by the fact that we have not performed a full detector study, however, it is suggestive. Second, in both cases, we can choose from the observables considered in our study observables that are simultaneously more performant, and more resilient than those that are currently being used. At $500$ GeV, the gains in performance are fairly minimal, however, at $1000$ GeV, it seems that there are considerable gains in performance and robustness to be made.
+The names of a large variety of those observables which lie on the upper boundary of the performance-resilience space are marked in the figure. These transition from $N_2$ observables which are the most performant, but less robust, to $M_2$, which is more robust, but less resilient. The observable $D_2$ tends to be intermediate.
 
-We believe that it is worthwhile for the experiments to consider some of the  dichroic observables that were newly introduced in \Sec{sec:dichroic_new} with simultaneous performance and resilience in mind.
+We believe that it is worthwhile for the experiments to consider some of the  dichroic observables that were newly introduced in \Sec{sec:dichroic_new} with simultaneous performance and resilience in mind. We have highlighted in \Fig{fig:phasespace} that a whole interesting phase space of such observables exist, which map out the performance-resilience plane. These could be chosen depending on the particular needs of a given study.
 
 
 
@@ -1583,7 +1592,7 @@ The detector response is modeled by subjecting the particle level\footnote{Those
 This principally requires a particle lifetime $\tau$ in the laboratory frame given by $c\tau > 10$ mm.}
 to a simple acceptance and smearing model representing tracking detectors as well as calorimeters.
 Basic detector feature descriptors are considered together with response features and signal reconstruction strategies similar to the ATLAS and CMS experiments at the LHC.
-The respective model configurations are A (\emph{ATLAS-like} \cite{PERF-2007-01}) and C (\emph{CMS-like} \cite{CMS-TDR-08-001}).
+The respective model configurations are A (ATLAS\emph{-like} \cite{PERF-2007-01}) and C (CMS\emph{-like} \cite{CMS-TDR-08-001}).
 Effects from particles showering in calorimeters are not modeled. 
 
 Both configurations feature cylindrical detectors around the collision vertex with full azimuthal coverage $-\pi < \phi < \pi$.
@@ -1773,7 +1782,7 @@ This makes these observables largely insensitive to the polarization.
 
 Before addressing the possibility of tagging particular polarizations, we begin in this section by studying the sensitivity of the different taggers to polarization. To do this, we will consider samples of hadronically decaying $W$s, which are either purely transversely polarized, purely longitudinally polarized, or have the Standard Model fraction (mostly transverse). The details of the sample generation were discussed in \Sec{sec:samples_sub}.
 
-Iin \Fig{fig:polarization_shape} we show for concreteness the $D_2$ observable as measured on longitudinal and transverse hadronically decaying W bosons, as well as the SM mixture. From this figure, we see that the jet shape observable itself is remarkably insensitive to the polarization, due to its ratio nature. However, it is important to emphasize that this does not imply that the tagging performance is also independent of the polarization. As can be seen in \Fig{fig:polarization_shape} the tagging performance is significantly worse for transversely polarized W bosons as compared with longitudinally polarized W bosons. This is due to the fact that longitudinally polarized W bosons have a more asymmetric energy sharing, and it is therefore more likely that one of the subjet prongs is groomed away, leading to the jet failing the mass cut. This difference between longitudinally and transversely polarized bosons should be taken into account in studies at the LHC.
+Iin \Fig{fig:polarization_roc} we show for concreteness the $D_2$ observable as measured on longitudinal and transverse hadronically decaying W bosons, as well as the SM mixture. From this figure, we see that the jet shape observable itself is remarkably insensitive to the polarization, due to its ratio nature. However, it is important to emphasize that this does not imply that the tagging performance is also independent of the polarization. As can be seen in \Fig{fig:polarization_roc} the tagging performance is significantly worse for transversely polarized W bosons as compared with longitudinally polarized W bosons. This is due to the fact that longitudinally polarized W bosons have a more asymmetric energy sharing, and it is therefore more likely that one of the subjet prongs is groomed away, leading to the jet failing the mass cut. This difference between longitudinally and transversely polarized bosons should be taken into account in studies at the LHC.
 
 
 
@@ -1806,18 +1815,28 @@ Iin \Fig{fig:polarization_shape} we show for concreteness the $D_2$ observable a
 %\caption{Sensitivity of the groomed mass distributions to the polarization. For aggressive grooming, the grooming removes a larger fraction of transversely polarized $W$s than longitudinally polarized $W$s, due to their more asymmetric momentum sharing. (placeholder)}
 %\end{figure}
 
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.4\columnwidth]{figures/D2_polarization}
+%  %
+%%  \hfill
+%%  %
+%%\includegraphics[width=0.4\columnwidth]{figures/ROC_polarization}
+%\end{center}
+%\caption{Distributions of the $D_2$ observable as measured on the samples with different polarization compositions. This observables is found to be largely insensitive to the polarization, due to its ratio form. }\label{fig:polarization_shape}
+%\end{figure}
+
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.4\columnwidth]{figures/D2_polarization}
+%\includegraphics[width=0.4\columnwidth]{figures/polarisation-quality}
+\includegraphics[width=0.4\columnwidth]{figures/ROC_polarization}
   %
   \hfill
   %
-\includegraphics[width=0.4\columnwidth]{figures/ROC_polarization}
+\includegraphics[width=0.4\columnwidth]{figures/polarisation-basic-rocs}
 \end{center}
-\caption{a) Distributions of the $D_2$ observable as measured on the samples with different polarization compositions. These observables are found to be largely insensitive to the polarization. b) ROC curves comparing the different grooming strategies for different polarization samples. While the polarization has a limited effect on the jet shape observables, it modifies the groomed mass acceptance, and therefore the tagging efficiency, significantly.}\label{fig:polarization_shape}
+\caption{a) Distributions of the $D_2$ observable as measured on the samples with different polarization compositions. These observables are found to be largely insensitive to the polarization. b) ROC curves comparing the different grooming strategies for different polarization samples. While the polarization has a limited effect on the jet shape observables, it modifies the groomed mass acceptance, and therefore the tagging efficiency, significantly.}\label{fig:polarization_roc}
 \end{figure}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Tagging Longitudinal vs.\ Transverse Bosons}\label{sec:polar_tag}
@@ -1873,18 +1892,14 @@ In \Fig{fig:z_g_dist} we show both the $z_g$ distribution for different polarize
 \section{Summary and Recommendations}\label{sec:conc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we have performed a comprehensive study of performance and robustness for two-prong tagging, and provided a unifying approach to understanding different classes of two-prong taggers. 
+In this paper, we have performed a comprehensive study of performance and robustness for two-prong tagging, and provided a unifying approach to understanding different classes of two-prong taggers.  We have introduced measures of robustness, in addition to the standard measures of performance. We used these measures to study the resilience of two-prong taggers to theory issues, namely hadronization and underlying event.  We believe that these will be of more general utility in jet substructure, and could be applied also to study $3$-prong tagging, for example.
 
-We have introduced measures of robustness, in addition to the standard measures of performance. We used these measures to study the resilience of two-prong taggers to theory issues, namely hadronization and underlying event. 
+We have also introduced a number of new dichroic observables, which generalize the dichroic $N$-subjettiness observable. This offers a general and unifying approach to designing new jet substructure observables which are simultaneously performant and resilient. We have shown that the $N_2$ style observables used by CMS tend to be more performant, but less resilient than the $D_2$ style observables used by ATLAS.
 
- We believe that these will be of more general utility in jet substructure, and could be applied also to study $3$-prong tagging, for example.
-
-We have also introduced a number of new dichroic observables, which generalize the dichroic $N$-subjettiness observable. This offers a general and unifying approach to designing new jet substructure observables which are simultaneously performant and resilient
-
-We have also studied the effect of polarization on two-prong taggers. We proposed the observable $z_g$ as an effective polarization tagger.
+We have also studied the effect of polarization on two-prong taggers. We found that while polarization has minimal effect on standard two prong tagging observables, since they are typically defined as ratios, it has a large effect on their tagging efficiency due to applied mass cuts. Significantly better tagging performance is observed for longitudinally polarized bosons. An interesting avenue beyond standard two-prong tagging is using jet substructure observables to tag the polarization of decaying SM bosons using their hadronic decay producs. We proposed the observable $z_g$, which measures the momentum sharing asymmetry between subjets, as an effective polarization tagger. We illustrated that separation between longitudinal and transverse bosons can be achieved. It would be interesting to study this problem in more detail.
 
 
-In all cases, we have identified taggers that outperform, in both robustness and tagging performance, those currently used by the ATLAS and CMS collaborations. We therefore believe that further studies using more detailed simulations of the ATLAS and CMS detectors, and ultimately on real data, would be of significant interest. More generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
+We have identified a  number of new two prong taggers that outperform, in both robustness and tagging performance, those currently used by the ATLAS and CMS collaborations. These findings are summarized in \Fig{fig:phasespace}, which also lists a number of promising new observables. We therefore believe that further studies using more detailed simulations of the ATLAS and CMS detectors, and ultimately on real data, would be of significant interest. More generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
 
 
 
