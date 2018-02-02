@@ -1297,16 +1297,15 @@ The effect of hadronization on two prong substructure observables has been studi
 
 
 \begin{figure}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=1]{figures/shape-distribs.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=2]{figures/shape-distribs.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=3]{figures/shape-distribs.pdf}
-  %
+}
   \caption{Distribution of three representative shapes: $D_2^{(1)}$
     computed on the trimmed jet (ATLAS-like), $N_2^{(1)}$ computed on
     the tight (mMDT) jet and the dichroic $D_2^{(2)}$ with numerator
@@ -1356,30 +1355,28 @@ In \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} we show the perfo
 
 
 \begin{figure}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=25]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=13]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=31]{figures/grooming-scan-levels.pdf}
-  %
+}
   \caption{Plots of the peformance-resilience plane under the addition of hadronization effects for the standard jet shape observables with different grooming strategies.}\label{fig:grooming-hadronisation}
 \end{figure}
 
 \begin{figure}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=61]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=55]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=49]{figures/shape-scan-levels.pdf}
-  %
+}
   \caption{Plots of the peformance-resilience plane under the addition of hadronization effects for different jet shape observables, with fixed grooming strategies.}\label{fig:shapes-hadronisation}
 \end{figure}
 
@@ -1395,30 +1392,28 @@ In \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} we show the perfo
 We can now repeat the same exercise, to study the robustness to UE. The results in the performance-resilience plane are shown in \Figs{fig:grooming-UE}{fig:shapes-UE}. These are identical to \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} but measure the robustness to UE instead of hadronization. The first thing that is clear from comparing \Figs{fig:grooming-hadronisation}{fig:shapes-hadronisation} with  \Figs{fig:grooming-UE}{fig:shapes-UE} is that with modern grooming techniques, we are comparatively much less sensitive to UE then to hadronization effects. With the exception of the tight$\otimes$plain/plain grooming strategy, all the standard observables with are robust to UE for all the different grooming strategies. Similarly, with the exception of the dichroic $D_2$ observable, all the different jet shape observables in this study are also robust to UE. We believe that this should be viewed as a success of modern grooming tools. We also believe that it is desirable, since UE effects are much less under theoretical control than hadronization effects. 
 
 \begin{figure}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=26]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=14]{figures/grooming-scan-levels.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=32]{figures/grooming-scan-levels.pdf}
-  %
+}
   \caption{Plots of the peformance-resilience plane going from hadron level to truth level (inclusion of UE) for the standard jet shape observables with different grooming strategies.}\label{fig:grooming-UE}
 \end{figure}
 
 \begin{figure}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=62]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
+ }
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=56]{figures/shape-scan-levels.pdf}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
   \includegraphics[width=0.32\textwidth,page=50]{figures/shape-scan-levels.pdf}
-  %
+}
   \caption{Plots of the peformance-resilience plane going from hadron level to truth level (inclusion of UE) for different jet shape observables, with fixed grooming strategies.}\label{fig:shapes-UE}
 \end{figure}
 
@@ -1568,8 +1563,12 @@ Similarly, \atrk{} and \ctrk{} are used in Eq.~\ref{eq:trkreso} to determine the
 \begin{figure}
 \begin{center}
 %%%%\includegraphics[width=1.0\columnwidth]{figures/CMS_vs_ATLAS_detector}
-\includegraphics[width=0.48\columnwidth]{figures/jets_in_atlas}\quad
+\subfloat[]{
+\includegraphics[width=0.48\columnwidth]{figures/jets_in_atlas}
+}
+\subfloat[]{
 \includegraphics[width=0.48\columnwidth]{figures/jets_in_cms}
+}
 \end{center}
 \caption{An illustration of the basic jet features for the configuration A (ATLAS-like, calorimeter only) and configuration C (CMS-like, particle flow using tracks and calorimeter) detector signal models. The solid black arrows indicate the jet composition from representations of neutral (pale blue) and charged (pale red) particles by calorimeter towers or reconstructed tracks. The green dashed curves show charged particle tracks bend in the magnetic field. Both illustrations show the same truth-level jet.}
 \label{fig:detmodel}
@@ -1679,19 +1678,25 @@ SoftKiller has been shown to provide good performance for removing pile-up conta
 \subsection{Impact on Mass Resolution}\label{sec:detector_robust}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section we performa study of the impact of detector effects on mass resolution. This will highlight the need to perform a more sophisticated study when considering detector effects, which will be left to a future publication.
+In this section we perform a study of the impact of detector effects on mass resolution. This will highlight the need to perform a more sophisticated study when considering detector effects, which will be left to a future publication.
 
-\ijm{fill in}
+In \Fig{fig:mass-detector} we show distributions of the groomed mass in our CMS-like and ATLAS-like detectors at different values of the jet $p_T$.
 
 \begin{figure}
+\subfloat[]{
   \includegraphics[width=0.45\columnwidth]{figures/mass-detector.pdf}
-  \hfill
+}
+\subfloat[]{
   \includegraphics[width=0.45\columnwidth]{figures/mass-width-detector.pdf}
+  }
   \caption{Mass reconstruction with detector effects as a function of the jet $p_T$.}
   \label{fig:mass-detector}
 \end{figure}
 
 
+
+
+This highlights the essential importance of understanding detector effects when designing jet substructure observables. Although we have found that the $N_2$ and $D_2$ observables emphasize, respectively, performance and robustness, it would also be interesting to understand if the different detectors played a role in the choice of one observable as compared with the other. However, as highlighted by the specific example of the groomed jet mass in this section, this requires considerable care to perform in a meaningful manner, as significant calibration of the detectors is required. This is probably something that is best left to the experimental collaborations. We hope that this study motivates them to further investigate the performance and robustness of different two-prong tagging observables at each of the different steps along the chain of realism in order to understand the different choices in observables.
 
 
 
@@ -1818,11 +1823,12 @@ Iin \Fig{fig:polarization_roc} we show for concreteness the $D_2$ observable as 
 \begin{figure}
 \begin{center}
 %\includegraphics[width=0.4\columnwidth]{figures/polarisation-quality}
+\subfloat[]{
 \includegraphics[width=0.4\columnwidth]{figures/ROC_polarization}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
 \includegraphics[width=0.4\columnwidth]{figures/polarisation-basic-rocs}
+}
 \end{center}
 \caption{a) Distributions of the $D_2$ observable as measured on the samples with different polarization compositions. These observables are found to be largely insensitive to the polarization. b) ROC curves comparing the different grooming strategies for different polarization samples. While the polarization has a limited effect on the jet shape observables, it modifies the groomed mass acceptance, and therefore the tagging efficiency, significantly.}\label{fig:polarization_roc}
 \end{figure}
@@ -1857,11 +1863,12 @@ In \Fig{fig:z_g_dist} we show both the $z_g$ distribution for different polarize
 
 \begin{figure}
 \begin{center}
+\subfloat[]{
 \includegraphics[width=0.45\columnwidth]{figures/polarisation-zg-distrib}
-  %
-  \hfill
-  %
+}
+\subfloat[]{
 \includegraphics[width=0.45\columnwidth]{figures/polarisation-zg-roc}
+}
 \end{center}
 \caption{a) The $z_g$ distribution as measured on boosted $W$ samples with different polarization compositions. Transversely polarized $W$s behave similarly to the QCD background, while decent separation is observed between longitudinally polarized $W$s and transversely polarized $W$s. b) A ROC curve showing the separation between transversely- and longitudinally-polarized $W$ bosons using the $z_g$ observable. Moderate separation is observed.}
 \label{fig:z_g_dist}
