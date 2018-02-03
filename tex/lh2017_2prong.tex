@@ -245,17 +245,13 @@ Two-Prong Substructure Taggers for the LHC}
 \affiliation[4]{Theoretical Physics Group, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA}
 
 
-\abstract{The ability to robustly identify boosted hadronically-decaying resonances plays a central role at the LHC, both in
+\abstract{The ability to robustly identify, or ``tag", boosted hadronically-decaying resonances plays a central role at the LHC, both in
   searches for new physics, as well as for probing the Standard Model
   in extreme regions of phase space.
   %
   While a variety of powerful and
-  theoretically well-understood approaches exist, different behaviors
-  are often observed in realistic experimental
-  contexts.
-  %
-  Furthermore, the different LHC experiments use different jet analysis strategies,
-  without a well-understood motivation for those choices.
+  theoretically well-understood tagging approaches exist, their behavior in a realistic experimental environment is complicated by a number of issues including hadronization, underlying event, pile-up and detector effects.
+%
   %
   In this paper, we perform a
   systematic study contrasting the robustness and performance of
@@ -295,7 +291,7 @@ We conclude by making recommendations for future
 
 
 
-With the ever-increasing dataset from the Large Hadron Collider (LHC), we are able to probe the Standard Model and search for physics beyond the Standard Model in increasingly extreme regions of phase space.
+With the ever-increasing dataset from the Large Hadron Collider (LHC) we are able to probe the Standard Model and search for physics beyond the Standard Model in increasingly extreme regions of phase space.
 %
 Theoretically well-understood observables that are sensitive to such extreme regions of phase space are therefore playing an important role at the LHC.
 %
@@ -304,19 +300,19 @@ One of the most exciting new approaches which has emerged at the LHC are tools f
 Techniques from jet substructure have now been widely used for Standard Model measurements \cite{Chatrchyan:2012sn,CMS:2013cda,Aad:2015cua,Aad:2015lxa,ATLAS-CONF-2015-035,Aad:2015rpa,Aad:2015hna,ATLAS-CONF-2016-002,ATLAS-CONF-2016-039,ATLAS-CONF-2016-034,CMS-PAS-TOP-16-013,CMS-PAS-HIG-16-004} as well as for searches for new physics  \cite{CMS:2011bqa,Fleischmann:2013woa,Pilot:2013bla,TheATLAScollaboration:2013qia,Chatrchyan:2012ku,CMS-PAS-B2G-14-001,CMS-PAS-B2G-14-002,Khachatryan:2015axa,Khachatryan:2015bma,Aad:2015owa,Aaboud:2016okv,Aaboud:2016trl,Aaboud:2016qgg,ATLAS-CONF-2016-055,ATLAS-CONF-2015-071,ATLAS-CONF-2015-068,CMS-PAS-EXO-16-037,CMS-PAS-EXO-16-040,Khachatryan:2016mdm,CMS-PAS-HIG-16-016,CMS-PAS-B2G-15-003,CMS-PAS-EXO-16-017}.%
 \footnote{More LHC studies using jet substructure can be found at \url{https://twiki.cern.ch/twiki/bin/view/AtlasPublic} and \url{http://cms-results.web.cern.ch/cms-results/public-results/publications/}.} 
 
-With the growing importance of jet substructure techniques, there has been a significant effort by both the theory and experimental communities to develop a more detailed understanding of the theoretical and experimental behavior of jet substructure observables.
+With the growing importance of jet substructure techniques there has been a significant effort by both the theory and experimental communities to develop a more detailed understanding of the theoretical and experimental behavior of jet substructure observables.
 %
-On the theory side, this has been pursued through explicit calculations~\cite{Feige:2012vc,Field:2012rw,Dasgupta:2013ihk,Dasgupta:2013via,Larkoski:2014pca,Dasgupta:2015yua,Seymour:1997kj,Li:2011hy,Larkoski:2012eh,Jankowiak:2012na,Chien:2014nsa,Chien:2014zna,Isaacson:2015fra,Krohn:2012fg,Waalewijn:2012sv,Larkoski:2014tva,Procura:2014cba,Bertolini:2015pka,Bhattacherjee:2015psa,Larkoski:2015kga,Dasgupta:2015lxh,Frye:2016okc,Frye:2016aiz,Kang:2016ehg,Hornig:2016ahz,Marzani:2017mva,Marzani:2017kqd,Hoang:2017kmk,Larkoski:2017cqq,Larkoski:2017iuy}, scaling arguments~\cite{Walsh:2011fz,Larkoski:2014gra,Larkoski:2014zma}, and machine learning \cite{Cogan:2014oua,deOliveira:2015xxd,Almeida:2015jua,Baldi:2016fql,Guest:2016iqz,Conway:2016caq,Barnard:2016qma} approaches.
+On the theory side this has been pursued through explicit calculations~\cite{Feige:2012vc,Field:2012rw,Dasgupta:2013ihk,Dasgupta:2013via,Larkoski:2014pca,Dasgupta:2015yua,Seymour:1997kj,Li:2011hy,Larkoski:2012eh,Jankowiak:2012na,Chien:2014nsa,Chien:2014zna,Isaacson:2015fra,Krohn:2012fg,Waalewijn:2012sv,Larkoski:2014tva,Procura:2014cba,Bertolini:2015pka,Bhattacherjee:2015psa,Larkoski:2015kga,Dasgupta:2015lxh,Frye:2016okc,Frye:2016aiz,Kang:2016ehg,Hornig:2016ahz,Marzani:2017mva,Marzani:2017kqd,Hoang:2017kmk,Larkoski:2017cqq,Larkoski:2017iuy}, scaling arguments~\cite{Walsh:2011fz,Larkoski:2014gra,Larkoski:2014zma}, and machine learning \cite{Cogan:2014oua,deOliveira:2015xxd,Almeida:2015jua,Baldi:2016fql,Guest:2016iqz,Conway:2016caq,Barnard:2016qma} approaches.
 %
-On the experimental side, there have been detailed studies of the behavior of substructure observables in data, and their interplay with experimental realities, such as detector resolution and pile up.
+On the experimental side there have been detailed studies of the behavior of substructure observables in data, and their interplay with experimental realities, such as detector resolution and pile up.
 %
 Summaries can be found in \Refs{Abdesselam:2010pt,Altheimer:2012mn,Altheimer:2013yza,Adams:2015hiv}, and \cite{Larkoski:2017jix} provides a review of recent theoretical and machine learning developments in jet substructure. 
 
-As a result of these efforts, there now exist a number of theoretically well-motivated jet substructure tools.
+As a result of these efforts there now exist a number of theoretically well-motivated jet substructure tools.
 %
-For tagging hadronically-decaying $W/Z/H$ bosons, which decay primarily to jets with two well-resolved prongs, or subjets, a variety of powerful two-prong taggers have been developed.
+For tagging hadronically-decaying $W/Z/H$ bosons, which decay primarily to jets with two well-resolved prongs (also referred to as subjets), a variety of powerful two-prong taggers have been developed.
 %
-Modern two-prong taggers typically consist of two ingredients: a groomer and a jet shape observable.
+Modern two-prong taggers typically consist of two ingredients: a groomer which removes low energy contamination, and a jet shape observable which identifies the two-prong substructure.
 %
 For jet shapes, it is well understood how to organize and study their
 behavior using power counting \cite{Larkoski:2014gra}.
@@ -328,7 +324,7 @@ observables \cite{Thaler:2010tr,Thaler:2011gf}, and their relation is
 understood.
 %
 The behavior of groomers is also now well understood, and
-their exist groomers with favorable experimental and theoretical properties
+a number of groomers with favorable experimental and theoretical properties have been introduced
 \cite{Dasgupta:2013ihk,Larkoski:2014wba}.
 
 The
@@ -340,19 +336,18 @@ pile up.
 Indeed, the different LHC experiments have settled on different
 tagging combinations.
 %
-For grooming, which removes low energy
-contamination,  ATLAS using trimming \cite{Krohn:2009th} uses while CMS uses the Modified
+For grooming, ATLAS using trimming \cite{Krohn:2009th} uses while CMS uses the Modified
   Mass Drop Tagger~\cite{Dasgupta:2013ihk} and its generalization, Soft Drop \cite{Larkoski:2014wba}.
   %
   For jet shape observable, ATLAS uses $D_2$ \cite{Larkoski:2014gra,Larkoski:2015kga}, while CMS uses $N$-subjettiness ratio $\tau_{2,1}$ \cite{Thaler:2010tr,Thaler:2011gf} or $N_2$ \cite{Moult:2016cvt} with DDT \cite{Dolen:2016kst}.
   %
-  It is not clear whether these choices are driven by differences in the detectors, or an optimization with respect to different criteria, samples, or modeling, as it is generally not well understood the extent to which the substructure observables are robust to such issues. While detailed optimization must ultimately be performed by the experiments themselves, we believe that there is still much to be understood about the general organization and design of jet substructure observables.
+  It is not clear whether these choices are driven by differences in the detectors, or an optimization with respect to different criteria, samples, or modeling. While detailed optimization must ultimately be performed by the experiments themselves, we believe that there is still much to be understood about the general organization and design of jet substructure observables.
 
 In this paper, we perform a comprehensive study of performance and robustness for two-prong tagging techniques.
 %
-To frame the study, we use a theoretical organization into different tagging strategies based on the idea of dichroic observables \cite{Salam:2016yht}, which generalize ratio observables to allow hybrid combinations of groomed and ungroomed shapes.
+To frame the study we use a theoretical organization into different tagging strategies based on the idea of dichroic observables \cite{Salam:2016yht}, which generalize ratio observables to allow hybrid combinations of groomed and ungroomed shapes.
  %
- These categories contain as special instances all the familiar observables used by the experiments, as well as new observables, such as dichroic versions of the $N_2$ and $D_2$ observables.
+ These contain as special instances all the familiar observables used by the experiments, as well as new observables, such as dichroic versions of the $N_2$ and $D_2$ observables.
  %
  We therefore place the ATLAS and CMS strategies as specific examples of broader classes of theoretical approaches for tagging two-prong substructure, about which we can draw general conclusions regarding robustness and performance.
 
@@ -379,7 +374,9 @@ This allows us to study the robustness of each tagging strategy in general, and 
 In all cases, we are able to identify observables with improved robustness and performance as compared with those currently used by the experiments.
 %
 %
-As an additional aspect of this study, we also consider the robustness of the signal tagging efficiency to the polarization of the decaying boson, and study techniques to perform polarimetry for boosted hadronic decays. 
+
+
+As an additional aspect of this study, we also consider the robustness of the signal tagging efficiency to the polarization of the decaying boson. We show that while jet shape observables themselves are fairly robust to polarization, groomed mass cuts are not, so that the tagging efficiency depends strongly on the polarization. Furthermore, we propose that the momentum  asymmetry of the subjets is a good discriminant between the polarizations, and can be used to perform polarimetry for boosted hadronic decays. 
 
 
 
@@ -389,13 +386,11 @@ As an additional aspect of this study, we also consider the robustness of the si
 
 An outline of this paper is as follows.
 %
-In \Sec{sec:pres}, we define our metrics for studying robustness as well as how we will present our results.
+In \Sec{sec:pres}, we define our metrics for studying robustness.
 %
 We discuss the key physics issues that we would like to assess robustness to, both theoretical and experimental, and describe a chain of different steps in our simulation process such that each physics issue can be isolated and studied.
 %
-In \Sec{sec:obs_def}, we define all jet substructure observables that will be used throughout this paper.
-%
-This includes jet shapes, groomers, and techniques for pile-up suppression. We also provide details of our sample generation.
+In \Sec{sec:obs_def}, we define all jet substructure observables that will be used throughout this paper, and  provide details of our sample generation.
 %
 In \Sec{sec:hybrid_ratio}, we discuss theoretical approaches to designing robust two-prong taggers.
 %
@@ -405,9 +400,7 @@ In \Sec{sec:np}, we study the robustness of the observables to non-perturbative 
 %
 In \Sec{sec:exp}, we study robustness to detector and pile up.
 %
-In \Sec{sec:polar}, we study the robustness of substructure observables to the polarization of a decaying $W/Z$ boson.
-%
-We also introduce observables to distinguish polarized samples.
+In \Sec{sec:polar}, we study the robustness of substructure observables to the polarization of a decaying $W/Z$ boson, and introduce observables to distinguish polarized samples.
 %
 We summarize our results in \Sec{sec:conc} and make a number of recommendations for future jet substructure studies.
 
