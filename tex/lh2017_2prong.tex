@@ -1494,7 +1494,7 @@ PUPPI: \cite{Bertolini:2014bba}
 
 In this section we perform a study of the impact of detector effects on mass resolution. This will highlight the need to perform a more sophisticated study when considering detector effects, which will be left to a future publication.
 
-In \Fig{fig:mass-detector} we show distributions of the groomed mass for a hadronically decaying boosted W boson in our CMS-like and ATLAS-like detectors at different values of the jet $p_T$. We see that the detector has a significant impact on the distributions, particularly as the $p_T$ is increased. We also see that both detectors have a similar performance, despite their different approaches. Despite the fact that CMS has particle flow, at high $p_T$ there is a trade off between tracking and calorimetry, which is better in ATLAS, leading to comparable detector resolution. We also emphasize that we have not performed a calibration. Due to the fact that the end results of the two detectors are quite similar, we find it unwise to draw any deeper conclusions, since there are potentially other effects, not included in our simulation that could determine the final result.
+In \Fig{fig:mass-detector} we show distributions of the groomed mass for a hadronically decaying boosted W boson in our CMS-like and ATLAS-like detectors at different values of the jet $p_T$. We see that the detector has a significant impact on the distributions, particularly as the $p_T$ is increased. We also see that both detectors have a similar performance, despite their different approaches. Despite the fact that CMS has particle flow, at high $p_T$ there is a trade off between tracking and calorimetry, which is better in ATLAS, leading to comparable detector resolution. Furthermore, in the full experiments, the reconstruction algorithms are complementary and adapted to the experiments' detector technologies to achieve similar performance. Due to the fact that the end results of the two detectors are quite similar, we find it unwise to draw any deeper conclusions, since there are potentially other effects, not included in our simulation that could determine the final result.
 
 
 
@@ -1512,7 +1512,7 @@ In \Fig{fig:mass-detector} we show distributions of the groomed mass for a hadro
 
 
 
-This short study highlights the essential importance of understanding detector effects when designing jet substructure observables. Although we have found that the $N_2$ and $D_2$ observables emphasize, respectively, performance and robustness, it would also be interesting to understand if the different detectors played a role in the choice of one observable as compared with the other. However, as highlighted by the specific example of the groomed jet mass in this section, this requires considerable care to perform in a meaningful manner, since the detectors have a large impact, and the two detectors appear qualitatively similar in our analysis setup. Differences may therefore be due to more subtle features, beyond those included in our study, and this is probably something that is best left to the experimental collaborations to study with realistic detector simulations. We hope that this study motivates the experimental collaborations to further investigate the performance and robustness of different two-prong tagging observables at each of the different steps along the chain of realism in order to understand the different choices in observables.
+This short study highlights the essential importance of understanding detector effects when designing jet substructure observables. Although we have found that the $N_2$ and $D_2$ observables emphasize, respectively, performance and robustness, it would also be interesting to understand if the different detectors played a role in the choice of one observable as compared with the other. However, as highlighted by the specific example of the groomed jet mass in this section, this study requires considerable care to perform in a meaningful manner. The detectors have a large impact, and the two detectors appear qualitatively similar in our analysis setup. Differences may therefore be due to more subtle features, beyond those included in our study, and this is probably something that is best left to the experimental collaborations to study with realistic detector simulations. We hope that this study motivates the experimental collaborations to further investigate the performance and robustness of different two-prong tagging observables at each of the different steps along the chain of realism in order to understand the different choices in observables.
 
 
 
@@ -1531,7 +1531,7 @@ background QCD jets one is interested in robustness to additional QCD
 contamination and detector effects. For signal jets, there is another variable, namely the specific nature of the decaying electroweak scale particle, which can also affect the substructure observables.
 %
 Assuming
-that this is a color singlet decaying to quarks, it is completely
+that this electroweak scale particle is a color singlet decaying to quarks, it is completely
 characterized by its spin structure.
 %
 
@@ -1544,13 +1544,13 @@ characterized by its spin structure.
 
 All of our taggers consist of two conceptually distinct components, which will be affected in different ways by the polarization.
 %
-In particular, for all of our taggers we begin by making a cut on the (groomed) mass, followed by a cut on a particular jet shape which is sensitive to the two-prong structure. These two steps are associated with very different physics. A jet from a $W\to q\bar q$ decay consists of two collimated sprays of radiation, which are proxies for the $q$ and $\bar q$, along with radiation emitted from the dipole.
+We begin by making a cut on the (groomed) mass, followed by a cut on a particular jet shape which is sensitive to the two-prong structure. These two steps are associated with very different physics. A jet from a $W\to q\bar q$ decay consists of two collimated sprays of radiation, which are proxies for the $q$ and $\bar q$, along with radiation emitted from the dipole.
 %
 Ideally, a groomer should terminate when it de-clusters the jet into two subjets corresponding to the jets initiated by the two quarks.
 %
-However, if there are a large fraction of decays where the momentum sharing between the two subjets is hierarchical, then the groomer can remove one of the subjets.
+However, if there is a large fraction of decays where the momentum sharing between the two subjets is hierarchical, then the groomer can remove one of the subjets.
 %
-In this case, the jet will fail to pass the groomed mass criteria.
+In this case, the jet will fail the groomed mass criteria.
 %
 Since the polarization controls the momentum sharing of the subjets, this introduces a sensitivity on the polarization into the tagging procedure.
 %
@@ -1559,7 +1559,7 @@ On the other hand, the $2$-prong tagging observables that we consider are all fo
 
 In this section we consider two main issues, namely
 the dependence of the standard jet substructure observables to the
-polarization of the signals, and the ability to tag polarizations
+polarization of the signals, and the ability to perform polarimetry
 using jet substructure observables measured on the hadronic decay
 products.
 
@@ -1570,7 +1570,7 @@ products.
 
 We begin by studying the sensitivity of two-prong taggers to polarization. To do this, we will consider samples of hadronically decaying $W$s, which are either purely transversely polarized, purely longitudinally polarized, or have the Standard Model fraction (mostly transverse). The details of the sample generation were discussed in \Sec{sec:samples_sub}.
 
-In \Fig{fig:polarization_dist} we show the $D_2$ observable as measured on longitudinal and transverse hadronically decaying W bosons, as well as the SM mixture, as a representative example of the dependence of a two-prong tagger on polarization. From this figure, we see that the jet shape observable itself is remarkably insensitive to the polarization, due to its ratio nature. However, it is important to emphasize that this does not imply that the tagging performance is also independent of the polarization. As can be seen in \Fig{fig:polarization_roc} the tagging performance is significantly worse for transversely polarized W bosons as compared with longitudinally polarized W bosons. This is due to the fact that transversely polarized W bosons have a more asymmetric energy sharing, and it is therefore more likely that one of the subjet prongs is groomed away, leading to the jet failing the mass cut. This difference between longitudinally and transversely polarized bosons should be taken into account in studies at the LHC. It would be interesting to develop tagging or reconstruction schemes that are less sensitive to polarization.
+In \Fig{fig:polarization_dist} we show the $D_2$ observable as measured on longitudinal and transverse hadronically decaying W bosons, as well as the SM mixture, as a representative example of the dependence of a two-prong tagger on polarization. From this figure we see that the jet shape observable itself is remarkably insensitive to the polarization, due to its ratio nature. However, it is important to emphasize that this does not imply that the tagging performance is also independent of the polarization. As can be seen in \Fig{fig:polarization_roc}, the tagging performance is significantly worse for transversely polarized W bosons as compared with longitudinally polarized W bosons. This is due to the fact that transversely polarized W bosons have a more asymmetric energy sharing, and it is therefore more likely that one of the subjet prongs is groomed away, leading to the jet failing the mass cut. This difference between longitudinally and transversely polarized bosons should be taken into account in studies at the LHC. It would also be interesting to develop tagging or reconstruction schemes that are less sensitive to polarization.
 
 
 
@@ -1591,7 +1591,7 @@ In \Fig{fig:polarization_dist} we show the $D_2$ observable as measured on longi
 \subsection{Tagging Longitudinal vs.\ Transverse Bosons}\label{sec:polar_tag}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Having understood the robustness of the standard jet substructure observables to polarization, it is an interesting question to understand if jet substructure observables are able to tag distinct polarizations on hadronically decaying particles, and with what efficiency this can be done.
+Having understood the dependence of standard jet substructure observables on polarization, it is an interesting question to understand if jet substructure observables are able to tag distinct polarizations on hadronically decaying particles, and with what efficiency this can be done.
 %
 Since the standard two-prong tagging observables are not particularly sensitive to the polarization, a different observable must be used to tag polarizations.
 %
@@ -1607,13 +1607,15 @@ While a variety of different observables could be considered, here we consider t
 \begin{align}
 z_g=\frac{\min\left[ p_{Ti}, p_{Tj}  \right]}{p_{Ti}+p_{Tj}}\,.
 \end{align}
+Here $p_{Ti}$ and $p_{Tj}$ are the momenta of the first set of subjets that pass the soft drop criteria.
+
 
 Since we are focused on robustness in this paper, it is also worth commenting on the robustness of the $z_g$ observable. For signal jets, since this observable measures global energy properties of the subjets, it is stable.
 %
 Interestingly, it is also remarkably stable on the background, where it flows in the high $p_T$ limit to the QCD splitting function \cite{Larkoski:2014wba,Larkoski:2014bia,Larkoski:2015lea}.
 
 
-In \Fig{fig:z_g_dist} we show the $z_g$ distribution for different polarized W bosons, For reference, the $z_g$ distribution for QCD dijets is also shown. The $z_g$ distribution for transversely polarized $W$ bosons follows most closely the QCD distribution, as expected, being peaked at small values of $z_g$. On the other hand, for longitudinally polarized $W$ bosons, the $z_g$ distribution is peaked at high values of $z_g$. This illustrates that the $z_g$ observable is indeed behaving as expected, and is achieving sensitivity to the polarization of the decaying $W$ boson only from its hadronic decay products. In \Fig{fig:z_g_roc} we show  the ROC curve for separating longitudinal from transverse W bosons. Here we see that $z_g$ provides moderate separation power for tagging the polarization of the decaying W bosons. It would be interesting to investigate this further to see if more ideal observables could be found, however, we are not optimistic that significant improvement can be achieved, since the primary imprint of the polarization should be in the kinematics of the subjets.
+In \Fig{fig:z_g_dist} we show the $z_g$ distribution for different polarized W bosons. For reference, the $z_g$ distribution for QCD dijets is also shown. The $z_g$ distribution for transversely polarized $W$ bosons follows most closely the QCD distribution, as expected, being peaked at small values of $z_g$. On the other hand, for longitudinally polarized $W$ bosons, the $z_g$ distribution is peaked at high values of $z_g$. This illustrates that the $z_g$ observable is indeed behaving as expected, and is achieving sensitivity to the polarization of the decaying $W$ boson only from its hadronic decay products. In \Fig{fig:z_g_roc} we show  the ROC curve for separating longitudinal from transverse W bosons. Here we see that $z_g$ provides moderate separation power for tagging the polarization of the decaying W bosons. It would be interesting to investigate this further to see if more ideal observables could be found, however, we are not optimistic that significant improvement can be achieved, since the primary imprint of the polarization should be in the kinematics of the subjets.
 
 \begin{figure}
 \begin{center}
@@ -1633,7 +1635,7 @@ In \Fig{fig:z_g_dist} we show the $z_g$ distribution for different polarized W b
 \section{Summary and Recommendations}\label{sec:conc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we have performed a comprehensive study of performance and robustness for two-prong tagging, and provided a unifying approach to understanding different classes of two-prong taggers based on dichroic observables, which allow for different amounts of grooming in the numerator and denominator of observables.  We have introduced measures of robustness, in addition to the standard measures of performance, and we used these measures to study the resilience of two-prong taggers to theory issues, namely hadronization and underlying event.  We believe that these will be of more general utility in jet substructure, and could be applied also to study three-prong tagging, for example.
+In this paper, we have performed a comprehensive study of performance and robustness for two-prong tagging, and provided a unifying approach to understanding different classes of two-prong taggers based on dichroic observables, which allow for different amounts of grooming in the numerator and denominator of observables.  We have introduced measures of robustness, in addition to the standard measures of performance, and we used these measures to study the robustness of two-prong taggers to theory issues, namely hadronization and underlying event.  We believe that these will be of more general utility in jet substructure, and could be applied also to study three-prong tagging, for example.
 
 As a part of our study, we have also introduced a number of new dichroic observables, which generalize the dichroic $N$-subjettiness observables to observables formed from the energy correlation functions. This offers a general and unifying approach to designing new jet substructure observables which are simultaneously performant and resilient. We have shown that the $N_2$ style observables used by CMS tend to be more performant, but less resilient than the $D_2$ style observables used by ATLAS. For a given observable, we have found that moving to a dichroic variant can typically improve performance without significantly decreasing its robustness to hadronization.
 
