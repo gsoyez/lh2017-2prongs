@@ -1,6 +1,6 @@
-\documentclass[11pt,letterpaper]{article}
-\pdfoutput=1
-\usepackage{jheppub}
+\documentclass[11pt]{cernrep}
+\usepackage{graphicx,epsfig}
+\bibliographystyle{lesHouches}
 
 \usepackage[utf8]{inputenc}
 
@@ -36,39 +36,21 @@
 \title{Performance versus Robustness:\\
 Two-Prong Substructure Taggers for the LHC}
 
-\author[1]{Disha Bhatia,}
-\author[2]{Reina Camacho,}
-\author[3]{Grigorios Chachamis,}
-\author[1]{Suman Chatterjee,}
-\author[4]{Frederic Dreyer,}
-\author[5]{Deepak Kar,}
-\author[6]{Peter Loch,}
-\emailAdd{loch@physics.arizona.edu}
-\author[7,8]{Ian Moult,}
-\emailAdd{ianmoult@lbl.gov}
-\author[9]{Ben Nachman,}
-\emailAdd{bpnachman@lbl.gov}
-\author[10]{Andreas Papaefstathiou,}
-\author[11]{Tousik Samui,}
-\author[12]{Andrzej Siodmok,}
-\author[13]{Gregory Soyez,}
-\emailAdd{gregory.soyez@ipht.fr}
-\author[4]{and Jesse Thaler}
-\emailAdd{jthaler@mit.edu}
+\author{Disha Bhatia$^1$, Reina Camacho$^2$, Grigorios Chachamis$^3$, Suman Chatterjee$^1$, Frederic Dreyer$^4$, Deepak Kar$^5$, Peter Loch$^6$, Ian Moult$^{7,8}$, Ben Nachman$^9$, Andreas Papaefstathiou$^{10}$, Tousik Samui$^{11}$, Andrzej Siodmok$^{12}$, Gregory Soyez$^{13}$, and Jesse Thaler$^4$}
 
-\affiliation[1]{Tata Inst. of Fundamental Research, Mumbai, India}
-\affiliation[2]{Experimental Physics Department, CERN, CH-1211 Geneva 23, Switzerland}
-\affiliation[3]{Centro de Fisica Teorica y Matematicas, Madrid, Spain}
-\affiliation[4]{Center for Theoretical Physics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA}
-\affiliation[5]{University of the Witwatersrand, Johannesburg, South Africa}
-\affiliation[6]{University of Arizona, Tucson, AZ 85721, USA}
-\affiliation[7]{Berkeley Center for Theoretical Physics, University of California, Berkeley, CA 94720, USA}
-\affiliation[8]{Theoretical Physics Group, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA}
-\affiliation[9]{Physics Division, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA}
-\affiliation[10]{Nikhef, Theory Group, Science Park 105, 1098 XG, Amsterdam, The Netherlands}
-\affiliation[11]{Indian Institute of Technology, Kanpure, India}
-\affiliation[12]{Theoretical Physics Department, CERN, CH-1211 Geneva 23, Switzerland}
-\affiliation[13]{IPhT, CEA Saclay, CNRS UMR 3681, F-91191 Gif-sur-Yvette, France}
+\institute{$^1$Tata Inst. of Fundamental Research, Mumbai, India
+\\$^2$Experimental Physics Department, CERN, CH-1211 Geneva 23, Switzerland
+\\$^3$Centro de Fisica Teorica y Matematicas, Madrid, Spain
+\\$^4$Center for Theoretical Physics, Massachusetts Institute of Technology, Cambridge, MA 02139, USA
+\\$^5$University of the Witwatersrand, Johannesburg, South Africa
+\\$^6$University of Arizona, Tucson, AZ 85721, USA
+\\$^7$Berkeley Center for Theoretical Physics, University of California, Berkeley, CA 94720, USA
+\\$^8$Theoretical Physics Group, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA
+\\$^9$Physics Division, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA
+\\$^{10}$Nikhef, Theory Group, Science Park 105, 1098 XG, Amsterdam, The Netherlands
+\\$^{11}$Indian Institute of Technology, Kanpure, India
+\\$^{12}$Theoretical Physics Department, CERN, CH-1211 Geneva 23, Switzerland
+\\$^{13}$IPhT, CEA Saclay, CNRS UMR 3681, F-91191 Gif-sur-Yvette, France}
 
 
 
@@ -681,9 +663,6 @@ This kind of resonance decaying to longitudinally polarized $W$s appear in warpe
 On the other hand, models with graviton-like tensors with minimal couplings yield only transversely polarized $W$ bosons.
 %
 They were produced with the \textsc{JHUGEN} 3.1.8~\cite{Gao:2010qx,Bolognesi:2012mm} generator, interfaced with \textsc{PYTHIA} 8 \cite{Sjostrand:2007gs} for parton showering including the effect of hard gluon radiation.
-%
-%Additional samples interfaced with \textsc{Herwig} 7~\cite{Bahr:2008pv,Bellm:2015jjp} were also used to study shower differences.
-%
 A resonance width of 1\% was chosen.
 %
 Table~\ref{jetsub_2prong_table:polarisedSamples} shows the coupling values used to generate the polarised $W$ samples (see also Ref.~\cite{Gao:2010qx} for more information). 
@@ -1655,7 +1634,7 @@ We therefore believe that further studies using more detailed simulations of the
 sMore generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{acknowledgments}
+\section{Acknowledgments}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We thank the participants of Les Houches 2017 for a lively environment and useful discussions. The work of GS is supported in part by the Paris-Saclay IDEX under the
@@ -1669,11 +1648,11 @@ The work of IM is supported by Office of High Energy Physics of the U.S. Departm
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\end{acknowledgments}
+%\end{acknowledgments}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\bibliographystyle{jhep}
+
 \bibliography{lh2017_2prong}
 
 \end{document}
