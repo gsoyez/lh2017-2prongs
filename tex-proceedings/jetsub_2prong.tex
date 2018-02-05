@@ -1474,11 +1474,22 @@ $0.5\times 0.5$.
 \subsection{Impact on Mass Resolution}\label{jetsub_2prong_sec:detector_robust}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\gs{Check PU=50 is said somewhere and PU is discussed}
-
-We now perform a study of the impact of detector and pile-up effects on mass resolution.
+The impact of detector resolution and pile-up is far more complex than
+including the detector simulation discussed in
+Section~\ref{jetsub_2prong_sec:det_model}.
 %
-This will highlight the need to perform a more sophisticated study when considering detector effects, which will be left to a future publication.
+In particular, we have not performed any calibrations or in-situ
+corrections.
+%
+We have therefore limited the scope of these proceedings to a
+discussion of their effects on mass resolution.
+% 
+% We now perform a study of the impact of detector and pile-up effects
+% on mass resolution.
+%
+This will highlight the need to perform a more sophisticated study
+when considering detector effects, which will be left to a future
+publication.
 
 \begin{figure}
 \subfloat[]{
@@ -1491,22 +1502,57 @@ This will highlight the need to perform a more sophisticated study when consider
   \label{jetsub_2prong_fig:mass-detector}
 \end{figure}
 
-In Fig.~\ref{jetsub_2prong_fig:mass-detector}, we show distributions of the groomed mass for a hadronically decaying boosted $W$ boson in our CMS-like and ATLAS-like detectors at different values of the jet $p_T$.
+In Fig.~\ref{jetsub_2prong_fig:mass-detector}, we show distributions
+of the groomed mass for a hadronically decaying boosted $W$ boson in
+our CMS-like and ATLAS-like detectors at different values of the jet
+$p_T$ (Fig.~\label{jetsub_2prong_fig:mass-detector}a), together with
+the measure peak positipn and width\footnote{The position and width
+  are defined as the median and width of the smallest mass window
+  containing 40\% of the events.}, for the trimmed mass with the
+ATLAS-like detector simulation and the tight (mMDT) mass with the
+CMS-like simulation, Fig.~\label{jetsub_2prong_fig:mass-detector}b.
 %
-We see that the detector has a significant impact on the distributions, particularly as the $p_T$ is increased.
+We see that the detector has a significant impact on the
+distributions: while the $W$ peak remains decent for $500$-GeV jets,
+typical of most applications today, the raw resolution considerably
+degrades as the $p_T$ is increased.
 %
-We also see that both detectors have a similar performance, despite their different approaches.
+We also see that both detectors show a similar trend, despite their
+different approaches.
 %
-Despite the fact that CMS has particle flow, at high $p_T$ there is a trade off between tracking and calorimetry, which is better in ATLAS, leading to comparable detector resolution.
+For $p_T$'s up to 1~TeV, it seems that the configuration C gives a
+slightly better resolution thans the configuration A, an effect that
+is tentatively attributed to particle flow.
 %
-Furthermore, in the full experiments, the reconstruction algorithms are complementary and adapted to the experiments' detector technologies to achieve similar performance.
+However, at high $p_T$ there is a trade off between tracking and
+calorimetry, which is better in ATLAS, leading to comparable detector
+resolution.
 %
-Due to the fact that the end results of the two detectors are quite similar, we find it unwise to draw any deeper conclusions, since there are potentially other effects, not included in our simulation, that could determine the final result.
+Furthermore, in the full experiments, the reconstruction algorithms
+are complementary and adapted to the experiments' detector
+technologies, so that the two experiments achieve similar performance.
+%
+Due to the fact that the end results of the two detectors are quite
+similar, we find it unwise to draw any deeper conclusions, since there
+are potentially other effects, not included in our simulation, that
+could determine the final outcome.
+
+Fig.~\label{jetsub_2prong_fig:mass-detector}b also includes the mass
+resolution in the presence of pileup, here Poisson-distributed with an
+average multiplicity of 50, mitigated using the SoftKiller method
+described in the previous Section. Based on this simple analysis, it
+seems that the reconstruction of $W$ mass peak still behaves properly
+in the presence of pileup.
 
 
-This short study highlights the essential importance of understanding detector effects when designing jet substructure observables.
+This brief study described above highlights the essential importance
+of understanding detector effects when designing jet substructure
+observables.
 %
-Although we have found that the $N_2$ and $D_2$ observables emphasize, respectively, performance and robustness, it would also be interesting to understand if the different detectors played a role in the choice of one observable as compared with the other.
+Although we have found that the $N_2$ and $D_2$ observables emphasize,
+respectively, performance and robustness, it would also be interesting
+to understand if the different detectors played a role in the choice
+of one observable as compared with the other.
 %
 As highlighted by the specific example of the groomed jet mass in this section, such a study requires considerable care to perform in a meaningful manner.
 %
@@ -1693,7 +1739,7 @@ These findings are summarized in Fig.~\ref{jetsub_2prong_fig:phasespace}, which 
 %
 We therefore believe that further studies using more detailed simulations of the ATLAS and CMS detectors, and ultimately on real data, would be of significant interest.
 %
-sMore generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
+More generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acknowledgments}
