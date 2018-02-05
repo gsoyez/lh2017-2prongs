@@ -50,7 +50,7 @@ Two-Prong Substructure Taggers for the LHC}
 \\$^{10}$Nikhef, Theory Group, Science Park 105, 1098 XG, Amsterdam, The Netherlands
 \\$^{11}$Indian Institute of Technology, Kanpure, India
 \\$^{12}$Theoretical Physics Department, CERN, CH-1211 Geneva 23, Switzerland
-\\$^{13}$IPhT, CEA Saclay, CNRS UMR 3681, F-91191 Gif-sur-Yvette, France}
+\\$^{13}$IPhT, CEA Saclay, CNRS, Universit\'e Paris-Saclay, 91191 Gif-sur-Yvette, France}
 
 
 
@@ -1382,37 +1382,87 @@ The two model configurations produce significantly different jet compositions, i
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Pile-Up Removal}\label{jetsub_2prong_sec:pu_tech}
+\subsection{Pile-Up Mitigation}\label{jetsub_2prong_sec:pu_tech}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Due to the high pile-up environment of the LHC, pile-up mitigation techniques \cite{Cacciari:2007fd,Alon:2011xb,Soyez:2012hv,Tseng:2013dva,Krohn:2013lba,Cacciari:2014gra,Bertolini:2014bba} are also widely used, which eliminate soft radiation from the event.
+Besides the detector response discussed above, LHC collisions are also
+contaminated by pile-up.
 %
-Since this radiation is uncorrelated with the underlying hard scattering, this can in principle be done, and a variety of techniques exist.
+While pileup multiplicities remained reasonably low, around 20, during Run~I of
+the LHC, they already increased to 40-60 in Run~II and are expected to
+increase even further, in the 140-200 range, for the high-luminosity
+upgrade of the LHC.
+
+To correct for the energy bias and smearing associated with the
+pile-up contaminsation, one uses a variety of pile-up mitigation
+techniques (see~\cite{Soyez:2018opl} for a recent review). The
+standard approach for most applications is the area--median
+subtraction
+method~\cite{Cacciari:2007fd,Cacciari:2008gn,AlcarazMaestre:2012vp,Soyez:2012hv}
+(potentially using the ConstituentSubtractor~\cite{Berta:2014eza} for
+subtracting pileup from jet shapes). More recently, more complex
+pileup subtraction methods have been
+proposed~\cite{Krohn:2013lba,Bertolini:2014bba,Cacciari:2014gra} (see
+also~\cite{Tseng:2013dva,Cacciari:2014jta}). In particular,
+PUPPI~\cite{Bertolini:2014bba} and the
+SoftKiller~\cite{Cacciari:2014gra} both provide event-wide pile-up
+mitigation techniques that show good performance in terms of
+resolution, at the expense of requiring some degree of fine-tuning of
+their free parameters.
 %
-In this paper we use Area Subtraction \cite{Cacciari:2007fd,Cacciari:2008gn} and SoftKiller \cite{Cacciari:2014gra} as representative of these techniques.
+PUPPI has already been used by the CMS collaboration in a series of
+jet-substructure sudies.
 
-In the SoftKiller approach, the event is broken into patches, and we define
+For these proceedings, we will concentrate on the SoftKiller approach,
+simply motivated by its speed --- for a typical LHC event with pileup
+would be subtracted and clustered in 200-700~$\mu$s.
+%
+The SoftKiller works by iteratively removing the softest particle in
+the event until the area--median pileup density estimate $\rho$ is
+zero. This is equivalent to breaking the event in patches and
+iteratively removing the softest particle in the event until half of
+the patches are empty, i.e. imposing a cut
+%
 \begin{align}
-\rho= \text{median} \left \{ \frac{p_{Ti}}{A_i}   \right \}\,.
+p_T^{\text{cut}}=\underset{p \in \text{patches}}{\text{median}}\Big\{
+  \underset{\text{particle }i\in p}{\text{max}}\{ p_{Ti}\}\Big\}\,.
 \end{align}
-SoftKiller then removes particles below a cutoff $p_T^{\text{cut}}$, chosen such that $\rho=0$. We have
-\begin{align}
-p_T^{\text{cut}}=\text{median} \{ p_{Ti}^{\text{max}} \}\,.
-\end{align}
-SoftKiller has been shown to provide good performance for removing pile-up contamination.
+%
+The patches are usually defined using a rectangular grid in rapidity
+and azimuth. In our study below, we have adopted a grid of size
+$0.5\times 0.5$.
 
-\gs{A few points (I'll try to come back to
-  this part later): (i) maybe the 1st equation could go into the
-  area--median description, (ii) do we want to give all the deteails
-  of the area--median parameters we've used (I'd say yes), (iii) we
-  should mention that SK is fast, (ic) wqe should add a reference to
-  PUPPI as an alternative used by CMS.}
 
-PUPPI: \cite{Bertolini:2014bba}
+
+% Due to the high pile-up environment of the LHC, pile-up mitigation
+% techniques
+% are also widely used, which eliminate soft radiation from the event.
+% %
+% Since this radiation is uncorrelated with the underlying hard
+% scattering, this can in principle be done, and a variety of techniques
+% exist.
+% %
+% In this paper we use Area Subtraction
+% \cite{Cacciari:2007fd} and SoftKiller
+% \cite{Cacciari:2014gra} as representative of these techniques.
+% 
+% In the SoftKiller approach, the event is broken into patches, and we
+% define
+% \begin{align}
+% \rho= \text{median} \left \{ \frac{p_{Ti}}{A_i}   \right \}\,.
+% \end{align}
+% SoftKiller then removes particles below a cutoff $p_T^{\text{cut}}$, chosen such that $\rho=0$. We have
+% \begin{align}
+% p_T^{\text{cut}}=\text{median} \{ p_{Ti}^{\text{max}} \}\,.
+% \end{align}
+% SoftKiller has been shown to provide good performance for removing
+% pile-up contamination.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Impact on Mass Resolution}\label{jetsub_2prong_sec:detector_robust}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\gs{Check PU=50 is said somewhere and PU is discussed}
 
 We now perform a study of the impact of detector and pile-up effects on mass resolution.
 %
