@@ -1342,7 +1342,7 @@ The direction of neutral particles is the generated direction at the vertex, whi
 into the calorimeter. 
 This entry point is calculated using the particle trajectory in an axial uniform magnetic field of $B_{\text{solenoid}} = 2$%
  T and the radius $R_{\text{calo}} = 1150$ mm of
-on the calorimeter front face.
+ the calorimeter front face.
 If the transverse momentum of the charged particle  is too low to reach the calorimeter, i.e.\ its trajectory in the magnetic field does not exceed $R_{\text{calo}}$, 
 the particle is considered invisible for the detector and thus ignored for further analysis.   
 For particles reaching the calorimeter, the (bent) trajectory is not radial anymore at the front face.
@@ -1398,20 +1398,20 @@ The two model configurations produce significantly different jet compositions, i
 Besides the detector response discussed above, LHC collisions are also
 contaminated by pile-up.
 %
-While pileup multiplicities remained reasonably low, around 20, during Run~I of
+While pile-up multiplicities remained reasonably low, around 20, during Run~I of
 the LHC, they already increased to 40-60 in Run~II and are expected to
 increase even further, in the 140-200 range, for the high-luminosity
 upgrade of the LHC.
 
 To correct for the energy bias and smearing associated with the
-pile-up contaminsation, one uses a variety of pile-up mitigation
+pile-up contamination, one uses a variety of pile-up mitigation
 techniques (see~\cite{Soyez:2018opl} for a recent review). The
 standard approach for most applications is the area--median
 subtraction
 method~\cite{Cacciari:2007fd,Cacciari:2008gn,AlcarazMaestre:2012vp,Soyez:2012hv}
 (potentially using the ConstituentSubtractor~\cite{Berta:2014eza} for
-subtracting pileup from jet shapes). More recently, more complex
-pileup subtraction methods have been
+subtracting pile-up from jet shapes). Recently, more complex pile-up
+subtraction methods have been
 proposed~\cite{Krohn:2013lba,Bertolini:2014bba,Cacciari:2014gra} (see
 also~\cite{Tseng:2013dva,Cacciari:2014jta}). In particular,
 PUPPI~\cite{Bertolini:2014bba} and the
@@ -1423,9 +1423,11 @@ their free parameters.
 PUPPI has already been used by the CMS collaboration in a series of
 jet-substructure sudies.
 
-For these proceedings, we will concentrate on the SoftKiller approach,
-simply motivated by its speed --- for a typical LHC event with pileup
-would be subtracted and clustered in 200-700~$\mu$s.
+For these proceedings, we will concentrate on the SoftKiller approach.
+This is motivated by its speed --- for a typical LHC event with pileup
+would be subtracted and clustered in 200-700~$\mu$s --- by the fact
+that a public implementation is available, and by the fact that the
+SoftKiller and PUPPI have shown similar performance.
 %
 The SoftKiller works by iteratively removing the softest particle in
 the event until the area--median pileup density estimate $\rho$ is
