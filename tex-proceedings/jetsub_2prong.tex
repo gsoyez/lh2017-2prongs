@@ -1,3 +1,30 @@
+%% GS todo:
+%%
+%% - Fig.7 needs to be updated to include the 3 benchmark points and
+%%   R=0.8 only.
+%% 
+%% 
+%% - the "(dichroic)" label in the two leftmost plots of Figs.9 and 11 is
+%%   a bit of a misnomer. We could rename them as "(LH[D]D2)", possibly
+%%   with a / across the 1st D? [and a similar renaminig for Figs 8 and
+%%   10. What do you think?
+%% 
+%% - Section 5.3 is. to me the main take-home message of the
+%%   proceedings. Is there a way to highlight this better?
+%% 
+%% - Fig. 12: highlight "our pick" [this one is obviously on me]
+%% 
+%% - Detector sim: what about adding a link to Peter's code (adding some
+%%   piece of info there to mention that he is the author of the code)?
+%% 
+%% - Fig. 13: highlight "LHDD22"
+%% 
+%% - For Peter, what do the two terms in (23) (track smearing) correspond
+%%   to?
+%% 
+%% - Section 7.1, figure 15a: specify the grooming strategy for D2
+
+
 \documentclass[11pt]{cernrep}
 \usepackage{graphicx,epsfig}
 \bibliographystyle{lesHouches}
@@ -1373,7 +1400,7 @@ The names of a large variety of those observables which lie on the upper boundar
 
 Looking more closely at the observables along this upper boundary, we see that there is in fact considerable structure, and a number of general lessons can be learned.
 %
-First, as we move along this boundary from least resilient to most resilient, we transition from $N_2$ observables which are the most performant, but less robust, through $D_2$, to $M_2$, which is more robust, but less performant.
+First, as we move along this boundary from least resilient to most resilient, we transition from $N_2^{(1,2)}$ observables which are the most performant, but less robust, through $D_2^{(2)}$, to $M_2^{(2)}$, which is more robust, but less performant.
 %
 This was also clearly observed in the distributions of Fig.~\ref{jetsub_2prong_fig:shape-distribution}.
 %
@@ -1385,7 +1412,13 @@ We believe that it is worthwhile for the experiments to consider some of the dic
 %
 We have highlighted in Fig.~\ref{jetsub_2prong_fig:phasespace} that a whole interesting phase space of such observables exist, which map out the performance-resilience plane.
 %
-Different observables could be chosen depending on the particular needs of a given study.
+Different observables could be chosen depending on the particular
+needs of a given study.
+%
+Note finally, that the above study has been carried using a specific
+choices of grooming strategies (loose and tight). There is therefore a
+potential additional gain that can be achieved by studying alternative
+(more or less aggressive) options.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1643,20 +1676,20 @@ publication.
 }
 \subfloat[]{
   \includegraphics[width=0.45\columnwidth]{jetsub_2prong_mass-width-detector.pdf}
-  }
-  \caption{Mass reconstruction with detector effects as a function of the jet $p_T$.}
-  \label{jetsub_2prong_fig:mass-detector}
+}
+  \caption{Mass reconstruction with detector effects as a function of
+  the jet $p_T$.}\label{jetsub_2prong_fig:mass-detector}
 \end{figure}
 
 In Fig.~\ref{jetsub_2prong_fig:mass-detector}, we show distributions
 of the groomed mass for a hadronically decaying boosted $W$ boson in
 our CMS-like and ATLAS-like detectors at different values of the jet
-$p_T$ (Fig.~\label{jetsub_2prong_fig:mass-detector}a), together with
+$p_T$ (Fig.~\ref{jetsub_2prong_fig:mass-detector}a), together with
 the measure peak positipn and width\footnote{The position and width
   are defined as the median and width of the smallest mass window
   containing 40\% of the events.}, for the trimmed mass with the
 ATLAS-like detector simulation and the tight (mMDT) mass with the
-CMS-like simulation, Fig.~\label{jetsub_2prong_fig:mass-detector}b.
+CMS-like simulation, Fig.~\ref{jetsub_2prong_fig:mass-detector}b.
 %
 We see that the detector has a significant impact on the
 distributions: while the $W$ peak remains decent for $500$-GeV jets,
@@ -1682,8 +1715,14 @@ Due to the fact that the end results of the two detectors are quite
 similar, we find it unwise to draw any deeper conclusions, since there
 are potentially other effects, not included in our simulation, that
 could determine the final outcome.
+%
+We will however point out that, in our (over-simplified) preliminary
+studies, the main patterns observed in
+Section~\ref{jetsub_2prong_sec:exp_compare}, e.g. the overall good
+performance of $N_2^{(1,2)}$ and $D_2^{(2)}$ and the interest in
+investigating dichroic ratios, seem to remain valid.
 
-Fig.~\label{jetsub_2prong_fig:mass-detector}b also includes the mass
+Fig.~\ref{jetsub_2prong_fig:mass-detector}b also includes the mass
 resolution in the presence of pileup, here Poisson-distributed with an
 average multiplicity of 50, mitigated using the SoftKiller method
 described in the previous Section. Based on this simple analysis, it
@@ -1796,7 +1835,9 @@ It would also be interesting to develop tagging or reconstruction schemes that a
 
 Having understood the dependence of standard jet substructure observables on polarization, it is interesting to know whether jet substructure observables are able to tag distinct polarizations on hadronically-decaying particles, and with what efficiency this can be done.
 %
-Since the standard two-prong tagging observables are not particularly sensitive to the polarization, a different observable must be used to tag polarizations.
+% Since the standard two-prong tagging observables are not particularly
+% sensitive to the polarization, a different observable must be used to
+% tag polarizations.
 %
 Here, we do not perform a comprehensive study, but restrict ourselves to studying a particular example of an observable which is sensitive to the $W$ polarization, and we evaluate its performance for distinguishing transverse and longitudinal $W$ bosons. 
 
