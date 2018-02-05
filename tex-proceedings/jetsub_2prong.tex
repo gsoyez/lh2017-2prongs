@@ -68,17 +68,16 @@ Two-Prong Substructure Taggers for the LHC}
   different theoretical approaches to designing jet substructure
   observables.
   %
-  These include the standard observables $\tau_{21}$,
-  $D_2$, and $N_2$, as well as various grooming strategies currently used by the LHC
-  experiments.
+  These include standard jet shape observables as well as various grooming
+  strategies currently used by the LHC experiments.
   %
   We also introduce a number of new observables, based on the idea of
   ``dichroic ratios'', which are designed to simultaneously maximize both
   robustness and performance.
   %
-For background QCD jets, we focus on the
-  theoretical robustness to non-perturbative effects and the experimental
-  robustness to detector effects. 
+  % For background QCD jets, we focus on the
+  % theoretical robustness to non-perturbative effects and the experimental
+  % robustness to detector effects. 
   %
   %
   We discuss
@@ -743,17 +742,18 @@ More explicitly, Ref.~\cite{Salam:2016yht} considered the three observables:
 %
 and argued that the dichroic combination was optimal for performance, while also increasing the robustness to non-perturbative contamination.
 %
-Here we briefly summarize the motivation for the dichroic observable, following closely the presentation in Ref.~\cite{Salam:2016yht}. 
+Here we briefly summarize the motivation for the dichroic observable.
+%, following closely the presentation in Ref.~\cite{Salam:2016yht}. 
 %
 Readers interested in a more detailed discussion of the dichroic approach, including perturbative calculations, are referred to Ref.~\cite{Salam:2016yht}.
 
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=0.9\columnwidth]{jetsub_2prong_dichroic_placeholder}
-\end{center}
-\caption{Lund diagrams depicting the three possible kinematic configurations for $\tau_{21}$ with a cut on the mMDT/SoftDropped mass. A detailed explanation is provided in the text. Figure taken from Ref.~\cite{Salam:2016yht}.}
-\label{jetsub_2prong_fig:dichroic}
-\end{figure}
+% \begin{figure}[t]
+% \begin{center}
+% \includegraphics[width=0.9\columnwidth]{jetsub_2prong_dichroic_placeholder}
+% \end{center}
+% \caption{Lund diagrams depicting the three possible kinematic configurations for $\tau_{21}$ with a cut on the mMDT/SoftDropped mass. A detailed explanation is provided in the text. Figure taken from Ref.~\cite{Salam:2016yht}.}
+% \label{jetsub_2prong_fig:dichroic}
+% \end{figure}
 
 \begin{figure}[t]
 \begin{center}
@@ -763,30 +763,40 @@ Readers interested in a more detailed discussion of the dichroic approach, inclu
 \label{jetsub_2prong_fig:dichroic_distribution}
 \end{figure}
 
-Using the Lund diagrams \cite{Andersson:1988gp} in Fig.~\ref{jetsub_2prong_fig:dichroic}, we can give a simple argument for the optimal performance of the dichroic observables by considering the behavior in each of the three regions:
-\begin{itemize}
-\item Case 1: $z_c \theta_c^2 \ll z_b \theta_b^2 \ll z_a \theta_a^2$: All definitions of $\tau_{21}$ give the same result, and are therefore equivalent.
-\item Case 2: $z_b\theta_b^2 \ll z_c \theta_c^2 \ll z_a \theta_a^2$: $\tau_{21}^\text{groomed}=z_b \theta_b^2/z_a \theta_a^2 \ll  z_c \theta_c^2/z_a \theta_a^2=\tau_{21}=\tau_{21}^\text{dichroic}$, showing that the groomed version performs suboptimally in this region of phase space.
-\item Case 3: $z_b \theta_b^2 \ll z_a \theta_a^2 \ll z_c \theta_c^2$: $\tau_{21}^\text{dichroic}=1$, and therefore $\tau_{21}^\text{dichroic} \gg \tau_{21}$, $\tau_{21}^\text{dichroic} \gg \tau_{21}^\text{groomed}$. 
-\end{itemize}
-Since in all cases we have $\tau_{21}=z_b\theta_b^2/z_a\theta_a^2$ for
-the signal, this shows that the dichroic
-ratio is optimal.
-%
-The identical argument can be reversed to show that
-using a groomed numerator and an ungroomed denominator is not optimal.
+% Using the Lund diagrams \cite{Andersson:1988gp} in Fig.~\ref{jetsub_2prong_fig:dichroic}, we can give a simple argument for the optimal performance of the dichroic observables by considering the behavior in each of the three regions:
+% \begin{itemize}
+% \item Case 1: $z_c \theta_c^2 \ll z_b \theta_b^2 \ll z_a \theta_a^2$: All definitions of $\tau_{21}$ give the same result, and are therefore equivalent.
+% \item Case 2: $z_b\theta_b^2 \ll z_c \theta_c^2 \ll z_a \theta_a^2$: $\tau_{21}^\text{groomed}=z_b \theta_b^2/z_a \theta_a^2 \ll  z_c \theta_c^2/z_a \theta_a^2=\tau_{21}=\tau_{21}^\text{dichroic}$, showing that the groomed version performs suboptimally in this region of phase space.
+% \item Case 3: $z_b \theta_b^2 \ll z_a \theta_a^2 \ll z_c \theta_c^2$: $\tau_{21}^\text{dichroic}=1$, and therefore $\tau_{21}^\text{dichroic} \gg \tau_{21}$, $\tau_{21}^\text{dichroic} \gg \tau_{21}^\text{groomed}$. 
+% \end{itemize}
+% Since in all cases we have $\tau_{21}=z_b\theta_b^2/z_a\theta_a^2$ for
+% the signal, this shows that the dichroic
+% ratio is optimal.
+% %
+% The identical argument can be reversed to show that
+% using a groomed numerator and an ungroomed denominator is not optimal.
 
-These benefits of the dichroic approach can also be illustrated in a less abstract manner by considering the distributions of the observables after aggressive grooming (tight), moderate grooming (loose), and in the dichroic approach.
+The benefits of the dichroic approach can simply be illustrated by
+considering the distributions of the observables after aggressive
+grooming (tight), moderate grooming (loose), and in the dichroic
+approach.
 %
 This is shown in Fig.~\ref{jetsub_2prong_fig:dichroic_distribution} for the particular case of $\tau_{21}$.
 %
 Considerable performance is lost in going from loose to tight grooming, since the background distribution is pushed to lower values of $\tau_{21}$.
 %
-For the dichroic observable, by constrast, the behavior of the loose and dichroic observables is identical at small values of $\tau_{21}$, leading to improved performance.
+For the dichroic observable, by constrast, the behavior of the loose
+and dichroic observables is identical at small values of $\tau_{21}$,
+but for larger values of $\tau_{21}$, the dichroic distribution is
+pushed to yet larger values than the loose distribution, leading to
+improved performance.
 %
-Indeed, at high signal purity, the performance of the dichroic observable is nearly equal to that with loose grooming.
+% Indeed, at high signal purity, the performance of the dichroic observable is nearly equal to that with loose grooming.
 %
-Since the dichroic ratio observable uses a partially groomed observable, however, it is less sensitive to non-perturbative effects due to hadronization.
+Since the dichroic ratio observable uses a partially groomed
+observable
+% , however,
+it is expected to be less sensitive to non-perturbative effects due to hadronization.
 %
 It therefore represents an interesting new class of observable to consider. 
 
@@ -890,10 +900,10 @@ to denote the grooming applied to a particular observable, where $m$, $n$, and $
 \item plain ($p$): no grooming applied;
 \item loose ($\ell$): SoftDrop with ${z_{\rm cut}}=0.05$, $\beta=2$;
 \item tight ($t$): mMDT with ${z_{\rm cut}}=0.1$.
-\end{itemize}
-%
-We also study trimmed jets,
-\begin{itemize}
+% \end{itemize}
+% %
+% We also study trimmed jets,
+% \begin{itemize}
 \item trim: trimming with $R_{\text{sub}}=0.2$,  $ {z_{\rm cut}}=0.05$ and the $k_T$ algorithm to perform the reclustering, as used by ATLAS.
 \end{itemize}
 %
@@ -1315,7 +1325,7 @@ to a simple acceptance and smearing model representing tracking detectors as wel
 %
 Basic detector feature descriptors are considered together with response features and signal reconstruction strategies similar to the ATLAS and CMS experiments at the LHC.
 %
-The respective model configurations are A (ATLAS{-like} \cite{PERF-2007-01}) and C (CMS\emph{-like} \cite{CMS-TDR-08-001}).
+The respective model configurations are A (ATLAS{\emph{-like}} \cite{PERF-2007-01}) and C (CMS\emph{-like} \cite{CMS-TDR-08-001}).
 %
 Effects from particles showering in calorimeters are not modeled. 
 
