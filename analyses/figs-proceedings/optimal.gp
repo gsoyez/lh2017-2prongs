@@ -1,7 +1,6 @@
 reset
 set term pdfcairo enhanced size 9cm,9cm
 set colors classic
-set out 'optimal.pdf'
 
 call 'defaults.gp'
 
@@ -59,6 +58,7 @@ set title reflabel.' v. '.altlabel
 #------------------------------------------------------------------------
 
 pt=500
+set out 'optimal-pt'.pt.'.pdf'
 set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
 
 x0=0.9
@@ -100,10 +100,11 @@ set arrow 111 from 2.80932, 2.6873  to x0+11*dx, y0-11*dy size 0.15,15 filled
 set arrow 112 from 4.25584, 1.74356 to x0+12*dx, y0-12*dy size 0.15,15 filled
 
 
-plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.7 lc 1 t 'all studied',\
-     mtruth(pt) i 1 u 2:3 w l        lc 3 lw 3 t 'optimal line',\
-     mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
-     mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like'
+plot mtruth(pt) i 1 u 2:3 w l         lc rgb "#aaaa00" lw 3 t 'optimal line',\
+     mtruth(pt) i 0 u 2:3 w p pt 13 ps 0.7 lc 1 t 'all studied',\
+     mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt  5 ps 1.0 lc rgb "#000000" t 'ATLAS-like',\
+     mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  9 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
+     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDD@_2^{(2)}'
 
 unset for [i=100:112] label i
 unset for [i=100:112] arrow i
@@ -112,6 +113,7 @@ unset for [i=100:112] arrow i
 # pt=1000
 #------------------------------------------------------------------------
 pt=1000
+set out 'optimal-pt'.pt.'.pdf'
 set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
 
 x0=0.9
@@ -142,10 +144,15 @@ set arrow 105 from  3.8368,   3.15139 to x0+ 5*dx, y0- 5*dy size 0.15,15 filled
 set arrow 106 from  4.53103,  2.8563  to x0+ 6*dx, y0- 6*dy size 0.15,15 filled
 set arrow 107 from  5.61176,  1.68161 to x0+ 7*dx, y0- 7*dy size 0.15,15 filled
 
-plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.7 lc 1 t 'all studied',\
-     mtruth(pt) i 1 u 2:3 w l        lc 3 lw 3 t 'optimal line',\
-     mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
-     mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like'
+plot mtruth(pt) i 1 u 2:3 w l         lc rgb "#aaaa00" lw 3 t 'optimal line',\
+     mtruth(pt) i 0 u 2:3 w p pt 13 ps 0.7 lc 1 t 'all studied',\
+     mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt  5 ps 1.0 lc rgb "#000000" t 'ATLAS-like',\
+     mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  9 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
+     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDD@_2^{(2)}'
+# plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.7 lc 1 t 'all studied',\
+#      mtruth(pt) i 1 u 2:3 w l        lc 3 lw 3 t 'optimal line',\
+#      mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
+#      mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like'
 
 unset for [i=100:107] label i
 unset for [i=100:107] arrow i
@@ -155,6 +162,7 @@ unset for [i=100:107] arrow i
 # pt=2000
 #------------------------------------------------------------------------
 pt=2000
+set out 'optimal-pt'.pt.'.pdf'
 set label 22 'p_t>'.pt.' GeV' at graph 0.03,0.96
 
 x0=2.7
@@ -187,10 +195,15 @@ set arrow 106 from 3.81088, 3.66542 to x0+ 6*dx, y0- 6*dy size 0.15,15 filled
 set arrow 107 from 4.68965, 2.75525 to x0+ 7*dx+0.1, y0- 7*dy-0.1 size 0.15,15 filled
 set arrow 108 from 6.24708, 2.52901 to x0+ 8*dx+0.5, y0- 8*dy-0.13 size 0.15,15 filled
 
-plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.7 lc 1 t 'all studied',\
-     mtruth(pt) i 1 u 2:3 w l        lc 3 lw 3 t 'optimal line',\
-     mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
-     mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like'
+plot mtruth(pt) i 1 u 2:3 w l         lc rgb "#aaaa00" lw 3 t 'optimal line',\
+     mtruth(pt) i 0 u 2:3 w p pt 13 ps 0.7 lc 1 t 'all studied',\
+     mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt  5 ps 1.0 lc rgb "#000000" t 'ATLAS-like',\
+     mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  9 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
+     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDD@_2^{(2)}'
+# plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.7 lc 1 t 'all studied',\
+#      mtruth(pt) i 1 u 2:3 w l        lc 3 lw 3 t 'optimal line',\
+#      mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
+#      mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  5 ps 1.2 lc rgb "#00cc00" t 'CMS-like'
 
 unset for [i=100:108] label i
 unset for [i=100:108] arrow i

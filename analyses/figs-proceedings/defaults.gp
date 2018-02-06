@@ -21,7 +21,7 @@ cms_shape='N2_beta1_tt'
 cms_mass='tight'
 
 perf_tag='D2_beta2_tlt'
-perf_label='Dichroic [D@_2^{(2)}(t{/Symbol \304}l/t)]'
+perf_label='LHDD@_2^{(2)} [D@_2^{(2)}(t{/Symbol \304}l/t)]'
 perf_vmax=5.0
 perf_dv  =0.05
 perf_shape='D2_beta2_lt'
@@ -34,14 +34,23 @@ resi_dv  =0.001
 resi_shape='M2_beta2_tt'
 resi_mass='tight'
 
-all_title="ATLAS-like CMS-like dichroic resilient"
-all_tag  =sprintf("'%s' '%s' '%s' '%s'", atlas_tag  , cms_tag  , perf_tag  , resi_tag  )
-all_label=sprintf("'%s' '%s' '%s' '%s'", atlas_label, cms_label, perf_label, resi_label)
-all_vmax =sprintf("'%g' '%g' '%g' '%g'", atlas_vmax , cms_vmax , perf_vmax , resi_vmax )
-all_dv   =sprintf("'%g' '%g' '%g' '%g'", atlas_dv   , cms_dv   , perf_dv   , resi_dv   )
-all_shape=sprintf("'%s' '%s' '%s' '%s'", atlas_shape, cms_shape, perf_shape, resi_shape)
-all_mass =sprintf("'%s' '%s' '%s' '%s'", atlas_mass , cms_mass , perf_mass , resi_mass )
-all_ymax ="0.05 0.05 0.08 0.05"
+# all_title="ATLAS-like CMS-like LHDD@_2^{(2)} resilient"
+# all_tag  =sprintf("'%s' '%s' '%s' '%s'", atlas_tag  , cms_tag  , perf_tag  , resi_tag  )
+# all_label=sprintf("'%s' '%s' '%s' '%s'", atlas_label, cms_label, perf_label, resi_label)
+# all_vmax =sprintf("'%g' '%g' '%g' '%g'", atlas_vmax , cms_vmax , perf_vmax , resi_vmax )
+# all_dv   =sprintf("'%g' '%g' '%g' '%g'", atlas_dv   , cms_dv   , perf_dv   , resi_dv   )
+# all_shape=sprintf("'%s' '%s' '%s' '%s'", atlas_shape, cms_shape, perf_shape, resi_shape)
+# all_mass =sprintf("'%s' '%s' '%s' '%s'", atlas_mass , cms_mass , perf_mass , resi_mass )
+# all_ymax ="0.05 0.05 0.08 0.05"
+
+all_title="ATLAS-like CMS-like LHDD@_2^{(2)}"
+all_tag  =sprintf("'%s' '%s' '%s' '%s'", atlas_tag  , cms_tag  , perf_tag  )
+all_label=sprintf("'%s' '%s' '%s' '%s'", atlas_label, cms_label, perf_label)
+all_vmax =sprintf("'%g' '%g' '%g' '%g'", atlas_vmax , cms_vmax , perf_vmax )
+all_dv   =sprintf("'%g' '%g' '%g' '%g'", atlas_dv   , cms_dv   , perf_dv   )
+all_shape=sprintf("'%s' '%s' '%s' '%s'", atlas_shape, cms_shape, perf_shape)
+all_mass =sprintf("'%s' '%s' '%s' '%s'", atlas_mass , cms_mass , perf_mass )
+all_ymax ="0.05 0.05 0.08"
 
 
 default_levelref='truth'

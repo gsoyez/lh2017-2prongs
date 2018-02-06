@@ -56,9 +56,10 @@ set key maxrow 3 width -6.5
 set key title 'WW    dijets'
     
 
-set label 101 '{/*0.8 p_{t,jet}>'.pt.' GeV}'           right at graph 0.97,0.64
-set label 102 '{/*0.8 Pythia8(M13), anti-k_t('.R.')}'  right at graph 0.97,0.69
-set label 103 sprintf('{/*0.8 %g<m<%g GeV}',mmin,mmax) right at graph 0.97,0.59
+set label 101 '{/*0.8 p_{t,jet}>'.pt.' GeV}'           right at graph 0.97,0.63
+set label 102 '{/*0.8 Pythia8(M13), anti-k_t('.R.')}'  right at graph 0.97,0.68
+set label 103 sprintf('{/*0.8 %g<m<%g GeV}',mmin,mmax) right at graph 0.97,0.58
+
 
 
 #------------------------------------------------------------------------
@@ -94,86 +95,5 @@ do for [i=1:words(all_title)]{
          m('dijets','hadron') u 2:($4/norm_jj_hadron) w l dt 2 lc 1             lw 3 t ' ',\
          m('dijets','parton') u 2:($4/norm_jj_parton) w l dt 2 lc rgb "#00cc00" lw 3 t ' '
 }
-
-# #------------------------------------------------------------------------
-# # ATLAS
-# set title '{/*1.4 ATLAS-like} ('.reflabel.' v. '.altlabel.')'
-# set xrange [0:atlas_vmax+0.0]
-# 
-# R='0.8'
-# set label 102 '{/*0.8 Pythia8(M13), anti-k_t('.R.')}'  right at graph 0.97,0.58
-# 
-# count(proc,lev)=system(sprintf('../scripts/get_count.sh ../res/lhc14-%s%s-pythia8230M13-%s-R%s.ntuple.gz "m_%s>%g" "m_%s<%g"',proc,pt,lev,R,atlas_mass,mmin,atlas_mass,mmax))+0.0
-# m(proc,lev)=sprintf('< ../scripts/histogram.sh ../res/lhc14-%s%s-pythia8230M13-%s-R%s.ntuple.gz %s 0.0 %g %g "m_%s>%g" "m_%s<%g"',proc,pt,lev,R,atlas_shape,atlas_vmax,atlas_dv,atlas_mass,mmin,atlas_mass,mmax)
-# 
-# norm_WW=count('WW'    ,levelref)
-# norm_jj=count('dijets',levelref)
-# 
-# plot m('WW'    ,levelref) u 2:($4/norm_WW) w l dt 1 lc 3 lw 3 t 'signal, '.levelref,\
-#      m('WW'    ,levelalt) u 2:($4/norm_WW) w l dt 1 lc 1 lw 3 t 'signal, '.levelalt,\
-#      m('dijets',levelref) u 2:($4/norm_jj) w l dt 2 lc 3 lw 3 t 'bkg, '   .levelref,\
-#      m('dijets',levelalt) u 2:($4/norm_jj) w l dt 2 lc 1 lw 3 t 'bkg, '   .levelalt
-# 
-# #------------------------------------------------------------------------
-# # CMS
-# set title '{/*1.4 CMS-like} ('.reflabel.' v. '.altlabel.')'
-# set xrange [0:cms_vmax+0.0]
-# 
-# set key top left reverse Left
-# set label 101 left at graph 0.03,0.68
-# set label 102 left at graph 0.03,0.63
-# set label 103 left at graph 0.03,0.58
-# 
-# count(proc,lev)=system(sprintf('../scripts/get_count.sh ../res/lhc14-%s%s-pythia84C-%s-R%s.ntuple.gz "m_%s>%g" "m_%s<%g"',proc,pt,lev,R,cms_mass,mmin,cms_mass,mmax))+0.0
-# m(proc,lev)=sprintf('< ../scripts/histogram.sh ../res/lhc14-%s%s-pythia84C-%s-R%s.ntuple.gz %s 0.0 %g %g "m_%s>%g" "m_%s<%g"',proc,pt,lev,R,cms_shape,cms_vmax,cms_dv,cms_mass,mmin,cms_mass,mmax)
-# 
-# norm_WW=count('WW'    ,levelref)
-# norm_jj=count('dijets',levelref)
-# 
-# plot m('WW'    ,levelref) u 2:($4/norm_WW) w l dt 1 lc 3 lw 3 t 'signal, '.levelref,\
-#      m('WW'    ,levelalt) u 2:($4/norm_WW) w l dt 1 lc 1 lw 3 t 'signal, '.levelalt,\
-#      m('dijets',levelref) u 2:($4/norm_jj) w l dt 2 lc 3 lw 3 t 'bkg, '   .levelref,\
-#      m('dijets',levelalt) u 2:($4/norm_jj) w l dt 2 lc 1 lw 3 t 'bkg, '   .levelalt
-# 
-# set key top right noreverse Right
-# set label 101 right at graph 0.97,0.63
-# set label 102 right at graph 0.97,0.58
-# set label 103 right at graph 0.97,0.53
-# 
-# #------------------------------------------------------------------------
-# # resilient
-# set title '{/*1.4 resilience-oriented} ('.reflabel.' v. '.altlabel.')'
-# set xrange [0:resi_vmax+0.0]
-# set yrange [0:0.02]
-# 
-# R='1.0'
-# set label 102 '{/*0.8 Pythia8(M13), anti-k_t('.R.')}'  right at graph 0.97,0.58
-# 
-# count(proc,lev)=system(sprintf('../scripts/get_count.sh ../res/lhc14-%s%s-pythia84C-%s-R%s.ntuple.gz "m_%s>%g" "m_%s<%g"',proc,pt,lev,R,resi_mass,mmin,resi_mass,mmax))+0.0
-# m(proc,lev)=sprintf('< ../scripts/histogram.sh ../res/lhc14-%s%s-pythia84C-%s-R%s.ntuple.gz %s 0.0 %g %g "m_%s>%g" "m_%s<%g"',proc,pt,lev,R,resi_shape,resi_vmax,resi_dv,resi_mass,mmin,resi_mass,mmax)
-# 
-# norm_WW=count('WW'    ,levelref)
-# norm_jj=count('dijets',levelref)
-# 
-# plot m('WW'    ,levelref) u 2:($4/norm_WW) w l dt 1 lc 3 lw 3 t 'signal, '.levelref,\
-#      m('WW'    ,levelalt) u 2:($4/norm_WW) w l dt 1 lc 1 lw 3 t 'signal, '.levelalt,\
-#      m('dijets',levelref) u 2:($4/norm_jj) w l dt 2 lc 3 lw 3 t 'bkg, '   .levelref,\
-#      m('dijets',levelalt) u 2:($4/norm_jj) w l dt 2 lc 1 lw 3 t 'bkg, '   .levelalt
-# 
-# #------------------------------------------------------------------------
-# # performant
-# set title '{/*1.4 performance-oriented} ('.reflabel.' v. '.altlabel.')'
-# set xrange [0:perf_vmax+0.0]
-# 
-# count(proc,lev)=system(sprintf('../scripts/get_count.sh ../res/lhc14-%s%s-pythia84C-%s-R%s.ntuple.gz "m_%s>%g" "m_%s<%g"',proc,pt,lev,R,perf_mass,mmin,perf_mass,mmax))+0.0
-# m(proc,lev)=sprintf('< ../scripts/histogram.sh ../res/lhc14-%s%s-pythia84C-%s-R%s.ntuple.gz %s 0.0 %g %g "m_%s>%g" "m_%s<%g"',proc,pt,lev,R,perf_shape,perf_vmax,perf_dv,perf_mass,mmin,perf_mass,mmax)
-# 
-# norm_WW=count('WW'    ,levelref)
-# norm_jj=count('dijets',levelref)
-# 
-# plot m('WW'    ,levelref) u 2:($4/norm_WW) w l dt 1 lc 3 lw 3 t 'signal, '.levelref,\
-#      m('WW'    ,levelalt) u 2:($4/norm_WW) w l dt 1 lc 1 lw 3 t 'signal, '.levelalt,\
-#      m('dijets',levelref) u 2:($4/norm_jj) w l dt 2 lc 3 lw 3 t 'bkg, '   .levelref,\
-#      m('dijets',levelalt) u 2:($4/norm_jj) w l dt 2 lc 1 lw 3 t 'bkg, '   .levelalt
 
 set out

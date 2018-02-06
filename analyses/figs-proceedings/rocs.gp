@@ -50,33 +50,12 @@ set key maxrow 3 width -5
 set key bottom right
 
 
-set label 101 '{/*0.8 Pythia8(M13), anti-k_t('.R.')}'  left at graph 0.03,0.94
-set label 102 '{/*0.8 p_{t,jet}>'.pt.' GeV}'           left at graph 0.03,0.89
-set label 103 sprintf('{/*0.8 %g<m<%g GeV}',mmin,mmax) left at graph 0.03,0.84
-
-
-# #------------------------------------------------------------------------
-# # loop over the different setups
-# do for [i=1:words(all_title)]{
-#     this_title=word(all_title, i)
-#     this_tag  =word(all_tag  , i)
-#     this_label=word(all_label, i)
-#     this_vmax =word(all_vmax , i)+0.0
-#     this_dv   =word(all_dv   , i)+0.0
-#     this_shape=word(all_shape, i)
-#     this_mass =word(all_mass , i)
-# 
-#     set title '{/*1.4 '.this_label.'}'
-# 
-#     m(lev)=sprintf('< ../scripts/roc.sh ../res/lhc14-WW%s-pythia8230M13-%s-R%s.ntuple.gz ../res/lhc14-dijets%s-pythia8230M13-%s-R%s.ntuple.gz %s 0.0 %g %g "m_%s>%g" "m_%s<%g"',pt,lev,R,pt,lev,R,this_shape,this_vmax,this_dv,this_mass,mmin,this_mass,mmax)
-# 
-#     plot m('truth')  u 1:2 w l dt 1 lc 3             lw 3 t 'truth',\
-#          m('hadron') u 1:2 w l dt 1 lc 1             lw 3 t 'hadron',\
-#          m('parton') u 1:2 w l dt 1 lc rgb "#00cc00" lw 3 t 'parton'
-# }
+set label 101 '{/*0.8 Pythia8(M13), anti-k_t(R='.R.')}'  left at graph 0.03,0.94
+set label 102 '{/*0.8 p_{t,jet}>'.pt.' GeV}'             left at graph 0.03,0.89
+set label 103 sprintf('{/*0.8 %g<m<%g GeV}',mmin,mmax)   left at graph 0.03,0.84
 
 unset title 
-set label 1 'ATLAS       CMS     Dichroic' right at graph 0.96,0.215
+set label 1 'ATLAS       CMS     LHDD@_2^{(2)}' right at graph 0.96,0.215
 
 m(lev,shape,mass,vmax,dv)=sprintf('< ../scripts/roc.sh ../res/lhc14-WW%s-pythia8230M13-%s-R%s.ntuple.gz ../res/lhc14-dijets%s-pythia8230M13-%s-R%s.ntuple.gz %s 0.0 %g %g "m_%s>%g" "m_%s<%g"',pt,lev,R,pt,lev,R,shape,vmax+0.0,dv+0.0,mass,mmin,mass,mmax)
 

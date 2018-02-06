@@ -50,13 +50,13 @@ set key maxrow 3 width -11.0
 set key bottom right
 
 
-set label 101 '{/*0.8 Pythia8(M13), anti-k_t('.R.')}'  left at graph 0.03,0.94
-set label 102 '{/*0.8 p_{t,jet}>'.pt.' GeV}'           left at graph 0.03,0.89
-set label 103 sprintf('{/*0.8 %g<m<%g GeV}',mmin,mmax) left at graph 0.03,0.84
+set label 101 '{/*0.8 Pythia8(M13), anti-k_t(R='.R.')}'  left at graph 0.03,0.94
+set label 102 '{/*0.8 p_{t,jet}>'.pt.' GeV}'             left at graph 0.03,0.89
+set label 103 sprintf('{/*0.8 %g<m<%g GeV}',mmin,mmax)   left at graph 0.03,0.84
 
 
 unset title 
-set label 1 'ATLAS       CMS     Dichroic' right at graph 0.96,0.215
+set label 1 'ATLAS       CMS     LHDD_2^{(2)}' right at graph 0.96,0.215
 
 
 fileSM=sprintf('../res/lhc14-WW%d-pythia8230M13-truth-R%s.ntuple.gz',1*pt, R)
