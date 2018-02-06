@@ -1,3 +1,30 @@
+%% GS todo:
+%%
+%% - Fig.7 needs to be updated to include the 3 benchmark points and
+%%   R=0.8 only.
+%% 
+%% 
+%% - the "(dichroic)" label in the two leftmost plots of Figs.9 and 11 is
+%%   a bit of a misnomer. We could rename them as "(LH[D]D2)", possibly
+%%   with a / across the 1st D? [and a similar renaminig for Figs 8 and
+%%   10. What do you think?
+%% 
+%% - Section 5.3 is. to me the main take-home message of the
+%%   proceedings. Is there a way to highlight this better?
+%% 
+%% - Fig. 12: highlight "our pick" [this one is obviously on me]
+%% 
+%% - Detector sim: what about adding a link to Peter's code (adding some
+%%   piece of info there to mention that he is the author of the code)?
+%% 
+%% - Fig. 13: highlight "LHDD22"
+%% 
+%% - For Peter, what do the two terms in (23) (track smearing) correspond
+%%   to?
+%% 
+%% - Section 7.1, figure 15a: specify the grooming strategy for D2
+
+
 \documentclass[11pt]{cernrep}
 \usepackage{graphicx,epsfig}
 \bibliographystyle{lesHouches}
@@ -50,7 +77,7 @@ Two-Prong Substructure Taggers for the LHC}
 \\$^{10}$Nikhef, Theory Group, Science Park 105, 1098 XG, Amsterdam, The Netherlands
 \\$^{11}$Indian Institute of Technology, Kanpure, India
 \\$^{12}$Theoretical Physics Department, CERN, CH-1211 Geneva 23, Switzerland
-\\$^{13}$IPhT, CEA Saclay, CNRS UMR 3681, F-91191 Gif-sur-Yvette, France}
+\\$^{13}$IPhT, CEA Saclay, CNRS, Universit\'e Paris-Saclay, 91191 Gif-sur-Yvette, France}
 
 
 
@@ -68,17 +95,16 @@ Two-Prong Substructure Taggers for the LHC}
   different theoretical approaches to designing jet substructure
   observables.
   %
-  These include the standard observables $\tau_{21}$,
-  $D_2$, and $N_2$, as well as various grooming strategies currently used by the LHC
-  experiments.
+  These include standard jet shape observables as well as various grooming
+  strategies currently used by the LHC experiments.
   %
   We also introduce a number of new observables, based on the idea of
   ``dichroic ratios'', which are designed to simultaneously maximize both
   robustness and performance.
   %
-For background QCD jets, we focus on the
-  theoretical robustness to non-perturbative effects and the experimental
-  robustness to detector effects. 
+  % For background QCD jets, we focus on the
+  % theoretical robustness to non-perturbative effects and the experimental
+  % robustness to detector effects. 
   %
   %
   We discuss
@@ -122,7 +148,13 @@ As a result of these efforts, there now exist a number of theoretically well-mot
 %
 For tagging hadronically-decaying $W/Z/H$ bosons, which decay primarily to jets with two well-resolved prongs (also referred to as subjets), a variety of powerful two-prong taggers have been developed.
 %
-Modern two-prong taggers typically consist of two ingredients: a groomer which removes low-energy contamination, and a jet shape observable which identifies the two-prong substructure.
+Modern two-prong taggers typically consist of two or three
+ingredients: a groomer which removes low-energy contamination, a
+two-prong finder which identifies two (or more) hard subjets and a jet
+shape observable which constrains radiation patterns in the
+jet. Often, the groomer and the two-prong finder are taken identical.
+%
+% Modern two-prong taggers typically consist of two ingredients: a groomer which removes low-energy contamination, and a jet shape observable which identifies the two-prong substructure.
 %
 For jet shapes, it is well understood how to organize and study their
 behavior using power counting \cite{Larkoski:2014gra}.
@@ -146,8 +178,8 @@ pile-up.
 Indeed, the different LHC experiments have settled on different
 tagging combinations.
 %
-For grooming, ATLAS using trimming \cite{Krohn:2009th} uses while CMS uses the modified
-  Mass Drop Tagger (mMDT)~\cite{Dasgupta:2013ihk} and its generalization, SoftDrop \cite{Larkoski:2014wba}.
+For grooming and prong finding, ATLAS using trimming \cite{Krohn:2009th} uses while CMS uses the modified
+  Mass Drop Tagger (mMDT)~\cite{Butterworth:2008iy,Dasgupta:2013ihk} and its generalization, SoftDrop \cite{Larkoski:2014wba}.
   %
   For jet shape observable, ATLAS uses $D_2$ \cite{Larkoski:2014gra,Larkoski:2015kga}, while CMS uses $N$-subjettiness ratio $\tau_{2,1}$ \cite{Thaler:2010tr,Thaler:2011gf} or $N_2$ \cite{Moult:2016cvt} with DDT \cite{Dolen:2016kst}.
   %
@@ -177,9 +209,14 @@ By contrast, ``robustness'' refers to modifications of the substructure observab
 %
 In particular, we consider robustness to non-perturbative effects, namely hadronization and underlying event, robustness to detector effects, and robustness to pile-up radiation.
 %
-We introduce metrics for quantifying robustness that we believe will be useful in future studies of jet substructure observables.
+In this paper, we refine the metic introduced
+in~\cite{Dasgupta:2016ktv,Salam:2016yht} for quantifying
+robustness. We believe that this dual assessment of performance and
+robustness will be useful in future studies of jet substructure
+observables.
 %
-This allows us to study the robustness of each tagging strategy in general, and the CMS and ATLAS approaches in particular.
+This allows us to study each tagging strategy in general, and the CMS
+and ATLAS approaches in particular.
 %
 In all cases, we are able to identify observables with improved robustness and performance as compared with those currently used by the experiments.
 %
@@ -229,7 +266,7 @@ Since we are able to generate pure signal and background samples, the tagging pe
 In principle, we could evaluate the full receiver operating characteristic (ROC) curve relating $\epsilon_B$ to $\epsilon_S$.
 %
 For simplicity, we use the ``tagging significance'' as our metric for performance,
-\begin{align}
+\begin{align}\label{eq:significance}
 \epsilon=\frac{\epsilon_S}{\sqrt{\epsilon_B}}\,,
 \end{align}
 evaluated at a fixed signal efficiency, typically $\epsilon_S = 0.4$.
@@ -284,19 +321,23 @@ This chain of realism is shown in Fig.~\ref{jetsub_2prong_fig:realism}, which il
 %
 Truth level therefore represents a complete hard scattering process in a hadron-hadron collider in isolation.
 %
-\end{itemize}
-At this stage our chain bifurcates, and we separately consider two different effects:
-\begin{itemize}
+% \end{itemize}
+% At this stage our chain bifurcates, and we separately consider two different effects:
+% \begin{itemize}
+%
 \item {\bf Detector Level}: Detector-level results are defined as truth level events passed through a detector simulation as implemented by TowerGrid.  See Sec.~\ref{jetsub_2prong_sec:det_model} for details of the detector simulation.
 %
-\item {\bf Pile-up Level}: Due to the high pile-up environment of the LHC, we include in our study also the effects of uncorrelated proton interactions. We have done this separately from detector effects to be able to isolate and study the physics effects arising from pile-up and pile-up subtraction schemes. Our pile-up subtraction schemes are described in Sec.~\ref{jetsub_2prong_sec:pu_tech}.
+\item {\bf Pile-up Level}: Due to the high pile-up environment of the LHC, we include in our study also the effects of uncorrelated proton interactions. We have done this separately from detector effects to be able to isolate and study the physics effects arising from pile-up and pile-up subtraction schemes. Our pile-up subtraction scheme is described in Sec.~\ref{jetsub_2prong_sec:pu_tech}.
 %
-\item {\bf Full Realism}: In the final stage of realism, we consider events with pile-up at detector
+\item {\bf Full Realism}: In the final stage of realism, we should consider events with pile-up at detector
   level.
   %
   These represent, to the level that we can consider in this
   paper, realistic events as seen by the experiments at the
   LHC.
+  %
+  Since our detector and pile-up assessment is still fairly basic, we
+  have left this final stage for future work.
 \end{itemize}
 
 Comparing the differences as we progress step by step through this sequence allows us to address at each stage the robustness to distinct physics issues, and we hope that our segmentation is sufficiently fine that we have a comprehensive view of robustness.
@@ -316,7 +357,7 @@ In particular, the different steps in the chain allow us to study robustness to 
   %
   Ultimately, such corrections cannot be computed
   from first principles and must be included through models, such as
-  those included in parton shower generators, or through shape
+  those included in parton shower generators, or through dispersive approaches or shape
   functions in analytic calculations
   \cite{Dokshitzer:1995qm,Dokshitzer:1995zt,Korchemsky:1999kt,Korchemsky:2000kp,Bosch:2004th,Hoang:2007vb,Ligeti:2008ac}.
     %
@@ -349,7 +390,7 @@ Since this radiation is not correlated with the underlying hard scattering proce
 %
 Furthermore, it is difficult to model in an analytic calculation.
 %
-While techniques exist to mitigate pile-up, as were reviewed in Sec.~\ref{jetsub_2prong_sec:pu_tech}, it is desirable that the substructure observables used are as robust as possible to pile-up contamination.
+While techniques exist to mitigate pile-up, as reviewed in Sec.~\ref{jetsub_2prong_sec:pu_tech}, it is desirable that the substructure observables used are as robust as possible to pile-up contamination.
 %
 \end{itemize}
 %
@@ -391,7 +432,7 @@ where
 %
 \begin{align}
 \Delta \epsilon_{S,B} & =\epsilon_{S,B}-\epsilon_{S,B}',\\
-\langle \epsilon \rangle_{S,B}^2 & = \frac{1}{2} \left(\epsilon_{S,B} + \epsilon_{S,B}'\right).
+\langle \epsilon \rangle_{S,B} & = \frac{1}{2} \left(\epsilon_{S,B} + \epsilon_{S,B}'\right).
 \end{align}
 %
 This approach gives an estimate of how much our signal and background efficiencies have changed, for a given set of cuts, when going from one stage to another.
@@ -403,14 +444,14 @@ Because we anchor to a fixed $v_{\text{cut}}$, this method can even detect a uni
 We therefore believe that $\zeta$ provides a reliable metric for assessing the robustness of the tagger.
 %
 When presenting our results, we characterize observables
-in the plane of $\epsilon$ versus $\zeta$, with better observables being in
+in the plane of $\epsilon$ (see Eq.~\eqref{eq:significance}) versus $\zeta$, with better observables being in
 the upper-right corner.
 %
 We find that this allows us to synthesize the
 information about a large number of observables in a compact manner.
 %
 A
-similar metric and presentation style was used in Ref.~\cite{Salam:2016yht}
+similar metric and presentation style was used in Ref.~\cite{Dasgupta:2016ktv,Salam:2016yht}
 to study robustness to non-perturbative effects.
 %
 In addition to
@@ -452,15 +493,21 @@ This includes both the jet substructure shape observables and the grooming proce
 
 The jet shape observables that we will consider are formed from ratios of the energy correlation functions \cite{Larkoski:2013eya,Moult:2016cvt} or the $N$-subjettiness observables \cite{Thaler:2010tr,Thaler:2011gf}.
 %
-The $N$-subjettiness observables are defined as \cite{Stewart:2010tn,Thaler:2010tr,Thaler:2011gf}
+The $N$-subjettiness observables are defined as\footnote{For this
+  study, we have used the un-normalised definition of $N$-subjettiness.}~\cite{Stewart:2010tn,Thaler:2010tr,Thaler:2011gf}
 %
 \begin{equation}\label{jetsub_2prong_eq:nsubdef}
-\tau_{N}^{(\beta)} = \frac{1}{p_{TJ}}\sum_{1\leq i \leq n_J} p_{Ti}\min\left\{
+  \tau_{N}^{(\beta)} =
+  %\frac{1}{p_{TJ}}
+  \sum_{1\leq i \leq n_J} p_{Ti}\min\left\{
 R_{i1}^\beta,\dotsc,R_{iN}^\beta
 \right\} \ .
 \end{equation}
 %
-Here $p_{TJ}$ is the $p_T$ of the jet, $p_{Ti}$ is the $p_T$ of particle $i$, and the sum is over all particles in the jet.
+Here
+% $p_{TJ}$ is the $p_T$ of the jet,
+$p_{Ti}$ is the $p_T$ of particle $i$, and the sum is over all
+particles in the jet.
 %
 The minimum is over the longitundinally-boost-invariant angle
 %
@@ -495,9 +542,9 @@ For $\beta = 2$, we use the generalized $k_t$ algorithm~\cite{Cacciari:2011ma} w
 
 For two-prong tagging, the relevant observable is the ratio \cite{Thaler:2010tr}
 \begin{align}
-\tau_{2,1}^{(\beta)}\equiv \frac{\tau_{2}^{(\beta)}}{\tau_{1}{(\beta)}}\,.
+\tau_{21}^{(\beta)}\equiv \frac{\tau_{2}^{(\beta)}}{\tau_{1}^{(\beta)}}\,.
 \end{align}
-For a jet with a well resolved two-prong structure, we have $\tau_{2,1}^{(\beta)}\ll 1$, while for a jet without a well resolved substructure, we have $\tau_{2,1}^{(\beta)}\sim 1$.
+For a jet with a well resolved two-prong structure, we have $\tau_{21}^{(\beta)}\ll 1$, while for a jet without a well resolved substructure, we have $\tau_{21}^{(\beta)}\sim 1$.
 %
 This observable has been extensively used at the LHC.
 %
@@ -507,12 +554,13 @@ The second class of observables that we will consider are based on the energy co
 %
 Instead of correlating particles with axes, as is done for $N$-subjettiness, the idea of the energy correlation functions is to correlate $n$-tuples of particles.
 %
-In discussing the energy correlation functions, it is convenient to work with dimensionless observables, written in terms of an energy fraction variable, $z_i$, and an angular variable, $R_{ij}$:
+In discussing the energy correlation functions, it is convenient to
+work with dimensionless observables, written in terms of the angular
+variable, $R_{ij}$ and the energy fraction variable $z_i$:
 \begin{align}\label{jetsub_2prong_eq:ptratio}  
-z_i\equiv\frac{p_{Ti}}{\sum_{j \in \text{jet}} p_{Tj}}\,, \qquad   R_{ij}^2 = (\phi_i-\phi_j)^2+(y_i-y_j)^2\,,
+z_i\equiv\frac{p_{Ti}}{\sum_{j \in \text{jet}} p_{Tj}}\,,
 \end{align}
-where $p_{Ti}$, $\phi_i$, and $y_i$ are the transverse momentum,
-azimuthal angle, and rapidity of particle $i=1,\dots,n_J$, respectively. 
+where $p_{Ti}$ is the transverse momentum of particle $i=1,\dots,n_J$. 
 %
 %Tkachov \Ref{Tkachov:1995kk,Sveshnikov:1995vi,Cherzor:1997ak,Tkachov:1999py},
 %
@@ -524,7 +572,8 @@ where $\min^{(m)}$ denotes the $m$-th smallest element in the list.  For a jet c
 \begin{itemize}
 \item The subscript $n$, which appears to the right of the observable, denotes the number of particles to be correlated.   
 \item The subscript $v$, which appears to the left of the observable, denotes the number of pairwise angles entering the product.  By definition, we take $v \leq \binom{n}{2}$, and the minimum then isolates the product of the $v$ smallest pairwise angles.
-\item The angular exponent $\beta>0$ can be used to adjust the weighting of the pairwise angles.
+\item The angular exponent $\beta>0$ can be used to adjust the
+  weighting of the pairwise angles as for $N$-subjettiness.
 \end{itemize}
 
 In this paper, we use the 2-point energy correlation function,
@@ -538,7 +587,7 @@ _2e_{3}^{(\beta)}&=\sum_{1\leq i<j<k\leq n_J} z_{i}z_{j}z_{k} \min \left\{R_{ij}
 e_{3}^{(\beta)}\equiv ~_3e_{3}^{(\beta)}&=\sum_{1\leq i<j<k\leq n_J} z_{i}z_{j}z_{k} \, R_{ij}^\beta R_{ik}^\beta R_{jk}^\beta \,.
 \end{align}
 %
-A number of powerful 2-prong discriminants have been formed from the energy correlation functions  \cite{Larkoski:2013eya,Larkoski:2014gra,Larkoski:2014zma,Moult:2016cvt}.  Here, we will focus on the observables
+A number of 2-prong discriminants have been formed from the energy correlation functions~\cite{Larkoski:2013eya,Larkoski:2014gra,Larkoski:2014zma,Moult:2016cvt}.  Here, we will focus on the observables
 \begin{align}
  M_2^{(\beta)} = \frac{_1e_{3}^{(\beta)}}{e_{2}^{(\beta)}}, \qquad  N_2^{(\beta)} = \frac{_2e_{3}^{(\beta)}}{(e_{2}^{(\beta)})^2}\,, \qquad  D_{2}^{(\beta)}=\frac{e_{3}^{(\beta)}}{(e_{2}^{(\beta)})^{3}}\,, 
 \end{align}
@@ -546,7 +595,11 @@ each of which probes the correlations between particles within the jet in a slig
 %
 For a detailed discussion, see Ref.~\cite{Moult:2016cvt}.
 %
-The $N_2$ observable has been used by CMS, and the $D_2$ observable has been used by ATLAS.
+The $N_2$ and $D_2$ observables are powerful discriminants and have
+been used by CMS and ATLAS, respectively.
+% 
+% The $N_2$ observable has been used by CMS, and the $D_2$ observable
+% has been used by ATLAS.
 %
 The $M_2$ observable is expected to have worse performance, except in particular scenarios, but we include it since it provides an example of a remarkably robust observable.
 
@@ -570,17 +623,21 @@ While a variety of different grooming approaches have been defined~\cite{Butterw
 In this subsection, we review the definition of the SoftDrop/mMDT and trimming algorithms and their parameters.
 
 Starting from a jet identified with an IRC safe jet algorithm (such as
-anti-$k_t$ \cite{Cacciari:2008gp}), the SoftDrop algorithm is defined
-using Cambridge/Aachen (C/A) reclustering
-\cite{Dokshitzer:1997in,Wobisch:1998wt,Wobisch:2000dk}.
+anti-$k_t$~\cite{Cacciari:2008gp}),
 %
-For $\beta = 0$, SoftDrop is equivalent to the mMDT \cite{Dasgupta:2013ihk}. For this reason, we will often use the two names interchangeably.
-%
-The SoftDrop algorithm proceeds as follows:
+% the SoftDrop algorithm is defined
+% using Cambridge/Aachen (C/A) reclustering
+% \cite{Dokshitzer:1997in,Wobisch:1998wt,Wobisch:2000dk}.
+% %
+% For $\beta = 0$, SoftDrop is equivalent to the mMDT \cite{Dasgupta:2013ihk}. For this reason, we will often use the two names interchangeably.
+% %
+the SoftDrop algorithm proceeds as follows:
 %
 \begin{enumerate}
 %
-\item Recluster the jet using the C/A clustering algorithm, producing an angular-ordered branching history for the jet.
+\item Recluster the jet using the Camridge/Aachen (C/A) clustering
+  algorithm~\cite{Dokshitzer:1997in,Wobisch:1998wt,Wobisch:2000dk},
+  producing an angular-ordered branching history for the jet.
 %
 \item Step through the branching history of the reclustered jet.  At each step, check the SoftDrop condition
 \begin{align}\label{jetsub_2prong_eq:sd_cut}
@@ -588,15 +645,21 @@ The SoftDrop algorithm proceeds as follows:
 \end{align}
 Here, ${z_{\rm cut}}$ is a parameter defining the scale below which soft radiation is removed.  If the SoftDrop condition is not satisfied, then the softer of the two branches is removed from the jet.  This process is then iterated on the harder branch.
 %
-\item The SoftDrop procedure terminates once the SoftDrop condition is satisfied.
+\item procedure terminates once the SoftDrop condition is satisfied.
 %
 \end{enumerate}
+SoftDrop generalises the mMDT procedure~\cite{Dasgupta:2013ihk} and
+the two are equivalent for beta=0. For this reason, we will often use
+the two names interchangeably.
 %
-Given a jet that has been groomed with the SoftDrop procedure, we can
-then measure any IRC-safe observable on this jet and it is
-IRC safe.
+Any IRC-safe observable can be measured on a jet groomed with the
+SoftDrop procedure, without loosing IRC-safety.
 %
-The severity of the SoftDrop grooming can be adjusted by
+% Given a jet that has been groomed with the SoftDrop procedure, we
+% can then measure any IRC-safe observable on this jet and it is IRC
+% safe.
+%
+The aggressivity of the SoftDrop grooming can be adjusted by
 tuning the parameters ${z_{\rm cut}}$ and $\beta$.
 %
 Larger values of ${z_{\rm cut}}$ groom away more radiation within the jet for a fixed value of $\beta$.
@@ -651,10 +714,21 @@ The trimming parameters used by ATLAS are $R_{\text{sub}}=0.2$,  $ {z_{\rm cut}}
 
 
 
-For our QCD background jet samples we generated $pp\to$ dijets in \textsc{PYTHIA} 8.226 \cite{Sjostrand:2006za,Sjostrand:2007gs} with tune $4$C. 
-%, and \textsc{Herwig} 7~\cite{Bahr:2008pv,Bellm:2015jjp}
+For our QCD background jet samples we generated $pp\to$ dijets in
+\textsc{PYTHIA} 8.230~\cite{Sjostrand:2006za,Sjostrand:2007gs} with
+the Monash13 tune~\cite{Skands:2014pea}. 
 %
-Samples were generated with hadronization off (parton level), with hadronization on but underlying event off (hadron level), and with hadronization and underlying event on (truth level). Pile-up was included by superimposing uncorrelated minimum bias events, which are also generated in \textsc{PYTHIA}. Details of our pile-up removal strategies will be described in Sec.~\ref{jetsub_2prong_sec:pu_tech}.
+An explicit comparison to the Herwig
+generator~\cite{Bahr:2008pv,Bellm:2015jjp} is left for future work.
+
+%
+Samples were generated with hadronization off (parton level), with
+hadronization on but underlying event off (hadron level), and with
+hadronization and underlying event on (truth level). Pile-up was
+included by superimposing uncorrelated minimum bias events, which are
+also generated in \textsc{PYTHIA8}, this time using the 4C
+tune. Details of our pile-up removal strategies will be described in
+Sec.~\ref{jetsub_2prong_sec:pu_tech}.
 
 For our polarized $W$ samples, we considered a $gg$ produced resonance, $X$, that decays to a pair of polarized $W$ bosons.
 %
@@ -706,11 +780,14 @@ as experimentally from pile-up.
 %
 It also introduces sensitivity to the
 experimental reconstruction of soft momenta in the event.
-%
+% 
 On the other
 hand, a tight grooming procedure, which removes radiation from within
 the jet, is expected to reduce the ability to distinguish boosted
 bosons from QCD jets.
+%
+In that context, it is interesting to see that both ATLAS and CMS
+have currently adopted a tight grooming strategy.
 
 In this section, we introduce a classification of different tagging strategies which will be an organizing framework for our study of robustness and performance.
 %
@@ -737,23 +814,41 @@ This observable was termed ``dichroic'', since different levels of grooming are 
 %
 More explicitly, Ref.~\cite{Salam:2016yht} considered the three observables:
 %
+% \begin{align}
+%  \tau_{21} =\frac{\tau_2}{\tau_1}\,,
+%  \qquad
+%  \tau_{21}^{\text{groomed}} =\frac{\tau_2^{\text{groomed}}}{\tau_1^{\text{groomed}}}\,,
+%   \qquad
+%   \tau_{21}^{\text{dichroic}} =\frac{\tau_2}{\tau_1^\text{groomed}}\,,
+% \end{align}
+%
 \begin{align}
- \tau_{21} =\frac{\tau_2}{\tau_1}  \,, \qquad \tau_{21}^{\text{groomed}} =\frac{\tau_2^\text{groomed}}{\tau_1^\text{groomed}}\,, \qquad \tau_{21}^{\text{dichroic}} =\frac{\tau_2}{\tau_1^\text{groomed}}\,,
+  \tau_{21}^{\text{large}} =\frac{\tau_2^{\text{large}}}{\tau_1^{\text{large}}}\,,
+  \qquad
+  \tau_{21}^{\text{small}} =\frac{\tau_2^{\text{small}}}{\tau_1^{\text{small}}}\,,
+  \qquad
+  \tau_{21}^{\text{dichroic}} =\frac{\tau_2^{\text{large}}}{\tau_1^{\text{small}}}\,,
 \end{align}
+where ``large'' refers either to the plain jet of a
+lightly/loosely groomed jet and ``small'' denotes a more aggressively/tightly
+groomed jet.
 %
-and argued that the dichroic combination was optimal for performance, while also increasing the robustness to non-perturbative contamination.
+It was then argued that the dichroic combination was optimal for
+performance, while also increasing the robustness to non-perturbative
+contamination.
 %
-Here we briefly summarize the motivation for the dichroic observable, following closely the presentation in Ref.~\cite{Salam:2016yht}. 
+Here we briefly summarize the motivation for the dichroic observable.
+%, following closely the presentation in Ref.~\cite{Salam:2016yht}. 
 %
 Readers interested in a more detailed discussion of the dichroic approach, including perturbative calculations, are referred to Ref.~\cite{Salam:2016yht}.
 
-\begin{figure}[t]
-\begin{center}
-\includegraphics[width=0.9\columnwidth]{jetsub_2prong_dichroic_placeholder}
-\end{center}
-\caption{Lund diagrams depicting the three possible kinematic configurations for $\tau_{21}$ with a cut on the mMDT/SoftDropped mass. A detailed explanation is provided in the text. Figure taken from Ref.~\cite{Salam:2016yht}.}
-\label{jetsub_2prong_fig:dichroic}
-\end{figure}
+% \begin{figure}[t]
+% \begin{center}
+% \includegraphics[width=0.9\columnwidth]{jetsub_2prong_dichroic_placeholder}
+% \end{center}
+% \caption{Lund diagrams depicting the three possible kinematic configurations for $\tau_{21}$ with a cut on the mMDT/SoftDropped mass. A detailed explanation is provided in the text. Figure taken from Ref.~\cite{Salam:2016yht}.}
+% \label{jetsub_2prong_fig:dichroic}
+% \end{figure}
 
 \begin{figure}[t]
 \begin{center}
@@ -763,30 +858,40 @@ Readers interested in a more detailed discussion of the dichroic approach, inclu
 \label{jetsub_2prong_fig:dichroic_distribution}
 \end{figure}
 
-Using the Lund diagrams \cite{Andersson:1988gp} in Fig.~\ref{jetsub_2prong_fig:dichroic}, we can give a simple argument for the optimal performance of the dichroic observables by considering the behavior in each of the three regions:
-\begin{itemize}
-\item Case 1: $z_c \theta_c^2 \ll z_b \theta_b^2 \ll z_a \theta_a^2$: All definitions of $\tau_{21}$ give the same result, and are therefore equivalent.
-\item Case 2: $z_b\theta_b^2 \ll z_c \theta_c^2 \ll z_a \theta_a^2$: $\tau_{21}^\text{groomed}=z_b \theta_b^2/z_a \theta_a^2 \ll  z_c \theta_c^2/z_a \theta_a^2=\tau_{21}=\tau_{21}^\text{dichroic}$, showing that the groomed version performs suboptimally in this region of phase space.
-\item Case 3: $z_b \theta_b^2 \ll z_a \theta_a^2 \ll z_c \theta_c^2$: $\tau_{21}^\text{dichroic}=1$, and therefore $\tau_{21}^\text{dichroic} \gg \tau_{21}$, $\tau_{21}^\text{dichroic} \gg \tau_{21}^\text{groomed}$. 
-\end{itemize}
-Since in all cases we have $\tau_{21}=z_b\theta_b^2/z_a\theta_a^2$ for
-the signal, this shows that the dichroic
-ratio is optimal.
-%
-The identical argument can be reversed to show that
-using a groomed numerator and an ungroomed denominator is not optimal.
+% Using the Lund diagrams \cite{Andersson:1988gp} in Fig.~\ref{jetsub_2prong_fig:dichroic}, we can give a simple argument for the optimal performance of the dichroic observables by considering the behavior in each of the three regions:
+% \begin{itemize}
+% \item Case 1: $z_c \theta_c^2 \ll z_b \theta_b^2 \ll z_a \theta_a^2$: All definitions of $\tau_{21}$ give the same result, and are therefore equivalent.
+% \item Case 2: $z_b\theta_b^2 \ll z_c \theta_c^2 \ll z_a \theta_a^2$: $\tau_{21}^\text{groomed}=z_b \theta_b^2/z_a \theta_a^2 \ll  z_c \theta_c^2/z_a \theta_a^2=\tau_{21}=\tau_{21}^\text{dichroic}$, showing that the groomed version performs suboptimally in this region of phase space.
+% \item Case 3: $z_b \theta_b^2 \ll z_a \theta_a^2 \ll z_c \theta_c^2$: $\tau_{21}^\text{dichroic}=1$, and therefore $\tau_{21}^\text{dichroic} \gg \tau_{21}$, $\tau_{21}^\text{dichroic} \gg \tau_{21}^\text{groomed}$. 
+% \end{itemize}
+% Since in all cases we have $\tau_{21}=z_b\theta_b^2/z_a\theta_a^2$ for
+% the signal, this shows that the dichroic
+% ratio is optimal.
+% %
+% The identical argument can be reversed to show that
+% using a groomed numerator and an ungroomed denominator is not optimal.
 
-These benefits of the dichroic approach can also be illustrated in a less abstract manner by considering the distributions of the observables after aggressive grooming (tight), moderate grooming (loose), and in the dichroic approach.
+The benefits of the dichroic approach can simply be illustrated by
+considering the distributions of the observables after aggressive
+grooming (tight), moderate grooming (loose), and in the dichroic
+approach.
 %
 This is shown in Fig.~\ref{jetsub_2prong_fig:dichroic_distribution} for the particular case of $\tau_{21}$.
 %
 Considerable performance is lost in going from loose to tight grooming, since the background distribution is pushed to lower values of $\tau_{21}$.
 %
-For the dichroic observable, by constrast, the behavior of the loose and dichroic observables is identical at small values of $\tau_{21}$, leading to improved performance.
+For the dichroic observable, by constrast, the behavior of the loose
+and dichroic observables is identical at small values of $\tau_{21}$,
+but for larger values of $\tau_{21}$, the dichroic distribution is
+pushed to yet larger values than the loose distribution, leading to
+improved performance.
 %
-Indeed, at high signal purity, the performance of the dichroic observable is nearly equal to that with loose grooming.
+% Indeed, at high signal purity, the performance of the dichroic observable is nearly equal to that with loose grooming.
 %
-Since the dichroic ratio observable uses a partially groomed observable, however, it is less sensitive to non-perturbative effects due to hadronization.
+Since the dichroic ratio observable uses a partially groomed
+observable
+% , however,
+it is expected to be less sensitive to non-perturbative effects due to hadronization.
 %
 It therefore represents an interesting new class of observable to consider. 
 
@@ -794,23 +899,34 @@ It therefore represents an interesting new class of observable to consider.
 \subsection{New Dichroic Observables}\label{jetsub_2prong_sec:dichroic_new}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-It is straightforward to extend the dichroic definition from $N$-subjettiness ratios to observables formed from the energy correlation functions.
+It is almost straightforward to extend the dichroic definition from $N$-subjettiness ratios to observables formed from the energy correlation functions.
 %
 For $\tau_{21}$ it is immediately clear what the numerator and denominator of the observable are, however, this is initially less obvious for the energy correlation function based observables that have a more complicated structure.
 %
 Here, we define the dichroic variants of the $M_2$, $N_2$ and $D_2$ by isolating a single factor of a mass like observable ($e_2$) as the denominator, and defining the remainder of the observable as the numerator.
 %
-The definitions of the variants of the $M_2$, $N_2$ and $D_2$ observables are then
+The definitions of the dichroic variants of the $M_2$, $N_2$ and $D_2$
+observables are then
 \begin{align}
-M_2= \frac{ _1e_{3}  }{e_{2}}\,, \qquad  M_2^{\text{groomed}}= \frac{ _1e_{3}  }{e_{2}^\text{groomed}}\,, \qquad  N_2^{\text{dichroic}}= \frac{_1e_{3}  }{e_{2}^\text{groomed}}\,, 
+  M_2^{\text{dichroic}}&= \frac{( _1e_{3})^{\text{large}}  }{e_{2}^{\text{small}}}\,, \\
+ N_2^{\text{dichroic}}&= \frac{\left( _{2}e_{3} / e_{2} \right)^{\text{large}} }{e_{2}^{\text{small}}}\,,\\
+  D_2^{\text{dichroic}}&=\frac{\left( e_{3} / e_{2}^2 \right)^{\text{large}}}{ e_{2}^{\text{small}}}\,.
 \end{align}
-\begin{align}
-N_2= \frac{\left( _2e_{3} / e_{2} \right) }{e_{2}}\,, \qquad  N_2^{\text{groomed}}= \frac{\left( _{2}e_{3} / e_{2} \right)^\text{groomed} }{e_{2}^\text{groomed}}\,, \qquad  N_2^{\text{dichroic}}= \frac{\left( _{2}e_{3} / e_{2} \right) }{e_{2}^\text{groomed}}\,, 
-\end{align}
-and
-\begin{align}
-D_2=\frac{\left( e_{3} / e_{2}^2 \right)}{ e_{2}}\,, \qquad D_2^{\text{groomed}}=\frac{\left( e_{3} / e_{2}^2 \right)^\text{groomed}}{ e_{2}^\text{groomed}}\,, \qquad D_2^{\text{dichroic}}=\frac{\left( e_{3} / e_{2}^2 \right)}{ e_{2}^\text{groomed}}\,.
-\end{align}
+%
+% The definitions of the variants of the $M_2$, $N_2$ and $D_2$
+% observables are then
+% \begin{align}
+% M_2= \frac{ _1e_{3}  }{e_{2}}\,, \qquad  M_2^{\text{groomed}}= \frac{
+%   ( _1e_{3})^{\text{groomed}}  }{e_{2}^\text{groomed}}\,, \qquad  M_2^{\text{dichroic}}= \frac{_1e_{3}  }{e_{2}^\text{groomed}}\,, 
+% \end{align}
+% \begin{align}
+% N_2= \frac{\left( _2e_{3} / e_{2} \right) }{e_{2}}\,, \qquad  N_2^{\text{groomed}}= \frac{\left( _{2}e_{3} / e_{2} \right)^\text{groomed} }{e_{2}^\text{groomed}}\,, \qquad  N_2^{\text{dichroic}}= \frac{\left( _{2}e_{3} / e_{2} \right) }{e_{2}^\text{groomed}}\,, 
+% \end{align}
+% and
+% \begin{align}
+% D_2=\frac{\left( e_{3} / e_{2}^2 \right)}{ e_{2}}\,, \qquad D_2^{\text{groomed}}=\frac{\left( e_{3} / e_{2}^2 \right)^\text{groomed}}{ e_{2}^\text{groomed}}\,, \qquad D_2^{\text{dichroic}}=\frac{\left( e_{3} / e_{2}^2 \right)}{ e_{2}^\text{groomed}}\,.
+% \end{align}
+%
 The above prescription is most easy to see for the $N_2$ observable. In the two-prong limit, the combination $ _{2}e_{3} / e_{2} $ reduces to $\tau_2$, and therefore the dichroic $N_2$ ratio behaves similarly to the dichroic $\tau_{21}$ ratio.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -890,10 +1006,10 @@ to denote the grooming applied to a particular observable, where $m$, $n$, and $
 \item plain ($p$): no grooming applied;
 \item loose ($\ell$): SoftDrop with ${z_{\rm cut}}=0.05$, $\beta=2$;
 \item tight ($t$): mMDT with ${z_{\rm cut}}=0.1$.
-\end{itemize}
-%
-We also study trimmed jets,
-\begin{itemize}
+% \end{itemize}
+% %
+% We also study trimmed jets,
+% \begin{itemize}
 \item trim: trimming with $R_{\text{sub}}=0.2$,  $ {z_{\rm cut}}=0.05$ and the $k_T$ algorithm to perform the reclustering, as used by ATLAS.
 \end{itemize}
 %
@@ -942,7 +1058,40 @@ The values scanned are summarized in Tab.~\ref{jetsub_2prong_tab:params}.
 %
 This allows us to understand if the conclusions drawn are associated with specific observables within a given strategy, as well as to optimize over these parameters.
 %
-Due to the large number of physics and detector parameters that are varied in our study, only a subset of plots will be presented in the paper. A summary of the observables scanned, highlighting those which we find to be most promising, will be given in Fig.~\ref{jetsub_2prong_fig:phasespace}.
+Due to the large number of physics and detector parameters that can be
+varied in our study, only a subset of plots will be presented in the
+paper. More specifically, we will primarily show results for the
+following 3 benchmark points
+%
+\begin{itemize}
+%
+\item an {\bf ATLAS-like tagger} putting cuts on the trimmed mass and
+on $D_2^{(1)}$ computed on the trimmed jet: $D_2^{(1)}\text{[trim]}$,
+%
+\item a {\bf CMS-like tagger} putting cuts on the mMDT mass and on
+$N_2^{(1)}$ computed on the tightly-groomed jet: $N_2^{(1)}[t\otimes t/t]$,
+%
+\item the {\bf Les-Houche Dichroic Energy-Correlation Function
+(LHDD$_2^{(2)}$)} putting cuts on the mMDT mass and on the dichroic
+$D_2^{(2)}$: $D_2^{(2)}[t\otimes l/t]$.
+%
+\end{itemize}
+%
+To study variations, we will either fix the grooming strategy to one
+of the three benchmark points and vary the jet shape, or conversely,
+fix the type of jet shape to one of our benchmark points and vary the
+grooming strategy.
+%
+A more global summary of the observables scanned, highlighting those
+which we find to be most promising, will be given in
+Fig.~\ref{jetsub_2prong_fig:phasespace}.
+
+
+% Due to the large number of physics and detector parameters that are
+% varied in our study, only a subset of plots will be presented in the
+% paper. A summary of the observables scanned, highlighting those
+% which we find to be most promising, will be given in
+% Fig.~\ref{jetsub_2prong_fig:phasespace}.
 %
 
 
@@ -1014,7 +1163,7 @@ Second, with both tight and loose grooming, the distributions are robust to hadr
 %
 This is particularly true for tight grooming where hadronization has almost no effect, except at extremely small values of the observable.
 %
-On the other hand, the trimmed mass distribution is not robust to hadronization effects. 
+On the other hand, the trimmed mass distribution is less robust to hadronization effects. 
 
 
 \begin{figure}
@@ -1037,7 +1186,8 @@ On the other hand, the trimmed mass distribution is not robust to hadronization 
     events.}\label{jetsub_2prong_fig:shape-distribution}
 \end{figure}
 
-In Fig.~\ref{jetsub_2prong_fig:shape-distribution}, we show distributions for the observables that will be of primary interest in this study, namely $D_2$, $N_2$, and a dichroic version of $D_2$, measured on both background and signal jets.
+In Fig.~\ref{jetsub_2prong_fig:shape-distribution}, we show
+distributions for our benchmark observables, namely $D_2^{(1)}$, $N_2^{(1)}$, and a dichroic version of $D_2^{(2)}$, measured on both background and signal jets.
 %
 In all cases, we see that hadronization has a sizable effect on the shape of the distribution, pushing it to larger values.
 %
@@ -1112,13 +1262,21 @@ This will be the default format in which we display our results throughout the r
 \end{figure}
 
 
-In Figs.~\ref{jetsub_2prong_fig:grooming-hadronisation} and \ref{jetsub_2prong_fig:shapes-hadronisation}, we show the performance-resilience plots for the effects of hadronization for the different observables considered in this study.
+In Figs.~\ref{jetsub_2prong_fig:grooming-hadronisation} and
+\ref{jetsub_2prong_fig:shapes-hadronisation}, we show the
+performance-resilience plots for the effects of hadronization for our
+benchmark observables.
 %
 Fig.~\ref{jetsub_2prong_fig:grooming-hadronisation} shows $D_2$, $N_2$, and dichroic $D_2$ for the different grooming strategies, while in Fig.~\ref{jetsub_2prong_fig:shapes-hadronisation} we consider fixed grooming strategies in each plot, but different jet shape observables.
 %
 We first notice that, in almost all cases, a dichroic form of the observable can be used to improve resilience while maintaining a similar level of performance.
 %
-Among the shapes, we find that $D_2$ tends to be the most robust, while $N_2$ tends to be slightly more performant.
+Among the shapes, we find that $D_2$ tends to be the most robust and
+that $N_2$ tends to be slightly more performant, although $D_2$
+becomes more performant than $N_2$ at larger $p_T$.
+%
+%  Among the shapes, we find that $D_2$ tends to be the most robust,
+%  while $N_2$ tends to be slightly more performant.
 %
 This agrees with what was seen by studying the distributions in Fig.~\ref{jetsub_2prong_fig:shape-distribution} by eye, however, we are now able to quantify this.
 %
@@ -1144,7 +1302,15 @@ We also notice that for almost all the observables the trends with $p_T$ are sim
 \subfloat[]{
   \includegraphics[width=0.32\textwidth,page=32]{jetsub_2prong_grooming-scan-levels.pdf}
 }
-  \caption{Plots of the peformance-resilience plane going from hadron level to truth level (inclusion of underlying event) for the standard jet shape observables with different grooming strategies.}\label{jetsub_2prong_fig:grooming-UE}
+  \caption{Plots of the peformance-resilience plane going from hadron
+    level to truth level (inclusion of underlying event) for the
+    standard jet shape observables with different grooming strategies.
+    %
+    In this and the next figure, resilience values have been cut at
+    $\zeta=10$ for easier comparison with the corresponding
+    hadronisation plots,
+    Figs.~\ref{jetsub_2prong_fig:grooming-hadronisation}
+    and~\ref{jetsub_2prong_fig:shapes-hadronisation}.}\label{jetsub_2prong_fig:grooming-UE}
 \end{figure}
 
 \begin{figure}
@@ -1167,11 +1333,27 @@ The results in the performance-resilience plane are shown in Figs.~\ref{jetsub_2
 %
 These are identical to Figs.~\ref{jetsub_2prong_fig:grooming-hadronisation} and \ref{jetsub_2prong_fig:shapes-hadronisation} but measure the robustness to underlying event instead of hadronization.
 %
-The first thing that is clear from comparing Figs.~\ref{jetsub_2prong_fig:grooming-hadronisation} and \ref{jetsub_2prong_fig:shapes-hadronisation} with  Figs.~\ref{jetsub_2prong_fig:grooming-UE} and \ref{jetsub_2prong_fig:shapes-UE} is that with modern grooming techniques, we are comparatively much less sensitive to underlying event then to hadronization effects.
+The first thing that is clear from comparing Figs.~\ref{jetsub_2prong_fig:grooming-hadronisation} and \ref{jetsub_2prong_fig:shapes-hadronisation} with  Figs.~\ref{jetsub_2prong_fig:grooming-UE} and \ref{jetsub_2prong_fig:shapes-UE} is that with modern grooming techniques, we are comparatively much less sensitive to underlying event than to hadronization effects.
 %
-With the exception of the tight$\otimes$plain/plain grooming strategy (which indeed does not groom the observable), all the standard observables with are robust to underlying event for all the different grooming strategies.
+With the exception of the tight$\otimes$plain/plain grooming strategy
+(which indeed does not groom the observable), all the standard
+observables are robust to underlying event for all the different
+grooming strategies. Similarly, all the different jet shape
+observables in this study are also robust to Underlying Event
+effects. The dichroid $D_2^{(2)}$ observable
+(Figs.~\ref{jetsub_2prong_fig:grooming-hadronisation}cc
+and~\ref{jetsub_2prong_fig:grooming-UE}c) shows a smaller resilience
+against the Underlying Event although it remains much larger than the
+corresponding resilience to hadronisation effects.
 %
-Similarly, with the exception of the dichroic $D_2$ observable, all the different jet shape observables in this study are also robust to underlying event.
+% With the exception of the tight$\otimes$plain/plain grooming strategy
+% (which indeed does not groom the observable), all the standard
+% observables with are robust to underlying event for all the different
+% grooming strategies.
+% %
+% Similarly, with the exception of the dichroic $D_2$ observable, all
+% the different jet shape observables in this study are also robust to
+% underlying event.
 %
 We believe that this should be viewed as a success of modern grooming tools.
 %
@@ -1218,7 +1400,7 @@ The names of a large variety of those observables which lie on the upper boundar
 
 Looking more closely at the observables along this upper boundary, we see that there is in fact considerable structure, and a number of general lessons can be learned.
 %
-First, as we move along this boundary from least resilient to most resilient, we transition from $N_2$ observables which are the most performant, but less robust, through $D_2$, to $M_2$, which is more robust, but less performant.
+First, as we move along this boundary from least resilient to most resilient, we transition from $N_2^{(1,2)}$ observables which are the most performant, but less robust, through $D_2^{(2)}$, to $M_2^{(2)}$, which is more robust, but less performant.
 %
 This was also clearly observed in the distributions of Fig.~\ref{jetsub_2prong_fig:shape-distribution}.
 %
@@ -1230,7 +1412,13 @@ We believe that it is worthwhile for the experiments to consider some of the dic
 %
 We have highlighted in Fig.~\ref{jetsub_2prong_fig:phasespace} that a whole interesting phase space of such observables exist, which map out the performance-resilience plane.
 %
-Different observables could be chosen depending on the particular needs of a given study.
+Different observables could be chosen depending on the particular
+needs of a given study.
+%
+Note finally, that the above study has been carried using a specific
+choices of grooming strategies (loose and tight). There is therefore a
+potential additional gain that can be achieved by studying alternative
+(more or less aggressive) options.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1315,7 +1503,7 @@ to a simple acceptance and smearing model representing tracking detectors as wel
 %
 Basic detector feature descriptors are considered together with response features and signal reconstruction strategies similar to the ATLAS and CMS experiments at the LHC.
 %
-The respective model configurations are A (ATLAS{-like} \cite{PERF-2007-01}) and C (CMS\emph{-like} \cite{CMS-TDR-08-001}).
+The respective model configurations are A (ATLAS{\emph{-like}} \cite{PERF-2007-01}) and C (CMS\emph{-like} \cite{CMS-TDR-08-001}).
 %
 Effects from particles showering in calorimeters are not modeled. 
 
@@ -1332,7 +1520,7 @@ The direction of neutral particles is the generated direction at the vertex, whi
 into the calorimeter. 
 This entry point is calculated using the particle trajectory in an axial uniform magnetic field of $B_{\text{solenoid}} = 2$%
  T and the radius $R_{\text{calo}} = 1150$ mm of
-on the calorimeter front face.
+ the calorimeter front face.
 If the transverse momentum of the charged particle  is too low to reach the calorimeter, i.e.\ its trajectory in the magnetic field does not exceed $R_{\text{calo}}$, 
 the particle is considered invisible for the detector and thus ignored for further analysis.   
 For particles reaching the calorimeter, the (bent) trajectory is not radial anymore at the front face.
@@ -1382,18 +1570,53 @@ The two model configurations produce significantly different jet compositions, i
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Pile-Up Removal}\label{jetsub_2prong_sec:pu_tech}
+\subsection{Pile-Up Mitigation}\label{jetsub_2prong_sec:pu_tech}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Due to the high pile-up environment of the LHC, pile-up mitigation techniques \cite{Cacciari:2007fd,Alon:2011xb,Soyez:2012hv,Tseng:2013dva,Krohn:2013lba,Cacciari:2014gra,Bertolini:2014bba} are also widely used, which eliminate soft radiation from the event.
+Besides the detector response discussed above, LHC collisions are also
+contaminated by pile-up.
 %
-Since this radiation is uncorrelated with the underlying hard scattering, this can in principle be done, and a variety of techniques exist.
-%
-In this paper we use Area Subtraction \cite{Cacciari:2007fd,Cacciari:2008gn} and SoftKiller \cite{Cacciari:2014gra} as representative of these techniques.
+While pile-up multiplicities remained reasonably low, around 20, during Run~I of
+the LHC, they already increased to 40-60 in Run~II and are expected to
+increase even further, in the 140-200 range, for the high-luminosity
+upgrade of the LHC.
 
-In the SoftKiller approach, the event is broken into patches, and we define
+To correct for the energy bias and smearing associated with the
+pile-up contamination, one uses a variety of pile-up mitigation
+techniques (see~\cite{Soyez:2018opl} for a recent review). The
+standard approach for most applications is the area--median
+subtraction
+method~\cite{Cacciari:2007fd,Cacciari:2008gn,AlcarazMaestre:2012vp,Soyez:2012hv}
+(potentially using the ConstituentSubtractor~\cite{Berta:2014eza} for
+subtracting pile-up from jet shapes). Recently, more complex pile-up
+subtraction methods have been
+proposed~\cite{Krohn:2013lba,Bertolini:2014bba,Cacciari:2014gra} (see
+also~\cite{Tseng:2013dva,Cacciari:2014jta}). In particular,
+PUPPI~\cite{Bertolini:2014bba} and the
+SoftKiller~\cite{Cacciari:2014gra} both provide event-wide pile-up
+mitigation techniques that show good performance in terms of
+resolution, at the expense of requiring some degree of fine-tuning of
+their free parameters.
+%
+PUPPI has already been used by the CMS collaboration in a series of
+jet-substructure sudies.
+
+For these proceedings, we will concentrate on the SoftKiller approach.
+This is motivated by its speed --- for a typical LHC event with pileup
+would be subtracted and clustered in 200-700~$\mu$s --- by the fact
+that a public implementation is available, and by the fact that the
+SoftKiller and PUPPI have shown similar performance (see e.g.~\cite{puws14}).
+
+
+The SoftKiller works by iteratively removing the softest particle in
+the event until the area--median pileup density estimate $\rho$ is
+zero. This is equivalent to breaking the event in patches and
+iteratively removing the softest particle in the event until half of
+the patches are empty, i.e. imposing a cut
+%
 \begin{align}
-\rho= \text{median} \left \{ \frac{p_{Ti}}{A_i}   \right \}\,.
+p_T^{\text{cut}}=\underset{p \in \text{patches}}{\text{median}}\Big\{
+  \underset{\text{particle }i\in p}{\text{max}}\{ p_{Ti}\}\Big\}\,.
 \end{align}
 SoftKiller then removes particles below a cutoff $p_T^{\text{cut}}$, chosen such that $\rho=0$. We have
 \begin{align}
@@ -1410,13 +1633,58 @@ SoftKiller has been shown to provide good performance for removing pile-up conta
 
 PUPPI: \cite{Bertolini:2014bba}
 
+%
+The patches are usually defined using a rectangular grid in rapidity
+and azimuth. In our study below, we have adopted a grid of size
+$0.5\times 0.5$.
+
+
+
+% Due to the high pile-up environment of the LHC, pile-up mitigation
+% techniques
+% are also widely used, which eliminate soft radiation from the event.
+% %
+% Since this radiation is uncorrelated with the underlying hard
+% scattering, this can in principle be done, and a variety of techniques
+% exist.
+% %
+% In this paper we use Area Subtraction
+% \cite{Cacciari:2007fd} and SoftKiller
+% \cite{Cacciari:2014gra} as representative of these techniques.
+% 
+% In the SoftKiller approach, the event is broken into patches, and we
+% define
+% \begin{align}
+% \rho= \text{median} \left \{ \frac{p_{Ti}}{A_i}   \right \}\,.
+% \end{align}
+% SoftKiller then removes particles below a cutoff $p_T^{\text{cut}}$, chosen such that $\rho=0$. We have
+% \begin{align}
+% p_T^{\text{cut}}=\text{median} \{ p_{Ti}^{\text{max}} \}\,.
+% \end{align}
+% SoftKiller has been shown to provide good performance for removing
+% pile-up contamination.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Impact on Mass Resolution}\label{jetsub_2prong_sec:detector_robust}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We now perform a study of the impact of detector and pile-up effects on mass resolution.
+The impact of detector resolution and pile-up is far more complex than
+including the detector simulation discussed in
+Section~\ref{jetsub_2prong_sec:det_model}.
 %
-This will highlight the need to perform a more sophisticated study when considering detector effects, which will be left to a future publication.
+In particular, we have not performed any calibrations or in-situ
+corrections.
+%
+We have therefore limited the scope of these proceedings to a
+discussion of their effects on mass resolution.
+% 
+% We now perform a study of the impact of detector and pile-up effects
+% on mass resolution.
+%
+This will highlight the need to perform a more sophisticated study
+when considering detector effects, which will be left to a future
+publication.
 
 \begin{figure}
 \subfloat[]{
@@ -1424,27 +1692,68 @@ This will highlight the need to perform a more sophisticated study when consider
 }
 \subfloat[]{
   \includegraphics[width=0.45\columnwidth]{jetsub_2prong_mass-width-detector.pdf}
-  }
-  \caption{Mass reconstruction with detector effects as a function of the jet $p_T$.}
-  \label{jetsub_2prong_fig:mass-detector}
+}
+  \caption{Mass reconstruction with detector effects as a function of
+  the jet $p_T$.}\label{jetsub_2prong_fig:mass-detector}
 \end{figure}
 
-In Fig.~\ref{jetsub_2prong_fig:mass-detector}, we show distributions of the groomed mass for a hadronically decaying boosted $W$ boson in our CMS-like and ATLAS-like detectors at different values of the jet $p_T$.
+In Fig.~\ref{jetsub_2prong_fig:mass-detector}, we show distributions
+of the groomed mass for a hadronically decaying boosted $W$ boson in
+our CMS-like and ATLAS-like detectors at different values of the jet
+$p_T$ (Fig.~\ref{jetsub_2prong_fig:mass-detector}a), together with
+the measure peak positipn and width\footnote{The position and width
+  are defined as the median and width of the smallest mass window
+  containing 40\% of the events.}, for the trimmed mass with the
+ATLAS-like detector simulation and the tight (mMDT) mass with the
+CMS-like simulation, Fig.~\ref{jetsub_2prong_fig:mass-detector}b.
 %
-We see that the detector has a significant impact on the distributions, particularly as the $p_T$ is increased.
+We see that the detector has a significant impact on the
+distributions: while the $W$ peak remains decent for $500$-GeV jets,
+typical of most applications today, the raw resolution considerably
+degrades as the $p_T$ is increased.
 %
-We also see that both detectors have a similar performance, despite their different approaches.
+We also see that both detectors show a similar trend, despite their
+different approaches.
 %
-Despite the fact that CMS has particle flow, at high $p_T$ there is a trade off between tracking and calorimetry, which is better in ATLAS, leading to comparable detector resolution.
+For $p_T$'s up to 1~TeV, it seems that the configuration C gives a
+slightly better resolution thans the configuration A, an effect that
+is tentatively attributed to particle flow.
 %
-Furthermore, in the full experiments, the reconstruction algorithms are complementary and adapted to the experiments' detector technologies to achieve similar performance.
+However, at high $p_T$ there is a trade off between tracking and
+calorimetry, which is better in ATLAS, leading to comparable detector
+resolution.
 %
-Due to the fact that the end results of the two detectors are quite similar, we find it unwise to draw any deeper conclusions, since there are potentially other effects, not included in our simulation, that could determine the final result.
+Furthermore, in the full experiments, the reconstruction algorithms
+are complementary and adapted to the experiments' detector
+technologies, so that the two experiments achieve similar performance.
+%
+Due to the fact that the end results of the two detectors are quite
+similar, we find it unwise to draw any deeper conclusions, since there
+are potentially other effects, not included in our simulation, that
+could determine the final outcome.
+%
+We will however point out that, in our (over-simplified) preliminary
+studies, the main patterns observed in
+Section~\ref{jetsub_2prong_sec:exp_compare}, e.g. the overall good
+performance of $N_2^{(1,2)}$ and $D_2^{(2)}$ and the interest in
+investigating dichroic ratios, seem to remain valid.
+
+Fig.~\ref{jetsub_2prong_fig:mass-detector}b also includes the mass
+resolution in the presence of pileup, here Poisson-distributed with an
+average multiplicity of 50, mitigated using the SoftKiller method
+described in the previous Section. Based on this simple analysis, it
+seems that the reconstruction of $W$ mass peak still behaves properly
+in the presence of pileup.
 
 
-This short study highlights the essential importance of understanding detector effects when designing jet substructure observables.
+This brief study described above highlights the essential importance
+of understanding detector effects when designing jet substructure
+observables.
 %
-Although we have found that the $N_2$ and $D_2$ observables emphasize, respectively, performance and robustness, it would also be interesting to understand if the different detectors played a role in the choice of one observable as compared with the other.
+Although we have found that the $N_2$ and $D_2$ observables emphasize,
+respectively, performance and robustness, it would also be interesting
+to understand if the different detectors played a role in the choice
+of one observable as compared with the other.
 %
 As highlighted by the specific example of the groomed jet mass in this section, such a study requires considerable care to perform in a meaningful manner.
 %
@@ -1542,7 +1851,9 @@ It would also be interesting to develop tagging or reconstruction schemes that a
 
 Having understood the dependence of standard jet substructure observables on polarization, it is interesting to know whether jet substructure observables are able to tag distinct polarizations on hadronically-decaying particles, and with what efficiency this can be done.
 %
-Since the standard two-prong tagging observables are not particularly sensitive to the polarization, a different observable must be used to tag polarizations.
+% Since the standard two-prong tagging observables are not particularly
+% sensitive to the polarization, a different observable must be used to
+% tag polarizations.
 %
 Here, we do not perform a comprehensive study, but restrict ourselves to studying a particular example of an observable which is sensitive to the $W$ polarization, and we evaluate its performance for distinguishing transverse and longitudinal $W$ bosons. 
 
@@ -1631,7 +1942,7 @@ These findings are summarized in Fig.~\ref{jetsub_2prong_fig:phasespace}, which 
 %
 We therefore believe that further studies using more detailed simulations of the ATLAS and CMS detectors, and ultimately on real data, would be of significant interest.
 %
-sMore generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
+More generally, we believe that the emphasis on a simultaneous evaluation of the performance and robustness, as well as the particular metrics introduced in this paper, will play a significant role in future studies of jet substructure techniques at the LHC.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acknowledgments}

@@ -1,0 +1,93 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: lh2017_2prong.aux
+The style file: jhep.bst
+Database file #1: lh2017_2prong.bib
+Repeated entry---line 258 of file lh2017_2prong.bib
+ : @article{Sirunyan:2017dgc
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 612 of file lh2017_2prong.bib
+ : @techreport{CMS-PAS-HIG-17-010
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 625 of file lh2017_2prong.bib
+ : @techreport{CMS-PAS-EXO-17-001
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1014 of file lh2017_2prong.bib
+ : @article{Dasgupta:2015lxh
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1388 of file lh2017_2prong.bib
+ : @article{Stewart:2015waa
+ :                         ,
+I'm skipping whatever remains of this entry
+Warning--entry type for "Wobisch:2000dk" isn't style-file defined
+--line 3647 of file lh2017_2prong.bib
+Warning--empty author in CMS:2013cda
+Warning--empty institution in CMS:2013cda
+Warning--empty author in ATLAS-CONF-2015-035
+Warning--empty author in ATLAS-CONF-2016-002
+Warning--empty author in ATLAS-CONF-2016-039
+Warning--empty author in ATLAS-CONF-2016-034
+Warning--empty author in CMS-PAS-TOP-16-013
+Warning--empty author in CMS-PAS-HIG-16-004
+Warning--empty author in CMS:2011bqa
+Warning--empty institution in CMS:2011bqa
+Warning--empty author in TheATLAScollaboration:2013qia
+Warning--empty institution in TheATLAScollaboration:2013qia
+Warning--empty author in CMS-PAS-B2G-14-001
+Warning--empty author in CMS-PAS-B2G-14-002
+Warning--empty author in ATLAS-CONF-2016-055
+Warning--empty author in ATLAS-CONF-2015-071
+Warning--empty author in ATLAS-CONF-2015-068
+Warning--empty author in CMS-PAS-EXO-16-037
+Warning--empty author in CMS-PAS-EXO-16-040
+Warning--empty author in CMS-PAS-HIG-16-016
+Warning--empty author in CMS-PAS-B2G-15-003
+Warning--empty author in CMS-PAS-EXO-16-017
+Warning--empty author in CMS-PAS-HIG-17-010
+Warning--empty author in CMS-PAS-EXO-17-001
+You've used 148 entries,
+            2195 wiz_defined-function locations,
+            1406 strings with 27226 characters,
+and the built_in function-call counts, 40551 in all, are:
+= -- 4109
+> -- 1417
+< -- 21
++ -- 533
+- -- 385
+* -- 3393
+:= -- 5552
+add.period$ -- 149
+call.type$ -- 148
+change.case$ -- 148
+chr.to.int$ -- 0
+cite$ -- 172
+duplicate$ -- 2261
+empty$ -- 3662
+format.name$ -- 385
+if$ -- 10332
+int.to.chr$ -- 0
+int.to.str$ -- 148
+missing$ -- 478
+newline$ -- 448
+num.names$ -- 127
+pop$ -- 584
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 1468
+stack$ -- 0
+substring$ -- 1703
+swap$ -- 960
+text.length$ -- 21
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 24
+while$ -- 245
+width$ -- 151
+write$ -- 1526
+(There were 5 error messages)
