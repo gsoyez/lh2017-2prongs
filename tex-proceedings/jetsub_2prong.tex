@@ -1,28 +1,10 @@
 %% GS todo:
 %%
-%% - Fig.7 needs to be updated to include the 3 benchmark points and
-%%   R=0.8 only.
-%% 
-%% 
-%% - the "(dichroic)" label in the two leftmost plots of Figs.9 and 11 is
-%%   a bit of a misnomer. We could rename them as "(LH[D]D2)", possibly
-%%   with a / across the 1st D? [and a similar renaminig for Figs 8 and
-%%   10. What do you think?
-%% 
 %% - Section 5.3 is. to me the main take-home message of the
 %%   proceedings. Is there a way to highlight this better?
 %% 
-%% - Fig. 12: highlight "our pick" [this one is obviously on me]
-%% 
 %% - Detector sim: what about adding a link to Peter's code (adding some
 %%   piece of info there to mention that he is the author of the code)?
-%% 
-%% - Fig. 13: highlight "LHDD22"
-%% 
-%% - For Peter, what do the two terms in (23) (track smearing) correspond
-%%   to?
-%% 
-%% - Section 7.1, figure 15a: specify the grooming strategy for D2
 
 
 \documentclass[11pt]{cernrep}
@@ -1406,7 +1388,12 @@ If the extrapolated particle trajectory reaches the calorimeter, the particle en
 The energy of neutral particles is added to the calorimeter tower in the same way as in configuration A. 
 The selection employing $\ensuremath{p_{\text{T}}^{\text{tower}}} > \ensuremath{p_{\text{T}}^{\text{min}}}$ is applied as well after the tower energy smearing with the parameters for configuration C given in Table~\ref{jetsub_2prong_tab:detmodel}. 
 Figure~\ref{jetsub_2prong_fig:detmodel} shows the calorimeter-only composition of a given truth-level jet in configuration A together with the track-and-calorimeter jet composition of configuration C.
-The two model configurations produce significantly different jet compositions, in particular with respect to the energy flow from low-\ensuremath{p_{\text{T}}}{} constituents.
+The two model configurations produce significantly different jet
+compositions, in particular with respect to the energy flow from
+low-\ensuremath{p_{\text{T}}}{} constituents.
+
+The implementation of this detector model is available from the
+{\tt{DetectorModel}} subdirectory of the {\tt{git}} repository at \url{https://github.com/gsoyez/lh2017-2prongs/}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
