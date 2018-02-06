@@ -56,7 +56,7 @@ set label 103 sprintf('{/*0.8 %g<m<%g GeV}',mmin,mmax)   left at graph 0.03,0.84
 
 
 unset title 
-set label 1 'ATLAS       CMS     LHDD_2^{(2)}' right at graph 0.96,0.215
+set label 1 'ATLAS       CMS     LHDD@_2^{(2)}' right at graph 0.96,0.215
 
 
 fileSM=sprintf('../res/lhc14-WW%d-pythia8230M13-truth-R%s.ntuple.gz',1*pt, R)
