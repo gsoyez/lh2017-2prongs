@@ -1273,8 +1273,8 @@ A more comprehensive study is left to a dedicated publication.
 \hline
 Signal  & \multicolumn{5}{c|}{Model parameters}    \\ \cline{2-6}                      
         & Coverage
-        & \ensuremath{p_{\text{T}}^{\text{min}}}
-        & \ensuremath{p_{\text{T}}^{\text{max}}} 
+        & \ensuremath{p_{T}^{\text{min}}}
+        & \ensuremath{p_{T}^{\text{max}}} 
         & \multicolumn{2}{c|}{Resolution function parameters} \\
 \hline
 \multicolumn{6}{|c|}{\textbf{Configuration A} ($R_{\text{calo}} = 1150$ mm, $B_{\text{solenoid}} = 2$ T)} \\
@@ -1299,7 +1299,7 @@ Tracks     & $|\eta| < 2.5$ &  1 GeV  &  300 GeV  & \ensuremath{a_{\text{track}}
 \hline
 \end{tabular}
 \caption{Principal properties and smearing parameters of the detector model configurations A and C. Electromagnetic (EM) towers have a tower size of $\Delta\eta\times\Delta\phi = 0.025\times0.025$, while hadronic (HAD) towers have $\Delta\eta\times\Delta\phi = 0.1\times0.1$. Tracks are not modeled in configuration A, while configuration C models both tracks and calorimeter signals to simulate the effect of a particle flow algorithm. The resolution function parameters \ensuremath{a_{\text{calo}}}, \ensuremath{b_{\text{calo}}}{}, and \ensuremath{c_{\text{calo}}}{} are used together with the resolution function in Eq.~\eqref{jetsub_2prong_eq:caloreso} to determine the width of the Gaussian energy smearing.
-Similarly, \ensuremath{a_{\text{track}}}{} and \ensuremath{c_{\text{track}}}{} are used in Eq.~\eqref{jetsub_2prong_eq:trkreso} to determine the width of the track-\ensuremath{p_{\text{T}}}{} resolution smearing.}
+Similarly, \ensuremath{a_{\text{track}}}{} and \ensuremath{c_{\text{track}}}{} are used in Eq.~\eqref{jetsub_2prong_eq:trkreso} to determine the width of the track-\ensuremath{p_{T}}{} resolution smearing.}
 \label{jetsub_2prong_tab:detmodel}
 \end{table}
 
@@ -1342,8 +1342,7 @@ Electrons, positrons, and photons emitted within $|\eta| < 2.5$ fill electromagm
 coverage of the high granularity electromagnetic calorimeter. 
 The direction of neutral particles is the generated direction at the vertex, while for all charged particles $\phi$ is changed to the azimuth at the entry point of the particle
 into the calorimeter. 
-This entry point is calculated using the particle trajectory in an axial uniform magnetic field of $B_{\text{solenoid}} = 2$%
- T and the radius $R_{\text{calo}} = 1150$ mm of
+This entry point is calculated using the particle trajectory in an axial uniform magnetic field of $B_{\text{solenoid}} = 2$~T and the radius $R_{\text{calo}} = 1150$ mm of
  the calorimeter front face.
 If the transverse momentum of the charged particle  is too low to reach the calorimeter, i.e.\ its trajectory in the magnetic field does not exceed $R_{\text{calo}}$, 
 the particle is considered invisible for the detector and thus ignored for further analysis.   
@@ -1362,29 +1361,29 @@ and the constant term \ensuremath{c_{\text{calo}}}{} capturing fluctuations intr
 The values for \ensuremath{a_{\text{calo}}}{} and \ensuremath{c_{\text{calo}}}{} are shown in Table~\ref{jetsub_2prong_tab:detmodel}. 
 The detector noise is not modeled, thus the noise term is $\ensuremath{b_{\text{calo}}}=0$ for both configurations.
 
-The tower energy after smearing is required to pass $\ensuremath{p_{\text{T}}^{\text{tower}}} > \ensuremath{p_{\text{T}}^{\text{min}}}$. 
+The tower energy after smearing is required to pass $\ensuremath{p_{T}^{\text{tower}}} > \ensuremath{p_{T}^{\text{min}}}$. 
 Towers passing this requirement are converted into massless pseudoparticles using the 
 nominal tower center $(\ensuremath{\eta_{\text{tower}}},\ensuremath{\phi_{\text{tower}}})$ and the tower energy \ensuremath{E_{\text{tower}}}{} ($(\ensuremath{E_{\text{tower}}},\ensuremath{\eta_{\text{tower}}},\ensuremath{\phi_{\text{tower}}}) \mapsto (\ensuremath{E_{\text{tower}}},\vec{p}_{\text{tower}})$ with $|\vec{p}_{\text{tower}}| = \ensuremath{E_{\text{tower}}}$).
 
 Configuration C models a particle flow signal from a tracking detector combined with a calorimeter. 
 Charged particles are bent in an axial uniform magnetic field with $B_{\text{solenoid}} = 4$ T.
 The transverse momentum of the charged particles emitted within a tracking detector acceptance of $|\eta|<2.5$
-is smeared along a Gaussian distribution function with width $\sigma_{\ensuremath{p_{\text{T}}^{\text{track}}}}$ given by:
+is smeared along a Gaussian distribution function with width $\sigma_{\ensuremath{p_{T}^{\text{track}}}}$ given by:
 \begin{align}
-  \frac{\sigma_{\ensuremath{p_{\text{T}}^{\text{track}}}}}{\ensuremath{p_{\text{T}}^{\text{track}}}} = \sqrt{(\ensuremath{a_{\text{track}}}\cdot\ensuremath{p_{\text{T}}^{\text{track}}})^{2} + \ensuremath{c_{\text{track}}}^{2}}\,.
+  \frac{\sigma_{\ensuremath{p_{T}^{\text{track}}}}}{\ensuremath{p_{T}^{\text{track}}}} = \sqrt{(\ensuremath{a_{\text{track}}}\cdot\ensuremath{p_{T}^{\text{track}}})^{2} + \ensuremath{c_{\text{track}}}^{2}}\,.
   \label{jetsub_2prong_eq:trkreso}
 \end{align} 
-If \ensuremath{p_{\text{T}}^{\text{track}}}{} after smearing is within $\ensuremath{p_{\text{T}}^{\text{min}}} < \ensuremath{p_{\text{T}}^{\text{track}}} < \ensuremath{p_{\text{T}}^{\text{max}}}$, the charged particle is added to the list of pseudoparticles with its direction at the interaction vertex. 
+If \ensuremath{p_{T}^{\text{track}}}{} after smearing is within $\ensuremath{p_{T}^{\text{min}}} < \ensuremath{p_{T}^{\text{track}}} < \ensuremath{p_{T}^{\text{max}}}$, the charged particle is added to the list of pseudoparticles with its direction at the interaction vertex. 
 The trajectories of all charged particles within $|\eta| < 2.5$ and outside of this transverse momentum range, 
 and all charged particles with $|\eta| > 2.5$, are extraploted to the front face of the calorimeter at $R_{\text{calo}} = 1290$ mm.
 If the extrapolated particle trajectory reaches the calorimeter, the particle energy is added to a calorimeter tower at the extrapolated $\phi$, similar to the treatment of all charged particles in configuration A.
 
 The energy of neutral particles is added to the calorimeter tower in the same way as in configuration A. 
-The selection employing $\ensuremath{p_{\text{T}}^{\text{tower}}} > \ensuremath{p_{\text{T}}^{\text{min}}}$ is applied as well after the tower energy smearing with the parameters for configuration C given in Table~\ref{jetsub_2prong_tab:detmodel}. 
+The selection employing $\ensuremath{p_{T}^{\text{tower}}} > \ensuremath{p_{T}^{\text{min}}}$ is applied as well after the tower energy smearing with the parameters for configuration C given in Table~\ref{jetsub_2prong_tab:detmodel}. 
 Figure~\ref{jetsub_2prong_fig:detmodel} shows the calorimeter-only composition of a given truth-level jet in configuration A together with the track-and-calorimeter jet composition of configuration C.
 The two model configurations produce significantly different jet
 compositions, in particular with respect to the energy flow from
-low-\ensuremath{p_{\text{T}}}{} constituents.
+low-\ensuremath{p_{T}}{} constituents.
 
 The implementation of this detector model is available from the
 {\tt{DetectorModel}} subdirectory of the {\tt{git}} repository at \url{https://github.com/gsoyez/lh2017-2prongs/}.
