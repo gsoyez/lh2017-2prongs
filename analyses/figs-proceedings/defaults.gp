@@ -21,7 +21,7 @@ cms_shape='N2_beta1_tt'
 cms_mass='tight'
 
 perf_tag='D2_beta2_tlt'
-perf_label='LHDD@_2^{(2)} [D@_2^{(2)}(t{/Symbol \304}l/t)]'
+perf_label='LHDT [D@_2^{(2)}(t{/Symbol \304}l/t)]'
 perf_vmax=5.0
 perf_dv  =0.05
 perf_shape='D2_beta2_lt'

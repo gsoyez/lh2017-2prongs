@@ -47,7 +47,7 @@ mcms  (pt)=merge.' | awk "{if (\$2=='.pt.'){print \$1,\$18,\$19,\$20}}" | ../qua
 set macros
 
 set key spacing 1.2
-set title reflabel.' v. '.altlabel 
+set title altlabel.' {/Symbol \256} '.reflabel 
 
 
 # We'll place the labels by hand, so proceed pt by pt
@@ -104,7 +104,7 @@ plot mtruth(pt) i 1 u 2:3 w l         lc rgb "#aaaa00" lw 3 t 'optimal line',\
      mtruth(pt) i 0 u 2:3 w p pt 13 ps 0.7 lc 1 t 'all studied',\
      mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt  5 ps 1.0 lc rgb "#000000" t 'ATLAS-like',\
      mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  9 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
-     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDD@_2^{(2)}'
+     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDT'
 
 unset for [i=100:112] label i
 unset for [i=100:112] arrow i
@@ -148,7 +148,7 @@ plot mtruth(pt) i 1 u 2:3 w l         lc rgb "#aaaa00" lw 3 t 'optimal line',\
      mtruth(pt) i 0 u 2:3 w p pt 13 ps 0.7 lc 1 t 'all studied',\
      mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt  5 ps 1.0 lc rgb "#000000" t 'ATLAS-like',\
      mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  9 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
-     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDD@_2^{(2)}'
+     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDT'
 # plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.7 lc 1 t 'all studied',\
 #      mtruth(pt) i 1 u 2:3 w l        lc 3 lw 3 t 'optimal line',\
 #      mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\
@@ -199,7 +199,7 @@ plot mtruth(pt) i 1 u 2:3 w l         lc rgb "#aaaa00" lw 3 t 'optimal line',\
      mtruth(pt) i 0 u 2:3 w p pt 13 ps 0.7 lc 1 t 'all studied',\
      mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt  5 ps 1.0 lc rgb "#000000" t 'ATLAS-like',\
      mtruth(pt).' | grep "^N2_beta1_ttt"'  u 2:3 w p pt  9 ps 1.2 lc rgb "#00cc00" t 'CMS-like',\
-     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDD@_2^{(2)}'
+     mtruth(pt).' | grep "^D2_beta2_tlt"'  u 2:3 w p pt  7 ps 1.0 lc rgb "#0000ff" t 'LHDT'
 # plot mtruth(pt) i 0 u 2:3 w p pt 7 ps 0.7 lc 1 t 'all studied',\
 #      mtruth(pt) i 1 u 2:3 w l        lc 3 lw 3 t 'optimal line',\
 #      mtruth(pt).' | grep "^D2_beta1_trim"' u 2:3 w p pt 13 ps 1.2 lc rgb "#000000" t 'ATLAS-like',\

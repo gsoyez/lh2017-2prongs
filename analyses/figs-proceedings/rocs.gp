@@ -55,7 +55,7 @@ set label 102 '{/*0.8 p_{t,jet}>'.pt.' GeV}'             left at graph 0.03,0.89
 set label 103 sprintf('{/*0.8 %g<m<%g GeV}',mmin,mmax)   left at graph 0.03,0.84
 
 unset title 
-set label 1 'ATLAS       CMS     LHDD@_2^{(2)}' right at graph 0.96,0.215
+set label 1 'ATLAS       CMS        LHDT ' right at graph 0.96,0.215
 
 m(lev,shape,mass,vmax,dv)=sprintf('< ../scripts/roc.sh ../res/lhc14-WW%s-pythia8230M13-%s-R%s.ntuple.gz ../res/lhc14-dijets%s-pythia8230M13-%s-R%s.ntuple.gz %s 0.0 %g %g "m_%s>%g" "m_%s<%g"',pt,lev,R,pt,lev,R,shape,vmax+0.0,dv+0.0,mass,mmin,mass,mmax)
 

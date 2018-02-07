@@ -57,7 +57,7 @@ resi="resilience(".sprintf("%g",default_Sref).", column('epsilon_B_'.levelref), 
 
 plot m(atlas_tag) u (@resi):(@perf):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 7             lw 3 pt 5 ps variable t 'ATLAS-like',\
      m(cms_tag  ) u (@resi):(@perf):((0.001*$2)**0.5*0.6) w linesp dt 1 lc rgb '#00cc00' lw 3 pt 9 ps variable t 'CMS-like',\
-     m(perf_tag ) u (@resi):(@perf):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 3             lw 3 pt 7 ps variable t 'LHDD@_2^{(2)}'
+     m(perf_tag ) u (@resi):(@perf):((0.001*$2)**0.5*0.6) w linesp dt 1 lc 3             lw 3 pt 7 ps variable t 'LHDT'
 
 unset for [i=51:55] label i
 

@@ -16,7 +16,7 @@ level=levelref.'_'.levelalt
 reflabel=default_levelref_label
 altlabel=default_levelalt_label
 
-set xlabel 'LHDD@_2^{(2)} [D@_2^{(2)}(t{/Symbol \304}l/t)]'
+set xlabel 'LHDT [D@_2^{(2)}(t{/Symbol \304}l/t)]'
 
 set ylabel '1/N dN/dD@_2^{(2)}(t{/Symbol \304}l/t)'
 

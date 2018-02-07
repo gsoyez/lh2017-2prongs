@@ -32,14 +32,14 @@ set macros
 
 
 groomers="trimmed tpp tlt lll ttt"
-groomer_labels='"trimmed {/*0.7 (ATLAS-like)}" "tight{/Symbol \304}plain/plain{/*0.7 (old-CMS-like)}" "tight{/Symbol \304}loose/tight {/*0.8 (dichroic)}" "loose{/Symbol \304}loose/loose {/*0.8 (loose)}" "tight{/Symbol \304}tight/tight {/*0.8 (CMS-like)}"'
+groomer_labels='"trimmed {/*0.7 (ATLAS-like)}" "tight{/Symbol \304}plain/plain{/*0.7 (old-CMS-like)}" "tight{/Symbol \304}loose/tight {/*0.8 (LLDT)}" "loose{/Symbol \304}loose/loose {/*0.8 (loose)}" "tight{/Symbol \304}tight/tight {/*0.8 (CMS-like)}"'
 
 shapes="tau21_beta1 tau21_beta2 N2_beta1 N2_beta2 D2_beta1 D2_beta2 M2_beta1 M2_beta2"
-shape_labels='"{/Symbol t}@_{21}^{(1)}" "{/Symbol t}@_{21}^{(2)}" "N@_2^{(1)} {/*0.8 (CMS-like)}" "N@_2^{(2)}" "D@_2^{(1)} {/*0.8 (ATLAS-like)}" "D@_2^{(2)} {/*0.8 (dichroic)}" "M@_2^{(1)}" "M@_2^{(2)}"'
+shape_labels='"{/Symbol t}@_{21}^{(1)}" "{/Symbol t}@_{21}^{(2)}" "N@_2^{(1)} {/*0.8 (CMS-like)}" "N@_2^{(2)}" "D@_2^{(1)} {/*0.8 (ATLAS-like)}" "D@_2^{(2)} {/*0.8 (LHDT)}" "M@_2^{(1)}" "M@_2^{(2)}"'
 
 set style line 1 dt (8,6)      lc rgb "#000000" pt 5   # trimmed (ATLAS) 
 set style line 2 dt (4,3)      lc rgb "#00dd00" pt 11  # t x p/p (old CMS)
-set style line 3 dt 1          lc rgb "#0000ff" pt 7   # t x l/t (dichroic)
+set style line 3 dt 1          lc rgb "#0000ff" pt 7   # t x l/t (LHDT)
 set style line 4 dt (12,6,4,6) lc rgb "#00dddd" pt 13  # t x l/l (loose)
 set style line 5 dt (12,6)     lc rgb "#ff0000" pt 9   # t x t/t (CMS)
 
@@ -69,7 +69,7 @@ do for [ishape=1:words(shapes)]{
         levelalt=level[strstrt(level,'_')+1:-1]
         levelaltref=levelalt.'-'.levelref
 
-        set title '{/*1.4 '.word(shape_labels,ishape).'}: '.levelref.' to '.levelalt
+        set title '{/*1.4 '.word(shape_labels,ishape).'}: '.levelalt.' {/Symbol \256} '.levelref
         plot for [igroomer=1:words(groomers)] m(shape.'_'.word(groomers,igroomer)) u (satx(resilience(default_Sref, column('epsilon_B_'.levelref), column('epsilon_S_'.levelaltref), column('epsilon_B_'.levelaltref)))):(performance(default_Sref, column('epsilon_B_'.levelref), column('epsilon_S_'.levelaltref), column('epsilon_B_'.levelaltref))):((0.001*$2)**0.5*0.6) w linesp ls igroomer ps variable lw custom_lw(igroomer, ishape) t word(groomer_labels,igroomer)
     }
 }

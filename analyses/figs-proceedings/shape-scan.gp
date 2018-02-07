@@ -37,10 +37,10 @@ set macros
 #groomer_labels='"plain{/Symbol \304}plain/plain" "loose{/Symbol \304}plain/plain" "loose{/Symbol \304}plain/loose" "loose{/Symbol \304}loose/loose{/*0.7 (loose)}" "tight{/Symbol \304}plain/plain{/*0.7 (old-CMS-like)}" "tight{/Symbol \304}plain/loose" "tight{/Symbol \304}loose/loose" "tight{/Symbol \304}plain/tight" "tight{/Symbol \304}loose/tight{/*0.8 (dichroic)}" "tight{/Symbol \304}tight/tight{/*0.8 (CMS-like)}""trimmed {/*0.7 (ATLAS-like)}"'
 
 groomers="tlt ttt trimmed"
-groomer_labels='"tight{/Symbol \304}loose/tight{/*0.8 (LHDD@_2^{(2)})}" "tight{/Symbol \304}tight/tight{/*0.8 (CMS-like)}""trimmed {/*0.7 (ATLAS-like)}"'
+groomer_labels='"tight{/Symbol \304}loose/tight{/*0.8 (LHDT)}" "tight{/Symbol \304}tight/tight{/*0.8 (CMS-like)}""trimmed {/*0.7 (ATLAS-like)}"'
 
 shapes="M2_beta1 tau21_beta1 N2_beta1 D2_beta1 D2_beta2"
-shape_labels='"M@_2^{(1)}" "{/Symbol t}@_{21}^{(1)}" "N@_2^{(1)} {/*0.8 (CMS-like)}" "D@_2^{(1)} {/*0.8 (ATLAS-like)}" "D@_2^{(2)} {/*0.8 (LHDD@_2^{(2)})}"'
+shape_labels='"M@_2^{(1)}" "{/Symbol t}@_{21}^{(1)}" "N@_2^{(1)} {/*0.8 (CMS-like)}" "D@_2^{(1)} {/*0.8 (ATLAS-like)}" "D@_2^{(2)} {/*0.8 (LHDT)}"'
 
 set style line 1 dt (12,6,4,6) lc rgb "#00dddd" pt 13  # M2(1)
 set style line 2 dt (4,3)      lc rgb "#00dd00" pt 11  # tau21(1)
@@ -74,7 +74,7 @@ do for [igroomer=1:words(groomers)]{
         levelalt=level[strstrt(level,'_')+1:-1]
         levelaltref=levelalt.'-'.levelref
 
-        set title '{/*1.4 '.word(groomer_labels,igroomer).'}: '.levelref.' to '.levelalt
+        set title '{/*1.4 '.word(groomer_labels,igroomer).'}: '.levelalt.' {/Symbol \256} '.levelref
         plot for [ishape=1:words(shapes)] m(word(shapes,ishape).'_'.groomer) u (satx(resilience(default_Sref, column('epsilon_B_'.levelref), column('epsilon_S_'.levelaltref), column('epsilon_B_'.levelaltref)))):(performance(default_Sref, column('epsilon_B_'.levelref), column('epsilon_S_'.levelaltref), column('epsilon_B_'.levelaltref))):((0.001*$2)**0.5*0.6) w linesp ls ishape ps variable lw custom_lw(igroomer, ishape) t word(shape_labels,ishape)
     }
 }
